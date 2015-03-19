@@ -1,0 +1,5 @@
+mysql:
+    root_password: taurus2015
+    user: taurus
+    password: taurus
+    database: taurus
