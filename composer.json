@@ -1,5 +1,11 @@
 {
     "require-dev": {
         "phpunit/phpunit": "5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+          "taurus\\": "taurus/",
+          "fitnessmanager\\": "fitnessmanager/"
+        }
     }
 }
