@@ -33,6 +33,7 @@ class Router {
         } catch(RouteNotFoundException $e) {
             echo "Could not find route [$url] [$method]";
         } catch(\Exception $ex) {
+            print_r($ex);
             echo "Ups something went wrong trying to handle the request";
         }
     }

@@ -6,7 +6,7 @@
  * Time: 11:50
  */
 
-namespace tests;
+namespace taurus\tests;
 
 use taurus\framework\routing\Request;
 use PHPUnit\Framework\TestCase;

@@ -6,17 +6,19 @@
  * Time: 14:26
  */
 
-namespace tests;
+namespace taurus\tests;
 
 
+use PHPUnit\Framework\TestCase;
 use taurus\framework\routing\Request;
 use taurus\framework\routing\Router;
 use taurus\framework\routing\RouteConfig;
-use taurus\item\WorkoutController;
+use fitnessmanager\workout\WorkoutController;
 use taurus\framework\Controller;
 
-class RouterTest extends \PHPUnit_Framework_TestCase {
+class RouterTest extends TestCase {
 
+    /** @var Router */
     private $router;
 
     public function setUp() {
@@ -26,10 +28,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
         $_SERVER['REQUEST_METHOD'] = $this->requestMethod;
         $_SERVER['REQUEST_URI'] = $this->requestUri;
 
-        $routeConfig = new RouteConfig("api");
-
-        $this->router = new Router($routeConfig);
-
+        $this->router = new Router(
+            new RouteConfig('api')
+        );
     }
 
     public function testRoute() {
