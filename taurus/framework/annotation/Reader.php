@@ -31,12 +31,13 @@ class Reader {
     /**
      * @param $subject
      */
-    public function __construct($subject) {
-        if(!is_object($subject)) {
+    public function __construct($subject = null) {
+        if(!is_object($subject) && !is_null($subject)) {
             throw new InvalidArgumentException("Annotations can only be parsed of objects. Given [" . $subject . ']');
+        } elseif (is_object($subject)) {
+            $this->reflectionClass = new \ReflectionClass($subject);
         }
 
-        $this->reflectionClass = new \ReflectionClass($subject);
         $this->annotationParser = new AnnotationParser();
 
     }
