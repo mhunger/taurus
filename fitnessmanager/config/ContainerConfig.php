@@ -8,6 +8,7 @@
 namespace fitnessmanager\config;
 
 class ContainerConfig {
-    const SERVICE_REQUEST = 'Request';
-    const SERVICE_WORKOUT_CONTROLLER = 'WorkoutController';
+    const SERVICE_REQUEST = 'taurus\framework\routing\Request';
+    const SERVICE_WORKOUT_CONTROLLER = 'fitnessmanager\workout\GetWorkoutByIdController';
+    const SERVICE_MOCK_SERVER = 'taurus\framework\mock\MockServer';
 }

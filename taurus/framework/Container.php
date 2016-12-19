@@ -8,11 +8,8 @@
 
 namespace taurus\framework;
 
-
-use fitnessmanager\config\ContainerConfig;
-use fitnessmanager\workout\WorkoutController;
 use taurus\framework\annotation\Reader;
-use taurus\framework\routing\Request;
+use taurus\framework\error\ContainerCannotInstantiateService;
 
 class Container {
 
@@ -42,19 +39,12 @@ class Container {
 
     /**
      * @param $name
-     * @return Request
+     * @return object
+     * @throws ContainerCannotInstantiateService
      */
     public function getService($name) {
-
-
-        switch($name) {
-            case ContainerConfig::SERVICE_REQUEST:
-                return new Request();
-                break;
-
-            case ContainerConfig::SERVICE_WORKOUT_CONTROLLER:
-                return new WorkoutController();
-                break;
+        if(!class_exists($name)) {
+            throw new ContainerCannotInstantiateService('Cannot load service in container [' . $name . ']');
         }
 
         return $this->injectDependenciesForReflectionClass($name);
@@ -69,7 +59,7 @@ class Container {
         $class = new \ReflectionClass($class);
         $constructor = $class->getConstructor();
 
-        if($constructor instanceof \ReflectionMethod) {
+        if($constructor instanceof \ReflectionMethod && sizeof($constructor->getParameters()) > 0) {
             return $class->newInstanceArgs(
                 $this->getArgs($constructor)
             );
@@ -78,13 +68,20 @@ class Container {
         }
     }
 
+    /**
+     * @param \ReflectionMethod $constructor
+     * @return array
+     */
     private function getArgs(\ReflectionMethod $constructor) {
         $params = $constructor->getParameters();
+        $args = [];
 
         foreach($params as $param) {
             $hintedClass = $param->getClass();
 
-            $args[] = $this->injectDependenciesForReflectionClass($hintedClass->getName());
+            if($hintedClass !== null) {
+                $args[] = $this->injectDependenciesForReflectionClass($hintedClass->getName());
+            }
         }
 
         return $args;
