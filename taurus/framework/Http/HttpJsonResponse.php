@@ -13,4 +13,8 @@ class HttpJsonResponse extends HttpResponse {
     protected function body() {
         echo json_encode($this->body);
     }
+
+    public function getJson() {
+        return json_encode($this->body);
+    }
 }
