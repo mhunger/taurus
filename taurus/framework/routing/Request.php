@@ -10,9 +10,9 @@ namespace taurus\framework\routing;
 
 
 class Request {
-    private $url;
+    protected $url;
 
-    private $method;
+    protected $method;
 
     public function __construct() {
         $this->url = $this->parseUrl();
