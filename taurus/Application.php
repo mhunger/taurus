@@ -9,6 +9,7 @@ namespace taurus;
 
 use fitnessmanager\config\ContainerConfig;
 use taurus\framework\Container;
+use taurus\framework\Environment;
 use taurus\framework\routing\RouteConfig;
 use taurus\framework\routing\Router;
 
@@ -25,7 +26,10 @@ class Application {
         $this->registerAutoloader();
 
         $request = Container::getInstance()->getService(ContainerConfig::SERVICE_REQUEST);
-        $this->router = new Router(new RouteConfig("api"));
+        $this->router = new Router(
+            new RouteConfig("api"),
+            new Environment(Environment::PROD)
+        );
 
         try {
             $this->router->route($request);
