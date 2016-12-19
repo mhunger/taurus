@@ -39,7 +39,7 @@ class Router {
             $controller = $this->routeConfig->getRoute($method, $url);
             $body = $controller->handleRequest($request);
 
-            if($this->environment->getName() == Environment::TEST) {
+            if($this->isTestEnvironment()) {
                 $this->requestHandled = true;
                 return new HttpJsonResponse(201, $body);
             } else {
@@ -47,10 +47,18 @@ class Router {
                 $this->requestHandled = true;
             }
         } catch(RouteNotFoundException $e) {
-            (new HttpJsonResponse(404, $e->getMessage()))->send();
+            if(!$this->isTestEnvironment()) {
+                (new HttpJsonResponse(404, $e->getMessage()))->send();
+            }
         } catch(\Exception $ex) {
-            (new HttpJsonResponse(500, $ex->getMessage()))->send();
+            if(!$this->isTestEnvironment()) {
+                (new HttpJsonResponse(500, $ex->getMessage()))->send();
+            }
         }
+    }
+
+    public function isTestEnvironment() {
+        return $this->environment->getName() === Environment::TEST;
     }
 
     /**
