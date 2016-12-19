@@ -23,7 +23,7 @@ class Environment {
     /**
      * @param string $env
      */
-    public function __construct($env) {
+    public function __construct($env = Environment::TEST) {
         $this->env = $env;
     }
 
