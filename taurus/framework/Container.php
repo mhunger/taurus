@@ -9,6 +9,9 @@
 namespace taurus\framework;
 
 use taurus\framework\annotation\Reader;
+use taurus\framework\container\ServiceConfig;
+use taurus\framework\container\TaurusContainerConfig;
+use taurus\framework\container\ContainerConfig;
 use taurus\framework\error\ContainerCannotInstantiateService;
 
 class Container {
@@ -19,11 +22,19 @@ class Container {
     /** @var Reader */
     private $annotationReader;
 
+    /** @var ContainerConfig */
+    private $containerConfig;
+
     /**
      * @param Reader $annotationReader
+     * @param ContainerConfig $containerConfig
      */
-    private function __construct(Reader $annotationReader) {
+    private function __construct(
+        Reader $annotationReader,
+        ContainerConfig $containerConfig
+    ) {
         $this->annotationReader = $annotationReader;
+        $this->containerConfig = $containerConfig;
     }
 
     /**
@@ -31,10 +42,21 @@ class Container {
      */
     static public function getInstance() {
         if(self::$instance === null) {
-            self::$instance = new self(new Reader());
+            self::$instance = new self(
+                new Reader(),
+                new TaurusContainerConfig());
         }
 
         return self::$instance;
+    }
+
+    /**
+     * @param ContainerConfig $taurusContainerConfig
+     * @return $this
+     */
+    public function setContainerConfig(ContainerConfig $taurusContainerConfig) {
+        $this->containerConfig = $taurusContainerConfig;
+        return $this;
     }
 
     /**
@@ -51,36 +73,44 @@ class Container {
     }
 
     /**
-     * @param $class
+     * @param $fullClassName
      * @return object
-     * @throws \Exception
      */
-    private function injectDependenciesForReflectionClass($class) {
-        $class = new \ReflectionClass($class);
-        $constructor = $class->getConstructor();
+    private function injectDependenciesForReflectionClass($fullClassName) {
+        $reflectedClass = new \ReflectionClass($fullClassName);
+        $serviceConfig = $this->containerConfig->getServiceConfigByName($fullClassName);
+
+        $constructor = $reflectedClass->getConstructor();
 
         if($constructor instanceof \ReflectionMethod && sizeof($constructor->getParameters()) > 0) {
-            return $class->newInstanceArgs(
-                $this->getArgs($constructor)
+            return $reflectedClass->newInstanceArgs(
+                $this->getArgs($constructor, $serviceConfig)
             );
         } else {
-            return $class->newInstance();
+            return $reflectedClass->newInstance();
         }
     }
 
     /**
      * @param \ReflectionMethod $constructor
+     * @param ServiceConfig $serviceConfig
      * @return array
      */
-    private function getArgs(\ReflectionMethod $constructor) {
+    private function getArgs(\ReflectionMethod $constructor, ServiceConfig $serviceConfig = null) {
         $params = $constructor->getParameters();
         $args = [];
 
-        foreach($params as $param) {
+        foreach($params as $pos => $param) {
             $hintedClass = $param->getClass();
 
+            //the parameter of constructor has a class and can be injected
             if($hintedClass !== null) {
                 $args[] = $this->injectDependenciesForReflectionClass($hintedClass->getName());
+            } else {
+                //the parameter has no class, it is a literal; try loading argument from service definition
+                if($serviceConfig !== null) {
+                    $args[] = $serviceConfig->getParameterByPosition($pos);
+                }
             }
         }
 
