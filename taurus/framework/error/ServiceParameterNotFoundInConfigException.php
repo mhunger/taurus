@@ -9,6 +9,6 @@
 namespace taurus\framework\error;
 
 
-class ServiceParameterNotFoundInConfigException {
+class ServiceParameterNotFoundInConfigException extends \Exception {
 
 }
