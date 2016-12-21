@@ -26,5 +26,11 @@ class TestContainerConfig extends AbstractContainerConfig {
                     2 => 100
                 ]
             );
+
+        $this->serviceDefinitions[self::SERVICE_ROUTE_CONFIG] =
+            new ServiceConfig(self::SERVICE_ROUTE_CONFIG,
+                null,
+                ['api']
+            );
     }
 }
