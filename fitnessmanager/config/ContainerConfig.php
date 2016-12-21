@@ -7,8 +7,17 @@
  */
 namespace fitnessmanager\config;
 
-class ContainerConfig {
-    const SERVICE_REQUEST = 'taurus\framework\routing\Request';
+use taurus\framework\container\AbstractContainerConfig;
+
+/**
+ * FitnessManager specific container config. will be merged with taurus config
+ * Class ContainerConfig
+ * @package fitnessmanager\config
+ */
+class ContainerConfig extends AbstractContainerConfig {
     const SERVICE_WORKOUT_CONTROLLER = 'fitnessmanager\workout\GetWorkoutByIdController';
-    const SERVICE_MOCK_SERVER = 'taurus\framework\mock\MockServer';
+
+    protected $serviceDefinitions = [];
+
+    public function __construct() {}
 }
