@@ -27,9 +27,8 @@ class AbstractContainerConfig implements ContainerConfig{
     }
 
     /**
-     * Merges the two configs for container. Used to have one basic for the framework extensible for individual apps.
-     *
      * @param ContainerConfig $containerConfig
+     * @return void
      */
     public function merge(ContainerConfig $containerConfig)
     {

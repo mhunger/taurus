@@ -8,6 +8,7 @@
 namespace fitnessmanager\config;
 
 use taurus\framework\container\AbstractContainerConfig;
+use fitnessmanager\workout\GetWorkoutByIdController;
 
 /**
  * FitnessManager specific container config. will be merged with taurus config
@@ -15,7 +16,7 @@ use taurus\framework\container\AbstractContainerConfig;
  * @package fitnessmanager\config
  */
 class ContainerConfig extends AbstractContainerConfig {
-    const SERVICE_WORKOUT_CONTROLLER = 'fitnessmanager\workout\GetWorkoutByIdController';
+    const SERVICE_WORKOUT_CONTROLLER = GetWorkoutByIdController::class;
 
     protected $serviceDefinitions = [];
 
