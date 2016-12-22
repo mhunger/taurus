@@ -8,9 +8,14 @@
 
 namespace taurus\framework\container;
 
-
 use taurus\framework\error\ServiceParameterNotFoundInConfigException;
 
+/**
+ * Class that stores the configuration for one specific service e.g. to inject literal parameters
+ *
+ * Class ServiceConfig
+ * @package taurus\framework\container
+ */
 class ServiceConfig {
 
     /** @var string */
