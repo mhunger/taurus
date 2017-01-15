@@ -15,10 +15,18 @@ use fitnessmanager\workout\GetWorkoutByIdController;
  * Class ContainerConfig
  * @package fitnessmanager\config
  */
-class ContainerConfig extends AbstractContainerConfig {
+class FitnessManagerConfig extends AbstractContainerConfig {
     const SERVICE_WORKOUT_CONTROLLER = GetWorkoutByIdController::class;
 
     protected $serviceDefinitions = [];
 
-    public function __construct() {}
+    /**
+     * Method to define the ServicConfig objects for the config class
+     *
+     * @return mixed
+     */
+    protected function configure()
+    {
+        // TODO: Implement configure() method.
+    }
 }
