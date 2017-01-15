@@ -8,17 +8,28 @@
 
 namespace fitnessmanager\workout;
 
+use taurus\framework\db\DatabaseManager;
 use taurus\framework\HttpGetRequest;
 use taurus\framework\routing\Request;
 
 
 class GetWorkoutByIdController implements HttpGetRequest{
 
+    /** @var DatabaseManager */
+    private $datatabaseManager;
+
+    /**
+     * @param DatabaseManager $datatabaseManager
+     */
+    function __construct(DatabaseManager $datatabaseManager)
+    {
+        $this->datatabaseManager = $datatabaseManager;
+    }
+
     public function handleRequest(Request $request)
     {
-        $response = new \stdClass();
-        $response->text = 'Items GetRequest handled';
+        $result = $this->datatabaseManager->findAll();
 
-        return $response;
+        return $result;
     }
 }
