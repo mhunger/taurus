@@ -16,11 +16,14 @@ use taurus\framework\routing\Request;
 
 class Application {
 
-    /** @var  Container */
-    private $container;
+    /** @var DatabaseManager */
+    private $dbManager;
+
+    /** @var Router */
+    private $router;
 
     public function __construct() {
-
+        $this->dbManager = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DB_MANAGER);
     }
 
     public function run() {
@@ -28,10 +31,7 @@ class Application {
 
         /** @var Request $request */
         $request = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_REQUEST);
-        $this->router = new Router(
-            new RouteConfig("api"),
-            new Environment(Environment::PROD)
-        );
+        $this->router = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_ROUTER);
 
         try {
             $this->router->route($request);
