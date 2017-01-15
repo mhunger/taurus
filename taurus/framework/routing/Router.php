@@ -22,6 +22,10 @@ class Router {
     /** @var Environment */
     private $environment;
 
+    /**
+     * @param RouteConfig $routeConfig
+     * @param Environment $environment
+     */
     public function __construct(RouteConfig $routeConfig, Environment $environment) {
         $this->routeConfig = $routeConfig;
         $this->environment = $environment;
