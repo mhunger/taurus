@@ -12,6 +12,10 @@ namespace taurus\tests;
 use taurus\framework\container\TaurusContainerConfig;
 use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
+use taurus\framework\db\BaseRepository;
+use taurus\framework\db\DatabaseManager;
+use taurus\framework\db\EntityBuilder;
+use taurus\framework\db\MySqlConnection;
 use taurus\framework\routing\RouteConfig;
 use taurus\tests\fixtures\Dependency;
 use taurus\tests\fixtures\DependencyLoadTestClass;
@@ -25,6 +29,20 @@ class ContainerTest extends TestCase{
 
     public function setUp() {
 
+    }
+
+    public function testDbManagerLoadedWithConnection() {
+        $expectedObject = new DatabaseManager(
+            new MySqlConnection('localhost', 'taurus', 'taurus', 'taurus'),
+            new EntityBuilder(),
+            new BaseRepository()
+        );
+
+        $this->assertEquals(
+            $expectedObject,
+            Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DB_MANAGER),
+            "Did not load database manager correctly"
+        );
     }
 
     public function testLoadDependencies() {
