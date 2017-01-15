@@ -8,7 +8,7 @@
 
 namespace taurus\framework\routing;
 
-use fitnessmanager\config\ContainerConfig;
+use fitnessmanager\config\FitnessManagerConfig;
 use taurus\framework\Container;
 use taurus\framework\exception\RouteNotFoundException;
 
@@ -21,7 +21,7 @@ class RouteConfig {
 
         $this->routes = [
             'GET' => [
-                'items' => Container::getInstance()->getService(ContainerConfig::SERVICE_WORKOUT_CONTROLLER),
+                'items' => Container::getInstance()->getService(FitnessManagerConfig::SERVICE_WORKOUT_CONTROLLER),
             ]
         ];
     }
