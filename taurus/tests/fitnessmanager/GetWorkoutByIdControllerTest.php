@@ -15,6 +15,7 @@ use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\Http\HttpJsonResponse;
 use taurus\framework\mock\MockServer;
 use taurus\framework\routing\Request;
+use taurus\tests\fixtures\TestContainerConfig;
 
 class GetWorkoutByIdControllerTest extends TestCase {
 
@@ -24,7 +25,9 @@ class GetWorkoutByIdControllerTest extends TestCase {
 
     public function testGetMethod() {
         /** @var MockServer $mockServer */
-        $mockServer = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
+        $mockServer = Container::getInstance()->setContainerConfig(
+            new TestContainerConfig()
+        )->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
         $actualResponse = $mockServer->get('/api/items', 'GET');
 
         $responseObj = new \stdClass();

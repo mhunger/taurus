@@ -12,12 +12,14 @@ namespace taurus\tests\fixtures;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\container\TaurusContainerConfig;
+use taurus\framework\Environment;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
 
 class TestContainerConfig extends AbstractContainerConfig {
 
     const SERVICE_TEST_LITERALS = LoadDependenciesForLiteralsTestClass::class;
     const SERVICE_TEST_LITERALS_IN_DEPENDENCY = LoadDependenciesWithParamsInDependency::class;
+    const SERVICE_ENVIRONMENT = Environment::class;
 
     /**
      * Method to define the ServicConfig objects for the config class
@@ -41,7 +43,11 @@ class TestContainerConfig extends AbstractContainerConfig {
                 null,
                 ['api']
             );
+
+        $this->serviceDefinitions[self::SERVICE_ENVIRONMENT] =
+            new ServiceConfig(self::SERVICE_ENVIRONMENT,
+                'environment',
+                [Environment::TEST]
+            );
     }
-
-
 }
