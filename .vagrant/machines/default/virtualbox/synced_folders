@@ -1,1 +1,0 @@
-{"nfs":{"/var/www/taurus-dev.com":{"nfs":true,"guestpath":"/var/www/taurus-dev.com","hostpath":"/Users/michaelhunger/development/web/taurus","disabled":false,"type":"nfs","map_uid":501,"map_gid":20,"nfs_udp":true,"nfs_version":3,"uuid":"3484163234"}}}
