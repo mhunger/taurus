@@ -8,7 +8,10 @@
 
 namespace taurus\framework\error;
 
-
-class InvalidServiceDefinitionException {
-
-}
+/**
+ * Exception thrown when a service is wrongly configured
+ *
+ * Class InvalidServiceDefinitionException
+ * @package taurus\framework\error
+ */
+class InvalidServiceDefinitionException extends \Exception { }
