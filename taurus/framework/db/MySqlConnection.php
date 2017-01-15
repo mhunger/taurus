@@ -8,6 +8,8 @@
 
 namespace taurus\framework\db;
 
+use fitnessmanager\workout\Workout;
+
 /**
  * Class MySqlConnection
  * @package taurus\framework\db
@@ -32,5 +34,35 @@ class MySqlConnection {
         } catch(\Exception $e) {
             print_r($e);
         }
+    }
+
+    /**
+     * @param $sql
+     * @return mixed|\mysqli_result
+     */
+    public function execute($sql) {
+        if($result = $this->mysqli->query($sql)) {
+            return $result;
+        }
+    }
+
+    /**
+     * @param $sql
+     * @param null $class
+     * @return array
+     */
+    public function fetchObjects($sql, $class = null) {
+        /** @var \mysqli_result */
+        $result = $this->execute($sql);
+
+        $objects = [];
+        try{
+            while($row = $result->fetch_object($class)) {
+                $objects[] = $row;
+            }
+        } catch(\Exception $e) {
+            print_r($e);
+        }
+        return $objects;
     }
 }

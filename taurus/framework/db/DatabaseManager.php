@@ -8,6 +8,8 @@
 
 namespace taurus\framework\db;
 
+use fitnessmanager\workout\Workout;
+
 class DatabaseManager {
 
     /** @var MysqlConnection */
@@ -28,5 +30,12 @@ class DatabaseManager {
         $this->dbConnection = $dbConnection;
         $this->entityBuilder = $entityBuilder;
         $this->baseRepository = $baseRepository;
+    }
+
+    /**
+     * @return array
+     */
+    public function findAll() {
+        return $this->dbConnection->fetchObjects('select * from workout', Workout::class);
     }
 }
