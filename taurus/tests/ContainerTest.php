@@ -19,6 +19,7 @@ use taurus\tests\fixtures\DependencyTwo;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
 use taurus\tests\fixtures\LoadDependenciesMultipleParamsTestClass;
 use taurus\tests\fixtures\TestContainerConfig;
+use taurus\tests\fixtures\LoadDependenciesWithParamsInDependency;
 
 class ContainerTest extends TestCase{
 
@@ -79,6 +80,24 @@ class ContainerTest extends TestCase{
                 new TestContainerConfig()
             )->getService(TestContainerConfig::SERVICE_TEST_LITERALS),
             "Could not load literal parameters when injecting at different positions"
+        );
+    }
+
+    public function testLoadDependenciesWithLiteralParametersInDependency() {
+        $expectedObject = new LoadDependenciesWithParamsInDependency(
+            new LoadDependenciesForLiteralsTestClass(
+                'literal1',
+                new DependencyTwo(),
+                100
+            )
+        );
+
+        $this->assertEquals(
+            $expectedObject,
+            Container::getInstance()->setContainerConfig(
+                new TestContainerConfig()
+            )->getService(TestContainerConfig::SERVICE_TEST_LITERALS_IN_DEPENDENCY),
+            "Could not load service with literal params in dependency"
         );
     }
 }

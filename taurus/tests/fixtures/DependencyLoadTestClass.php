@@ -13,7 +13,6 @@ class DependencyLoadTestClass {
 
     /**
      * @var TestClass
-     * @autowired(class="\taurus\tests\fixtures\Dependency
      */
     public $dependency;
 
