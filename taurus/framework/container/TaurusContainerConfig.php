@@ -8,9 +8,13 @@
 
 namespace taurus\framework\container;
 
+use taurus\framework\db\DatabaseManager;
+use taurus\framework\db\MySqlConnection;
+use taurus\framework\Environment;
 use taurus\framework\mock\MockServer;
 use taurus\framework\routing\Request;
 use taurus\framework\routing\RouteConfig;
+use taurus\framework\routing\Router;
 
 /**
  * Standard taurus container config contains all the services used inside taurus
@@ -23,6 +27,10 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_ROUTE_CONFIG = RouteConfig::class;
     const SERVICE_REQUEST = Request::class;
     const SERVICE_MOCK_SERVER = MockServer::class;
+    const SERVICE_MYSQL_CONNECTION = MySqlConnection::class;
+    const SERVICE_DB_MANAGER = DatabaseManager::class;
+    const SERVICE_ROUTER = Router::class;
+    const SERVICE_ENVIRONMENT = Environment::class;
 
     public function __construct() {
         $this->configure();
@@ -39,6 +47,24 @@ class TaurusContainerConfig extends AbstractContainerConfig {
             new ServiceConfig(self::SERVICE_ROUTE_CONFIG,
                 null,
                 ['api']
+            );
+
+        $this->serviceDefinitions[self::SERVICE_MYSQL_CONNECTION] =
+            new ServiceConfig(self::SERVICE_MYSQL_CONNECTION,
+                'MysqlConnection',
+                ['localhost', 'taurus', 'taurus', 'taurus']
+            );
+
+        $this->serviceDefinitions[self::SERVICE_DB_MANAGER] =
+            new ServiceConfig(self::SERVICE_DB_MANAGER,
+                'dbManager',
+                []
+            );
+
+        $this->serviceDefinitions[self::SERVICE_ENVIRONMENT] =
+            new ServiceConfig(self::SERVICE_ENVIRONMENT,
+                'environment',
+                [Environment::PROD]
             );
     }
 }
