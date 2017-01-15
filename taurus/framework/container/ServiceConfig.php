@@ -27,15 +27,20 @@ class ServiceConfig {
     /** @var array */
     private $parameters;
 
+    /** @var bool */
+    private $singleton;
+
     /**
      * @param $class
      * @param $name
      * @param $parameters
+     * @param bool $singleton
      */
-    public function __construct($class, $name, $parameters) {
+    public function __construct($class, $name, $parameters, $singleton = false) {
         $this->class = $class;
         $this->name = $name;
         $this->parameters = $parameters;
+        $this->singleton = $singleton;
     }
 
     /**
@@ -65,6 +70,14 @@ class ServiceConfig {
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isSingleton()
+    {
+        return $this->singleton;
     }
 }
 
