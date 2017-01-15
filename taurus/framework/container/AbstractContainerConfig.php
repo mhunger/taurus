@@ -8,12 +8,20 @@
 
 namespace taurus\framework\container;
 
-
-class AbstractContainerConfig implements ContainerConfig{
+/**
+ * Use this class to implement a new config for the system.
+ *
+ * Class AbstractContainerConfig
+ * @package taurus\framework\container
+ */
+abstract class AbstractContainerConfig implements ContainerConfig{
 
     /** @var array */
     protected $serviceDefinitions = [];
 
+    public function __construct() {
+        $this->configure();
+    }
     /**
      * @param $name
      * @return null|ServiceConfig
@@ -42,4 +50,11 @@ class AbstractContainerConfig implements ContainerConfig{
     {
         return $this->serviceDefinitions;
     }
+
+    /**
+     * Method to define the ServicConfig objects for the config class
+     *
+     * @return mixed
+     */
+    abstract protected function configure();
 }

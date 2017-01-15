@@ -25,6 +25,16 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_MOCK_SERVER = MockServer::class;
 
     public function __construct() {
+        $this->configure();
+    }
+
+    /**
+     * Method to define the ServicConfig objects for the config class
+     *
+     * @return mixed
+     */
+    protected function configure()
+    {
         $this->serviceDefinitions[self::SERVICE_ROUTE_CONFIG] =
             new ServiceConfig(self::SERVICE_ROUTE_CONFIG,
                 null,
