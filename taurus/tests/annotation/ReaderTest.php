@@ -13,6 +13,8 @@ use PHPUnit\Framework\TestCase;
 use taurus\framework\annotation\Annotation;
 use taurus\framework\annotation\AnnotationProperty;
 use taurus\framework\annotation\Reader;
+use taurus\framework\Container;
+use taurus\framework\container\TaurusContainerConfig;
 use taurus\tests\annotation\TestAnnotationClass;
 
 class ReaderTest extends TestCase {
@@ -21,7 +23,7 @@ class ReaderTest extends TestCase {
     private $testSubject;
 
     public function setUp() {
-        $this->testSubject = new Reader(new TestAnnotationClass());
+        $this->testSubject = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_ANNOTATION_READER);
         $this->testSubject->parseAnnotations(
             new \ReflectionClass(
                 new TestAnnotationClass()

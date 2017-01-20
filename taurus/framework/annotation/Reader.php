@@ -8,9 +8,6 @@
 
 namespace taurus\framework\annotation;
 
-
-use SebastianBergmann\ObjectEnumerator\InvalidArgumentException;
-
 class Reader {
 
     /** @var null|\ReflectionClass */
@@ -29,17 +26,10 @@ class Reader {
     protected $annotationParser;
 
     /**
-     * @param $subject
+     * @param AnnotationParser $annotationParser
      */
-    public function __construct($subject = null) {
-        if(!is_object($subject) && !is_null($subject)) {
-            throw new InvalidArgumentException("Annotations can only be parsed of objects. Given [" . $subject . ']');
-        } elseif (is_object($subject)) {
-            $this->reflectionClass = new \ReflectionClass($subject);
-        }
-
-        $this->annotationParser = new AnnotationParser();
-
+    public function __construct(AnnotationParser $annotationParser) {
+        $this->annotationParser = $annotationParser;
     }
 
     /**
