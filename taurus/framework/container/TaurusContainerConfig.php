@@ -8,6 +8,7 @@
 
 namespace taurus\framework\container;
 
+use taurus\framework\annotation\Reader;
 use taurus\framework\db\DatabaseManager;
 use taurus\framework\db\MySqlConnection;
 use taurus\framework\Environment;
@@ -31,6 +32,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_DB_MANAGER = DatabaseManager::class;
     const SERVICE_ROUTER = Router::class;
     const SERVICE_ENVIRONMENT = Environment::class;
+    const SERVICE_ANNOTATION_READER = Reader::class;
 
     public function __construct() {
         $this->configure();
