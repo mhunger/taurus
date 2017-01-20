@@ -28,7 +28,7 @@ class GetWorkoutByIdController implements HttpGetRequest{
 
     public function handleRequest(Request $request)
     {
-        $result = $this->datatabaseManager->findAll();
+        $result = $this->datatabaseManager->findAll(Workout::class);
 
         return $result;
     }

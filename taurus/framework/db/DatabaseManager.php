@@ -33,9 +33,12 @@ class DatabaseManager {
     }
 
     /**
+     * Fetches all objects from the entityClass
+     *
+     * @param $entityClass
      * @return array
      */
-    public function findAll() {
+    public function findAll($entityClass) {
         return $this->dbConnection->fetchObjects('select * from workout', Workout::class);
     }
 }
