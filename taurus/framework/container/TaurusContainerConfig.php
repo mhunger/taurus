@@ -60,7 +60,9 @@ class TaurusContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_DB_MANAGER] =
             new ServiceConfig(self::SERVICE_DB_MANAGER,
                 'dbManager',
-                []
+                [
+                    MySqlConnection::class
+                ]
             );
 
         $this->serviceDefinitions[self::SERVICE_ENVIRONMENT] =
