@@ -8,10 +8,9 @@
 
 namespace taurus\framework;
 
-use taurus\framework\annotation\Reader;
 use taurus\framework\container\ServiceConfig;
-use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\container\ContainerConfig;
+use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\error\ContainerCannotInstantiateService;
 
 class Container {
@@ -19,32 +18,20 @@ class Container {
     /** @var Container */
     static private $instance = null;
 
-    /** @var Reader */
-    private $annotationReader;
-
     /** @var ContainerConfig */
     private $containerConfig;
 
-    /**
-     * @param Reader $annotationReader
-     * @param ContainerConfig $containerConfig
-     */
-    private function __construct(
-        Reader $annotationReader,
-        ContainerConfig $containerConfig
-    ) {
-        $this->annotationReader = $annotationReader;
-        $this->containerConfig = $containerConfig;
-    }
+    private function __construct() {}
 
     /**
      * @return Container
      */
     static public function getInstance() {
         if(self::$instance === null) {
-            self::$instance = new self(
-                new Reader(),
-                new TaurusContainerConfig());
+            self::$instance = new self();
+            self::$instance->setContainerConfig(
+                new TaurusContainerConfig()
+            );
         }
 
         return self::$instance;
