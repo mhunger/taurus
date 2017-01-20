@@ -22,11 +22,11 @@ class DatabaseManager {
     private $baseRepository;
 
     /**
-     * @param MySqlConnection $dbConnection
+     * @param DbConnection $dbConnection
      * @param EntityBuilder $entityBuilder
      * @param BaseRepository $baseRepository
      */
-    public function __construct(MySqlConnection $dbConnection, EntityBuilder $entityBuilder, BaseRepository $baseRepository) {
+    public function __construct(DbConnection $dbConnection, EntityBuilder $entityBuilder, BaseRepository $baseRepository) {
         $this->dbConnection = $dbConnection;
         $this->entityBuilder = $entityBuilder;
         $this->baseRepository = $baseRepository;

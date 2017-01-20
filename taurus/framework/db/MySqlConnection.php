@@ -16,7 +16,7 @@ use fitnessmanager\workout\Workout;
  *
  * wrapper for the mysqli class
  */
-class MySqlConnection {
+class MySqlConnection implements DbConnection {
 
     /** @var mysqli */
     private $mysqli;
