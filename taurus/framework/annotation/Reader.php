@@ -33,14 +33,13 @@ class Reader {
     }
 
     /**
-     *
-     * Parse the annoations for properties, class and methods and store them interanlly
-     *
-     * @param \ReflectionClass $class
+     * @param $subject
      */
-    public function parseAnnotations(\ReflectionClass $class = null) {
-        if($class === null) {
-            $class = $this->reflectionClass;
+    public function parseAnnotations($subject) {
+        if(!is_object($subject)) {
+            throw new \InvalidArgumentException("Need to pass an object in order to work. Passed [" . $subject . "]");
+        } else {
+            $class = new \ReflectionClass($subject);
         }
 
         $this->classAnnotations = $this->parseComment($class->getDocComment());
