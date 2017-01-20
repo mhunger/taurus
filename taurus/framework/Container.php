@@ -92,7 +92,15 @@ class Container {
 
             //the parameter of constructor has a class and can be injected
             if($hintedClass !== null) {
-                $args[] = $this->injectDependenciesForReflectionClass($hintedClass->getName());
+                if($hintedClass->isInterface()) {
+                    //The parameter is an interface; we need to load concrete class from serviceConfig
+                    $className = $serviceConfig->getParameterByPosition($pos);
+                } else {
+                    //the parameter is a class we need the name to load it
+                    $className = $hintedClass->getName();
+                }
+
+                $args[] = $this->injectDependenciesForReflectionClass($className);
             } else {
                 //the parameter has no class, it is a literal; try loading argument from service definition
                 if($serviceConfig !== null) {

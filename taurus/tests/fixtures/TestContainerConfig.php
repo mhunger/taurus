@@ -63,7 +63,9 @@ class TestContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_DB_MANAGER] =
             new ServiceConfig(self::SERVICE_DB_MANAGER,
                 'dbManager',
-                []
+                [
+                    MySqlConnection::class
+                ]
             );
     }
 }
