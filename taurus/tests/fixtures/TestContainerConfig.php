@@ -13,7 +13,7 @@ use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\db\DatabaseManager;
-use taurus\framework\db\MySqlConnection;
+use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\Environment;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
 

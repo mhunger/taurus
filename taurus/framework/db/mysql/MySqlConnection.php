@@ -6,9 +6,10 @@
  * Time: 17:55
  */
 
-namespace taurus\framework\db;
+namespace taurus\framework\db\mysql;
 
 use fitnessmanager\workout\Workout;
+use taurus\framework\db\DbConnection;
 
 /**
  * Class MySqlConnection

@@ -10,7 +10,7 @@ namespace taurus\framework\container;
 
 use taurus\framework\annotation\Reader;
 use taurus\framework\db\DatabaseManager;
-use taurus\framework\db\MySqlConnection;
+use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\Environment;
 use taurus\framework\mock\MockServer;
 use taurus\framework\routing\Request;

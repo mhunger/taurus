@@ -15,7 +15,7 @@ use taurus\framework\Container;
 use taurus\framework\db\BaseRepository;
 use taurus\framework\db\DatabaseManager;
 use taurus\framework\db\EntityBuilder;
-use taurus\framework\db\MySqlConnection;
+use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\routing\RouteConfig;
 use taurus\tests\fixtures\Dependency;
 use taurus\tests\fixtures\DependencyLoadTestClass;
