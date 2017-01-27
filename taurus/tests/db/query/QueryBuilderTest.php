@@ -43,4 +43,18 @@ class QueryBuilderTest extends TestCase
             "Query Builder has not parsed correct query for simple query without fields"
         );
     }
+
+    public function testSimpleQueryWithFieldsAndDb()
+    {
+        $this->assertEquals(
+            'SELECT id, date FROM fitnessmanager.workout',
+            $this->mysqlQueryStringBuilder
+                ->getQueryString(
+                    $this->queryBuilder
+                        ->query()
+                        ->select(['id', 'date'])
+                        ->from('workout', 'fitnessmanager')
+                )
+        );
+    }
 }

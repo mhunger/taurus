@@ -65,6 +65,6 @@ class SelectQuery
      */
     public function getSelectedTable()
     {
-        return $this->table . ($this->db !== null ? '.' . $this->db : '');
+        return ($this->db !== null ? $this->db . '.' : '') . $this->table;
     }
 }
