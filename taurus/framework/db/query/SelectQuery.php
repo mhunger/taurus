@@ -8,17 +8,19 @@
 
 namespace taurus\framework\db\query;
 
-    /**
-     * Class to model a query with its elements
-     *
-     * Class Query
-     * @package taurus\framework\db\query
-     */
+/**
+ * Class to model a query with its elements
+ *
+ * Class Query
+ * @package taurus\framework\db\query
+ */
+use taurus\framework\db\query\expression\MultiPartExpression;
+
 /**
  * Class SelectQuery
  * @package taurus\framework\db\query
  */
-class SelectQuery
+class SelectQuery implements Query
 {
     /** @var array */
     private $fields;
@@ -41,12 +43,17 @@ class SelectQuery
     /** @var int */
     private $offset;
 
+    /** @var MultiPartExpression */
+    private $where;
+
     /**
      * @param array $fields
      * @return SelectQuery
      */
     public function select(array $fields = null)
     {
+        $this->fields = $fields;
+
         return $this;
     }
 
@@ -57,16 +64,22 @@ class SelectQuery
      */
     public function from($table, $db = null)
     {
+        $this->table = $table;
+        $this->db = $db;
+
         return $this;
     }
 
-    /**
-     * @param $value
-     * @return SelectQuery
-     */
-    public function where($value = null)
-    {
 
+    /**
+     * @param MultiPartExpression $multiPartExpression
+     * @return $this
+     */
+    public function where(MultiPartExpression $multiPartExpression)
+    {
+        $this->where = $multiPartExpression;
+
+        return $this;
     }
 
     /**
@@ -93,6 +106,69 @@ class SelectQuery
     public function orderBy(array $orderBy)
     {
         $this->orderBy = $orderBy;
+    }
 
+    /**
+     * @return array
+     */
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTable()
+    {
+        return $this->table;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDb()
+    {
+        return $this->db;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGroupBy()
+    {
+        return $this->groupBy;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrderBy()
+    {
+        return $this->orderBy;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    /**
+     * @return MultiPartExpression
+     */
+    public function getWhere()
+    {
+        return $this->where;
     }
 }
