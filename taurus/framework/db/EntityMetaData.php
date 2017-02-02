@@ -26,7 +26,7 @@ class EntityMetaData {
      * @param $entity
      * @param $reader
      */
-    function __construct($entity, $reader)
+    function __construct($entity = null, $reader = null)
     {
         $this->entity = $entity;
         $this->reader = $reader;
