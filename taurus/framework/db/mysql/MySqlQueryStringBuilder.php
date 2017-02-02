@@ -9,6 +9,8 @@
 namespace taurus\framework\db\mysql;
 
 
+use taurus\framework\db\query\expression\Expression;
+use taurus\framework\db\query\expression\MultiPartExpression;
 use taurus\framework\db\query\QueryStringBuilder;
 use taurus\framework\db\query\SelectQuery;
 use taurus\framework\db\query\Condition;
@@ -19,6 +21,12 @@ class MySqlQueryStringBuilder implements QueryStringBuilder
 
     const MYSQL_SYNTAX_ALL_FIELDS = '*';
 
+    const MYSQL_KEYWORD_SELECT = 'SELECT';
+
+    const MYSQL_KEYWORD_FROM = 'FROM';
+
+    const MYSQL_KEYWORD_WHERE = 'WHERE';
+
     /**
      * Return the mysql query string given a select query
      *
@@ -27,76 +35,101 @@ class MySqlQueryStringBuilder implements QueryStringBuilder
      */
     public function getQueryString(SelectQuery $selectQuery)
     {
-        return 'SELECT ' . $this->getFields($selectQuery->getSelectedFields()) .
-            ' FROM ' . $selectQuery->getSelectedTable() .
-            $this->getFilterCriteria($selectQuery->getConditions()) ;
+        $tokens = [];
+
+        $tokens[] = self::MYSQL_KEYWORD_SELECT;
+        $tokens[] = $this->getFields($selectQuery);
+        $tokens[] = self::MYSQL_KEYWORD_FROM;
+        $tokens[] = $this->getStore($selectQuery);
+
+        $tokens = $this->addFilterCriteriaToTokens($selectQuery, $tokens);
+
+        return implode(' ', $tokens);
+    }
+
+
+    /**
+     * @param SelectQuery $selectQuery
+     * @return string
+     */
+    private function getStore(SelectQuery $selectQuery)
+    {
+        if ($selectQuery->getDb() !== null) {
+            return $selectQuery->getDb() . '.' . $selectQuery->getTable();
+        } else {
+            return $selectQuery->getTable();
+        }
     }
 
     /**
-     * Return the list of fields in mysql syntax
-     *
-     * @param array $fields
+     * @param SelectQuery $selectQuery
      * @return string
      */
-    private function getFields(array $fields = null)
+    private function getFields(SelectQuery $selectQuery)
     {
-        if ($fields === null) {
+        if ($selectQuery->getFields() === null) {
             return self::MYSQL_SYNTAX_ALL_FIELDS;
         } else {
-            return implode(', ', $fields);
+            return implode(', ', $selectQuery->getFields());
         }
     }
 
     /**
-     * @param array $filter
-     * @return string
+     * @param SelectQuery $selectQuery
+     * @param $tokens
+     * @return array
      */
-    private function getFilterCriteria(array $filter = null) {
-        if(empty($filter) || $filter === null) {
-            return '';
+    public function addFilterCriteriaToTokens(SelectQuery $selectQuery, $tokens)
+    {
+        if ($selectQuery->getWhere() !== null) {
+            $tokens[] = self::MYSQL_KEYWORD_WHERE;
+
+            $tokens = $this->buildTokensForExpression($selectQuery->getWhere(), $tokens);
         }
 
-        $where = ' WHERE ';
-
-        /** @var Condition $condition */
-        foreach($filter as $condition) {
-            $where .= $this->getConditions($condition->getConditions());
-        }
-
-        return $where;
+        return $tokens;
     }
 
     /**
-     * Conditions are an array that are a chain of value operator operand operator operand, etc
-     * such as id = 1 and date = 2017-01-01
-     *
-     * @param array $conditions
-     * @return string
+     * @param MultiPartExpression $expression
+     * @param array $tokens
+     * @return array
      */
-    private function getConditions(array $conditions) {
-        $filter = '';
+    private function buildTokensForExpression(MultiPartExpression $expression, array $tokens)
+    {
+        $value = $expression->getValue();
+        $operation = $expression->getOperation();
+        $operand = $expression->getOperand();
 
-        /** @var BooleanExpression $expression */
-        foreach($conditions as $expression) {
-            $operator = $expression->getOperator();
-            $operand = $expression->getOperand();
-            $op = $expression->getOperation();
+        if ($value->getType() == Expression::EXPRESSION_TYPE_COMPARISON
+            || $value->getType() == Expression::EXPRESSION_TYPE_CONDITIONAL
+        ) {
+            $tokens = $this->buildTokensForExpression($value, $tokens);
+        } else {
+            $tokens[] = $this->addLiteral($value);
+        }
 
-            if($operand !== null) {
-                $filter .= " $operand ";
-            }
+        $tokens[] = $operation->getOperation();
 
-            if($op !== null) {
-                $filter .= " $op ";
-            }
+        if ($operand->getType() == Expression::EXPRESSION_TYPE_COMPARISON
+            || $operand->getType() == Expression::EXPRESSION_TYPE_CONDITIONAL
+        ) {
+            $tokens = $this->buildTokensForExpression($operand, $tokens);
+        } else {
+            $tokens[] = $this->addLiteral($operand);
+        }
 
-            if($operator !== null) {
-                if(is_string($operator)) {
-                    $operator = "'$operator'";
-                }
-                $filter .= " $operator ";
+        return $tokens;
+    }
+
+    private function addLiteral(Expression $expression)
+    {
+        if ($expression->getType() == Expression::EXPRESSION_TYPE_LITERAL) {
+            if (is_string($expression->getValue())) {
+                return "'" . $expression->getValue() . "'";
             }
         }
-        return $filter;
+
+        return $expression->getValue();
     }
 }
