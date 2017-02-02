@@ -9,9 +9,13 @@
 namespace taurus\framework\db;
 
 
+use taurus\framework\db\query\Query;
+
 interface DbConnection {
 
     public function fetchObjects($sql, $class = null);
 
-    public function execute($sql);
+    public function executeRaw($sql);
+
+    public function execute(Query $query);
 }
