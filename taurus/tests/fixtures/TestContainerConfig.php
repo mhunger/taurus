@@ -12,8 +12,10 @@ namespace taurus\tests\fixtures;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\container\TaurusContainerConfig;
+use taurus\framework\db\BaseRepository;
 use taurus\framework\db\DatabaseManager;
 use taurus\framework\db\mysql\MySqlConnection;
+use taurus\framework\db\mysql\MySqlQueryStringBuilder;
 use taurus\framework\Environment;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
 
@@ -24,6 +26,7 @@ class TestContainerConfig extends AbstractContainerConfig {
     const SERVICE_ENVIRONMENT = Environment::class;
     const SERVICE_MYSQL_CONNECTION = MySqlConnection::class;
     const SERVICE_DB_MANAGER = DatabaseManager::class;
+    const SERVICE_BASE_REPOSITORY = BaseRepository::class;
 
     /**
      * Method to define the ServicConfig objects for the config class
@@ -57,7 +60,7 @@ class TestContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_MYSQL_CONNECTION] =
             new ServiceConfig(self::SERVICE_MYSQL_CONNECTION,
                 'MysqlConnection',
-                ['localhost', 'taurus', 'taurus', 'taurus']
+                ['localhost', 'taurus', 'taurus', 'taurus', MySqlQueryStringBuilder::class]
             );
 
         $this->serviceDefinitions[self::SERVICE_DB_MANAGER] =
@@ -66,6 +69,12 @@ class TestContainerConfig extends AbstractContainerConfig {
                 [
                     MySqlConnection::class
                 ]
+            );
+
+        $this->serviceDefinitions[self::SERVICE_BASE_REPOSITORY] =
+            new ServiceConfig(self::SERVICE_BASE_REPOSITORY,
+                'BaseRepository',
+                [null, null, MySqlConnection::class]
             );
     }
 }

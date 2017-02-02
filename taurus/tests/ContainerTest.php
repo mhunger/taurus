@@ -15,7 +15,10 @@ use taurus\framework\Container;
 use taurus\framework\db\BaseRepository;
 use taurus\framework\db\DatabaseManager;
 use taurus\framework\db\EntityBuilder;
+use taurus\framework\db\EntityMetaData;
 use taurus\framework\db\mysql\MySqlConnection;
+use taurus\framework\db\mysql\MySqlQueryStringBuilder;
+use taurus\framework\db\query\QueryBuilder;
 use taurus\framework\routing\RouteConfig;
 use taurus\tests\fixtures\Dependency;
 use taurus\tests\fixtures\DependencyLoadTestClass;
@@ -33,9 +36,19 @@ class ContainerTest extends TestCase{
 
     public function testDbManagerLoadedWithConnection() {
         $expectedObject = new DatabaseManager(
-            new MySqlConnection('localhost', 'taurus', 'taurus', 'taurus'),
+            new MySqlConnection('localhost', 'taurus', 'taurus', 'taurus', new MySqlQueryStringBuilder()),
             new EntityBuilder(),
-            new BaseRepository()
+            new BaseRepository(
+                new QueryBuilder(),
+                new EntityMetaData(),
+                new MySqlConnection(
+                    'localhost',
+                    'taurus',
+                    'taurus',
+                    'taurus',
+                    new MySqlQueryStringBuilder()
+                )
+            )
         );
 
         $this->assertEquals(
