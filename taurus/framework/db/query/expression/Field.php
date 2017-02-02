@@ -2,52 +2,46 @@
 /**
  * Created by PhpStorm.
  * User: michaelhunger
- * Date: 29/01/17
- * Time: 19:40
+ * Date: 02/02/17
+ * Time: 20:14
  */
 
 namespace taurus\framework\db\query\expression;
 
 
-class Field implements ExpressionPart{
-
-    private $name;
-
-    private $db;
-
-    private $type;
-
-    function __construct($name, $db = null, $type = null)
-    {
-        $this->name = $name;
-        $this->db = $db;
-        $this->type = $type;
-    }
-
+/**
+ * Represents a field in a query expression of the type field = something else
+ *
+ * Class Field
+ * @package taurus\framework\db\query\expression
+ */
+class Field extends ScalarExpression
+{
 
     /**
-     * @return mixed
+     * @var
      */
-    public function getName()
-    {
-        return $this->name;
-    }
+    private $value;
+
 
     /**
-     * @return mixed
+     * @param mixed $value
      */
-    public function getDb()
+    function __construct($value)
     {
-        return $this->db;
+        $this->value = $value;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
     }
 
     /**
-     * @return mixed
+     *
      */
     public function getType()
     {
-        return $this->type;
+        Expression::EXPRESSION_TYPE_FIELD;
     }
-
-
 }
