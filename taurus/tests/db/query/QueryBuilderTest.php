@@ -57,4 +57,36 @@ class QueryBuilderTest extends TestCase
                 )
         );
     }
+
+    public function testQueryWithSimpleWhereClause() {
+        $this->assertEquals(
+            'SELECT * FROM workout WHERE id = 1',
+            $this->mysqlQueryStringBuilder->getQueryString(
+                $this->queryBuilder
+                ->query()
+                ->select()
+                ->from('workout')
+                ->where('id')
+                    ->isEqualTo(1)
+            ),
+            "Could not generate query with single where clause"
+        );
+    }
+
+    public function testQueryWithMultipleAndConditions() {
+        $this->assertEquals(
+            'SELECT * FROM workout WHERE id = 1 AND date = 2017-01-01',
+            $this->mysqlQueryStringBuilder
+            ->getQueryString(
+                $this->queryBuilder->query()
+                ->select()
+                ->from('workout')
+                ->where('id')
+                ->isEqualTo(1)
+                ->andWhere('date')
+                ->isEqualTo('2017-01-01')
+            ),
+            "Cannot create query with multiple and expressions"
+        );
+    }
 }

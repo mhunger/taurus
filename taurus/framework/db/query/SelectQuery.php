@@ -8,15 +8,18 @@
 
 namespace taurus\framework\db\query;
 
+    /**
+     * Class to model a query with its elements
+     *
+     * Class Query
+     * @package taurus\framework\db\query
+     */
 /**
- * Class to model a query with its elements
- *
- * Class Query
+ * Class SelectQuery
  * @package taurus\framework\db\query
  */
 class SelectQuery
 {
-
     /** @var array */
     private $fields;
 
@@ -26,14 +29,24 @@ class SelectQuery
     /** @var string */
     private $db;
 
+    /** @var array */
+    private $groupBy;
+
+    /** @var array */
+    private $orderBy;
+
+    /** @var int */
+    private $limit;
+
+    /** @var int */
+    private $offset;
+
     /**
      * @param array $fields
      * @return SelectQuery
      */
     public function select(array $fields = null)
     {
-        $this->fields = $fields;
-
         return $this;
     }
 
@@ -44,27 +57,42 @@ class SelectQuery
      */
     public function from($table, $db = null)
     {
-        $this->table = $table;
-        $this->db = $db;
-
         return $this;
     }
 
     /**
-     * @return array
+     * @param $value
+     * @return SelectQuery
      */
-    public function getSelectedFields()
+    public function where($value = null)
     {
-        return $this->fields;
+
     }
 
     /**
-     * Return the table selected. If db given concatenate with dot e.g. mydb.table
-     *
-     * @return string
+     * @param array $groupBy
      */
-    public function getSelectedTable()
+    public function groupBy(array $groupBy)
     {
-        return ($this->db !== null ? $this->db . '.' : '') . $this->table;
+        $this->groupBy = $groupBy;
+    }
+
+    /**
+     * @param $offset
+     * @param $limit
+     */
+    public function limit($offset, $limit)
+    {
+        $this->limit = $limit;
+        $this->offset = $offset;
+    }
+
+    /**
+     * @param array $orderBy
+     */
+    public function orderBy(array $orderBy)
+    {
+        $this->orderBy = $orderBy;
+
     }
 }

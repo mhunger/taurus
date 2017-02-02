@@ -11,6 +11,8 @@ namespace taurus\framework\db\mysql;
 
 use taurus\framework\db\query\QueryStringBuilder;
 use taurus\framework\db\query\SelectQuery;
+use taurus\framework\db\query\Condition;
+use taurus\framework\db\query\BooleanExpression;
 
 class MySqlQueryStringBuilder implements QueryStringBuilder
 {
@@ -26,7 +28,8 @@ class MySqlQueryStringBuilder implements QueryStringBuilder
     public function getQueryString(SelectQuery $selectQuery)
     {
         return 'SELECT ' . $this->getFields($selectQuery->getSelectedFields()) .
-        ' FROM ' . $selectQuery->getSelectedTable();
+            ' FROM ' . $selectQuery->getSelectedTable() .
+            $this->getFilterCriteria($selectQuery->getConditions()) ;
     }
 
     /**
@@ -42,5 +45,58 @@ class MySqlQueryStringBuilder implements QueryStringBuilder
         } else {
             return implode(', ', $fields);
         }
+    }
+
+    /**
+     * @param array $filter
+     * @return string
+     */
+    private function getFilterCriteria(array $filter = null) {
+        if(empty($filter) || $filter === null) {
+            return '';
+        }
+
+        $where = ' WHERE ';
+
+        /** @var Condition $condition */
+        foreach($filter as $condition) {
+            $where .= $this->getConditions($condition->getConditions());
+        }
+
+        return $where;
+    }
+
+    /**
+     * Conditions are an array that are a chain of value operator operand operator operand, etc
+     * such as id = 1 and date = 2017-01-01
+     *
+     * @param array $conditions
+     * @return string
+     */
+    private function getConditions(array $conditions) {
+        $filter = '';
+
+        /** @var BooleanExpression $expression */
+        foreach($conditions as $expression) {
+            $operator = $expression->getOperator();
+            $operand = $expression->getOperand();
+            $op = $expression->getOperation();
+
+            if($operand !== null) {
+                $filter .= " $operand ";
+            }
+
+            if($op !== null) {
+                $filter .= " $op ";
+            }
+
+            if($operator !== null) {
+                if(is_string($operator)) {
+                    $operator = "'$operator'";
+                }
+                $filter .= " $operator ";
+            }
+        }
+        return $filter;
     }
 }
