@@ -10,6 +10,12 @@ namespace taurus\tests\db\query;
 
 
 use PHPUnit\Framework\TestCase;
+use taurus\framework\db\query\expression\ComparisonExpression;
+use taurus\framework\db\query\expression\ConditionalExpression;
+use taurus\framework\db\query\expression\Field;
+use taurus\framework\db\query\expression\Literal;
+use taurus\framework\db\query\operation\AndOperation;
+use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\QueryBuilder;
 use taurus\framework\db\mysql\MySqlQueryStringBuilder;
 
@@ -66,8 +72,13 @@ class QueryBuilderTest extends TestCase
                 ->query()
                 ->select()
                 ->from('workout')
-                ->where('id')
-                    ->isEqualTo(1)
+                    ->where(
+                        new ComparisonExpression(
+                            new Field('id'),
+                            new Equals(),
+                            new Literal(1)
+                        )
+                    )
             ),
             "Could not generate query with single where clause"
         );
@@ -75,18 +86,29 @@ class QueryBuilderTest extends TestCase
 
     public function testQueryWithMultipleAndConditions() {
         $this->assertEquals(
-            'SELECT * FROM workout WHERE id = 1 AND date = 2017-01-01',
-            $this->mysqlQueryStringBuilder
-            ->getQueryString(
-                $this->queryBuilder->query()
-                ->select()
-                ->from('workout')
-                ->where('id')
-                ->isEqualTo(1)
-                ->andWhere('date')
-                ->isEqualTo('2017-01-01')
+            'SELECT * FROM workout WHERE id = 1 AND date = \'2016-01-01\'',
+            $this->mysqlQueryStringBuilder->getQueryString(
+                $this->queryBuilder
+                    ->query()
+                    ->select()
+                    ->from('workout')
+                    ->where(
+                        new ConditionalExpression(
+                            new ComparisonExpression(
+                                new Field('id'),
+                                new Equals(),
+                                new Literal(1)
+                            ),
+                            new AndOperation(),
+                            new ComparisonExpression(
+                                new Field('date'),
+                                new Equals(),
+                                new Literal('2016-01-01')
+                            )
+                        )
+                    )
             ),
-            "Cannot create query with multiple and expressions"
+            "Could not generate query with single where clause"
         );
     }
 }
