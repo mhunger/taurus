@@ -8,6 +8,13 @@
 
 namespace taurus\framework\annotation;
 
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use ReflectionClass;
+
+/**
+ * Class Reader
+ * @package taurus\framework\annotation
+ */
 class Reader {
 
     /** @var null|\ReflectionClass */
@@ -33,13 +40,38 @@ class Reader {
     }
 
     /**
-     * @param $subject
+     * @param $object
      */
-    public function parseAnnotations($subject) {
-        if(!is_object($subject)) {
+    public function getAnnotationsForObject($object)
+    {
+        if (is_object($object)) {
+            $this->getAnnotationsForClass(
+                new ReflectionClass($object)
+            );
+        } else {
+            throw new \InvalidArgumentException("Need an object to parse annotations. Given [" . $object . "]");
+        }
+    }
+
+    /**
+     * @param $className
+     */
+    public function getAnnotationsByClassname($className)
+    {
+        $this->getAnnotationsForClass(
+            new ReflectionClass($className)
+        );
+    }
+
+    /**
+     * @param ReflectionClass $subject
+     */
+    public function getAnnotationsForClass(ReflectionClass $subject)
+    {
+        if (!($subject instanceof ReflectionClass)) {
             throw new \InvalidArgumentException("Need to pass an object in order to work. Passed [" . $subject . "]");
         } else {
-            $class = new \ReflectionClass($subject);
+            $class = $subject;
         }
 
         $this->classAnnotations = $this->parseComment($class->getDocComment());
@@ -59,6 +91,7 @@ class Reader {
 
     /**
      * Parses comment string and returns the annotation objects
+     *
      * @param $comment
      * @return array
      */

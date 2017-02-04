@@ -24,8 +24,8 @@ class ReaderTest extends TestCase {
 
     public function setUp() {
         $this->testSubject = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_ANNOTATION_READER);
-        $this->testSubject->parseAnnotations(
-                new TestAnnotationClass()
+        $this->testSubject->getAnnotationsForClass(
+                new \ReflectionClass(new TestAnnotationClass())
         );
     }
 
