@@ -17,5 +17,5 @@ interface DbConnection {
 
     public function executeRaw($sql);
 
-    public function execute(Query $query);
+    public function execute(Query $query, $class = null);
 }

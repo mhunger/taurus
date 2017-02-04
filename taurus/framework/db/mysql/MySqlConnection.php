@@ -8,7 +8,6 @@
 
 namespace taurus\framework\db\mysql;
 
-use fitnessmanager\workout\Workout;
 use taurus\framework\db\DbConnection;
 use taurus\framework\db\query\Query;
 use taurus\framework\db\query\QueryStringBuilder;
@@ -77,7 +76,8 @@ class MySqlConnection implements DbConnection {
     public function execute(Query $query, $class = null)
     {
         return $this->fetchObjects(
-            $this->queryStringBuilder->getQueryString($query, $class)
+            $this->queryStringBuilder->getQueryString($query),
+            $class
         );
     }
 }
