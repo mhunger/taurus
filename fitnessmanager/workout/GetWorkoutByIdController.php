@@ -32,7 +32,10 @@ class GetWorkoutByIdController implements HttpGetRequest{
      */
     public function handleRequest(Request $request)
     {
-        $result = $this->workoutBaseRepository->findOne(1, Workout::class);
+        $result = $this->workoutBaseRepository->findOne(
+            $request->getParamByName('id'),
+            Workout::class
+        );
 
         return $result;
     }

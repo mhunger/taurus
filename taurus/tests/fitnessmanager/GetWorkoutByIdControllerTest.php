@@ -14,12 +14,13 @@ use taurus\framework\Container;
 use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\Http\HttpJsonResponse;
 use taurus\framework\mock\MockServer;
+use taurus\tests\fixtures\GlobalVariablesMock;
 use taurus\tests\fixtures\TestContainerConfig;
 
 class GetWorkoutByIdControllerTest extends TestCase {
 
     public function setUp() {
-            
+
     }
 
     public function testGetMethod() {
@@ -27,7 +28,12 @@ class GetWorkoutByIdControllerTest extends TestCase {
         $mockServer = Container::getInstance()->setContainerConfig(
             new TestContainerConfig()
         )->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
-        $actualResponse = $mockServer->get('/api/items', 'GET');
+        $actualResponse = $mockServer->get(
+            '/api/items',
+            'GET',
+            ['id' => 1]
+        );
+
 
         $json = '[{"id":"1","date":"2012-01-01 12:00:00"}]';
         $responseObj = json_decode($json);
