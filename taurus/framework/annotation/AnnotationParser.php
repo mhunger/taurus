@@ -11,6 +11,11 @@ namespace taurus\framework\annotation;
 
 class AnnotationParser {
 
+
+    /**
+     * @param $docCommentString
+     * @return array
+     */
     public function parseDocComment($docCommentString) {
         $result = [];
 
