@@ -8,22 +8,26 @@
 
 namespace fitnessmanager\workout;
 
+use taurus\framework\db\Entity;
+
 /**
  * Class Workout
  * @package fitnessmanager\workout
  *
- * @Model(table="workout")
+ * @Entity(table="workout")
  */
-class Workout {
+class Workout implements Entity {
 
     /**
+     * @Id
      * @Column(name="id")
-     * @var \DateTime
+     * @var int
      */
     public $id;
 
     /**
      * @Column(name="date")
+     * @var \DateTime
      */
     public $date;
 
