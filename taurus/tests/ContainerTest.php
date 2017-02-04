@@ -17,7 +17,7 @@ use taurus\framework\Container;
 use taurus\framework\db\BaseRepository;
 use taurus\framework\db\DatabaseManager;
 use taurus\framework\db\EntityBuilder;
-use taurus\framework\db\EntityMetaDataImpl;
+use taurus\framework\db\entity\EntityMetaDataImpl;
 use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\db\mysql\MySqlQueryStringBuilder;
 use taurus\framework\db\query\QueryBuilder;

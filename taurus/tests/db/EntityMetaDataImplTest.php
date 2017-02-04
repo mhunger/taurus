@@ -12,7 +12,7 @@ namespace taurus\tests\db;
 use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
 use taurus\framework\container\TaurusContainerConfig;
-use taurus\framework\db\EntityMetaDataImpl;
+use taurus\framework\db\entity\EntityMetaDataImpl;
 use taurus\tests\fixtures\TestEntity;
 
 class EntityMetaDataImplTest extends TestCase

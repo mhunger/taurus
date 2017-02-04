@@ -6,7 +6,7 @@
  * Time: 18:31
  */
 
-namespace taurus\framework\db;
+namespace taurus\framework\db\entity;
 
 
 /**

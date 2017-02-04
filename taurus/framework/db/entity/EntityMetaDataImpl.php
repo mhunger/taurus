@@ -6,10 +6,12 @@
  * Time: 17:16
  */
 
-namespace taurus\framework\db;
+namespace taurus\framework\db\entity;
 
 use taurus\framework\annotation\Annotation;
 use taurus\framework\annotation\AnnotationReader;
+use taurus\framework\db\entity\EntityMetaDataWrapper;
+use taurus\framework\db\entity\EntityMetaData;
 
 class EntityMetaDataImpl implements EntityMetaDataWrapper
 {

@@ -15,7 +15,7 @@ use taurus\framework\annotation\AnnotationProperty;
 use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\Container;
 use taurus\framework\container\TaurusContainerConfig;
-use taurus\framework\db\EntityMetaDataImpl;
+use taurus\framework\db\entity\EntityMetaDataImpl;
 use taurus\tests\annotation\TestAnnotationClass;
 
 class ReaderTest extends TestCase {

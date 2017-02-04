@@ -6,7 +6,7 @@
  * Time: 20:22
  */
 
-namespace taurus\framework\db;
+namespace taurus\framework\db\entity;
 
 
 interface EntityMetaDataWrapper

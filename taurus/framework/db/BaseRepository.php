@@ -8,6 +8,7 @@
 
 namespace taurus\framework\db;
 
+use taurus\framework\db\entity\EntityMetaDataWrapper;
 use taurus\framework\db\query\expression\ComparisonExpression;
 use taurus\framework\db\query\expression\ConditionalExpression;
 use taurus\framework\db\query\expression\Field;
