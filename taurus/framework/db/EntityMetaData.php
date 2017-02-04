@@ -2,41 +2,63 @@
 /**
  * Created by PhpStorm.
  * User: michaelhunger
- * Date: 29/01/17
- * Time: 20:22
+ * Date: 04/02/17
+ * Time: 18:31
  */
 
 namespace taurus\framework\db;
 
 
+/**
+ * Class EntityMetaData
+ * @package taurus\framework\db
+ */
 class EntityMetaData {
 
     /**
-     * @var object
+     * @var
      */
-    private $entity;
+    private $id;
 
     /**
-     * @var Reader
+     * @var
      */
-    private $reader;
+    private $table;
 
+
+    private $columns = array();
 
     /**
-     * @param $entity
-     * @param $reader
+     * @param $id
+     * @param $table
      */
-    function __construct($entity = null, $reader = null)
+    function __construct($id, $table)
     {
-        $this->entity = $entity;
-        $this->reader = $reader;
+        $this->id = $id;
+        $this->table = $table;
     }
 
-    public function getIdField() {
-        return 'id';
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
-    public function getTable() {
-        return 'workout';
+    /**
+     * @return mixed
+     */
+    public function getTable()
+    {
+        return $this->table;
+    }
+
+    /**
+     * @return array
+     */
+    public function getColumns()
+    {
+        return $this->columns;
     }
 }
