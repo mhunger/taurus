@@ -11,7 +11,6 @@ namespace taurus\framework\annotation;
 
 class AnnotationParser {
 
-
     /**
      * @param $docCommentString
      * @return array
@@ -21,7 +20,7 @@ class AnnotationParser {
 
         $annotationCollection = [];
 
-        if(preg_match_all('/@([A-Za-z]+)(\(.+\))?/', $docCommentString, $result, PREG_SET_ORDER) > 0) {
+        if(preg_match_all('/@([A-Z_a-z]+)(\(.+\))?/', $docCommentString, $result, PREG_SET_ORDER) > 0) {
             foreach($result as $annotation) {
 
                 if(isset($annotation[2])) {
@@ -47,7 +46,7 @@ class AnnotationParser {
     {
         $result = [];
 
-        $pattern = '/\(([a-z]+)\s?=\s?"?([a-z0-9]+)"?\)/';
+        $pattern = '/\(([a-z]+)\s?=\s?"?([a-z_\-0-9]+)"?\)/';
 
         if(preg_match_all($pattern, $stringToParse, $result, PREG_SET_ORDER) > 0) {
             foreach($result as $annotation) {
