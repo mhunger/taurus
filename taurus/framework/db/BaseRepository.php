@@ -23,7 +23,7 @@ class BaseRepository {
     /** @var QueryBuilder */
     private $qb;
 
-    /** @var EntityMetaData */
+    /** @var EntityMetaDataWrapper */
     private $entityMetaData;
 
     /** @var DbConnection */
@@ -31,10 +31,10 @@ class BaseRepository {
 
     /**
      * @param QueryBuilder $queryBuilder
-     * @param EntityMetaData $entityMetaData
+     * @param EntityMetaDataWrapper $entityMetaData
      * @param DbConnection $dbConnection
      */
-    function __construct(QueryBuilder $queryBuilder, EntityMetaData $entityMetaData, DbConnection $dbConnection)
+    function __construct(QueryBuilder $queryBuilder, EntityMetaDataWrapper $entityMetaData, DbConnection $dbConnection)
     {
         $this->qb = $queryBuilder;
         $this->entityMetaData = $entityMetaData;
@@ -43,29 +43,25 @@ class BaseRepository {
 
     /**
      * @param $id
+     * @param $entityClass
+     * @return mixed
      */
-    public function findOne($id){
+    public function findOne($id, $entityClass) {
         $q = $this->qb->query()
             ->select()
             ->from(
-                $this->entityMetaData->getTable()
+                $this->entityMetaData->getTable($entityClass)
             )->where(
-                new ConditionalExpression(
-                    new ComparisonExpression(
-                        new Field(
-                            $this->entityMetaData->getIdField()
-                        ),
-                        new Equals(),
-                        new Literal($id)
+                new ComparisonExpression(
+                    new Field(
+                        $this->entityMetaData->getIdField($entityClass)
                     ),
-                    new AndOperation(),
-                    new ComparisonExpression(
-                        new Field('date'),
-                        new Equals(),
-                        new Literal('2016-01-01')
-                    )
+                    new Equals(),
+                    new Literal($id)
                 )
             );
+
+        return $this->dbConnection->execute($q, $entityClass);
     }
 
     /**
