@@ -14,6 +14,7 @@ use taurus\framework\container\ServiceConfig;
 use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\db\BaseRepository;
 use taurus\framework\db\DatabaseManager;
+use taurus\framework\db\EntityMetaDataImpl;
 use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\db\mysql\MySqlQueryStringBuilder;
 use taurus\framework\Environment;
@@ -27,6 +28,7 @@ class TestContainerConfig extends AbstractContainerConfig {
     const SERVICE_MYSQL_CONNECTION = MySqlConnection::class;
     const SERVICE_DB_MANAGER = DatabaseManager::class;
     const SERVICE_BASE_REPOSITORY = BaseRepository::class;
+    const SERVICE_ENTITY_METADATA = EntityMetaDataImpl::class;
 
     /**
      * Method to define the ServicConfig objects for the config class
@@ -74,7 +76,7 @@ class TestContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_BASE_REPOSITORY] =
             new ServiceConfig(self::SERVICE_BASE_REPOSITORY,
                 'BaseRepository',
-                [null, null, MySqlConnection::class]
+                [null, EntityMetaDataImpl::class, MySqlConnection::class]
             );
     }
 }
