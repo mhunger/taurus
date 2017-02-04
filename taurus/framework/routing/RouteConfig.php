@@ -12,16 +12,33 @@ use fitnessmanager\config\FitnessManagerConfig;
 use taurus\framework\Container;
 use taurus\framework\exception\RouteNotFoundException;
 
+/**
+ * Class RouteConfig
+ * @package taurus\framework\routing
+ */
 class RouteConfig {
+
+    const API_BASE_PATH = 'api';
+    /**
+     * @var string
+     */
     private $base;
+    /**
+     * @var array
+     */
     private $routes = [];
 
+    /**
+     * @param string $base
+     * @throws \taurus\framework\error\ContainerCannotInstantiateService
+     */
     public function __construct($base = '') {
         $this->base = $base;
 
         $this->routes = [
             'GET' => [
-                'items' => Container::getInstance()->getService(FitnessManagerConfig::SERVICE_WORKOUT_CONTROLLER),
+                'item' => Container::getInstance()->getService(FitnessManagerConfig::SERVICE_GET_WORKOUT_BY_ID_CONTROLLER),
+                'items' => Container::getInstance()->getService(FitnessManagerConfig::SERVICE_GET_WORKOUTS_CONTROLLER)
             ]
         ];
     }
@@ -34,6 +51,12 @@ class RouteConfig {
         return $this->routes;
     }
 
+    /**
+     * @param $method
+     * @param $path
+     * @return mixed
+     * @throws RouteNotFoundException
+     */
     public function getRoute($method, $path) {
         if($this->base !== null) {
             $path = str_replace("/" . $this->base . "/", "", $path);

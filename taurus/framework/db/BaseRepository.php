@@ -45,7 +45,7 @@ class BaseRepository {
     /**
      * @param $id
      * @param $entityClass
-     * @return mixed
+     * @return Entity|null
      */
     public function findOne($id, $entityClass) {
         $q = $this->qb->query()
@@ -65,11 +65,15 @@ class BaseRepository {
         return $this->dbConnection->execute($q, $entityClass);
     }
 
-    /**
-     *
-     */
-    public function findAll() {
+    public function findAll($entityClass)
+    {
+        $q = $this->qb->query()
+            ->select()
+            ->from(
+                $this->entityMetaData->getTable($entityClass)
+            );
 
+        return $this->dbConnection->execute($q, $entityClass);
     }
 
     /**

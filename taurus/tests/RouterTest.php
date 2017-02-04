@@ -24,13 +24,13 @@ class RouterTest extends TestCase {
 
     public function setUp() {
         $this->requestMethod = 'GET';
-        $this->requestUri = '/api/items';
+        $this->requestUri = '/api/item';
 
         $_SERVER['REQUEST_METHOD'] = $this->requestMethod;
         $_SERVER['REQUEST_URI'] = $this->requestUri;
 
         $this->router = new Router(
-            new RouteConfig('api'),
+            new RouteConfig(RouteConfig::API_BASE_PATH),
             new Environment(Environment::TEST)
         );
     }

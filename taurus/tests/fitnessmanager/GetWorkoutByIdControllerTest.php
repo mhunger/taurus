@@ -29,7 +29,7 @@ class GetWorkoutByIdControllerTest extends TestCase {
             new TestContainerConfig()
         )->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
         $actualResponse = $mockServer->get(
-            '/api/items',
+            '/api/item',
             'GET',
             ['id' => 1]
         );

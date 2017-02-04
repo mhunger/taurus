@@ -39,6 +39,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_BASE_REPOSITORY = BaseRepository::class;
     const SERVICE_ENTITY_METADATA = EntityMetaDataImpl::class;
 
+
     public function __construct() {
         $this->configure();
     }
@@ -53,7 +54,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_ROUTE_CONFIG] =
             new ServiceConfig(self::SERVICE_ROUTE_CONFIG,
                 null,
-                ['api']
+                [RouteConfig::API_BASE_PATH]
             );
 
         $this->serviceDefinitions[self::SERVICE_MYSQL_CONNECTION] =

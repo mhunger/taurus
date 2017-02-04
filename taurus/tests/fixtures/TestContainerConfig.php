@@ -9,6 +9,7 @@
 namespace taurus\tests\fixtures;
 
 
+use fitnessmanager\workout\GetAllWorkoutsController;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\container\TaurusContainerConfig;
@@ -18,6 +19,7 @@ use taurus\framework\db\entity\EntityMetaDataImpl;
 use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\db\mysql\MySqlQueryStringBuilder;
 use taurus\framework\Environment;
+use taurus\framework\routing\RouteConfig;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
 
 class TestContainerConfig extends AbstractContainerConfig {
@@ -29,6 +31,7 @@ class TestContainerConfig extends AbstractContainerConfig {
     const SERVICE_DB_MANAGER = DatabaseManager::class;
     const SERVICE_BASE_REPOSITORY = BaseRepository::class;
     const SERVICE_ENTITY_METADATA = EntityMetaDataImpl::class;
+    const SERVICE_GET_WORKOUTS_CONTROLLER = GetAllWorkoutsController::class;
 
     /**
      * Method to define the ServicConfig objects for the config class
@@ -50,7 +53,7 @@ class TestContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[TaurusContainerConfig::SERVICE_ROUTE_CONFIG] =
             new ServiceConfig(TaurusContainerConfig::SERVICE_ROUTE_CONFIG,
                 null,
-                ['api']
+                [RouteConfig::API_BASE_PATH]
             );
 
         $this->serviceDefinitions[self::SERVICE_ENVIRONMENT] =

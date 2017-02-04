@@ -7,6 +7,7 @@
  */
 namespace fitnessmanager\config;
 
+use fitnessmanager\workout\GetAllWorkoutsController;
 use taurus\framework\container\AbstractContainerConfig;
 use fitnessmanager\workout\GetWorkoutByIdController;
 
@@ -16,7 +17,10 @@ use fitnessmanager\workout\GetWorkoutByIdController;
  * @package fitnessmanager\config
  */
 class FitnessManagerConfig extends AbstractContainerConfig {
-    const SERVICE_WORKOUT_CONTROLLER = GetWorkoutByIdController::class;
+    const SERVICE_GET_WORKOUT_BY_ID_CONTROLLER = GetWorkoutByIdController::class;
+    const SERVICE_GET_WORKOUTS_CONTROLLER = GetAllWorkoutsController::class;
+
+
 
     protected $serviceDefinitions = [];
 
