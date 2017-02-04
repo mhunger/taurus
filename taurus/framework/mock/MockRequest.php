@@ -32,4 +32,12 @@ class MockRequest extends Request {
     {
         $this->method = $method;
     }
+
+    /**
+     * @param mixed $requestVariables
+     */
+    public function setRequestVariables($requestVariables)
+    {
+        $this->requestVariables = $requestVariables;
+    }
 }
