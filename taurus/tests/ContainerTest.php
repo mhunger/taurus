@@ -9,13 +9,15 @@
 namespace taurus\tests;
 
 
+use taurus\framework\annotation\AnnotationParser;
+use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\container\TaurusContainerConfig;
 use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
 use taurus\framework\db\BaseRepository;
 use taurus\framework\db\DatabaseManager;
 use taurus\framework\db\EntityBuilder;
-use taurus\framework\db\EntityMetaData;
+use taurus\framework\db\EntityMetaDataImpl;
 use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\db\mysql\MySqlQueryStringBuilder;
 use taurus\framework\db\query\QueryBuilder;
@@ -40,7 +42,11 @@ class ContainerTest extends TestCase{
             new EntityBuilder(),
             new BaseRepository(
                 new QueryBuilder(),
-                new EntityMetaData(),
+                new EntityMetaDataImpl(
+                    new AnnotationReader(
+                        new AnnotationParser()
+                    )
+                ),
                 new MySqlConnection(
                     'localhost',
                     'taurus',
