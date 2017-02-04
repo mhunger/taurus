@@ -8,14 +8,13 @@
 
 namespace taurus\framework\annotation;
 
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use ReflectionClass;
 
 /**
  * Class Reader
  * @package taurus\framework\annotation
  */
-class Reader {
+class AnnotationReader {
 
     /** @var null|\ReflectionClass */
     protected $reflectionClass = null;
@@ -28,6 +27,9 @@ class Reader {
 
     /** @var array */
     protected $classAnnotations = array();
+
+    /** @var array */
+    protected $annotationList = array();
 
     /** @var AnnotationParser */
     protected $annotationParser;
@@ -129,5 +131,33 @@ class Reader {
     public function getClassAnnotations()
     {
         return $this->classAnnotations;
+    }
+
+    /**
+     * @param $annotationName
+     * @return string
+     */
+    public function getPropertyForAnnotation($annotationName) {
+        foreach($this->propertyAnnotations as $property => $annotations) {
+            /**
+             * @var string $name
+             * @var Annotation $annotation
+             */
+            foreach($annotations as $name => $annotation) {
+                if($name === $annotationName) {
+                    return $property;
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $propertyName
+     * @return mixed
+     */
+    public function getAnnotationsForProperty($propertyName) {
+        if(isset($this->propertyAnnotations[$propertyName])) {
+            return $this->propertyAnnotations[$propertyName];
+        }
     }
 }
