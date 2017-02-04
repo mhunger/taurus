@@ -64,8 +64,10 @@ class MySqlConnection implements DbConnection {
 
         $objects = [];
         try{
-            while($row = $result->fetch_object($class)) {
-                $objects[] = $row;
+            if ($result) {
+                while ($row = $result->fetch_object($class)) {
+                    $objects[] = $row;
+                }
             }
         } catch(\Exception $e) {
             print_r($e);
