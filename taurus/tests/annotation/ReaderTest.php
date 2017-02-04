@@ -12,14 +12,15 @@ namespace taurus\tests\annotation;
 use PHPUnit\Framework\TestCase;
 use taurus\framework\annotation\Annotation;
 use taurus\framework\annotation\AnnotationProperty;
-use taurus\framework\annotation\Reader;
+use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\Container;
 use taurus\framework\container\TaurusContainerConfig;
+use taurus\framework\db\EntityMetaDataImpl;
 use taurus\tests\annotation\TestAnnotationClass;
 
 class ReaderTest extends TestCase {
 
-    /** @var Reader */
+    /** @var AnnotationReader */
     private $testSubject;
 
     public function setUp() {
@@ -31,7 +32,7 @@ class ReaderTest extends TestCase {
 
     public function testParseClassAnnotations() {
 
-        $annotationProperty = new AnnotationProperty('name', 'test');
+        $annotationProperty = new AnnotationProperty('table', 'test');
         $expectedAnnotation = new Annotation('Entity', [$annotationProperty]);
 
         $this->assertEquals(
@@ -63,6 +64,18 @@ class ReaderTest extends TestCase {
             $expectedAnnotation,
             $this->testSubject->getMethodAnnotations()['method']['setter'],
             "Method Annotation was not parsed correct"
+        );
+    }
+
+    public function testGetPropertyForAnnotation()
+    {
+        $expectedProperty = 'id';
+        $actualProperty = $this->testSubject->getPropertyForAnnotation(EntityMetaDataImpl::ENTITY_ANNOTATION_ID);
+
+        $this->assertEquals(
+            $expectedProperty,
+            $actualProperty,
+            "Could not read property correct. Expected [" . $expectedProperty . '] got [' . $actualProperty . ']'
         );
     }
 }

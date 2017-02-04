@@ -10,9 +10,16 @@ namespace taurus\tests\annotation;
 
 /**
  * Class TestAnnotationClass
- * @Entity(name="test")
+ * @Entity(table="test")
  */
 class TestAnnotationClass {
+
+    /**
+     * @var
+     * @Id
+     * @Column(name="test_id")
+     */
+    public $id;
 
     /**
      * @var string
