@@ -65,4 +65,8 @@ class Annotation {
     {
         return $this->name;
     }
+
+    public function getPropertyValue($property) {
+        return $this->properties[$property]->getValue();
+    }
 }
