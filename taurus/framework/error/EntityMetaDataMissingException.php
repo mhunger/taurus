@@ -9,7 +9,7 @@
 namespace taurus\framework\error;
 
 
-class EntityMetaDataMissingException
+class EntityMetaDataMissingException extends \Exception
 {
 
 }
