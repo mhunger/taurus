@@ -53,9 +53,10 @@ class MySqlQueryStringBuilderImpl implements QueryStringBuilder
 
     /**
      * @param InsertQuery $insertQuery
+     * @return string
      */
     public function getInsertQueryString(InsertQuery $insertQuery)
     {
-        // TODO: Implement getInsertQueryString() method.
+        return $this->insertQueryStringBuilder->getInsertQueryString($insertQuery);
     }
 }

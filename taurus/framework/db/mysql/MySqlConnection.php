@@ -9,6 +9,7 @@
 namespace taurus\framework\db\mysql;
 
 use taurus\framework\db\DbConnection;
+use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
 use taurus\framework\db\query\QueryStringBuilder;
 
@@ -75,11 +76,28 @@ class MySqlConnection implements DbConnection {
         return $objects;
     }
 
+    /**
+     * @param Query $query
+     * @param null $class
+     * @return array
+     */
     public function execute(Query $query, $class = null)
     {
         return $this->fetchObjects(
             $this->queryStringBuilder->getSelectQueryString($query),
             $class
+        );
+    }
+
+    /**
+     * @param InsertQuery $insertQuery
+     * @return mixed|\mysqli_result
+     */
+    public function insert(InsertQuery $insertQuery) {
+        return $this->executeRaw(
+            $this->queryStringBuilder->getInsertQueryString(
+                $insertQuery
+            )
         );
     }
 }

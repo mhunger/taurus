@@ -8,7 +8,6 @@
 
 namespace taurus\tests\db\query;
 
-
 use PHPUnit\Framework\TestCase;
 use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
 use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
@@ -21,7 +20,7 @@ use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\QueryBuilder;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 
-class QueryBuilderTest extends TestCase
+class MysqlQueryBuilderTest extends TestCase
 {
 
     /** @var QueryBuilder */
@@ -114,6 +113,25 @@ class QueryBuilderTest extends TestCase
                     )
             ),
             "Could not generate query with single where clause"
+        );
+    }
+
+    public function testInsertQuery()
+    {
+        $this->assertEquals(
+            'INSERT INTO exercise (exercise_id, name, difficulty, variant_name) VALUES (null, \'Push-Ups\', \'medium\', \'Standing\')',
+            $this->mysqlQueryStringBuilder->getInsertQueryString(
+                $this->queryBuilder->query(QueryBuilder::QUERY_TYPE_INSERT)
+                    ->insertInto(
+                        'exercise', [
+                        'exercise_id',
+                        'name',
+                        'difficulty',
+                        'variant_name'
+                    ])
+                    ->values([null, 'Push-Ups', 'medium', 'Standing'])
+            ),
+            'Did not get correct insert query string for exercise table'
         );
     }
 }

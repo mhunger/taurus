@@ -17,17 +17,17 @@ class InsertQuery implements Query
 {
 
     /**
-     * @var
+     * @var string
      */
     private $table;
 
     /**
-     * @var
+     * @var array
      */
     private $insertFields;
 
     /**
-     * @var
+     * @var array
      */
     private $values;
 
@@ -58,6 +58,8 @@ class InsertQuery implements Query
         if (is_array($this->values)) {
             $this->values[] = $values;
             $this->multiValueMode = true;
+        } else {
+            $this->values = $values;
         }
 
         return $this;
