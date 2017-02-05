@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
 use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\Http\HttpJsonResponse;
+use taurus\tests\AbstractDatabaseTest;
 use taurus\tests\fixtures\TestContainerConfig;
 use taurus\framework\mock\MockServer;
 
@@ -20,14 +21,13 @@ use taurus\framework\mock\MockServer;
  * Class GetAllWorkoutsControllerTest
  * @package taurus\tests\fitnessmanager
  */
-class GetAllWorkoutsControllerTest extends TestCase
+class GetAllWorkoutsControllerTest extends AbstractDatabaseTest
 {
-    /**
-     *
-     */
-    public function setUp()
+    public function __construct()
     {
-
+        $this->fixtureFiles = [
+            'workout.xml'
+        ];
     }
 
     /**

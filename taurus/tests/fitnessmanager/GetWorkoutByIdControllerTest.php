@@ -14,16 +14,21 @@ use taurus\framework\Container;
 use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\http\HttpJsonResponse;
 use taurus\framework\mock\MockServer;
+use taurus\tests\AbstractDatabaseTest;
 use taurus\tests\fixtures\GlobalVariablesMock;
 use taurus\tests\fixtures\TestContainerConfig;
 
-class GetWorkoutByIdControllerTest extends TestCase {
+class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
+{
 
-    public function setUp() {
-
+    public function __construct()
+    {
+        $this->fixtureFiles = [
+            'workout.xml'
+        ];
     }
-
     public function testGetMethod() {
+        $this->getConnection()->createDataSet();
         /** @var MockServer $mockServer */
         $mockServer = Container::getInstance()->setContainerConfig(
             new TestContainerConfig()

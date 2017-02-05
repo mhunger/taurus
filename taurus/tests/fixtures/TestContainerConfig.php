@@ -69,7 +69,7 @@ class TestContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_MYSQL_CONNECTION] =
             new ServiceConfig(self::SERVICE_MYSQL_CONNECTION,
                 'MysqlConnection',
-                ['localhost', 'taurus', 'taurus', 'taurus', MySqlQueryStringBuilderImpl::class]
+                ['localhost', 'taurus', 'taurus', 'taurus_test', MySqlQueryStringBuilderImpl::class]
             );
 
         $this->serviceDefinitions[self::SERVICE_DB_MANAGER] =
