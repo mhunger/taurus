@@ -33,19 +33,23 @@ class BaseRepository {
     /** @var EntityMetaDataWrapper */
     private $entityMetaData;
 
-    /** @var DbConnection */
-    private $dbConnection;
+    /** @var EntityAccessLayer */
+    private $entityAccessLayer;
 
     /**
      * @param QueryBuilder $queryBuilder
      * @param EntityMetaDataWrapper $entityMetaData
-     * @param DbConnection $dbConnection
+     * @param EntityAccessLayer $entityAccessLayer
      */
-    function __construct(QueryBuilder $queryBuilder, EntityMetaDataWrapper $entityMetaData, DbConnection $dbConnection)
+    function __construct(
+        QueryBuilder $queryBuilder,
+        EntityMetaDataWrapper $entityMetaData,
+        EntityAccessLayer $entityAccessLayer
+    )
     {
         $this->qb = $queryBuilder;
         $this->entityMetaData = $entityMetaData;
-        $this->dbConnection = $dbConnection;
+        $this->entityAccessLayer = $entityAccessLayer;
     }
 
     /**
@@ -68,7 +72,7 @@ class BaseRepository {
                 )
             );
 
-        return $this->dbConnection->execute($q, $entityClass);
+        return $this->entityAccessLayer->fetchOne($q, $entityClass);
     }
 
     /**
@@ -83,7 +87,7 @@ class BaseRepository {
                 $this->entityMetaData->getTable($entityClass)
             );
 
-        return $this->dbConnection->execute($q, $entityClass);
+        return $this->entityAccessLayer->fetchMany($q, $entityClass);
     }
 
     /**
@@ -92,12 +96,12 @@ class BaseRepository {
     public function save(Entity $entity) {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_INSERT)
             ->insertInto(
-                $this->entityMetaData->getTable($entity),
-                $this->entityMetaData->getColumns($entity)
+                $this->entityMetaData->getTable(get_class($entity)),
+                $this->entityMetaData->getColumns(get_class($entity))
             )->values(
                 $this->entityMetaData->getColumnValues($entity)
             );
 
-        $this->dbConnection->execute($q, get_class($entity));
+        $this->entityAccessLayer->insert($q, get_class($entity));
     }
 }

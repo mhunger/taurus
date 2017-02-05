@@ -53,13 +53,13 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
     }
 
     /**
-     * @param Entity $entity
+     * @param Entity $class
      * @return array
      */
-    public function getColumns(Entity $entity)
+    public function getColumns($class)
     {
         $columnAnnotations = $this->entityMetaDataStore
-            ->getEntityMetaData(get_class($entity))
+            ->getEntityMetaData($class)
             ->getColumns();
 
         $columns = [];
@@ -72,6 +72,29 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
         return $columns;
     }
 
+
+    /**
+     * Returns a map that has the column names as keys and the respective property names as values
+     *
+     * @param $class
+     * @return array
+     */
+    public function getColumnMap($class)
+    {
+        $columnAnnotations = $this->entityMetaDataStore
+            ->getEntityMetaData($class)
+            ->getColumns();
+
+        $map = [];
+
+        foreach ($columnAnnotations as $property => $columnAnnotation) {
+            $columnName = $columnAnnotation->getPropertyValue(EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME);
+            $map[$columnName] = $property;
+        }
+
+        return $map;
+    }
+
     /**
      * @param Entity $entity
      * @return array
@@ -79,7 +102,10 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
     public function getColumnValues(Entity $entity)
     {
         $values = [];
-        $columns = $this->getColumns($entity);
+        $columns = $this->entityMetaDataStore
+            ->getEntityMetaData(get_class($entity))
+            ->getColumns();
+
         foreach($columns as $property => $columnAnnotation) {
             if(method_exists($entity, $this->getGetterMethodName($property))) {
                 $values[] = call_user_func(
@@ -94,6 +120,10 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
         return $values;
     }
 
+    /**
+     * @param $property
+     * @return string
+     */
     private function getGetterMethodName($property) {
         return 'get' . strtoupper($property);
     }

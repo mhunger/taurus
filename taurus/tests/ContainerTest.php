@@ -15,7 +15,7 @@ use taurus\framework\container\TaurusContainerConfig;
 use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
 use taurus\framework\db\entity\BaseRepository;
-use taurus\framework\db\DatabaseManager;
+use taurus\framework\db\entity\DatabaseManager;
 use taurus\framework\db\entity\EntityMetaDataStore;
 use taurus\framework\db\EntityBuilder;
 use taurus\framework\db\entity\EntityMetaDataImpl;
@@ -37,45 +37,6 @@ class ContainerTest extends TestCase{
 
     public function setUp() {
 
-    }
-
-    public function testDbManagerLoadedWithConnection() {
-        $expectedObject = new DatabaseManager(
-            new MySqlConnection('localhost', 'taurus', 'taurus', 'taurus', new MySqlQueryStringBuilderImpl(
-                new MysqlSelectQueryStringBuilder(),
-                new MysqlInsertQueryStringBuilder()
-            )),
-            new EntityBuilder(),
-            new BaseRepository(
-                new QueryBuilder(),
-                new EntityMetaDataImpl(
-                    new AnnotationReader(
-                        new AnnotationParser()
-                    ),
-                    new EntityMetaDataStore(
-                        new AnnotationReader(
-                            new AnnotationParser()
-                        )
-                    )
-                ),
-                new MySqlConnection(
-                    'localhost',
-                    'taurus',
-                    'taurus',
-                    'taurus',
-                    new MySqlQueryStringBuilderImpl(
-                        new MysqlSelectQueryStringBuilder(),
-                        new MysqlInsertQueryStringBuilder()
-                    )
-                )
-            )
-        );
-
-        $this->assertEquals(
-            $expectedObject,
-            Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DB_MANAGER),
-            "Did not load database manager correctly"
-        );
     }
 
     public function testLoadDependencies() {

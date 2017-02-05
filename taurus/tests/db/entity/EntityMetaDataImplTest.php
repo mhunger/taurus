@@ -55,13 +55,12 @@ class EntityMetaDataImplTest extends TestCase
 
     public function testGetColumnsFromEntity()
     {
-
         $expectedResult = [
             'test_id',
             'test_field'
         ];
 
-        $actualResult = $this->entityMetaDataImpl->getColumns(new TestEntity());
+        $actualResult = $this->entityMetaDataImpl->getColumns(TestEntity::class);
         $this->assertEquals(
             $expectedResult,
             $actualResult,

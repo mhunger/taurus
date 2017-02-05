@@ -41,13 +41,17 @@ class MysqlInsertQueryStringBuilder implements InsertQueryStringBuilder
         $tokens = [];
 
         foreach ($values as $value) {
+
+            $token = $value;
+
             if (is_null($value)) {
-                $tokens[] = 'null';
+                $token = 'null';
             }
 
             if (is_string($value)) {
-                $tokens[] = "'$value'";
+                $token = "'$value'";
             }
+            $tokens[] = $token;
         }
 
         return implode(', ', $tokens);

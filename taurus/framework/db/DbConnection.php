@@ -22,12 +22,12 @@ use taurus\framework\db\query\Query;
  */
 interface DbConnection {
 
+
     /**
      * @param $sql
-     * @param null $class
      * @return mixed
      */
-    public function fetchObjects($sql, $class = null);
+    public function fetchResultsAsArray($sql);
 
     /**
      * @param $sql
@@ -37,10 +37,16 @@ interface DbConnection {
 
     /**
      * @param Query $query
-     * @param null $class
      * @return mixed
      */
-    public function execute(Query $query, $class = null);
+    public function executeMany(Query $query);
+
+
+    /**
+     * @param Query $query
+     * @return mixed
+     */
+    public function executeOne(Query $query);
 
     /**
      * @param InsertQuery $query

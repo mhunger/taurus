@@ -12,6 +12,7 @@ use taurus\framework\db\DbConnection;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
 use taurus\framework\db\query\QueryStringBuilder;
+use taurus\framework\error\MysqlQueryException;
 
 /**
  * Class MySqlConnection
@@ -21,7 +22,7 @@ use taurus\framework\db\query\QueryStringBuilder;
  */
 class MySqlConnection implements DbConnection {
 
-    /** @var mysqli */
+    /** @var \mysqli */
     private $mysqli;
 
     /** @var QueryStringBuilder */
@@ -46,46 +47,49 @@ class MySqlConnection implements DbConnection {
 
     /**
      * @param $sql
-     * @return mixed|\mysqli_result
+     * @return bool|\mysqli_result
+     * @throws MysqlQueryException
      */
     public function executeRaw($sql) {
         if($result = $this->mysqli->query($sql)) {
             return $result;
         }
+
+        throw new MysqlQueryException($sql);
     }
+
 
     /**
      * @param $sql
-     * @param null $class
      * @return array
      */
-    public function fetchObjects($sql, $class = null) {
+    public function fetchResultsAsArray($sql)
+    {
         /** @var \mysqli_result */
         $result = $this->executeRaw($sql);
 
-        $objects = [];
+        $results = [];
         try{
             if ($result) {
-                while ($row = $result->fetch_object($class)) {
-                    $objects[] = $row;
+                while ($row = $result->fetch_assoc()) {
+                    $results[] = $row;
                 }
             }
         } catch(\Exception $e) {
             print_r($e);
         }
-        return $objects;
+
+        return $results;
     }
 
     /**
      * @param Query $query
-     * @param null $class
      * @return array
      */
-    public function execute(Query $query, $class = null)
+    public function executeMany(Query $query)
     {
-        return $this->fetchObjects(
-            $this->queryStringBuilder->getSelectQueryString($query),
-            $class
+        return $this->fetchResultsAsArray(
+            $this->queryStringBuilder->getSelectQueryString($query)
         );
     }
 
@@ -99,5 +103,18 @@ class MySqlConnection implements DbConnection {
                 $insertQuery
             )
         );
+    }
+
+    /**
+     * @param Query $query
+     * @return mixed
+     */
+    public function executeOne(Query $query)
+    {
+        $result = $this->executeMany($query);
+
+        if (count($result) > 0) {
+            return $result[0];
+        }
     }
 }

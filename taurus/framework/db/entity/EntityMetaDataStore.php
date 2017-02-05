@@ -24,7 +24,7 @@ class EntityMetaDataStore
     /**
      * @var array
      */
-    private $entityMetaDataStore = array();
+    private $entityMetaDataStore = [];
 
     /**
      * @var AnnotationReader

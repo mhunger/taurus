@@ -27,8 +27,8 @@ class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
             'workout.xml'
         ];
     }
+
     public function testGetMethod() {
-        $this->getConnection()->createDataSet();
         /** @var MockServer $mockServer */
         $mockServer = Container::getInstance()->setContainerConfig(
             new TestContainerConfig()
@@ -40,7 +40,7 @@ class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
         );
 
 
-        $json = '[{"id":"1","date":"2012-01-01 12:00:00"}]';
+        $json = '{"id":"1","date":"2012-01-01 12:00:00"}';
         $responseObj = json_decode($json);
 
         $expectedResponse = (new HttpJsonResponse(201, $responseObj))->getJson();

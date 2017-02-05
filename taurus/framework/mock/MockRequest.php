@@ -36,7 +36,7 @@ class MockRequest extends Request {
     /**
      * @param mixed $requestVariables
      */
-    public function setRequestVariables($requestVariables)
+    public function setRequestVariables(array $requestVariables)
     {
         $this->requestVariables = $requestVariables;
     }

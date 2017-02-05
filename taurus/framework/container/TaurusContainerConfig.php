@@ -10,9 +10,10 @@ namespace taurus\framework\container;
 
 use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\db\entity\BaseRepository;
-use taurus\framework\db\DatabaseManager;
+use taurus\framework\db\entity\DatabaseManager;
 use taurus\framework\db\entity\EntityMetaDataImpl;
 use taurus\framework\db\entity\EntityMetaDataStore;
+use taurus\framework\db\EntityBuilder;
 use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
@@ -43,6 +44,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_ENTITY_METADATA = EntityMetaDataImpl::class;
     const SERVICE_ENTITY_METADATA_STORE = EntityMetaDataStore::class;
     const SERVICE_MYSQL_QUERY_STRING_BUILDER = MySqlQueryStringBuilderImpl::class;
+    const SERVICE_ENTITY_BUILDER = EntityBuilder::class;
 
 
     public function __construct() {
@@ -79,7 +81,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_BASE_REPOSITORY] =
             new ServiceConfig(self::SERVICE_BASE_REPOSITORY,
                 'BaseRepository',
-                [null, EntityMetaDataImpl::class, MySqlConnection::class]
+                [null, EntityMetaDataImpl::class, DatabaseManager::class]
             );
 
         $this->serviceDefinitions[self::SERVICE_ENVIRONMENT] =
@@ -94,6 +96,13 @@ class TaurusContainerConfig extends AbstractContainerConfig {
                 [
                     MysqlSelectQueryStringBuilder::class,
                     MysqlInsertQueryStringBuilder::class
+                ]);
+
+        $this->serviceDefinitions[self::SERVICE_ENTITY_BUILDER] =
+            new ServiceConfig(self::SERVICE_ENTITY_BUILDER,
+                'entityBuilder',
+                [
+                    EntityMetaDataImpl::class
                 ]);
     }
 }
