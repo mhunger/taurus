@@ -10,7 +10,7 @@ namespace fitnessmanager\workout;
 
 
 use taurus\framework\db\BaseRepository;
-use taurus\framework\HttpGetRequest;
+use taurus\framework\http\HttpGetRequest;
 use taurus\framework\routing\Request;
 
 /**
