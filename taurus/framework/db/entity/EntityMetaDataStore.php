@@ -85,16 +85,19 @@ class EntityMetaDataStore
         if ($idFieldName === null || $table === null) {
             throw new EntityMetaDataMissingException();
         }
+
         $this->cacheEntityMetaData($class, $idFieldName, $table, $columns);
     }
+
 
     /**
      * @param $class
      * @param $idFieldName
      * @param $tableName
+     * @param array $columns
      */
-    private function cacheEntityMetaData($class, $idFieldName, $tableName)
+    private function cacheEntityMetaData($class, $idFieldName, $tableName, array $columns)
     {
-        $this->entityMetaDataStore[$class] = new EntityMetaData($idFieldName, $tableName);
+        $this->entityMetaDataStore[$class] = new EntityMetaData($idFieldName, $tableName, $columns);
     }
 }
