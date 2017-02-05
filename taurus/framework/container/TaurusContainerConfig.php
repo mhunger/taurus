@@ -12,6 +12,7 @@ use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\DatabaseManager;
 use taurus\framework\db\entity\EntityMetaDataImpl;
+use taurus\framework\db\entity\EntityMetaDataStore;
 use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
@@ -40,6 +41,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_ANNOTATION_READER = AnnotationReader::class;
     const SERVICE_BASE_REPOSITORY = BaseRepository::class;
     const SERVICE_ENTITY_METADATA = EntityMetaDataImpl::class;
+    const SERVICE_ENTITY_METADATA_STORE = EntityMetaDataStore::class;
     const SERVICE_MYSQL_QUERY_STRING_BUILDER = MySqlQueryStringBuilderImpl::class;
 
 
