@@ -10,6 +10,8 @@ namespace taurus\tests\db\query;
 
 
 use PHPUnit\Framework\TestCase;
+use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
+use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
 use taurus\framework\db\query\expression\ComparisonExpression;
 use taurus\framework\db\query\expression\ConditionalExpression;
 use taurus\framework\db\query\expression\Field;
@@ -17,7 +19,7 @@ use taurus\framework\db\query\expression\Literal;
 use taurus\framework\db\query\operation\AndOperation;
 use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\QueryBuilder;
-use taurus\framework\db\mysql\MySqlQueryStringBuilder;
+use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 
 class QueryBuilderTest extends TestCase
 {
@@ -25,27 +27,30 @@ class QueryBuilderTest extends TestCase
     /** @var QueryBuilder */
     private $queryBuilder;
 
-    /** @var MySqlQueryStringBuilder */
+    /** @var MySqlQueryStringBuilderImpl */
     private $mysqlQueryStringBuilder;
 
     protected function setUp()
     {
         parent::setUp();
         $this->queryBuilder = new QueryBuilder();
-        $this->mysqlQueryStringBuilder = new MySqlQueryStringBuilder();
+        $this->mysqlQueryStringBuilder = new MySqlQueryStringBuilderImpl(
+            new MysqlSelectQueryStringBuilder(),
+            new MysqlInsertQueryStringBuilder()
+        );
     }
 
 
     public function testSimpleQueryWithNoFieldsAndDb()
     {
         $query = $this->queryBuilder
-            ->query()
+            ->query(QueryBuilder::QUERY_TYPE_SELECT)
             ->select()
             ->from('workout');
 
         $this->assertEquals(
             'SELECT * FROM workout',
-            $this->mysqlQueryStringBuilder->getQueryString($query),
+            $this->mysqlQueryStringBuilder->getSelectQueryString($query),
             "Query Builder has not parsed correct query for simple query without fields"
         );
     }
@@ -55,9 +60,9 @@ class QueryBuilderTest extends TestCase
         $this->assertEquals(
             'SELECT id, date FROM fitnessmanager.workout',
             $this->mysqlQueryStringBuilder
-                ->getQueryString(
+                ->getSelectQueryString(
                     $this->queryBuilder
-                        ->query()
+                        ->query(QueryBuilder::QUERY_TYPE_SELECT)
                         ->select(['id', 'date'])
                         ->from('workout', 'fitnessmanager')
                 )
@@ -67,9 +72,9 @@ class QueryBuilderTest extends TestCase
     public function testQueryWithSimpleWhereClause() {
         $this->assertEquals(
             'SELECT * FROM workout WHERE id = 1',
-            $this->mysqlQueryStringBuilder->getQueryString(
+            $this->mysqlQueryStringBuilder->getSelectQueryString(
                 $this->queryBuilder
-                ->query()
+                    ->query(QueryBuilder::QUERY_TYPE_SELECT)
                 ->select()
                 ->from('workout')
                     ->where(
@@ -87,9 +92,9 @@ class QueryBuilderTest extends TestCase
     public function testQueryWithMultipleAndConditions() {
         $this->assertEquals(
             'SELECT * FROM workout WHERE id = 1 AND date = \'2016-01-01\'',
-            $this->mysqlQueryStringBuilder->getQueryString(
+            $this->mysqlQueryStringBuilder->getSelectQueryString(
                 $this->queryBuilder
-                    ->query()
+                    ->query(QueryBuilder::QUERY_TYPE_SELECT)
                     ->select()
                     ->from('workout')
                     ->where(

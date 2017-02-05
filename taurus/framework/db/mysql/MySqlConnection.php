@@ -78,7 +78,7 @@ class MySqlConnection implements DbConnection {
     public function execute(Query $query, $class = null)
     {
         return $this->fetchObjects(
-            $this->queryStringBuilder->getQueryString($query),
+            $this->queryStringBuilder->getSelectQueryString($query),
             $class
         );
     }

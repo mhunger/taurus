@@ -18,12 +18,23 @@ namespace taurus\framework\db\query;
 class QueryBuilder
 {
 
-    /** @var Query */
+    const QUERY_TYPE_SELECT = 1;
+    const QUERY_TYPE_INSERT = 2;
+
+    /** @var SelectQuery|InsertQuery */
     private $query;
 
-    public function query()
+    public function query($type)
     {
-        $this->query = new SelectQuery();
+        switch ($type) {
+            case self::QUERY_TYPE_SELECT:
+                $this->query = new SelectQuery();
+                break;
+
+            case self::QUERY_TYPE_INSERT:
+                $this->query = new InsertQuery();
+                break;
+        }
 
         return $this->query;
     }

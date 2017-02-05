@@ -16,10 +16,13 @@ use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\DatabaseManager;
+use taurus\framework\db\entity\EntityMetaDataStore;
 use taurus\framework\db\EntityBuilder;
 use taurus\framework\db\entity\EntityMetaDataImpl;
 use taurus\framework\db\mysql\MySqlConnection;
-use taurus\framework\db\mysql\MySqlQueryStringBuilder;
+use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
+use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
+use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
 use taurus\framework\db\query\QueryBuilder;
 use taurus\framework\routing\RouteConfig;
 use taurus\tests\fixtures\Dependency;
@@ -38,21 +41,28 @@ class ContainerTest extends TestCase{
 
     public function testDbManagerLoadedWithConnection() {
         $expectedObject = new DatabaseManager(
-            new MySqlConnection('localhost', 'taurus', 'taurus', 'taurus', new MySqlQueryStringBuilder()),
+            new MySqlConnection('localhost', 'taurus', 'taurus', 'taurus', new MySqlQueryStringBuilderImpl(
+                new MysqlSelectQueryStringBuilder(),
+                new MysqlInsertQueryStringBuilder()
+            )),
             new EntityBuilder(),
             new BaseRepository(
                 new QueryBuilder(),
                 new EntityMetaDataImpl(
                     new AnnotationReader(
                         new AnnotationParser()
-                    )
+                    ),
+                    new EntityMetaDataStore()
                 ),
                 new MySqlConnection(
                     'localhost',
                     'taurus',
                     'taurus',
                     'taurus',
-                    new MySqlQueryStringBuilder()
+                    new MySqlQueryStringBuilderImpl(
+                        new MysqlSelectQueryStringBuilder(),
+                        new MysqlInsertQueryStringBuilder()
+                    )
                 )
             )
         );

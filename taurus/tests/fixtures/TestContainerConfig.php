@@ -17,7 +17,9 @@ use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\DatabaseManager;
 use taurus\framework\db\entity\EntityMetaDataImpl;
 use taurus\framework\db\mysql\MySqlConnection;
-use taurus\framework\db\mysql\MySqlQueryStringBuilder;
+use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
+use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
+use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
 use taurus\framework\Environment;
 use taurus\framework\routing\RouteConfig;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
@@ -32,6 +34,7 @@ class TestContainerConfig extends AbstractContainerConfig {
     const SERVICE_BASE_REPOSITORY = BaseRepository::class;
     const SERVICE_ENTITY_METADATA = EntityMetaDataImpl::class;
     const SERVICE_GET_WORKOUTS_CONTROLLER = GetAllWorkoutsController::class;
+    const SERVICE_MYSQL_QUERY_STRING_BUILDER = MySqlQueryStringBuilderImpl::class;
 
     /**
      * Method to define the ServicConfig objects for the config class
@@ -65,7 +68,7 @@ class TestContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_MYSQL_CONNECTION] =
             new ServiceConfig(self::SERVICE_MYSQL_CONNECTION,
                 'MysqlConnection',
-                ['localhost', 'taurus', 'taurus', 'taurus', MySqlQueryStringBuilder::class]
+                ['localhost', 'taurus', 'taurus', 'taurus', MySqlQueryStringBuilderImpl::class]
             );
 
         $this->serviceDefinitions[self::SERVICE_DB_MANAGER] =
@@ -81,5 +84,13 @@ class TestContainerConfig extends AbstractContainerConfig {
                 'BaseRepository',
                 [null, EntityMetaDataImpl::class, MySqlConnection::class]
             );
+
+        $this->serviceDefinitions[self::SERVICE_MYSQL_QUERY_STRING_BUILDER] =
+            new ServiceConfig(self::SERVICE_MYSQL_QUERY_STRING_BUILDER,
+                'mysqlQueryStringBuilder',
+                [
+                    MysqlSelectQueryStringBuilder::class,
+                    MysqlInsertQueryStringBuilder::class
+                ]);
     }
 }

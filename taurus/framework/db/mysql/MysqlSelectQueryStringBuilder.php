@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: michaelhunger
- * Date: 27/01/17
- * Time: 19:23
+ * Date: 05/02/17
+ * Time: 12:49
  */
 
 namespace taurus\framework\db\mysql;
@@ -11,12 +11,10 @@ namespace taurus\framework\db\mysql;
 
 use taurus\framework\db\query\expression\Expression;
 use taurus\framework\db\query\expression\MultiPartExpression;
-use taurus\framework\db\query\QueryStringBuilder;
 use taurus\framework\db\query\SelectQuery;
-use taurus\framework\db\query\Condition;
-use taurus\framework\db\query\BooleanExpression;
+use taurus\framework\db\query\SelectQueryStringBuilder;
 
-class MySqlQueryStringBuilder implements QueryStringBuilder
+class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
 {
 
     const MYSQL_SYNTAX_ALL_FIELDS = '*';
@@ -27,13 +25,7 @@ class MySqlQueryStringBuilder implements QueryStringBuilder
 
     const MYSQL_KEYWORD_WHERE = 'WHERE';
 
-    /**
-     * Return the mysql query string given a select query
-     *
-     * @param SelectQuery $selectQuery
-     * @return string
-     */
-    public function getQueryString(SelectQuery $selectQuery)
+    public function getSelectQueryString(SelectQuery $selectQuery)
     {
         $tokens = [];
 
@@ -45,6 +37,22 @@ class MySqlQueryStringBuilder implements QueryStringBuilder
         $tokens = $this->addFilterCriteriaToTokens($selectQuery, $tokens);
 
         return implode(' ', $tokens);
+    }
+
+    /**
+     * @param SelectQuery $selectQuery
+     * @param $tokens
+     * @return array
+     */
+    private function addFilterCriteriaToTokens(SelectQuery $selectQuery, $tokens)
+    {
+        if ($selectQuery->getWhere() !== null) {
+            $tokens[] = self::MYSQL_KEYWORD_WHERE;
+
+            $tokens = $this->buildTokensForExpression($selectQuery->getWhere(), $tokens);
+        }
+
+        return $tokens;
     }
 
 
@@ -72,22 +80,6 @@ class MySqlQueryStringBuilder implements QueryStringBuilder
         } else {
             return implode(', ', $selectQuery->getFields());
         }
-    }
-
-    /**
-     * @param SelectQuery $selectQuery
-     * @param $tokens
-     * @return array
-     */
-    public function addFilterCriteriaToTokens(SelectQuery $selectQuery, $tokens)
-    {
-        if ($selectQuery->getWhere() !== null) {
-            $tokens[] = self::MYSQL_KEYWORD_WHERE;
-
-            $tokens = $this->buildTokensForExpression($selectQuery->getWhere(), $tokens);
-        }
-
-        return $tokens;
     }
 
     /**
@@ -122,6 +114,10 @@ class MySqlQueryStringBuilder implements QueryStringBuilder
         return $tokens;
     }
 
+    /**
+     * @param Expression $expression
+     * @return string|Expression
+     */
     private function addLiteral(Expression $expression)
     {
         if ($expression->getType() == Expression::EXPRESSION_TYPE_LITERAL) {
