@@ -6,8 +6,10 @@
  * Time: 14:11
  */
 
-namespace taurus\framework\db;
+namespace taurus\framework\db\entity;
 
+use taurus\framework\db\DbConnection;
+use taurus\framework\db\Entity;
 use taurus\framework\db\entity\EntityMetaDataWrapper;
 use taurus\framework\db\query\expression\ComparisonExpression;
 use taurus\framework\db\query\expression\ConditionalExpression;

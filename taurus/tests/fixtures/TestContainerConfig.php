@@ -13,7 +13,7 @@ use fitnessmanager\workout\GetAllWorkoutsController;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\container\TaurusContainerConfig;
-use taurus\framework\db\BaseRepository;
+use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\DatabaseManager;
 use taurus\framework\db\entity\EntityMetaDataImpl;
 use taurus\framework\db\mysql\MySqlConnection;

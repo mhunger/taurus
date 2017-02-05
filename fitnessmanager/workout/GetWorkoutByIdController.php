@@ -8,9 +8,9 @@
 
 namespace fitnessmanager\workout;
 
-use taurus\framework\db\BaseRepository;
+use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\DatabaseManager;
-use taurus\framework\HttpGetRequest;
+use taurus\framework\http\HttpGetRequest;
 use taurus\framework\routing\Request;
 
 class GetWorkoutByIdController implements HttpGetRequest{

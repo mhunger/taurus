@@ -6,7 +6,7 @@
  * Time: 11:17
  */
 
-namespace taurus\framework\Http;
+namespace taurus\framework\http;
 
 
 class HttpJsonResponse extends HttpResponse {
