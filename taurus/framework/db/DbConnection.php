@@ -9,6 +9,7 @@
 namespace taurus\framework\db;
 
 
+use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
 
 /**
@@ -42,8 +43,8 @@ interface DbConnection {
     public function execute(Query $query, $class = null);
 
     /**
-     * @param Query $query
+     * @param InsertQuery $query
      * @return mixed
      */
-    public function insert(Query $query);
+    public function insert(InsertQuery $query);
 }

@@ -21,6 +21,10 @@ use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\Query;
 use taurus\framework\db\query\QueryBuilder;
 
+/**
+ * Class BaseRepository
+ * @package taurus\framework\db\entity
+ */
 class BaseRepository {
 
     /** @var QueryBuilder */
@@ -50,7 +54,7 @@ class BaseRepository {
      * @return Entity|null
      */
     public function findOne($id, $entityClass) {
-        $q = $this->qb->query()
+        $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
             ->select()
             ->from(
                 $this->entityMetaData->getTable($entityClass)
@@ -67,9 +71,13 @@ class BaseRepository {
         return $this->dbConnection->execute($q, $entityClass);
     }
 
+    /**
+     * @param $entityClass
+     * @return mixed
+     */
     public function findAll($entityClass)
     {
-        $q = $this->qb->query()
+        $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
             ->select()
             ->from(
                 $this->entityMetaData->getTable($entityClass)
@@ -79,9 +87,17 @@ class BaseRepository {
     }
 
     /**
-     *
+     * @param Entity $entity
      */
-    public function findByName() {
+    public function save(Entity $entity) {
+        $q = $this->qb->query(QueryBuilder::QUERY_TYPE_INSERT)
+            ->insertInto(
+                $this->entityMetaData->getTable($entity),
+                $this->entityMetaData->getColumns($entity)
+            )->values(
+                $this->entityMetaData->getColumnValues($entity)
+            );
 
+        $this->dbConnection->execute($q, get_class($entity));
     }
 }
