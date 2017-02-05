@@ -52,7 +52,11 @@ class ContainerTest extends TestCase{
                     new AnnotationReader(
                         new AnnotationParser()
                     ),
-                    new EntityMetaDataStore()
+                    new EntityMetaDataStore(
+                        new AnnotationReader(
+                            new AnnotationParser()
+                        )
+                    )
                 ),
                 new MySqlConnection(
                     'localhost',

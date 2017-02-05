@@ -16,6 +16,7 @@ use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\Container;
 use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\db\entity\EntityMetaDataImpl;
+use taurus\framework\db\entity\EntityMetaDataStore;
 use taurus\tests\annotation\TestAnnotationClass;
 
 class ReaderTest extends TestCase {
@@ -70,7 +71,7 @@ class ReaderTest extends TestCase {
     public function testGetPropertyForAnnotation()
     {
         $expectedProperty = 'id';
-        $actualProperty = $this->testSubject->getPropertyForAnnotation(EntityMetaDataImpl::ENTITY_ANNOTATION_ID);
+        $actualProperty = $this->testSubject->getPropertyForAnnotation(EntityMetaDataStore::ENTITY_ANNOTATION_ID);
 
         $this->assertEquals(
             $expectedProperty,
