@@ -6,13 +6,16 @@
  * Time: 19:06
  */
 
-namespace taurus\tests\db;
+namespace taurus\tests\db\entity;
 
 
 use PHPUnit\Framework\TestCase;
+use taurus\framework\annotation\Annotation;
+use taurus\framework\annotation\AnnotationProperty;
 use taurus\framework\Container;
 use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\db\entity\EntityMetaDataImpl;
+use taurus\framework\db\entity\EntityMetaDataStore;
 use taurus\tests\fixtures\TestEntity;
 
 class EntityMetaDataImplTest extends TestCase
@@ -47,6 +50,35 @@ class EntityMetaDataImplTest extends TestCase
             $actualTableName,
             $expectedTableName,
             "The table name was not correct. Expected: [" . $expectedTableName . '] got [' . $actualTableName . ']'
+        );
+    }
+
+    public function testGetColumnsFromEntity()
+    {
+        $expectedResult = [
+            'idTestField' => new Annotation(EntityMetaDataStore::ENTITY_ANNOTATION_COLUMN,
+                [
+                    new AnnotationProperty(
+                        EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME,
+                        'test_id'
+                    )
+                ]
+            ),
+            'testField' => new Annotation(EntityMetaDataStore::ENTITY_ANNOTATION_COLUMN,
+                [
+                    new AnnotationProperty(
+                        EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME,
+                        'test_field'
+                    )
+                ])
+        ];
+
+        $actualResult = $this->entityMetaDataImpl->getColumns(new TestEntity());
+
+        $this->assertEquals(
+            $expectedResult,
+            $actualResult,
+            'Columns did not match or were not in correct order'
         );
     }
 }

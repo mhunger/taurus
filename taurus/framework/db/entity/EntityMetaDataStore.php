@@ -41,7 +41,7 @@ class EntityMetaDataStore
 
     /**
      * @param $class
-     * @return mixed
+     * @return EntityMetaData
      */
     public function getEntityMetaData($class)
     {

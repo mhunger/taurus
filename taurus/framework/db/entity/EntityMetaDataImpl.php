@@ -58,8 +58,9 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
      */
     public function getColumns(Entity $entity)
     {
-        // TODO: Implement getColumns() method.
-        return array();
+        return $this->entityMetaDataStore
+            ->getEntityMetaData(get_class($entity))
+            ->getColumns();
     }
 
     /**

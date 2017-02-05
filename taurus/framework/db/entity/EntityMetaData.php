@@ -34,10 +34,12 @@ class EntityMetaData {
     /**
      * @param $id
      * @param $table
+     * @param array $columns
      */
     function __construct($id, $table, array $columns)
     {
-        $this->columns = sort($columns);
+        ksort($columns);
+        $this->columns = $columns;
         $this->id = $id;
         $this->table = $table;
     }

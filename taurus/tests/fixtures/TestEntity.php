@@ -8,13 +8,15 @@
 
 namespace taurus\tests\fixtures;
 
+use taurus\framework\db\Entity;
+
 /**
  * Class TestEntity
  * @package taurus\tests\fixtures
  *
  * @Entity(table="test_table")
  */
-class TestEntity
+class TestEntity implements Entity
 {
 
     /**
