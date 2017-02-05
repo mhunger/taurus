@@ -55,30 +55,17 @@ class EntityMetaDataImplTest extends TestCase
 
     public function testGetColumnsFromEntity()
     {
+
         $expectedResult = [
-            'idTestField' => new Annotation(EntityMetaDataStore::ENTITY_ANNOTATION_COLUMN,
-                [
-                    new AnnotationProperty(
-                        EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME,
-                        'test_id'
-                    )
-                ]
-            ),
-            'testField' => new Annotation(EntityMetaDataStore::ENTITY_ANNOTATION_COLUMN,
-                [
-                    new AnnotationProperty(
-                        EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME,
-                        'test_field'
-                    )
-                ])
+            'test_id',
+            'test_field'
         ];
 
         $actualResult = $this->entityMetaDataImpl->getColumns(new TestEntity());
-
         $this->assertEquals(
             $expectedResult,
             $actualResult,
-            'Columns did not match or were not in correct order'
+            'Did not receive the column list correctly from meta data'
         );
     }
 }

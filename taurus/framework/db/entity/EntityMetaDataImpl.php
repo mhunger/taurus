@@ -58,9 +58,18 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
      */
     public function getColumns(Entity $entity)
     {
-        return $this->entityMetaDataStore
+        $columnAnnotations = $this->entityMetaDataStore
             ->getEntityMetaData(get_class($entity))
             ->getColumns();
+
+        $columns = [];
+
+        /** @var Annotation $annoation */
+        foreach($columnAnnotations as $annoation) {
+            $columns[] = $annoation->getPropertyValue(EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME);
+        }
+
+        return $columns;
     }
 
     /**
@@ -69,6 +78,23 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
      */
     public function getColumnValues(Entity $entity)
     {
-        return array();
+        $values = [];
+        $columns = $this->getColumns($entity);
+        foreach($columns as $property => $columnAnnotation) {
+            if(method_exists($entity, $this->getGetterMethodName($property))) {
+                $values[] = call_user_func(
+                    [
+                        $entity,
+                        $this->getGetterMethodName($property)
+                    ]
+                );
+            }
+        }
+
+        return $values;
+    }
+
+    private function getGetterMethodName($property) {
+        return 'get' . strtoupper($property);
     }
 }
