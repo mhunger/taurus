@@ -9,6 +9,7 @@
 namespace taurus\framework\db;
 
 use fitnessmanager\workout\Workout;
+use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\mysql\MySqlConnection;
 
 class DatabaseManager {
