@@ -10,7 +10,7 @@ namespace taurus\framework\routing;
 
 use taurus\framework\Environment;
 use taurus\framework\exception\RouteNotFoundException;
-use taurus\framework\Http\HttpJsonResponse;
+use taurus\framework\http\HttpJsonResponse;
 
 class Router {
     /** @var RouteConfig */

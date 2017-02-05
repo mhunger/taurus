@@ -6,7 +6,7 @@
  * Time: 10:49
  */
 
-namespace taurus\framework\Http;
+namespace taurus\framework\http;
 
 abstract class HttpResponse {
 
