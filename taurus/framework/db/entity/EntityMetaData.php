@@ -16,24 +16,28 @@ namespace taurus\framework\db\entity;
 class EntityMetaData {
 
     /**
-     * @var
+     * @var string
      */
     private $id;
 
     /**
-     * @var
+     * @var string
      */
     private $table;
 
+    /** @var array */
+    private $columns;
 
-    private $columns = array();
+    /** @var array */
+    private $columnValues;
 
     /**
      * @param $id
      * @param $table
      */
-    function __construct($id, $table)
+    function __construct($id, $table, array $columns)
     {
+        $this->columns = sort($columns);
         $this->id = $id;
         $this->table = $table;
     }

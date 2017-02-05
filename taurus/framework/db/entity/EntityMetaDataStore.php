@@ -11,6 +11,7 @@ namespace taurus\framework\db\entity;
 
 use taurus\framework\annotation\Annotation;
 use taurus\framework\annotation\AnnotationReader;
+use taurus\framework\error\EntityMetaDataMissingException;
 
 class EntityMetaDataStore
 {
@@ -59,17 +60,18 @@ class EntityMetaDataStore
     private function createEntityMetaData($class)
     {
         $this->reader->getAnnotationsByClassname($class);
-        $idProperty = $this->reader->getPropertyForAnnotation(self::ENTITY_ANNOTATION_ID);
 
-        $annotations = $this->reader->getAnnotationsForProperty($idProperty);
+        $propertyAnnotations = $this->reader->getPropertyAnnotations();
 
-        /**
-         * @var  $name
-         * @var Annotation $annotation
-         */
-        foreach ($annotations as $name => $annotation) {
-            if ($name == self::ENTITY_ANNOTATION_COLUMN) {
-                $idFieldName = $annotation->getPropertyValue(self::ANNOTATION_PROPERTY_COLUMN_NAME);
+        $columns = [];
+
+        foreach ($propertyAnnotations as $property => $annotations) {
+            if (isset($annotations[self::ENTITY_ANNOTATION_COLUMN])) {
+                $columns[$property] = $annotations[self::ENTITY_ANNOTATION_COLUMN];
+            }
+
+            if (isset($annotations[self::ENTITY_ANNOTATION_ID])) {
+                $idFieldName = $annotations[self::ENTITY_ANNOTATION_COLUMN]->getPropertyValue(self::ANNOTATION_PROPERTY_COLUMN_NAME);
             }
         }
 
@@ -83,7 +85,7 @@ class EntityMetaDataStore
         if ($idFieldName === null || $table === null) {
             throw new EntityMetaDataMissingException();
         }
-        $this->cacheEntityMetaData($class, $idFieldName, $table);
+        $this->cacheEntityMetaData($class, $idFieldName, $table, $columns);
     }
 
     /**
