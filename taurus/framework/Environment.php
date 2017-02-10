@@ -11,11 +11,11 @@ namespace taurus\framework;
 
 class Environment {
 
-    const DEV = 'DEV';
+    const DEV = 'dev';
 
-    const PROD = 'PROD';
+    const PROD = 'prod';
 
-    const TEST = 'TEST';
+    const TEST = 'test';
 
     const ENV_VARIABLE_NAME = 'TAURUS_ENV';
 
