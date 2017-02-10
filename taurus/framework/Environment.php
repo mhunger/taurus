@@ -17,6 +17,8 @@ class Environment {
 
     const TEST = 'TEST';
 
+    const ENV_VARIABLE_NAME = 'TAURUS_ENV';
+
     /** @var string */
     private $env;
 
