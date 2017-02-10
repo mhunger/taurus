@@ -10,6 +10,7 @@ namespace taurus;
 use fitnessmanager\config\FitnessManagerConfig;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
+use taurus\framework\container\ContainerConfig;
 use taurus\framework\db\entity\DatabaseManager;
 use taurus\framework\Environment;
 use taurus\framework\routing\RouteConfig;
@@ -30,22 +31,14 @@ class Application {
     public function boot(): Application
     {
         $this->registerAutoloader();
-        $this->dbManager = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DB_MANAGER);
-        $this->setEnv();
+        $this->env = $this->setEnv();
         $this->bootConfig();
-
         return $this;
     }
 
     private function setEnv()
     {
-        if (isset($_ENV[Environment::ENV_VARIABLE_NAME])) {
-            $this->env = $_ENV[Environment::ENV_VARIABLE_NAME];
-        }
-
-        if (isset($_SERVER[Environment::ENV_VARIABLE_NAME])) {
-            $this->env = $_ENV[Environment::ENV_VARIABLE_NAME];
-        }
+        return getenv(Environment::ENV_VARIABLE_NAME);
     }
 
     private function bootConfig()
@@ -57,6 +50,8 @@ class Application {
                 new TaurusContainerConfig()
             );
         }
+
+        Container::getInstance()->setContainerConfig($config);
     }
 
     public function run()
