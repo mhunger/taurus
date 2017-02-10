@@ -6,7 +6,7 @@
  * Time: 20:18
  */
 
-namespace taurus\tests\fixtures;
+namespace fitnessmanager\config\test;
 
 
 use fitnessmanager\workout\GetAllWorkoutsController;
@@ -26,6 +26,7 @@ use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
 use taurus\framework\Environment;
 use taurus\framework\routing\RouteConfig;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
+use taurus\tests\fixtures\LoadDependenciesWithParamsInDependency;
 
 class TestContainerConfig extends AbstractContainerConfig {
 

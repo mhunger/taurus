@@ -9,6 +9,7 @@
 namespace taurus\tests\fitnessmanager;
 
 
+use fitnessmanager\config\test\TestContainerConfig;
 use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
 use taurus\framework\container\TaurusContainerConfig;
@@ -16,7 +17,6 @@ use taurus\framework\http\HttpJsonResponse;
 use taurus\framework\mock\MockServer;
 use taurus\tests\AbstractDatabaseTest;
 use taurus\tests\fixtures\GlobalVariablesMock;
-use taurus\tests\fixtures\TestContainerConfig;
 
 class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
 {

@@ -16,7 +16,7 @@ use taurus\framework\Container;
 use taurus\framework\container\TaurusContainerConfig;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\tests\AbstractDatabaseTest;
-use taurus\tests\fixtures\TestContainerConfig;
+use fitnessmanager\config\test\TestContainerConfig;
 
 class BaseRepositoryTest extends AbstractDatabaseTest
 {

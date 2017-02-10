@@ -30,7 +30,7 @@ use taurus\tests\fixtures\DependencyLoadTestClass;
 use taurus\tests\fixtures\DependencyTwo;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
 use taurus\tests\fixtures\LoadDependenciesMultipleParamsTestClass;
-use taurus\tests\fixtures\TestContainerConfig;
+use fitnessmanager\config\test\TestContainerConfig;
 use taurus\tests\fixtures\LoadDependenciesWithParamsInDependency;
 
 class ContainerTest extends TestCase{
