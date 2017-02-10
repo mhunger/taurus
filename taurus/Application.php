@@ -7,8 +7,9 @@
  */
 namespace taurus;
 
+use fitnessmanager\config\FitnessManagerConfig;
 use taurus\framework\Container;
-use taurus\framework\container\TaurusContainerConfig;
+use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\DatabaseManager;
 use taurus\framework\Environment;
 use taurus\framework\routing\RouteConfig;
@@ -47,7 +48,13 @@ class Application {
 
     private function bootConfig()
     {
-
+        $config = new TaurusContainerConfig();
+        $config->merge(new FitnessManagerConfig());
+        if($this->env == Environment::TEST) {
+            $config->merge(
+                new TaurusContainerConfig()
+            );
+        }
     }
 
     public function run()
