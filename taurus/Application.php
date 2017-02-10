@@ -27,12 +27,14 @@ class Application {
     /** @var string */
     private $env;
 
-    public function boot()
+    public function boot(): Application
     {
         $this->registerAutoloader();
         $this->dbManager = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DB_MANAGER);
         $this->setEnv();
         $this->bootConfig();
+
+        return $this;
     }
 
     private function setEnv()
