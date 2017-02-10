@@ -36,11 +36,13 @@ abstract class AbstractContainerConfig implements ContainerConfig{
 
     /**
      * @param ContainerConfig $containerConfig
-     * @return void
+     * @return ContainerConfig
      */
-    public function merge(ContainerConfig $containerConfig)
+    public function merge(ContainerConfig $containerConfig): ContainerConfig
     {
         $this->serviceDefinitions = array_merge($this->serviceDefinitions, $containerConfig->getServiceDefinitions());
+
+        return $this;
     }
 
     /**

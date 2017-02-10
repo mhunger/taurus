@@ -34,9 +34,9 @@ interface ContainerConfig {
      * by merging the service definitions array inside the objects. Service defined in both will be unified
      *
      * @param ContainerConfig $containerConfig
-     * @return mixed
+     * @return ContainerConfig
      */
-    public function merge(ContainerConfig $containerConfig);
+    public function merge(ContainerConfig $containerConfig): ContainerConfig;
 
     /**
      * Return the service definitions for this configuration as array
