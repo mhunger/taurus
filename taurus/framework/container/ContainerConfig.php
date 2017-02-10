@@ -43,5 +43,5 @@ interface ContainerConfig {
      *
      * @return mixed
      */
-    public function getServiceDefinitions();
+    public function getServiceDefinitions(): array;
 }

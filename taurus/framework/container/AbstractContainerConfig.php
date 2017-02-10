@@ -46,7 +46,7 @@ abstract class AbstractContainerConfig implements ContainerConfig{
     /**
      * @return array
      */
-    public function getServiceDefinitions()
+    public function getServiceDefinitions(): array
     {
         return $this->serviceDefinitions;
     }
