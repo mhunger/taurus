@@ -6,9 +6,11 @@
  * Time: 19:58
  */
 
-namespace taurus\framework\container;
+namespace taurus\framework\config;
 
 use taurus\framework\annotation\AnnotationReader;
+use taurus\framework\container\AbstractContainerConfig;
+use taurus\framework\container\ServiceConfig;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\entity\DatabaseManager;
 use taurus\framework\db\entity\EntityMetaDataImpl;

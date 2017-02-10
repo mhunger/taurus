@@ -12,7 +12,7 @@ namespace fitnessmanager\config\test;
 use fitnessmanager\workout\GetAllWorkoutsController;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
-use taurus\framework\container\TaurusContainerConfig;
+use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\entity\DatabaseManager;
 use taurus\framework\db\entity\EntityAccessLayer;

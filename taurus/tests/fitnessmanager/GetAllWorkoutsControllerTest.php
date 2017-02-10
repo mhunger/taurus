@@ -12,7 +12,7 @@ namespace taurus\tests\fitnessmanager;
 use fitnessmanager\config\test\TestContainerConfig;
 use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
-use taurus\framework\container\TaurusContainerConfig;
+use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Http\HttpJsonResponse;
 use taurus\tests\AbstractDatabaseTest;
 use taurus\framework\mock\MockServer;

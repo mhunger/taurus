@@ -11,7 +11,7 @@ namespace taurus\tests;
 
 use taurus\framework\annotation\AnnotationParser;
 use taurus\framework\annotation\AnnotationReader;
-use taurus\framework\container\TaurusContainerConfig;
+use taurus\framework\config\TaurusContainerConfig;
 use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
 use taurus\framework\db\entity\BaseRepository;

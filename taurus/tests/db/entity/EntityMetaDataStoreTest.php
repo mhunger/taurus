@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use taurus\framework\annotation\Annotation;
 use taurus\framework\annotation\AnnotationProperty;
 use taurus\framework\Container;
-use taurus\framework\container\TaurusContainerConfig;
+use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\EntityMetaDataStore;
 use taurus\tests\fixtures\TestEntity;
 

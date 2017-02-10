@@ -13,7 +13,7 @@ use PDO;
 use PHPUnit_Extensions_Database_DataSet_IDataSet;
 use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
 use taurus\framework\Container;
-use taurus\framework\container\TaurusContainerConfig;
+use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\tests\AbstractDatabaseTest;
 use fitnessmanager\config\test\TestContainerConfig;
