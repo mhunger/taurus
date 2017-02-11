@@ -33,21 +33,21 @@ use taurus\tests\fixtures\LoadDependenciesMultipleParamsTestClass;
 use fitnessmanager\config\test\TestContainerConfig;
 use taurus\tests\fixtures\LoadDependenciesWithParamsInDependency;
 
-class ContainerTest extends TestCase{
+class ContainerTest extends AbstractTaurusTest
+{
 
     /** @var Container */
     private $subject;
 
-    public function setUp() {
-        $this->subject = Container::getInstance()
-            ->setContainerConfig(
-                new TestContainerConfig()
-            );
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->subject = Container::getInstance();
     }
 
-    public function testLoadDependencies() {
 
-
+    public function testLoadDependencies()
+    {
         $expectedObject = new DependencyLoadTestClass(
             new Dependency(
                 new DependencyTwo()
@@ -60,7 +60,8 @@ class ContainerTest extends TestCase{
         $this->assertEquals($expectedObject, $obj, "Loaded Object does not have all dependencies loaded");
     }
 
-    public function testLoadDependenciesMultipleParameters() {
+    public function testLoadDependenciesMultipleParameters()
+    {
         $expectedObject = new LoadDependenciesMultipleParamsTestClass(
             new Dependency(
                 new DependencyTwo()
@@ -76,16 +77,18 @@ class ContainerTest extends TestCase{
         );
     }
 
-    public function testLoadDependenciesWithLiteralParameters() {
+    public function testLoadDependenciesWithLiteralParameters()
+    {
         $expectedObject = new RouteConfig("api");
         $this->assertEquals(
             $expectedObject,
-            Container::getInstance()->getService(TaurusContainerConfig::SERVICE_ROUTE_CONFIG),
+            $this->subject->getService(TaurusContainerConfig::SERVICE_ROUTE_CONFIG),
             "Could not load service with literal argument"
         );
     }
 
-    public function testLoadDependeniesWithLiteralParametersDifferentPositions() {
+    public function testLoadDependeniesWithLiteralParametersDifferentPositions()
+    {
         $expectedObject = new LoadDependenciesForLiteralsTestClass(
             'literal1',
             new DependencyTwo(),
@@ -93,12 +96,13 @@ class ContainerTest extends TestCase{
         );
         $this->assertEquals(
             $expectedObject,
-            Container::getInstance()->getService(TestContainerConfig::SERVICE_TEST_LITERALS),
+            $this->subject->getService(TestContainerConfig::SERVICE_TEST_LITERALS),
             "Could not load literal parameters when injecting at different positions"
         );
     }
 
-    public function testLoadDependenciesWithLiteralParametersInDependency() {
+    public function testLoadDependenciesWithLiteralParametersInDependency()
+    {
         $expectedObject = new LoadDependenciesWithParamsInDependency(
             new LoadDependenciesForLiteralsTestClass(
                 'literal1',
@@ -109,7 +113,7 @@ class ContainerTest extends TestCase{
 
         $this->assertEquals(
             $expectedObject,
-            Container::getInstance()->getService(TestContainerConfig::SERVICE_TEST_LITERALS_IN_DEPENDENCY),
+            $this->subject->getService(TestContainerConfig::SERVICE_TEST_LITERALS_IN_DEPENDENCY),
             "Could not load service with literal params in dependency"
         );
     }
