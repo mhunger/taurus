@@ -8,6 +8,7 @@
 namespace taurus;
 
 use fitnessmanager\config\FitnessManagerConfig;
+use fitnessmanager\config\test\TestContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\container\ContainerConfig;
@@ -47,7 +48,7 @@ class Application {
         $config->merge(new FitnessManagerConfig());
         if($this->env == Environment::TEST) {
             $config->merge(
-                new TaurusContainerConfig()
+                new TestContainerConfig()
             );
         }
 
