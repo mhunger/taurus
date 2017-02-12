@@ -14,6 +14,7 @@ use taurus\framework\db\Entity;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\EntityBuilder;
 use taurus\framework\db\mysql\MySqlConnection;
+use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
 
@@ -51,12 +52,12 @@ class DatabaseManager implements EntityAccessLayer
     }
 
     /**
-     * @param Entity $entity
-     * @return mixed
+     * @param DeleteQuery $deleteQuery
+     * @return bool|mixed|\mysqli_result
      */
-    public function delete(Entity $entity)
+    public function delete(DeleteQuery $deleteQuery)
     {
-        // TODO: Implement delete() method.
+        return $this->dbConnection->executeRaw($deleteQuery);
     }
 
     /**

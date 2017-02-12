@@ -10,6 +10,7 @@ namespace taurus\framework\db\entity;
 
 
 use taurus\framework\db\Entity;
+use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
 
@@ -23,10 +24,10 @@ interface EntityAccessLayer
     public function update(Entity $entity);
 
     /**
-     * @param Entity $entity
+     * @param string|DeleteQuery $deleteQuery
      * @return mixed
      */
-    public function delete(Entity $entity);
+    public function delete(DeleteQuery $deleteQuery);
 
     /**
      * @param Query $query
