@@ -21,6 +21,7 @@ class QueryBuilder
     const QUERY_TYPE_SELECT = 1;
     const QUERY_TYPE_INSERT = 2;
     const QUERY_TYPE_DELETE = 3;
+    const QUERY_TYPE_UPDATE = 4;
 
     /** @var SelectQuery|InsertQuery|DeleteQuery */
     private $query;
@@ -38,6 +39,9 @@ class QueryBuilder
 
             case self::QUERY_TYPE_DELETE:
                 $this->query = new DeleteQuery();
+                break;
+            case self::QUERY_TYPE_UPDATE:
+                $this->query = new UpdateQuery();
                 break;
         }
 
