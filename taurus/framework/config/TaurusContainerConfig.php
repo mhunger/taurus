@@ -21,6 +21,7 @@ use taurus\framework\db\mysql\MySqlDeleteQueryStringBuilder;
 use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
+use taurus\framework\db\mysql\MySqlUpdateQueryStringBuilder;
 use taurus\framework\Environment;
 use taurus\framework\mock\MockServer;
 use taurus\framework\routing\Request;
@@ -103,7 +104,8 @@ class TaurusContainerConfig extends AbstractContainerConfig {
                 [
                     MysqlSelectQueryStringBuilder::class,
                     MysqlInsertQueryStringBuilder::class,
-                    MySqlDeleteQueryStringBuilder::class
+                    MySqlDeleteQueryStringBuilder::class,
+                    MySqlUpdateQueryStringBuilder::class
                 ]);
 
         $this->serviceDefinitions[self::SERVICE_ENTITY_BUILDER] =

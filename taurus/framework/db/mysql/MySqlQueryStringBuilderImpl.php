@@ -11,15 +11,13 @@ namespace taurus\framework\db\mysql;
 
 use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\DeleteQueryStringBuilder;
-use taurus\framework\db\query\expression\Expression;
-use taurus\framework\db\query\expression\MultiPartExpression;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\InsertQueryStringBuilder;
 use taurus\framework\db\query\QueryStringBuilder;
 use taurus\framework\db\query\SelectQuery;
-use taurus\framework\db\query\Condition;
-use taurus\framework\db\query\BooleanExpression;
 use taurus\framework\db\query\SelectQueryStringBuilder;
+use taurus\framework\db\query\UpdateQuery;
+use taurus\framework\db\query\UpdateQueryStringBuilder;
 
 class MySqlQueryStringBuilderImpl implements QueryStringBuilder
 {
@@ -33,20 +31,26 @@ class MySqlQueryStringBuilderImpl implements QueryStringBuilder
     /** @var DeleteQueryStringBuilder */
     private $deleteQueryStringBuilder;
 
+    /** @var UpdateQueryStringBuilder */
+    private $updateQueryStringBuilder;
+
     /**
      * MySqlQueryStringBuilderImpl constructor.
      * @param SelectQueryStringBuilder $selectQueryStringBuilder
      * @param InsertQueryStringBuilder $insertQueryStringBuilder
      * @param DeleteQueryStringBuilder $deleteQueryStringBuilder
+     * @param UpdateQueryStringBuilder $updateQueryStringBuilder
      */
     function __construct(
         SelectQueryStringBuilder $selectQueryStringBuilder,
         InsertQueryStringBuilder $insertQueryStringBuilder,
-        DeleteQueryStringBuilder $deleteQueryStringBuilder
+        DeleteQueryStringBuilder $deleteQueryStringBuilder,
+        UpdateQueryStringBuilder $updateQueryStringBuilder
     ) {
         $this->selectQueryStringBuilder = $selectQueryStringBuilder;
         $this->insertQueryStringBuilder = $insertQueryStringBuilder;
         $this->deleteQueryStringBuilder = $deleteQueryStringBuilder;
+        $this->updateQueryStringBuilder = $updateQueryStringBuilder;
     }
 
     /**
@@ -74,5 +78,9 @@ class MySqlQueryStringBuilderImpl implements QueryStringBuilder
     {
         return $this->deleteQueryStringBuilder->getDeleteQueryString($deleteQuery);
     }
-}
 
+    public function getUpdateQueryString(UpdateQuery $updateQuery): string
+    {
+        // TODO: Implement getUpdateQueryString() method.
+    }
+}
