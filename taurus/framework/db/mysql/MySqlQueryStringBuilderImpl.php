@@ -74,13 +74,21 @@ class MySqlQueryStringBuilderImpl implements QueryStringBuilder
         return $this->insertQueryStringBuilder->getInsertQueryString($insertQuery);
     }
 
+    /**
+     * @param DeleteQuery $deleteQuery
+     * @return string
+     */
     public function getDeleteQueryString(DeleteQuery $deleteQuery): string
     {
         return $this->deleteQueryStringBuilder->getDeleteQueryString($deleteQuery);
     }
 
+    /**
+     * @param UpdateQuery $updateQuery
+     * @return string
+     */
     public function getUpdateQueryString(UpdateQuery $updateQuery): string
     {
-        // TODO: Implement getUpdateQueryString() method.
+        return $this->updateQueryStringBuilder->getUpdateQueryString($updateQuery);
     }
 }

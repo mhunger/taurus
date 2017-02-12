@@ -29,9 +29,6 @@ class BaseRepositoryTest extends AbstractDatabaseTest
     /** @var BaseRepository */
     private $subject;
 
-    /**
-     *
-     */
     public function setUp()
     {
         parent::setUp();
@@ -79,6 +76,21 @@ class BaseRepositoryTest extends AbstractDatabaseTest
         $this->assertNull(
             $this->subject->findOne(2, get_class($workout)),
             'Object was not deleted'
+        );
+    }
+
+    public function testUpdate()
+    {
+        /** @var Workout $workout */
+        $expectedWorkout = $this->subject->findOne(2, Workout::class);
+        $expectedWorkout->setDate('2017-01-01 00:00:00');
+        $this->subject->update($expectedWorkout);
+        $actualWorkout = $this->subject->findOne(2, Workout::class);
+
+        $this->assertEquals(
+            $expectedWorkout,
+            $actualWorkout,
+            'Object was not updated correctly'
         );
     }
 

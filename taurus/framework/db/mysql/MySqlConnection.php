@@ -138,7 +138,7 @@ class MySqlConnection implements DbConnection {
     public function update(UpdateQuery $updateQuery)
     {
         return $this->executeRaw(
-            $this->queryStringBuilder->getDeleteQueryString($updateQuery)
+            $this->queryStringBuilder->getUpdateQueryString($updateQuery)
         );
     }
 }
