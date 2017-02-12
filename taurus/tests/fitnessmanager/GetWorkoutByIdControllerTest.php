@@ -20,14 +20,19 @@ use taurus\tests\fixtures\GlobalVariablesMock;
 
 class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
 {
-
-    public function __construct()
+    /**
+     * @return array
+     */
+    function getFixtureFiles(): array
     {
-        $this->fixtureFiles = [
+        return [
             'workout.xml'
         ];
     }
 
+    /**
+     *
+     */
     public function testGetMethod() {
         /** @var MockServer $mockServer */
         $mockServer = Container::getInstance()

@@ -16,6 +16,10 @@ use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 
+/**
+ * Class AbstractDatabaseTest
+ * @package taurus\tests
+ */
 abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCase
 {
 
@@ -34,8 +38,6 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
             ->merge(new FitnessManagerConfig())
             ->merge(new TestContainerConfig());
         Container::getInstance()->setContainerConfig($config);
-
-        $this->fixturePath = dirname(__FILE__) . '/fixtures/db/';
 
         parent::setUp();
     }
@@ -60,20 +62,32 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
     protected function getDataSet()
     {
         $datasets = [];
-        foreach ($this->fixtureFiles as $file) {
+        $this->fixturePath = dirname(__FILE__) . '/fixtures/db/';
+        foreach ($this->getFixtureFiles() as $file) {
             $datasets[] = $this->createMySQLXMLDataSet($this->fixturePath . $file);
         }
 
         return new \PHPUnit_Extensions_Database_DataSet_CompositeDataSet($datasets);
     }
 
+    /**
+     * @return \PHPUnit_Extensions_Database_Operation_IDatabaseOperation
+     */
     protected function getTearDownOperation()
     {
         return \PHPUnit_Extensions_Database_Operation_Factory::TRUNCATE();
     }
 
+    /**
+     *
+     */
     protected function tearDown()
     {
         parent::tearDown();
     }
+
+    /**
+     * @return array
+     */
+    abstract function getFixtureFiles(): array;
 }

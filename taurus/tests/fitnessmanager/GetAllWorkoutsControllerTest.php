@@ -23,9 +23,12 @@ use taurus\framework\mock\MockServer;
  */
 class GetAllWorkoutsControllerTest extends AbstractDatabaseTest
 {
-    public function __construct()
+    /**
+     * @return array
+     */
+    function getFixtureFiles(): array
     {
-        $this->fixtureFiles = [
+        return [
             'workout.xml'
         ];
     }
