@@ -11,6 +11,7 @@ namespace taurus\framework;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\container\ContainerConfig;
 use taurus\framework\config\TaurusContainerConfig;
+use taurus\framework\container\ServiceRepository;
 use taurus\framework\error\ContainerCannotInstantiateService;
 
 class Container {
@@ -21,6 +22,9 @@ class Container {
     /** @var ContainerConfig */
     private $containerConfig;
 
+    /** @var ServiceRepository */
+    private $serviceRepository;
+
     private function __construct() {}
 
     /**
@@ -29,9 +33,6 @@ class Container {
     static public function getInstance() {
         if(self::$instance === null) {
             self::$instance = new self();
-            self::$instance->setContainerConfig(
-                new TaurusContainerConfig()
-            );
         }
 
         return self::$instance;
@@ -53,10 +54,10 @@ class Container {
      */
     public function getService($name) {
         if(!class_exists($name)) {
-            throw new ContainerCannotInstantiateService('Cannot load service in container [' . $name . ']');
+            return $this->injectDependenciesForServiceName($name);
+        } else {
+            return $this->injectDependenciesForReflectionClass($name);
         }
-
-        return $this->injectDependenciesForReflectionClass($name);
     }
 
     /**
@@ -70,6 +71,31 @@ class Container {
         $constructor = $reflectedClass->getConstructor();
 
         if($constructor instanceof \ReflectionMethod && sizeof($constructor->getParameters()) > 0) {
+            return $reflectedClass->newInstanceArgs(
+                $this->getArgs($constructor, $serviceConfig)
+            );
+        } else {
+            return $reflectedClass->newInstance();
+        }
+    }
+
+    /**
+     * @param $serviceName
+     * @return object
+     * @throws ContainerCannotInstantiateService
+     */
+    private function injectDependenciesForServiceName($serviceName)
+    {
+        $serviceConfig = $this->containerConfig->getServiceConfigByName($serviceName);
+
+        if ($serviceConfig === null) {
+            throw new ContainerCannotInstantiateService('Could not load service [' . $serviceName . ']');
+        }
+
+        $reflectedClass = new \ReflectionClass($serviceConfig->getClass());
+        $constructor = $reflectedClass->getConstructor();
+
+        if ($constructor instanceof \ReflectionMethod && sizeof($constructor->getParameters()) > 0) {
             return $reflectedClass->newInstanceArgs(
                 $this->getArgs($constructor, $serviceConfig)
             );
