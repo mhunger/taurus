@@ -14,6 +14,7 @@ use taurus\framework\db\query\expression\Field;
 use taurus\framework\db\query\expression\Literal;
 use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\QueryBuilder;
+use taurus\framework\Environment;
 
 /**
  * Class BaseRepository
@@ -97,5 +98,18 @@ class BaseRepository {
             );
 
         $this->entityAccessLayer->insert($q, get_class($entity));
+    }
+
+    public function delete(Entity $entity)
+    {
+        $q = $this->qb->query(QueryBuilder::QUERY_TYPE_DELETE)
+            ->deleteFrom(
+                $this->entityMetaData->getTable(get_class($entity))
+            )->where(
+                $this->entityMetaData->getIdField(get_class($entity)),
+                [$this->entityMetaData->getIdValue($entity)]
+            );
+
+        $this->entityAccessLayer->delete($q);
     }
 }
