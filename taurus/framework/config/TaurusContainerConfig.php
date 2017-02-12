@@ -63,13 +63,15 @@ class TaurusContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_ROUTE_CONFIG] =
             new ServiceConfig(self::SERVICE_ROUTE_CONFIG,
                 null,
-                [RouteConfig::API_BASE_PATH]
+                [RouteConfig::API_BASE_PATH],
+                true
             );
 
         $this->serviceDefinitions[self::SERVICE_MYSQL_CONNECTION] =
             new ServiceConfig(self::SERVICE_MYSQL_CONNECTION,
                 'MysqlConnection',
-                ['localhost', 'taurus', 'taurus', 'taurus', MySqlQueryStringBuilderImpl::class]
+                ['localhost', 'taurus', 'taurus', 'taurus', MySqlQueryStringBuilderImpl::class],
+                true
             );
 
         $this->serviceDefinitions[self::SERVICE_DB_MANAGER] =
@@ -77,7 +79,8 @@ class TaurusContainerConfig extends AbstractContainerConfig {
                 'dbManager',
                 [
                     MySqlConnection::class
-                ]
+                ],
+                true
             );
 
         $this->serviceDefinitions[self::SERVICE_BASE_REPOSITORY] =
@@ -89,7 +92,8 @@ class TaurusContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_ENVIRONMENT] =
             new ServiceConfig(self::SERVICE_ENVIRONMENT,
                 'environment',
-                [Environment::PROD]
+                [Environment::PROD],
+                true
             );
 
         $this->serviceDefinitions[self::SERVICE_MYSQL_QUERY_STRING_BUILDER] =

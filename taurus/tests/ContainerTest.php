@@ -155,8 +155,8 @@ class ContainerTest extends AbstractTaurusTest
 
     public function testNonSingletonIsCreatedNewlyEverytime()
     {
-        $object = $this->subject->getService(TestContainerConfig::SERVICE_ENVIRONMENT);
-        $objectNew = $this->subject->getService(TestContainerConfig::SERVICE_ENVIRONMENT);
+        $object = $this->subject->getService(TestContainerConfig::SERVICE_TEST_LITERALS);
+        $objectNew = $this->subject->getService(TestContainerConfig::SERVICE_TEST_LITERALS);
 
         $this->assertFalse(
             ($object === $objectNew),

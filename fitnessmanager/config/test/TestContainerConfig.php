@@ -58,19 +58,22 @@ class TestContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[TaurusContainerConfig::SERVICE_ROUTE_CONFIG] =
             new ServiceConfig(TaurusContainerConfig::SERVICE_ROUTE_CONFIG,
                 null,
-                [RouteConfig::API_BASE_PATH]
+                [RouteConfig::API_BASE_PATH],
+                true
             );
 
         $this->serviceDefinitions[self::SERVICE_ENVIRONMENT] =
             new ServiceConfig(self::SERVICE_ENVIRONMENT,
                 'environment',
-                [Environment::TEST]
+                [Environment::TEST],
+                true
             );
 
         $this->serviceDefinitions[self::SERVICE_MYSQL_CONNECTION] =
             new ServiceConfig(self::SERVICE_MYSQL_CONNECTION,
                 'MysqlConnection',
-                ['localhost', 'taurus', 'taurus', 'taurus_test', MySqlQueryStringBuilderImpl::class]
+                ['localhost', 'taurus', 'taurus', 'taurus_test', MySqlQueryStringBuilderImpl::class],
+                true
             );
 
         $this->serviceDefinitions[self::SERVICE_TEST_SINGLETON] =
