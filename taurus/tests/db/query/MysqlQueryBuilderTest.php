@@ -9,8 +9,11 @@
 namespace taurus\tests\db\query;
 
 use PHPUnit\Framework\TestCase;
+use taurus\framework\config\TaurusContainerConfig;
+use taurus\framework\Container;
 use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
 use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
+use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\expression\ComparisonExpression;
 use taurus\framework\db\query\expression\ConditionalExpression;
 use taurus\framework\db\query\expression\Field;
@@ -19,8 +22,9 @@ use taurus\framework\db\query\operation\AndOperation;
 use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\QueryBuilder;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
+use taurus\tests\AbstractTaurusTest;
 
-class MysqlQueryBuilderTest extends TestCase
+class MysqlQueryBuilderTest extends AbstractTaurusTest
 {
 
     /** @var QueryBuilder */
@@ -33,10 +37,8 @@ class MysqlQueryBuilderTest extends TestCase
     {
         parent::setUp();
         $this->queryBuilder = new QueryBuilder();
-        $this->mysqlQueryStringBuilder = new MySqlQueryStringBuilderImpl(
-            new MysqlSelectQueryStringBuilder(),
-            new MysqlInsertQueryStringBuilder()
-        );
+        $this->mysqlQueryStringBuilder = Container::getInstance()
+            ->getService(TaurusContainerConfig::SERVICE_MYSQL_QUERY_STRING_BUILDER);
     }
 
 
@@ -132,6 +134,15 @@ class MysqlQueryBuilderTest extends TestCase
                     ->values([null, 'Push-Ups', 'medium', 'Standing'])
             ),
             'Did not get correct insert query string for exercise table'
+        );
+    }
+
+    public function testDeleteQueryCreated()
+    {
+        $this->assertInstanceOf(
+            DeleteQuery::class,
+            $this->queryBuilder->query(QueryBuilder::QUERY_TYPE_DELETE),
+            'Delete query not created. Instance type is wrong'
         );
     }
 }
