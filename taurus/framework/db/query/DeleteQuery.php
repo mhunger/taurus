@@ -21,6 +21,9 @@ class DeleteQuery implements Query
     /** @var array */
     private $id;
 
+    /** @var string */
+    private $idField;
+
     /**
      * @param $table
      * @return DeleteQuery
@@ -33,12 +36,14 @@ class DeleteQuery implements Query
     }
 
     /**
+     * @param string $idField
      * @param array $ids
      * @return DeleteQuery
      */
-    public function whereId(array $ids): DeleteQuery
+    public function where(string $idField, array $ids): DeleteQuery
     {
         $this->id = $ids;
+        $this->idField = $idField;
 
         return $this;
     }
@@ -57,5 +62,13 @@ class DeleteQuery implements Query
     public function getId(): array
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdField(): string
+    {
+        return $this->idField;
     }
 }
