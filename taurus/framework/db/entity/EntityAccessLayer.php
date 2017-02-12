@@ -13,15 +13,16 @@ use taurus\framework\db\Entity;
 use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
+use taurus\framework\db\query\UpdateQuery;
 
 interface EntityAccessLayer
 {
 
     /**
-     * @param Entity $entity
+     * @param UpdateQuery $updateQuery
      * @return mixed
      */
-    public function update(Entity $entity);
+    public function update(UpdateQuery $updateQuery);
 
     /**
      * @param string|DeleteQuery $deleteQuery

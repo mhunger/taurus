@@ -17,6 +17,7 @@ use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
+use taurus\framework\db\query\UpdateQuery;
 
 /**
  * Class DatabaseManager
@@ -43,12 +44,12 @@ class DatabaseManager implements EntityAccessLayer
     }
 
     /**
-     * @param Entity $entity
-     * @return mixed
+     * @param UpdateQuery $updateQuery
+     * @return bool|mixed|\mysqli_result
      */
-    public function update(Entity $entity)
+    public function update(UpdateQuery $updateQuery)
     {
-        // TODO: Implement update() method.
+        return $this->dbConnection->update($updateQuery);
     }
 
     /**
