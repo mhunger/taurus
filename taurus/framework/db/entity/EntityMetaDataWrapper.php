@@ -42,4 +42,10 @@ interface EntityMetaDataWrapper
      * @return array
      */
     public function getColumnValues(Entity $entity);
+
+    /**
+     * @param Entity $entity
+     * @return mixed
+     */
+    public function getIdValue(Entity $entity);
 }

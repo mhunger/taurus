@@ -13,6 +13,7 @@ use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\db\Entity;
 use taurus\framework\db\entity\EntityMetaDataWrapper;
 use taurus\framework\db\entity\EntityMetaData;
+use taurus\framework\error\GetterDoesNotExistException;
 
 class EntityMetaDataImpl implements EntityMetaDataWrapper
 {
@@ -39,6 +40,18 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
         return $this->entityMetaDataStore
             ->getEntityMetaData($class)
             ->getId();
+    }
+
+    /**
+     * @param Entity $entity
+     * @return mixed
+     */
+    public function getIdValue(Entity $entity)
+    {
+        return $this->executeGetterOnEntity(
+            $entity,
+            $this->getIdField(get_class($entity))
+        );
     }
 
     /**
@@ -71,7 +84,6 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
 
         return $columns;
     }
-
 
     /**
      * Returns a map that has the column names as keys and the respective property names as values
@@ -107,24 +119,28 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
             ->getColumns();
 
         foreach($columns as $property => $columnAnnotation) {
-            if(method_exists($entity, $this->getGetterMethodName($property))) {
-                $values[] = call_user_func(
-                    [
-                        $entity,
-                        $this->getGetterMethodName($property)
-                    ]
-                );
-            }
+            $values[] = $this->executeGetterOnEntity($entity, $property);
         }
 
         return $values;
     }
 
     /**
-     * @param $property
-     * @return string
+     * @param Entity $entity
+     * @param string $property
+     * @return mixed
+     * @throws GetterDoesNotExistException
      */
-    private function getGetterMethodName($property) {
-        return 'get' . strtoupper($property);
+    private function executeGetterOnEntity(Entity $entity, string $property)
+    {
+        $getterMethodName = 'get' . strtoupper($property);
+
+        if (method_exists($entity, $getterMethodName)) {
+            return call_user_func(
+                [$entity, $getterMethodName]
+            );
+        }
+
+        throw new GetterDoesNotExistException('Getter [' . $getterMethodName . '] does not exist in [' . get_class($entity) . ']');
     }
 }
