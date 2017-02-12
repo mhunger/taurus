@@ -8,9 +8,13 @@
 
 namespace taurus\tests;
 
+use fitnessmanager\config\FitnessManagerConfig;
+use fitnessmanager\config\test\TestContainerConfig;
 use PDO;
 use PHPUnit_Extensions_Database_DataSet_IDataSet;
 use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
+use taurus\framework\config\TaurusContainerConfig;
+use taurus\framework\Container;
 
 abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCase
 {
@@ -22,10 +26,15 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
     protected $fixturePath;
 
     /**
-     *
+     * Set the test config in container and load the fixture path.
      */
     public function setUp()
     {
+        $config = (new TaurusContainerConfig())
+            ->merge(new FitnessManagerConfig())
+            ->merge(new TestContainerConfig());
+        Container::getInstance()->setContainerConfig($config);
+
         $this->fixturePath = dirname(__FILE__) . '/fixtures/db/';
 
         parent::setUp();
