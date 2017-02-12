@@ -30,9 +30,8 @@ class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
 
     public function testGetMethod() {
         /** @var MockServer $mockServer */
-        $mockServer = Container::getInstance()->setContainerConfig(
-            new TestContainerConfig()
-        )->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
+        $mockServer = Container::getInstance()
+            ->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
         $actualResponse = $mockServer->get(
             '/api/item',
             'GET',

@@ -24,16 +24,16 @@ class BaseRepositoryTest extends AbstractDatabaseTest
     /** @var BaseRepository */
     private $subject;
 
-    public function __construct()
+    public function setUp()
     {
+        parent::setUp();
+
         $this->fixtureFiles = [
             'exercise.xml'
         ];
 
         $this->subject = Container::getInstance()
-            ->setContainerConfig(
-                new TestContainerConfig()
-            )->getService(TaurusContainerConfig::SERVICE_BASE_REPOSITORY);
+            ->getService(TaurusContainerConfig::SERVICE_BASE_REPOSITORY);
     }
 
     public function testInsert()
