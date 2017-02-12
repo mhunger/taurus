@@ -25,7 +25,13 @@ class Container {
     /** @var ServiceRepository */
     private $serviceRepository;
 
-    private function __construct() {}
+    /**
+     * Container constructor.
+     */
+    private function __construct()
+    {
+        $this->serviceRepository = new ServiceRepository();
+    }
 
     /**
      * @return Container
@@ -53,11 +59,29 @@ class Container {
      * @throws ContainerCannotInstantiateService
      */
     public function getService($name) {
-        if(!class_exists($name)) {
-            return $this->injectDependenciesForServiceName($name);
-        } else {
+        if (class_exists($name)) {
             return $this->injectDependenciesForReflectionClass($name);
         }
+
+        throw new ContainerCannotInstantiateService('Could not load service [' . $name . ']');
+    }
+
+    /**
+     * @param ServiceConfig $serviceConfig
+     * @param object $service
+     * @return mixed
+     */
+    private function addToServiceRepoIfSingletonAndReturn($service, ServiceConfig $serviceConfig = null)
+    {
+        if (!is_null($serviceConfig) && $serviceConfig->isSingleton()) {
+            return $this->serviceRepository
+                ->getExistingOrAddAndReturnSingleton(
+                    $serviceConfig->getClass(),
+                    $service
+                );
+        }
+
+        return $service;
     }
 
     /**
@@ -71,36 +95,17 @@ class Container {
         $constructor = $reflectedClass->getConstructor();
 
         if($constructor instanceof \ReflectionMethod && sizeof($constructor->getParameters()) > 0) {
-            return $reflectedClass->newInstanceArgs(
-                $this->getArgs($constructor, $serviceConfig)
+            return $this->addToServiceRepoIfSingletonAndReturn(
+                $reflectedClass->newInstanceArgs(
+                    $this->getArgs($constructor, $serviceConfig)
+                ),
+                $serviceConfig
             );
         } else {
-            return $reflectedClass->newInstance();
-        }
-    }
-
-    /**
-     * @param $serviceName
-     * @return object
-     * @throws ContainerCannotInstantiateService
-     */
-    private function injectDependenciesForServiceName($serviceName)
-    {
-        $serviceConfig = $this->containerConfig->getServiceConfigByName($serviceName);
-
-        if ($serviceConfig === null) {
-            throw new ContainerCannotInstantiateService('Could not load service [' . $serviceName . ']');
-        }
-
-        $reflectedClass = new \ReflectionClass($serviceConfig->getClass());
-        $constructor = $reflectedClass->getConstructor();
-
-        if ($constructor instanceof \ReflectionMethod && sizeof($constructor->getParameters()) > 0) {
-            return $reflectedClass->newInstanceArgs(
-                $this->getArgs($constructor, $serviceConfig)
+            return $this->addToServiceRepoIfSingletonAndReturn(
+                $reflectedClass->newInstance(),
+                $serviceConfig
             );
-        } else {
-            return $reflectedClass->newInstance();
         }
     }
 
