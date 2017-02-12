@@ -32,19 +32,25 @@ class Workout implements Entity {
     public $date;
 
     /**
-     * @param \DateTime $id
+     * @param $id
+     * @return $this
      */
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     /**
-     * @param mixed $date
+     * @param $date
+     * @return $this
      */
     public function setDate($date)
     {
         $this->date = $date;
+
+        return $this;
     }
 
     /**
