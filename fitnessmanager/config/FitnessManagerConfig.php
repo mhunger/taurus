@@ -20,8 +20,6 @@ class FitnessManagerConfig extends AbstractContainerConfig {
     const SERVICE_GET_WORKOUT_BY_ID_CONTROLLER = GetWorkoutByIdController::class;
     const SERVICE_GET_WORKOUTS_CONTROLLER = GetAllWorkoutsController::class;
 
-
-
     protected $serviceDefinitions = [];
 
     /**

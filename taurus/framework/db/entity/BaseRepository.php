@@ -12,7 +12,6 @@ use taurus\framework\db\Entity;
 use taurus\framework\db\query\expression\ComparisonExpression;
 use taurus\framework\db\query\expression\Field;
 use taurus\framework\db\query\expression\Literal;
-use taurus\framework\db\query\expression\Number;
 use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\QueryBuilder;
 
