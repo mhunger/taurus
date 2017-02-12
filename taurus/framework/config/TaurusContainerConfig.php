@@ -17,6 +17,7 @@ use taurus\framework\db\entity\EntityMetaDataImpl;
 use taurus\framework\db\entity\EntityMetaDataStore;
 use taurus\framework\db\EntityBuilder;
 use taurus\framework\db\mysql\MySqlConnection;
+use taurus\framework\db\mysql\MySqlDeleteQueryStringBuilder;
 use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
@@ -101,7 +102,8 @@ class TaurusContainerConfig extends AbstractContainerConfig {
                 'mysqlQueryStringBuilder',
                 [
                     MysqlSelectQueryStringBuilder::class,
-                    MysqlInsertQueryStringBuilder::class
+                    MysqlInsertQueryStringBuilder::class,
+                    MySqlDeleteQueryStringBuilder::class
                 ]);
 
         $this->serviceDefinitions[self::SERVICE_ENTITY_BUILDER] =
