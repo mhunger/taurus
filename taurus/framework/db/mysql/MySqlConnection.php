@@ -13,6 +13,7 @@ use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
 use taurus\framework\db\query\QueryStringBuilder;
+use taurus\framework\db\query\UpdateQuery;
 use taurus\framework\error\MysqlQueryException;
 
 /**
@@ -128,5 +129,16 @@ class MySqlConnection implements DbConnection {
         if (count($result) > 0) {
             return $result[0];
         }
+    }
+
+    /**
+     * @param UpdateQuery $updateQuery
+     * @return bool|\mysqli_result
+     */
+    public function update(UpdateQuery $updateQuery)
+    {
+        return $this->executeRaw(
+            $this->queryStringBuilder->getDeleteQueryString($updateQuery)
+        );
     }
 }

@@ -12,6 +12,7 @@ namespace taurus\framework\db;
 use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
+use taurus\framework\db\query\UpdateQuery;
 
 /**
  * Abstraction for any db interaction. It should be implemented by specifc storage layer classes that will adapt the
@@ -60,4 +61,10 @@ interface DbConnection {
      * @return mixed
      */
     public function delete(DeleteQuery $deleteQuery);
+
+    /**
+     * @param UpdateQuery $updateQuery
+     * @return mixed
+     */
+    public function update(UpdateQuery $updateQuery);
 }
