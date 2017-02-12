@@ -9,6 +9,7 @@
 namespace taurus\framework\db\mysql;
 
 use taurus\framework\db\DbConnection;
+use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
 use taurus\framework\db\query\QueryStringBuilder;
@@ -43,6 +44,17 @@ class MySqlConnection implements DbConnection {
         }
 
         $this->queryStringBuilder = $queryStringBuilder;
+    }
+
+    /**
+     * @param DeleteQuery $deleteQuery
+     * @return bool|\mysqli_result
+     */
+    public function delete(DeleteQuery $deleteQuery)
+    {
+        $sql = $this->queryStringBuilder->getDeleteQueryString($deleteQuery);
+
+        return $this->executeRaw($sql);
     }
 
     /**

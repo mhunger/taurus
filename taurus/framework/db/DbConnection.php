@@ -9,6 +9,7 @@
 namespace taurus\framework\db;
 
 
+use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
 
@@ -21,7 +22,6 @@ use taurus\framework\db\query\Query;
  * @package taurus\framework\db
  */
 interface DbConnection {
-
 
     /**
      * @param $sql
@@ -53,4 +53,11 @@ interface DbConnection {
      * @return mixed
      */
     public function insert(InsertQuery $query);
+
+
+    /**
+     * @param DeleteQuery $deleteQuery
+     * @return mixed
+     */
+    public function delete(DeleteQuery $deleteQuery);
 }
