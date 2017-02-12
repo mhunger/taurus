@@ -27,6 +27,7 @@ use taurus\framework\Environment;
 use taurus\framework\routing\RouteConfig;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
 use taurus\tests\fixtures\LoadDependenciesWithParamsInDependency;
+use taurus\tests\fixtures\TestSingleton;
 
 class TestContainerConfig extends AbstractContainerConfig {
 
@@ -35,6 +36,7 @@ class TestContainerConfig extends AbstractContainerConfig {
     const SERVICE_ENVIRONMENT = Environment::class;
     const SERVICE_MYSQL_CONNECTION = MySqlConnection::class;
     const SERVICE_GET_WORKOUTS_CONTROLLER = GetAllWorkoutsController::class;
+    const SERVICE_TEST_SINGLETON = TestSingleton::class;
 
     /**
      * Method to define the ServicConfig objects for the config class
@@ -69,6 +71,13 @@ class TestContainerConfig extends AbstractContainerConfig {
             new ServiceConfig(self::SERVICE_MYSQL_CONNECTION,
                 'MysqlConnection',
                 ['localhost', 'taurus', 'taurus', 'taurus_test', MySqlQueryStringBuilderImpl::class]
+            );
+
+        $this->serviceDefinitions[self::SERVICE_TEST_SINGLETON] =
+            new ServiceConfig(self::SERVICE_TEST_SINGLETON,
+                'singletonTestClass',
+                [1],
+                true
             );
     }
 }
