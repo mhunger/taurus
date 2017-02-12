@@ -18,6 +18,6 @@ use taurus\framework\db\query\SelectQueryStringBuilder;
  * Interface QueryStringBuilder
  * @package taurus\framework\db\query
  */
-interface QueryStringBuilder extends SelectQueryStringBuilder, InsertQueryStringBuilder
+interface QueryStringBuilder extends SelectQueryStringBuilder, InsertQueryStringBuilder, DeleteQueryStringBuilder
 {
 }

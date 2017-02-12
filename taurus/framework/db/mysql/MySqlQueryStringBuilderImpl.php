@@ -9,6 +9,8 @@
 namespace taurus\framework\db\mysql;
 
 
+use taurus\framework\db\query\DeleteQuery;
+use taurus\framework\db\query\DeleteQueryStringBuilder;
 use taurus\framework\db\query\expression\Expression;
 use taurus\framework\db\query\expression\MultiPartExpression;
 use taurus\framework\db\query\InsertQuery;
@@ -27,16 +29,23 @@ class MySqlQueryStringBuilderImpl implements QueryStringBuilder
     /** @var InsertQueryStringBuilder */
     private $insertQueryStringBuilder;
 
+    /** @var DeleteQueryStringBuilder */
+    private $deleteQueryStringBuilder;
+
     /**
+     * MySqlQueryStringBuilderImpl constructor.
      * @param SelectQueryStringBuilder $selectQueryStringBuilder
      * @param InsertQueryStringBuilder $insertQueryStringBuilder
+     * @param DeleteQueryStringBuilder $deleteQueryStringBuilder
      */
     function __construct(
         SelectQueryStringBuilder $selectQueryStringBuilder,
-        InsertQueryStringBuilder $insertQueryStringBuilder
+        InsertQueryStringBuilder $insertQueryStringBuilder,
+        DeleteQueryStringBuilder $deleteQueryStringBuilder
     ) {
         $this->selectQueryStringBuilder = $selectQueryStringBuilder;
         $this->insertQueryStringBuilder = $insertQueryStringBuilder;
+        $this->deleteQueryStringBuilder = $deleteQueryStringBuilder;
     }
 
     /**
@@ -59,4 +68,10 @@ class MySqlQueryStringBuilderImpl implements QueryStringBuilder
     {
         return $this->insertQueryStringBuilder->getInsertQueryString($insertQuery);
     }
+
+    public function getDeleteQueryString(DeleteQuery $deleteQuery): string
+    {
+        return $this->deleteQueryStringBuilder->getDeleteQueryString($deleteQuery);
+    }
 }
+
