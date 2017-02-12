@@ -127,6 +127,24 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
 
     /**
      * @param Entity $entity
+     * @return array
+     */
+    public function getColumnNameValueMap(Entity $entity): array
+    {
+        $values = [];
+        $columns = $this->entityMetaDataStore
+            ->getEntityMetaData(get_class($entity))
+            ->getColumns();
+
+        foreach ($columns as $property => $columnAnnotation) {
+            $values[$property] = $this->executeGetterOnEntity($entity, $property);
+        }
+
+        return $values;
+    }
+
+    /**
+     * @param Entity $entity
      * @param string $property
      * @return mixed
      * @throws GetterDoesNotExistException

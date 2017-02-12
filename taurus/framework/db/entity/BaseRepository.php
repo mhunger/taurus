@@ -100,6 +100,9 @@ class BaseRepository {
         $this->entityAccessLayer->insert($q, get_class($entity));
     }
 
+    /**
+     * @param Entity $entity
+     */
     public function delete(Entity $entity)
     {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_DELETE)
@@ -111,5 +114,25 @@ class BaseRepository {
             );
 
         $this->entityAccessLayer->delete($q);
+    }
+
+    /**
+     * @param Entity $entity
+     */
+    public function update(Entity $entity)
+    {
+        $q = $this->qb->query(QueryBuilder::QUERY_TYPE_UPDATE)
+            ->update(
+                $this->entityMetaData->getTable(get_class($entity))
+            )
+            ->set(
+                $this->entityMetaData->getColumnNameValueMap($entity)
+            )
+            ->where(
+                $this->entityMetaData->getIdField(get_class($entity)),
+                $this->entityMetaData->getIdValue($entity)
+            );
+
+        $this->entityAccessLayer->update($q);
     }
 }

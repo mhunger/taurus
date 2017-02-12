@@ -55,7 +55,7 @@ class UpdateQuery implements Query
      */
     public function where($field, $value): UpdateQuery
     {
-        $this->where[] = [$field => $value];
+        $this->where[$field] = $value;
 
         return $this;
     }
@@ -70,5 +70,29 @@ class UpdateQuery implements Query
         $this->where[] = [$field => $value];
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTable()
+    {
+        return $this->table;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUpdates(): array
+    {
+        return $this->updates;
+    }
+
+    /**
+     * @return array
+     */
+    public function getWhere(): array
+    {
+        return $this->where;
     }
 }
