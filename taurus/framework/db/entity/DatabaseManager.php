@@ -57,7 +57,7 @@ class DatabaseManager implements EntityAccessLayer
      */
     public function delete(DeleteQuery $deleteQuery)
     {
-        return $this->dbConnection->executeRaw($deleteQuery);
+        return $this->dbConnection->delete($deleteQuery);
     }
 
     /**
@@ -78,6 +78,10 @@ class DatabaseManager implements EntityAccessLayer
     public function fetchOne(Query $query, $class = null)
     {
         $result = $this->dbConnection->executeOne($query, $class);
+
+        if (is_null($result) || count($result) == 0) {
+            return null;
+        }
 
         return $this->entityBuilder->convertOne($result, $class);
     }
