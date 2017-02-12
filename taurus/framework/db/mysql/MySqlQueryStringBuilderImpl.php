@@ -23,6 +23,7 @@ use taurus\framework\db\query\SelectQueryStringBuilder;
 
 class MySqlQueryStringBuilderImpl implements QueryStringBuilder
 {
+    const MYSQL_KEYWORD_WHERE = 'WHERE';
     /** @var SelectQueryStringBuilder */
     private $selectQueryStringBuilder;
 

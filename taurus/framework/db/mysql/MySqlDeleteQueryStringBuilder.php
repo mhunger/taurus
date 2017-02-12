@@ -15,9 +15,43 @@ use taurus\framework\db\query\QueryStringBuilder;
 
 class MySqlDeleteQueryStringBuilder implements DeleteQueryStringBuilder
 {
+    const MYSQL_KEYWORD_DELETE = 'DELETE FROM';
+    const MYSQL_KEYWORD_FUNC_IN = 'IN';
+
+    /**
+     * @param DeleteQuery $deleteQuery
+     * @return string
+     */
     public function getDeleteQueryString(DeleteQuery $deleteQuery): string
     {
-        //@TODO need to implement parsing of query
-        return '';
+        $token = [];
+        $token[] = self::MYSQL_KEYWORD_DELETE;
+        $token[] = $deleteQuery->getTable();
+        $token[] = MySqlQueryStringBuilderImpl::MYSQL_KEYWORD_WHERE;
+        $token[] = $deleteQuery->getIdField();
+
+        if (count($deleteQuery->getId()) > 1) {
+            $token[] = self::MYSQL_KEYWORD_FUNC_IN;
+        } else {
+            $token[] = '=';
+        }
+
+        $token[] = $this->getWhereForDelete($deleteQuery->getId());
+
+        return implode(' ', $token);
+
+    }
+
+    /**
+     * @param array $ids
+     * @return string
+     */
+    private function getWhereForDelete(array $ids): string
+    {
+        if (count($ids) > 1) {
+            return '(' . implode(', ', $ids) . ')';
+        }
+
+        return $ids[0];
     }
 }

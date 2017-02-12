@@ -23,8 +23,6 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
 
     const MYSQL_KEYWORD_FROM = 'FROM';
 
-    const MYSQL_KEYWORD_WHERE = 'WHERE';
-
     public function getSelectQueryString(SelectQuery $selectQuery)
     {
         $tokens = [];
@@ -47,7 +45,7 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
     private function addFilterCriteriaToTokens(SelectQuery $selectQuery, $tokens)
     {
         if ($selectQuery->getWhere() !== null) {
-            $tokens[] = self::MYSQL_KEYWORD_WHERE;
+            $tokens[] = MySqlQueryStringBuilderImpl::MYSQL_KEYWORD_WHERE;
 
             $tokens = $this->buildTokensForExpression($selectQuery->getWhere(), $tokens);
         }
