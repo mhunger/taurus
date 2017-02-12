@@ -34,13 +34,7 @@ class TestContainerConfig extends AbstractContainerConfig {
     const SERVICE_TEST_LITERALS_IN_DEPENDENCY = LoadDependenciesWithParamsInDependency::class;
     const SERVICE_ENVIRONMENT = Environment::class;
     const SERVICE_MYSQL_CONNECTION = MySqlConnection::class;
-    const SERVICE_DB_MANAGER = DatabaseManager::class;
-    const SERVICE_BASE_REPOSITORY = BaseRepository::class;
-    const SERVICE_ENTITY_METADATA = EntityMetaDataImpl::class;
-    const SERVICE_ENTITY_METADATA_STORE = EntityMetaDataStore::class;
     const SERVICE_GET_WORKOUTS_CONTROLLER = GetAllWorkoutsController::class;
-    const SERVICE_MYSQL_QUERY_STRING_BUILDER = MySqlQueryStringBuilderImpl::class;
-    const SERVICE_ENTITY_BUILDER = EntityBuilder::class;
 
     /**
      * Method to define the ServicConfig objects for the config class
@@ -76,34 +70,5 @@ class TestContainerConfig extends AbstractContainerConfig {
                 'MysqlConnection',
                 ['localhost', 'taurus', 'taurus', 'taurus_test', MySqlQueryStringBuilderImpl::class]
             );
-
-        $this->serviceDefinitions[self::SERVICE_DB_MANAGER] =
-            new ServiceConfig(self::SERVICE_DB_MANAGER,
-                'dbManager',
-                [
-                    MySqlConnection::class
-                ]
-            );
-
-        $this->serviceDefinitions[self::SERVICE_BASE_REPOSITORY] =
-            new ServiceConfig(self::SERVICE_BASE_REPOSITORY,
-                'BaseRepository',
-                [null, EntityMetaDataImpl::class, DatabaseManager::class]
-            );
-
-        $this->serviceDefinitions[self::SERVICE_MYSQL_QUERY_STRING_BUILDER] =
-            new ServiceConfig(self::SERVICE_MYSQL_QUERY_STRING_BUILDER,
-                'mysqlQueryStringBuilder',
-                [
-                    MysqlSelectQueryStringBuilder::class,
-                    MysqlInsertQueryStringBuilder::class
-                ]);
-
-        $this->serviceDefinitions[self::SERVICE_ENTITY_BUILDER] =
-            new ServiceConfig(self::SERVICE_ENTITY_BUILDER,
-                'entityBuilder',
-                [
-                    EntityMetaDataImpl::class
-                ]);
     }
 }
