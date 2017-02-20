@@ -9,7 +9,8 @@ namespace taurus\framework\http;
 
 use taurus\framework\routing\Request;
 
-interface HttpGetRequest {
+interface Controller
+{
     /**
      * @param Request $request
      * @return mixed

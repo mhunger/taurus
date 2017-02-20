@@ -10,14 +10,14 @@ namespace fitnessmanager\workout;
 
 
 use taurus\framework\db\entity\BaseRepository;
-use taurus\framework\http\HttpGetRequest;
+use taurus\framework\http\Controller;
 use taurus\framework\routing\Request;
 
 /**
  * Class GetAllWorkoutsController
  * @package fitnessmanager\workout
  */
-class GetAllWorkoutsController implements HttpGetRequest
+class GetAllWorkoutsController implements Controller
 {
 
     /** @var BaseRepository */
