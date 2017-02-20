@@ -9,6 +9,8 @@
 namespace taurus\framework\config;
 
 use taurus\framework\annotation\AnnotationReader;
+use taurus\framework\api\GetByIdApiController;
+use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\db\entity\BaseRepository;
@@ -49,6 +51,8 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_ENTITY_METADATA_STORE = EntityMetaDataStore::class;
     const SERVICE_MYSQL_QUERY_STRING_BUILDER = MySqlQueryStringBuilderImpl::class;
     const SERVICE_ENTITY_BUILDER = EntityBuilder::class;
+    const SERVICE_DEFAULT_GETBYID_CONTROLLER = GetByIdApiController::class;
+    const SERVICE_DEFAULT_GETBYID_SERVICE = GetEntityByIdDefaultServiceImpl::class;
 
 
     public function __construct() {
