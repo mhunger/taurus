@@ -11,6 +11,7 @@ namespace taurus\tests;
 
 use taurus\framework\annotation\AnnotationParser;
 use taurus\framework\annotation\AnnotationReader;
+use taurus\framework\api\ApiBuilder;
 use taurus\framework\config\TaurusContainerConfig;
 use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
@@ -80,7 +81,7 @@ class ContainerTest extends AbstractTaurusTest
 
     public function testLoadDependenciesWithLiteralParameters()
     {
-        $expectedObject = new RouteConfig("api");
+        $expectedObject = new RouteConfig("api", new ApiBuilder());
         $this->assertEquals(
             $expectedObject,
             $this->subject->getService(TaurusContainerConfig::SERVICE_ROUTE_CONFIG),
