@@ -9,6 +9,7 @@
 namespace taurus\framework\routing;
 
 use taurus\framework\Environment;
+use taurus\framework\error\Http404NotFoundException;
 use taurus\framework\exception\RouteNotFoundException;
 use taurus\framework\http\HttpJsonResponse;
 
@@ -54,6 +55,11 @@ class Router {
             if(!$this->isTestEnvironment()) {
                 (new HttpJsonResponse(404, $e->getMessage()))->send();
             }
+        } catch (Http404NotFoundException $e) {
+            if (!$this->isTestEnvironment()) {
+                (new HttpJsonResponse(404, $e->getMessage()))->send();
+            }
+
         } catch(\Exception $ex) {
             if(!$this->isTestEnvironment()) {
                 (new HttpJsonResponse(500, $ex->getMessage()))->send();
