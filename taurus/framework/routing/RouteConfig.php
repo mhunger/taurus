@@ -52,6 +52,8 @@ class RouteConfig {
                 Container::getInstance()->getService(FitnessManagerConfig::SERVICE_GET_WORKOUTS_CONTROLLER))
             ->addDefaultRoute(
                 $this->apiBuilder->get(Exercise::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->post(Exercise::class)
             );
     }
 
