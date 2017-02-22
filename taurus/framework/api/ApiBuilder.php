@@ -19,24 +19,18 @@ use taurus\framework\routing\BasicRoute;
  */
 class ApiBuilder
 {
-    /** @var string */
-    private $method;
-
-    /** @var string */
-    private $url;
-
-    /** @var string */
-    private $resourceClass;
-
-    /** @var GetEntityByIdService */
-    private $service;
-
-
+    /**
+     * @param string $entityClass
+     * @param string|null $path
+     * @param string $idNameParamField
+     * @param GetEntityByIdService|null $getEntityByIdService
+     * @return BasicRoute
+     */
     public function get(
         string $entityClass,
         string $path = null,
         $idNameParamField = 'id',
-        string $getEntityByIdService = null
+        GetEntityByIdService $getEntityByIdService = null
     ): BasicRoute {
         /** @var GetByIdApiController $controller */
         $controller = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_GETBYID_CONTROLLER);
@@ -57,6 +51,11 @@ class ApiBuilder
         );
     }
 
+    /**
+     * @param $entityClass
+     * @param null $path
+     * @return string
+     */
     private function getApiPath($entityClass, $path = null): string
     {
         if ($path === null) {
@@ -67,56 +66,30 @@ class ApiBuilder
     }
 
     /**
-     * @param string $url
-     * @return ApiBuilder
+     * @param string $entityClass
+     * @param string|null $path
+     * @param SaveEntityService $saveEntityService
+     * @return BasicRoute
      */
-    public function resource(string $url): ApiBuilder
+    public function post(
+        string $entityClass,
+        string $path = null,
+        SaveEntityService $saveEntityService = null
+    ): BasicRoute
     {
-        $this->url = $url;
+        if ($saveEntityService === null) {
+            /** @var SaveEntityService $saveEntityService */
+            $saveEntityService = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_SAVE_ENTITY_SERVICE);
+            $saveEntityService->setEntityClass($entityClass);
+        }
+        /** @var SaveEntityController $saveEntityController */
+        $saveEntityController = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_SAVE_ENTITY_CONTROLLER);
+        $saveEntityController->setService($saveEntityService);
 
-        return $this;
-    }
-
-    /**
-     * @param GetEntityByIdService $entityByIdService
-     * @return ApiBuilder
-     */
-    public function using(GetEntityByIdService $entityByIdService): ApiBuilder
-    {
-        $this->service = $entityByIdService;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMethod(): string
-    {
-        return $this->method;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrl(): string
-    {
-        return $this->url;
-    }
-
-    /**
-     * @return string
-     */
-    public function getResourceClass(): string
-    {
-        return $this->resourceClass;
-    }
-
-    /**
-     * @return GetEntityByIdService
-     */
-    public function getService(): GetEntityByIdService
-    {
-        return $this->service;
+        return new BasicRoute(
+            'POST',
+            $this->getApiPath($entityClass),
+            $saveEntityController
+        );
     }
 }

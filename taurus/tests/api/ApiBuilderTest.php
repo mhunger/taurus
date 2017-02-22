@@ -13,6 +13,8 @@ use fitnessmanager\exercise\Exercise;
 use taurus\framework\api\ApiBuilder;
 use taurus\framework\api\GetByIdApiController;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
+use taurus\framework\api\SaveEntityController;
+use taurus\framework\api\SaveEntityService;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\routing\BasicRoute;
@@ -46,6 +48,24 @@ class ApiBuilderTest extends AbstractTaurusTest
         $this->assertEquals(
             $expectedRoute,
             $this->apiBuilder->get(Exercise::class)
+        );
+    }
+
+    public function testApiBuilderBuildPostApiWithEntity()
+    {
+        /** @var SaveEntityController $controller */
+        $controller = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_SAVE_ENTITY_CONTROLLER);
+        /** @var SaveEntityService $service */
+        $service = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_SAVE_ENTITY_SERVICE);
+        $service->setEntityClass(Exercise::class);
+        $controller->setService($service);
+
+        $expectedRoute = new BasicRoute('POST', 'exercise', $controller);
+
+        $this->assertEquals(
+            $expectedRoute,
+            $this->apiBuilder->post(Exercise::class),
+            'Could not create post route correctly'
         );
     }
 }
