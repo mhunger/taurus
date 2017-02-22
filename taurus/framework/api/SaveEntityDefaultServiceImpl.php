@@ -86,8 +86,9 @@ class SaveEntityDefaultServiceImpl implements SaveEntityService
 
     /**
      * @param string $entityClass
+     * @return void
      */
-    public function setEntityClass(string $entityClass)
+    public function setEntityClass(string $entityClass): void
     {
         $this->entityClass = $entityClass;
     }
