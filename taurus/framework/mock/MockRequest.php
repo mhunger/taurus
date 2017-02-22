@@ -13,31 +13,43 @@ use taurus\framework\routing\Request;
 
 class MockRequest extends Request {
 
+    /**
+     * MockRequest constructor.
+     */
     public function __construct() {
         //do nothing here
     }
 
     /**
-     * @param mixed $url
+     * @param $url
+     * @return MockRequest
      */
-    public function setUrl($url)
+    public function setUrl($url): MockRequest
     {
         $this->url = $url;
+
+        return $this;
     }
 
     /**
-     * @param mixed $method
+     * @param $method
+     * @return MockRequest
      */
-    public function setMethod($method)
+    public function setMethod($method): MockRequest
     {
         $this->method = $method;
+
+        return $this;
     }
 
     /**
-     * @param mixed $requestVariables
+     * @param array $requestVariables
+     * @return MockRequest
      */
-    public function setRequestVariables(array $requestVariables)
+    public function setRequestVariables(array $requestVariables): MockRequest
     {
         $this->requestVariables = $requestVariables;
+
+        return $this;
     }
 }
