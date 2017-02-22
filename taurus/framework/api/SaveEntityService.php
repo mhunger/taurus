@@ -17,4 +17,10 @@ interface SaveEntityService
      * @param Request $request
      */
     public function saveEntity(Request $request);
+
+    /**
+     * @param string $entityClass
+     * @return mixed
+     */
+    public function setEntityClass(string $entityClass): void;
 }
