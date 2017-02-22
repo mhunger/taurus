@@ -15,8 +15,6 @@ namespace taurus\tests\fixtures;
  */
 class GlobalVariablesMock
 {
-
-
     /**
      * @var array
      */
