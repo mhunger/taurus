@@ -11,6 +11,7 @@ namespace taurus\framework\config;
 use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\api\GetByIdApiController;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
+use taurus\framework\api\SaveEntityDefaultServiceImpl;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\db\entity\BaseRepository;
@@ -53,6 +54,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_ENTITY_BUILDER = EntityBuilder::class;
     const SERVICE_DEFAULT_GETBYID_CONTROLLER = GetByIdApiController::class;
     const SERVICE_DEFAULT_GETBYID_SERVICE = GetEntityByIdDefaultServiceImpl::class;
+    const SERVICE_DEFAULT_SAVE_ENTITY_SERVICE = SaveEntityDefaultServiceImpl::class;
 
 
     public function __construct() {
