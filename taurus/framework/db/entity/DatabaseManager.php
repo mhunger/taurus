@@ -89,9 +89,9 @@ class DatabaseManager implements EntityAccessLayer
 
     /**
      * @param InsertQuery $query
-     * @return mixed
+     * @return bool
      */
-    public function insert(InsertQuery $query)
+    public function insert(InsertQuery $query): bool
     {
         return $this->dbConnection->insert($query);
     }

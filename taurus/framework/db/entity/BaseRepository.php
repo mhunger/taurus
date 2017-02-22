@@ -87,8 +87,10 @@ class BaseRepository {
 
     /**
      * @param Entity $entity
+     * @return bool
      */
-    public function save(Entity $entity) {
+    public function save(Entity $entity): bool
+    {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_INSERT)
             ->insertInto(
                 $this->entityMetaData->getTable(get_class($entity)),
@@ -97,7 +99,7 @@ class BaseRepository {
                 $this->entityMetaData->getColumnValues($entity)
             );
 
-        $this->entityAccessLayer->insert($q, get_class($entity));
+        return $this->entityAccessLayer->insert($q);
     }
 
     /**

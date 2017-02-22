@@ -108,9 +108,10 @@ class MySqlConnection implements DbConnection {
 
     /**
      * @param InsertQuery $insertQuery
-     * @return mixed|\mysqli_result
+     * @return bool
      */
-    public function insert(InsertQuery $insertQuery) {
+    public function insert(InsertQuery $insertQuery): bool
+    {
         return $this->executeRaw(
             $this->queryStringBuilder->getInsertQueryString(
                 $insertQuery

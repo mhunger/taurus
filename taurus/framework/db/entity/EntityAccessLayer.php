@@ -48,5 +48,5 @@ interface EntityAccessLayer
      * @param InsertQuery $query
      * @return mixed
      */
-    public function insert(InsertQuery $query);
+    public function insert(InsertQuery $query): bool;
 }
