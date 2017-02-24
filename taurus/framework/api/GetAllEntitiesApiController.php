@@ -6,7 +6,7 @@
  * Time: 20:04
  */
 
-namespace taurus\tests\api;
+namespace taurus\framework\api;
 
 
 use taurus\framework\api\GetAllEntitiesService;

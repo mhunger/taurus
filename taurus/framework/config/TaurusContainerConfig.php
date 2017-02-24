@@ -60,6 +60,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_DEFAULT_SAVE_ENTITY_SERVICE = SaveEntityDefaultServiceImpl::class;
     const SERVICE_DEFAULT_SAVE_ENTITY_CONTROLLER = SaveEntityApiController::class;
     const SERVICE_DEFAULT_GET_ALL_ENTITIES_SERVICE = GetAllEntitiesDefaultServiceImpl::class;
+    const SERVICE_DEFAULT_GET_ALL_ENTITIES_CONTROLLER = GetAllEntitiesApiController::class;
 
     public function __construct() {
         $this->configure();
