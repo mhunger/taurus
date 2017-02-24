@@ -23,7 +23,7 @@ use taurus\framework\db\query\UpdateQuery;
 class DatabaseManager implements EntityAccessLayer
 {
 
-    /** @var MysqlConnection */
+    /** @var DbConnection */
     private $dbConnection;
 
     /** @var EntityBuilder */
@@ -65,7 +65,7 @@ class DatabaseManager implements EntityAccessLayer
      */
     public function fetchMany(Query $query, $class = null): array
     {
-        $result = $this->dbConnection->executeMany($query, $class);
+        $result = $this->dbConnection->executeMany($query);
 
         return $this->entityBuilder->convertMany($result, $class);
     }
@@ -77,7 +77,7 @@ class DatabaseManager implements EntityAccessLayer
      */
     public function fetchOne(Query $query, $class = null)
     {
-        $result = $this->dbConnection->executeOne($query, $class);
+        $result = $this->dbConnection->executeOne($query);
 
         if (is_null($result) || count($result) == 0) {
             return null;

@@ -49,13 +49,13 @@ class MySqlConnection implements DbConnection {
 
     /**
      * @param DeleteQuery $deleteQuery
-     * @return bool|\mysqli_result
+     * @return bool
      */
-    public function delete(DeleteQuery $deleteQuery)
+    public function delete(DeleteQuery $deleteQuery): bool
     {
-        $sql = $this->queryStringBuilder->getDeleteQueryString($deleteQuery);
-
-        return $this->executeRaw($sql);
+        return $this->executeRaw(
+            $this->queryStringBuilder->getDeleteQueryString($deleteQuery)
+        );
     }
 
     /**
