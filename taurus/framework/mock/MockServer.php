@@ -8,8 +8,7 @@
 
 namespace taurus\framework\mock;
 
-use taurus\framework\mock\MockRequest;
-use taurus\framework\routing\Request;
+
 use taurus\framework\routing\Router;
 
 class MockServer {

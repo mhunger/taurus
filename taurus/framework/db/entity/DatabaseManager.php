@@ -8,12 +8,9 @@
 
 namespace taurus\framework\db\entity;
 
-use fitnessmanager\workout\Workout;
 use taurus\framework\db\DbConnection;
 use taurus\framework\db\Entity;
-use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\EntityBuilder;
-use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;

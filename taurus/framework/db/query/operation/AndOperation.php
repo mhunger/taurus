@@ -8,9 +8,6 @@
 
 namespace taurus\framework\db\query\operation;
 
-
-use taurus\framework\db\query\expression\Expression;
-
 class AndOperation implements ConditionalOperation
 {
 

@@ -32,7 +32,7 @@ class EntityBuilder {
      * @param $class
      * @return Entity
      */
-    public function convertOne(array $input, $class)
+    public function convertOne(array $input, $class): Entity
     {
         $columns = $this->entityMetaDataImpl->getColumnMap($class);
         $reflectionClass = new \ReflectionClass($class);

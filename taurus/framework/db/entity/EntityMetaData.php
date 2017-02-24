@@ -28,9 +28,6 @@ class EntityMetaData {
     /** @var array */
     private $columns;
 
-    /** @var array */
-    private $columnValues;
-
     /**
      * @param $id
      * @param $table

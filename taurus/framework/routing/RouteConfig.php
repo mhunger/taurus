@@ -12,7 +12,7 @@ use fitnessmanager\config\FitnessManagerConfig;
 use fitnessmanager\exercise\Exercise;
 use taurus\framework\api\ApiBuilder;
 use taurus\framework\Container;
-use taurus\framework\error\RouteAlreadyExistsException;
+
 use taurus\framework\exception\RouteNotFoundException;
 use taurus\framework\http\Controller;
 

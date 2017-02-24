@@ -12,7 +12,7 @@ namespace taurus\tests\fixtures;
 class DependencyLoadTestClass {
 
     /**
-     * @var TestClass
+     * @var Dependency
      */
     public $dependency;
 

@@ -8,9 +8,6 @@
 
 namespace taurus\tests\fitnessmanager;
 
-
-use fitnessmanager\config\test\TestContainerConfig;
-use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Http\HttpJsonResponse;

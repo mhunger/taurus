@@ -11,17 +11,12 @@ use fitnessmanager\config\FitnessManagerConfig;
 use fitnessmanager\config\test\TestContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
-use taurus\framework\container\ContainerConfig;
 use taurus\framework\db\entity\DatabaseManager;
 use taurus\framework\Environment;
-use taurus\framework\routing\RouteConfig;
 use taurus\framework\routing\Router;
 use taurus\framework\routing\Request;
 
 class Application {
-
-    /** @var DatabaseManager */
-    private $dbManager;
 
     /** @var Router */
     private $router;

@@ -11,11 +11,9 @@ namespace taurus\tests\api;
 
 use fitnessmanager\exercise\Exercise;
 use taurus\framework\api\GetAllEntitiesDefaultServiceImpl;
-use taurus\framework\api\GetAllEntitiesService;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\tests\AbstractDatabaseTest;
-use taurus\tests\fixtures\TestEntity;
 
 class GetAllEntitiesDefaultServiceImplTest extends AbstractDatabaseTest
 {

@@ -9,7 +9,6 @@
 namespace taurus\framework\api;
 
 
-use taurus\framework\api\GetAllEntitiesService;
 use taurus\framework\http\Controller;
 use taurus\framework\routing\Request;
 

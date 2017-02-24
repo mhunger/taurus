@@ -8,9 +8,6 @@
 
 namespace taurus\framework\db\query;
 
-use taurus\framework\db\query\InsertQueryStringBuilder;
-use taurus\framework\db\query\SelectQueryStringBuilder;
-
 
 /**
  * Used for objects that build concrete query strings from QAL structures

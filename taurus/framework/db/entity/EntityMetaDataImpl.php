@@ -11,8 +11,6 @@ namespace taurus\framework\db\entity;
 use taurus\framework\annotation\Annotation;
 use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\db\Entity;
-use taurus\framework\db\entity\EntityMetaDataWrapper;
-use taurus\framework\db\entity\EntityMetaData;
 use taurus\framework\error\GetterDoesNotExistException;
 
 class EntityMetaDataImpl implements EntityMetaDataWrapper
@@ -21,6 +19,8 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
     /** @var EntityMetaDataStore */
     private $entityMetaDataStore;
 
+    /** @var AnnotationReader */
+    private $reader;
     /**
      * @param AnnotationReader $reader
      * @param EntityMetaDataStore $entityMetaDataStore
@@ -99,6 +99,10 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
 
         $map = [];
 
+        /**
+         * @var string $property
+         * @var Annotation $columnAnnotation
+         */
         foreach ($columnAnnotations as $property => $columnAnnotation) {
             $columnName = $columnAnnotation->getPropertyValue(EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME);
             $map[$columnName] = $property;

@@ -12,7 +12,7 @@ namespace taurus\tests\db\mysql;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
-use taurus\framework\db\query\DeleteQuery;
+
 use taurus\framework\db\query\QueryBuilder;
 use taurus\tests\AbstractTaurusTest;
 
@@ -22,7 +22,7 @@ class MySqlDeleteQueryStringBuilderTest extends AbstractTaurusTest
     private $queryBuilder;
 
     /** @var MySqlQueryStringBuilderImpl */
-    private $mysqlQueryStringBuilder;
+    private $mysqlQueryStringbuilder;
 
     public function setUp()
     {

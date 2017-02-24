@@ -12,7 +12,7 @@ namespace taurus\tests;
 use fitnessmanager\config\test\TestContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\container\ServiceRepository;
-use taurus\tests\fixtures\Dependency;
+
 use taurus\tests\fixtures\DependencyTwo;
 
 /**

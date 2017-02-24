@@ -10,14 +10,10 @@ namespace taurus\tests\db\entity;
 
 use fitnessmanager\exercise\Exercise;
 use fitnessmanager\workout\Workout;
-use PDO;
-use PHPUnit_Extensions_Database_DataSet_IDataSet;
-use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\tests\AbstractDatabaseTest;
-use fitnessmanager\config\test\TestContainerConfig;
 
 /**
  * Class BaseRepositoryTest
@@ -81,7 +77,7 @@ class BaseRepositoryTest extends AbstractDatabaseTest
 
     public function testUpdate()
     {
-        /** @var Workout $workout */
+        /** @var Workout $expectedWorkout */
         $expectedWorkout = $this->subject->findOne(2, Workout::class);
         $expectedWorkout->setDate('2017-01-01 00:00:00');
         $this->subject->update($expectedWorkout);

@@ -76,6 +76,10 @@ class EntityMetaDataStore
         }
 
         $classAnnotations = $this->reader->getClassAnnotations();
+        /**
+         * @var string $name
+         * @var Annotation $annotation
+         */
         foreach ($classAnnotations as $name => $annotation) {
             if ($name == self::ENTITY_ANNOTATIONS_ENTITY) {
                 $table = $annotation->getPropertyValue(self::ANNOTATION_PROPERTY_ENTITY_TABLE);

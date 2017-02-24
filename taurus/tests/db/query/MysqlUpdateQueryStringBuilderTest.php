@@ -9,11 +9,10 @@
 namespace taurus\tests\db\query;
 
 
-use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\db\mysql\MySqlUpdateQueryStringBuilder;
 use taurus\framework\db\query\QueryBuilder;
-use taurus\framework\db\query\UpdateQuery;
+
 use taurus\tests\AbstractTaurusTest;
 
 class MysqlUpdateQueryStringBuilderTest extends AbstractTaurusTest

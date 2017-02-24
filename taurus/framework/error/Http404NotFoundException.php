@@ -14,9 +14,10 @@ class Http404NotFoundException extends \Exception
 
     /**
      * Http404NotFoundException constructor.
-     * @param string $id
+     * @param int $id
+     * @param string $resource
      */
-    public function __construct($id, $resource)
+    public function __construct(int $id, string $resource)
     {
         parent::__construct('Resource [' . $resource . '] does not exist for [' . $id . ']');
     }

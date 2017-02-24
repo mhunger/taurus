@@ -15,7 +15,7 @@ use taurus\framework\api\SaveEntityDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\db\entity\BaseRepository;
-use taurus\framework\http\Controller;
+
 use taurus\framework\mock\MockRequest;
 use taurus\tests\AbstractDatabaseTest;
 

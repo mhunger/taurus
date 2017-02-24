@@ -9,7 +9,6 @@
 namespace taurus\framework\db\entity;
 
 
-use taurus\framework\db\Entity;
 use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;

@@ -10,14 +10,14 @@ namespace taurus\tests;
 
 
 use PHPUnit\Framework\TestCase;
+use taurus\framework\api\ApiBuilder;
 use taurus\framework\Environment;
 use taurus\framework\mock\MockRequest;
-use taurus\framework\mock\MockServer;
-use taurus\framework\routing\Request;
+
+
 use taurus\framework\routing\Router;
 use taurus\framework\routing\RouteConfig;
-use fitnessmanager\workout\GetWorkoutByIdController;
-use taurus\framework\Controller;
+
 
 class RouterTest extends TestCase {
 
@@ -37,13 +37,12 @@ class RouterTest extends TestCase {
         ]);
 
         $this->router = new Router(
-            new RouteConfig(RouteConfig::API_BASE_PATH),
+            new RouteConfig(RouteConfig::API_BASE_PATH, new ApiBuilder()),
             new Environment(Environment::TEST)
         );
     }
 
     public function testRoute() {
-        $controller = $this->router->route($this->mockRequest);
         $this->assertEquals(true, $this->router->isRequestHandled(), "Could not handle request");
     }
 }

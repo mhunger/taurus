@@ -8,24 +8,10 @@
 
 namespace taurus\tests;
 
-
-use taurus\framework\annotation\AnnotationParser;
-use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\api\ApiBuilder;
 use taurus\framework\config\TaurusContainerConfig;
-use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
 use taurus\framework\container\ServiceRepository;
-use taurus\framework\db\entity\BaseRepository;
-use taurus\framework\db\entity\DatabaseManager;
-use taurus\framework\db\entity\EntityMetaDataStore;
-use taurus\framework\db\EntityBuilder;
-use taurus\framework\db\entity\EntityMetaDataImpl;
-use taurus\framework\db\mysql\MySqlConnection;
-use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
-use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
-use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
-use taurus\framework\db\query\QueryBuilder;
 use taurus\framework\routing\RouteConfig;
 use taurus\tests\fixtures\Dependency;
 use taurus\tests\fixtures\DependencyLoadTestClass;
@@ -122,7 +108,6 @@ class ContainerTest extends AbstractTaurusTest
 
     public function testContainerStoreServicesInServiceRepo()
     {
-        $expectedId = 1;
         $expectedInstance = $this->subject->getService(TestContainerConfig::SERVICE_TEST_SINGLETON);
         $this->assertEquals(
             1,

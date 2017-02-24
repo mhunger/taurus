@@ -14,7 +14,6 @@ use fitnessmanager\config\test\TestContainerConfig;
 use PHPUnit\Framework\TestCase;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
-use taurus\framework\Environment;
 
 abstract class AbstractTaurusTest extends TestCase
 {

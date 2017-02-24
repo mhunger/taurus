@@ -10,7 +10,6 @@ namespace taurus\framework;
 
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\container\ContainerConfig;
-use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\container\ServiceRepository;
 use taurus\framework\error\ContainerCannotInstantiateService;
 

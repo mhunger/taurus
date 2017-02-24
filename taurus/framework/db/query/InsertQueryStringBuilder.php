@@ -9,8 +9,6 @@
 namespace taurus\framework\db\query;
 
 
-use taurus\framework\db\query\InsertQuery;
-
 interface InsertQueryStringBuilder
 {
 

@@ -58,11 +58,11 @@ class SelectQuery implements Query
     }
 
     /**
-     * @param array $table
-     * @param null $db
+     * @param string $table
+     * @param string|null $db
      * @return $this
      */
-    public function from($table, $db = null)
+    public function from(string $table, string $db = null)
     {
         $this->table = $table;
         $this->db = $db;

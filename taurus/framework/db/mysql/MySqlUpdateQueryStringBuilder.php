@@ -9,7 +9,6 @@
 namespace taurus\framework\db\mysql;
 
 
-use taurus\framework\db\query\QueryStringBuilder;
 use taurus\framework\db\query\UpdateQuery;
 use taurus\framework\db\query\UpdateQueryStringBuilder;
 

@@ -14,7 +14,6 @@ use taurus\framework\db\query\expression\Field;
 use taurus\framework\db\query\expression\Literal;
 use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\QueryBuilder;
-use taurus\framework\Environment;
 
 /**
  * Class BaseRepository

@@ -14,7 +14,7 @@ use taurus\framework\api\GetByIdApiController;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
-use taurus\framework\routing\BasicRoute;
+
 use taurus\framework\routing\RouteConfig;
 use taurus\tests\AbstractTaurusTest;
 
