@@ -11,5 +11,13 @@ namespace taurus\framework\api;
 
 interface GetAllEntitiesService
 {
+    /**
+     * @return array
+     */
+    public function getAllEntities(): array;
 
+    /**
+     * @param string $entityClass
+     */
+    public function setEntityClass(string $entityClass): void;
 }
