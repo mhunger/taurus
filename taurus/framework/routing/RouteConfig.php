@@ -54,6 +54,8 @@ class RouteConfig {
                 $this->apiBuilder->get(Exercise::class)
             )->addDefaultRoute(
                 $this->apiBuilder->post(Exercise::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->cget(Exercise::class)
             );
     }
 
