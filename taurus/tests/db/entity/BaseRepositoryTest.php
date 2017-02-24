@@ -94,6 +94,11 @@ class BaseRepositoryTest extends AbstractDatabaseTest
         );
     }
 
+    public function testFindAll()
+    {
+        $this->markTestIncomplete('The findAll method is implicitly tested with the default service for getting all entities. Can be done later');
+    }
+
     /**
      * @return array
      */
