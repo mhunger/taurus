@@ -9,9 +9,11 @@
 namespace taurus\framework\config;
 
 use taurus\framework\annotation\AnnotationReader;
+use taurus\framework\api\GetAllEntitiesApiController;
+use taurus\framework\api\GetAllEntitiesDefaultServiceImpl;
 use taurus\framework\api\GetByIdApiController;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
-use taurus\framework\api\SaveEntityController;
+use taurus\framework\api\SaveEntityApiController;
 use taurus\framework\api\SaveEntityDefaultServiceImpl;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
@@ -56,7 +58,8 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_DEFAULT_GETBYID_CONTROLLER = GetByIdApiController::class;
     const SERVICE_DEFAULT_GETBYID_SERVICE = GetEntityByIdDefaultServiceImpl::class;
     const SERVICE_DEFAULT_SAVE_ENTITY_SERVICE = SaveEntityDefaultServiceImpl::class;
-    const SERVICE_DEFAULT_SAVE_ENTITY_CONTROLLER = SaveEntityController::class;
+    const SERVICE_DEFAULT_SAVE_ENTITY_CONTROLLER = SaveEntityApiController::class;
+    const SERVICE_DEFAULT_GET_ALL_ENTITIES_SERVICE = GetAllEntitiesDefaultServiceImpl::class;
 
     public function __construct() {
         $this->configure();

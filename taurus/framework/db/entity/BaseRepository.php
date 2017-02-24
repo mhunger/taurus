@@ -72,9 +72,9 @@ class BaseRepository {
 
     /**
      * @param $entityClass
-     * @return mixed
+     * @return array
      */
-    public function findAll($entityClass)
+    public function findAll($entityClass): array
     {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
             ->select()

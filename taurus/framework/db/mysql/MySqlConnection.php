@@ -76,7 +76,7 @@ class MySqlConnection implements DbConnection {
      * @param $sql
      * @return array
      */
-    public function fetchResultsAsArray($sql)
+    public function fetchResultsAsArray($sql): array
     {
         /** @var \mysqli_result */
         $result = $this->executeRaw($sql);
@@ -99,7 +99,7 @@ class MySqlConnection implements DbConnection {
      * @param Query $query
      * @return array
      */
-    public function executeMany(Query $query)
+    public function executeMany(Query $query): array
     {
         return $this->fetchResultsAsArray(
             $this->queryStringBuilder->getSelectQueryString($query)

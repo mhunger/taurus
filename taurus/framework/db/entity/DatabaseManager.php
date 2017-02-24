@@ -66,7 +66,7 @@ class DatabaseManager implements EntityAccessLayer
      * @param null $class
      * @return array
      */
-    public function fetchMany(Query $query, $class = null)
+    public function fetchMany(Query $query, $class = null): array
     {
         return $this->dbConnection->executeMany($query, $class);
     }
