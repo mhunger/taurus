@@ -13,7 +13,7 @@ use fitnessmanager\exercise\Exercise;
 use taurus\framework\api\ApiBuilder;
 use taurus\framework\api\GetByIdApiController;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
-use taurus\framework\api\SaveEntityController;
+use taurus\framework\api\SaveEntityApiController;
 use taurus\framework\api\SaveEntityService;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
@@ -53,7 +53,7 @@ class ApiBuilderTest extends AbstractTaurusTest
 
     public function testApiBuilderBuildPostApiWithEntity()
     {
-        /** @var SaveEntityController $controller */
+        /** @var SaveEntityApiController $controller */
         $controller = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_SAVE_ENTITY_CONTROLLER);
         /** @var SaveEntityService $service */
         $service = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_SAVE_ENTITY_SERVICE);

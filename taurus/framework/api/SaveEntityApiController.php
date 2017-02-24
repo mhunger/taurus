@@ -11,7 +11,7 @@ namespace taurus\framework\api;
 use taurus\framework\http\Controller;
 use taurus\framework\routing\Request;
 
-class SaveEntityController implements Controller
+class SaveEntityApiController implements Controller
 {
     /** @var SaveEntityService */
     private $service;

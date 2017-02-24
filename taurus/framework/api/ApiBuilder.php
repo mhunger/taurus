@@ -82,7 +82,7 @@ class ApiBuilder
             $saveEntityService = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_SAVE_ENTITY_SERVICE);
             $saveEntityService->setEntityClass($entityClass);
         }
-        /** @var SaveEntityController $saveEntityController */
+        /** @var SaveEntityApiController $saveEntityController */
         $saveEntityController = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_SAVE_ENTITY_CONTROLLER);
         $saveEntityController->setService($saveEntityService);
 
