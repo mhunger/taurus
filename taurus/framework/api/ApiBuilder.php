@@ -92,4 +92,29 @@ class ApiBuilder
             $saveEntityController
         );
     }
+
+    /**
+     * @param string $entityClass
+     * @param null $url
+     * @param GetAllEntitiesService|null $getAllEntitiesService
+     * @return BasicRoute
+     */
+    public function cget(string $entityClass, $url = null, GetAllEntitiesService $getAllEntitiesService = null)
+    {
+        if ($getAllEntitiesService === null) {
+            /** @var GetAllEntitiesService $getAllEntitiesService */
+            $getAllEntitiesService = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_GET_ALL_ENTITIES_SERVICE);
+            $getAllEntitiesService->setEntityClass($entityClass);
+        }
+
+        /** @var GetAllEntitiesApiController $getAllEntitiesController */
+        $getAllEntitiesController = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_GET_ALL_ENTITIES_CONTROLLER);
+        $getAllEntitiesController->setGetAllEntitiesService($getAllEntitiesService);
+
+        return new BasicRoute(
+            'GET',
+            $this->getApiPath($entityClass),
+            $getAllEntitiesController
+        );
+    }
 }

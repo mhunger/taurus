@@ -11,6 +11,8 @@ namespace taurus\tests\api;
 
 use fitnessmanager\exercise\Exercise;
 use taurus\framework\api\ApiBuilder;
+use taurus\framework\api\GetAllEntitiesApiController;
+use taurus\framework\api\GetAllEntitiesService;
 use taurus\framework\api\GetByIdApiController;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
 use taurus\framework\api\SaveEntityApiController;
@@ -66,6 +68,24 @@ class ApiBuilderTest extends AbstractTaurusTest
             $expectedRoute,
             $this->apiBuilder->post(Exercise::class),
             'Could not create post route correctly'
+        );
+    }
+
+    public function testApiBuilderCgetApi()
+    {
+        /** @var GetAllEntitiesApiController $controller */
+        $controller = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_GET_ALL_ENTITIES_CONTROLLER);
+        /** @var GetAllEntitiesService $service */
+        $service = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_GET_ALL_ENTITIES_SERVICE);
+        $service->setEntityClass(Exercise::class);
+        $controller->setGetAllEntitiesService($service);
+
+        $expectedRoute = new BasicRoute('GET', 'exercise', $controller);
+
+        $this->assertEquals(
+            $expectedRoute,
+            $this->apiBuilder->cget(Exercise::class),
+            'Could not create the default api for cget correctly'
         );
     }
 }
