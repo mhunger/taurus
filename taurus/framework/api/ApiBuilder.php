@@ -52,17 +52,38 @@ class ApiBuilder
     }
 
     /**
-     * @param $entityClass
-     * @param null $path
+     * @param string $entityClass
+     * @param string|null $path
+     * @param bool $multi
      * @return string
      */
-    private function getApiPath($entityClass, $path = null): string
+    private function getApiPath(string $entityClass, string $path = null, bool $multi = false): string
     {
         if ($path === null) {
-            return strtolower(basename(str_replace('\\', '/', $entityClass)));
+            $path = strtolower(basename(str_replace('\\', '/', $entityClass)));
+        } else {
+            $path = str_replace('/', '', $path);
         }
 
-        return str_replace('/', '', $path);
+        return $this->addPluralToPath($path, $multi);
+    }
+
+    /**
+     * @param string $path
+     * @param bool $isPlural
+     * @return string
+     */
+    private function addPluralToPath(string $path, bool $isPlural = false): string
+    {
+        if ($isPlural) {
+            if (substr($path, -1) == 's') {
+                $path .= 'es';
+            } else {
+                $path .= 's';
+            }
+        }
+
+        return $path;
     }
 
     /**
@@ -88,7 +109,7 @@ class ApiBuilder
 
         return new BasicRoute(
             'POST',
-            $this->getApiPath($entityClass),
+            $this->getApiPath($entityClass, $path),
             $saveEntityController
         );
     }
@@ -113,7 +134,7 @@ class ApiBuilder
 
         return new BasicRoute(
             'GET',
-            $this->getApiPath($entityClass),
+            $this->getApiPath($entityClass, $url, true),
             $getAllEntitiesController
         );
     }

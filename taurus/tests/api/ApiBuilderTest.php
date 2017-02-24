@@ -80,7 +80,7 @@ class ApiBuilderTest extends AbstractTaurusTest
         $service->setEntityClass(Exercise::class);
         $controller->setGetAllEntitiesService($service);
 
-        $expectedRoute = new BasicRoute('GET', 'exercise', $controller);
+        $expectedRoute = new BasicRoute('GET', 'exercises', $controller);
 
         $this->assertEquals(
             $expectedRoute,
