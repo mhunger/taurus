@@ -14,6 +14,7 @@ use taurus\framework\db\EntityBuilder;
 use taurus\framework\db\query\DeleteQuery;
 use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
+use taurus\framework\db\query\QueryBuilder;
 use taurus\framework\db\query\UpdateQuery;
 
 /**
@@ -28,7 +29,6 @@ class DatabaseManager implements EntityAccessLayer
 
     /** @var EntityBuilder */
     private $entityBuilder;
-
 
     /**
      * @param DbConnection $dbConnection
@@ -63,7 +63,7 @@ class DatabaseManager implements EntityAccessLayer
      * @param null $class
      * @return array
      */
-    public function fetchMany(Query $query, $class = null): array
+    public function fetchMany(Query $query, $class): array
     {
         $result = $this->dbConnection->executeMany($query);
 
@@ -72,12 +72,11 @@ class DatabaseManager implements EntityAccessLayer
 
     /**
      * @param Query $query
-     * @param null $class
-     * @return Entity
+     * @param string $class
+     * @return null|Entity
      */
-    public function fetchOne(Query $query, $class)
+    public function fetchOne(Query $query, string $class)
     {
-
         $result = $this->dbConnection->executeOne($query);
 
         if (is_null($result) || count($result) == 0) {

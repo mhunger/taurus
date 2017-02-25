@@ -34,14 +34,14 @@ interface EntityAccessLayer
      * @param null $class
      * @return mixed
      */
-    public function fetchMany(Query $query, $class = null);
+    public function fetchMany(Query $query, $class);
 
     /**
      * @param Query $query
-     * @param null $class
+     * @param string $class
      * @return mixed
      */
-    public function fetchOne(Query $query, $class);
+    public function fetchOne(Query $query, string $class);
 
     /**
      * @param InsertQuery $query
