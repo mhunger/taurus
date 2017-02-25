@@ -46,6 +46,9 @@ class SelectQuery implements Query
     /** @var MultiPartExpression */
     private $where;
 
+    /** @var array */
+    private $join = [];
+
     /**
      * @param array $fields
      * @return SelectQuery
@@ -70,6 +73,24 @@ class SelectQuery implements Query
         return $this;
     }
 
+    /**
+     * @param string $table
+     * @param null $alias
+     * @param string $field
+     * @param string $referenceField
+     * @return SelectQuery
+     */
+    public function join(string $table, $alias = null, string $field, string $referenceField): SelectQuery
+    {
+        $this->join[] = new JoinStatement(
+            $table,
+            $alias,
+            $field,
+            $referenceField
+        );
+
+        return $this;
+    }
 
     /**
      * @param MultiPartExpression $multiPartExpression
@@ -170,5 +191,13 @@ class SelectQuery implements Query
     public function getWhere()
     {
         return $this->where;
+    }
+
+    /**
+     * @return array
+     */
+    public function getJoin(): array
+    {
+        return $this->join;
     }
 }
