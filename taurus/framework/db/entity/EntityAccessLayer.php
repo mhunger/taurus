@@ -41,7 +41,7 @@ interface EntityAccessLayer
      * @param null $class
      * @return mixed
      */
-    public function fetchOne(Query $query, $class = null);
+    public function fetchOne(Query $query, $class);
 
     /**
      * @param InsertQuery $query

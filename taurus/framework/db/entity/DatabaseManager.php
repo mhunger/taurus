@@ -75,8 +75,9 @@ class DatabaseManager implements EntityAccessLayer
      * @param null $class
      * @return Entity
      */
-    public function fetchOne(Query $query, $class = null)
+    public function fetchOne(Query $query, $class)
     {
+
         $result = $this->dbConnection->executeOne($query);
 
         if (is_null($result) || count($result) == 0) {
