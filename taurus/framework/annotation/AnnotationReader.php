@@ -76,29 +76,31 @@ class AnnotationReader {
             $class = $subject;
         }
 
-        $this->classAnnotations = $this->parseComment($class->getDocComment());
+        $this->classAnnotations = $this->parseComment($class->getDocComment(), $class->getName());
 
         foreach ($class->getProperties() as $property) {
             $this->propertyAnnotations[$property->getName()] = $this->parseComment(
-                $property->getDocComment()
+                $property->getDocComment(),
+                $property->getName()
             );
         }
 
         foreach($class->getMethods() as $method) {
             $this->methodAnnotations[$method->getName()] = $this->parseComment(
-                $method->getDocComment()
+                $method->getDocComment(),
+                $method->getName()
             );
         }
     }
 
     /**
-     * Parses comment string and returns the annotation objects
-     *
-     * @param $comment
+     * @param string $comment
+     * @param string $classMember
      * @return array
      */
-    private function parseComment($comment) {
-        return $this->annotationParser->parseDocComment($comment);
+    private function parseComment(string $comment, string $classMember): array
+    {
+        return $this->annotationParser->parseDocComment($comment, $classMember);
     }
 
     /**
@@ -141,7 +143,7 @@ class AnnotationReader {
         foreach($this->propertyAnnotations as $property => $annotations) {
             /**
              * @var string $name
-             * @var Annotation $annotation
+             * @var AbstractAnnotation $annotation
              */
             foreach($annotations as $name => $annotation) {
                 if($name === $annotationName) {

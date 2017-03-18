@@ -5,8 +5,9 @@
  * Date: 16/12/16
  * Time: 11:51
  */
-
 namespace taurus\tests\annotation;
+
+use taurus\tests\fixtures\TestEntity;
 
 /**
  * Class TestAnnotationClass
@@ -15,7 +16,7 @@ namespace taurus\tests\annotation;
 class TestAnnotationClass {
 
     /**
-     * @var
+     * @var int
      * @Id
      * @Column(name="test_id")
      */
@@ -28,12 +29,15 @@ class TestAnnotationClass {
     public $test;
 
     /**
-     * @autowired
+     * @var TestEntity
+     * @Column(entity="TestEntity")
      */
+    public $entity;
+
     public $instance;
 
     /**
-     * @setter(name="prop")
+     * @Setter(property="id")
      */
     public function method() {
 

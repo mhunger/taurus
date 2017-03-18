@@ -10,31 +10,36 @@ namespace taurus\tests\annotation;
 
 
 use PHPUnit\Framework\TestCase;
-use taurus\framework\annotation\Annotation;
+use taurus\framework\annotation\AbstractAnnotation;
 use taurus\framework\annotation\AnnotationProperty;
 use taurus\framework\annotation\AnnotationReader;
+use taurus\framework\annotation\Column;
+use taurus\framework\annotation\Entity;
+use taurus\framework\annotation\Setter;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 
 use taurus\framework\db\entity\EntityMetaDataStore;
+use taurus\tests\AbstractTaurusTest;
 
 
-class ReaderTest extends TestCase {
+class ReaderTest extends AbstractTaurusTest
+{
 
     /** @var AnnotationReader */
     private $testSubject;
 
     public function setUp() {
+        parent::setUp();
         $this->testSubject = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_ANNOTATION_READER);
         $this->testSubject->getAnnotationsForClass(
                 new \ReflectionClass(new TestAnnotationClass())
         );
     }
 
-    public function testParseClassAnnotations() {
-
-        $annotationProperty = new AnnotationProperty('table', 'test');
-        $expectedAnnotation = new Annotation('Entity', [$annotationProperty]);
+    public function testParseClassAnnotations()
+    {
+        $expectedAnnotation = new Entity('taurus\tests\annotation\TestAnnotationClass', 'test');
 
         $this->assertEquals(
             $expectedAnnotation,
@@ -44,27 +49,25 @@ class ReaderTest extends TestCase {
     }
 
     public function testParsePropertyAnnotations() {
-        $expectedAnnotation = new Annotation('autowired');
+        $expectedAnnotation = new Column('test', 'id');
 
         $this->assertEquals(
             $expectedAnnotation,
-            $this->testSubject->getPropertyAnnotations()['instance']['autowired']
+            $this->testSubject->getPropertyAnnotations()['test']['Column']
         );
 
     }
 
     public function testParseMethodAnnotations() {
-        $expectedAnnotation = new Annotation(
-            'setter',
-            [
-                new AnnotationProperty('name', 'prop')
-            ]
+        $expectedAnnotation = new Setter(
+            'method',
+            'id'
         );
 
         $this->assertEquals(
             $expectedAnnotation,
-            $this->testSubject->getMethodAnnotations()['method']['setter'],
-            "Method Annotation was not parsed correct"
+            $this->testSubject->getMethodAnnotations()['method']['Setter'],
+            "Method AbstractAnnotation was not parsed correct"
         );
     }
 

@@ -11,11 +11,25 @@ namespace taurus\framework\annotation;
 
 class AnnotationParser {
 
+    /** @var AnnotationBuilder */
+    private $annotationBuilder;
+
     /**
-     * @param $docCommentString
+     * AnnotationParser constructor.
+     * @param AnnotationBuilder $annotationBuilder
+     */
+    public function __construct(AnnotationBuilder $annotationBuilder)
+    {
+        $this->annotationBuilder = $annotationBuilder;
+    }
+
+    /**
+     * @param string $docCommentString
+     * @param string $classMember
      * @return array
      */
-    public function parseDocComment($docCommentString) {
+    public function parseDocComment(string $docCommentString, string $classMember): array
+    {
         $result = [];
 
         $annotationCollection = [];
@@ -23,14 +37,17 @@ class AnnotationParser {
         if(preg_match_all('/@([A-Z_a-z]+)(\(.+\))?/', $docCommentString, $result, PREG_SET_ORDER) > 0) {
             foreach($result as $annotation) {
 
-                if(isset($annotation[2])) {
-                    $annotationParsed = $this->parseProperties($annotation[2], new Annotation($annotation[1]));
+                if (!in_array($annotation[1], AnnotationBuilder::DOC_BLOCK_ANNOATIONS)) {
+                    if (isset($annotation[2])) {
+                        $properties = $this->parseProperties($annotation[2], $annotation[1]);
+                        $annotationCreated = $this->annotationBuilder->build($annotation[1], $classMember, $properties);
+                    } else {
+                        $annotationCreated = $this->annotationBuilder->build($annotation[1], $classMember);
+                    }
 
-                } else {
-                    $annotationParsed = new Annotation($annotation[1]);
+                    $annotationCollection[$annotation[1]] = $annotationCreated;
+
                 }
-
-                $annotationCollection[$annotationParsed->getName()] = $annotationParsed;
             }
         }
 
@@ -38,23 +55,22 @@ class AnnotationParser {
     }
 
     /**
-     * @param $stringToParse
-     * @param Annotation $annotationObj
-     * @return Annotation
+     * @param string $stringToParse
+     * @param string $name
+     * @return array
      */
-    public function parseProperties($stringToParse, Annotation $annotationObj)
+    public function parseProperties(string $stringToParse, string $name): array
     {
-        $result = [];
+        $properties = [];
 
-        $pattern = '/\(([a-z]+)\s?=\s?"?([a-z_\-0-9]+)"?\)/';
+        $pattern = '/([a-z_]+)\s?=\s?"?([a-zA-z_\-0-9]+)"?/';
 
         if(preg_match_all($pattern, $stringToParse, $result, PREG_SET_ORDER) > 0) {
             foreach($result as $annotation) {
-                $annotationProperty = new AnnotationProperty($annotation[1], $annotation[2]);
-                $annotationObj->addProperty($annotationProperty);
+                $properties[$annotation[1]] = $annotation[2];
             }
         }
 
-        return $annotationObj;
+        return $properties;
     }
 }
