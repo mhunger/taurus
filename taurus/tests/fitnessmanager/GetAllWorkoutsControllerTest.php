@@ -46,13 +46,8 @@ class GetAllWorkoutsControllerTest extends AbstractDatabaseTest
             []
         );
 
-        $json = '[{"id":"1","date":"2012-01-01 12:00:00"},{"id":"2","date":"2015-01-01 04:00:00"}]';
-        $responseObj = json_decode($json);
-
-        $expectedResponse = (new HttpJsonResponse(201, $responseObj))->getJson();
-
-        $this->assertEquals(
-            $expectedResponse,
+        $this->assertJsonStringEqualsJsonFile(
+            $this->getJsonResultsFilePath('getAllWorkoutsControllerTest-testGetMethod.json'),
             $actualResponse,
             "Controller to get all workouts did not return correct result"
         );

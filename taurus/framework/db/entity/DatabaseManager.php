@@ -77,7 +77,13 @@ class DatabaseManager implements EntityAccessLayer
     {
         $result = $this->dbConnection->executeMany($query);
 
-        return $this->entityBuilder->convertMany($result, $class);
+        $entities = [];
+        foreach($result as $row) {
+            $relationshipData = $this->fetchDependenciesForClass($class, $row[$this->entityMetaDataImpl->getIdField($class)]);
+            $entities[] = $this->entityBuilder->convertOne($row, $class, $relationshipData);
+        }
+
+        return $entities;
     }
 
     /**
