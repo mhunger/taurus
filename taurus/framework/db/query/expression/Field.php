@@ -19,7 +19,7 @@ class Field extends ScalarExpression
 {
 
     /**
-     * @var
+     * @var string
      */
     private $value;
 
@@ -27,7 +27,7 @@ class Field extends ScalarExpression
     /**
      * @param mixed $value
      */
-    function __construct($value)
+    function __construct(string $value)
     {
         $this->value = $value;
     }
