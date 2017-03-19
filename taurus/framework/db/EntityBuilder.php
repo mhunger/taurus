@@ -64,7 +64,7 @@ class EntityBuilder {
 
     private function getSetterMethodName($property)
     {
-        return 'set' . strtoupper($property);
+        return 'set' . ucfirst($property);
     }
 
     /**
