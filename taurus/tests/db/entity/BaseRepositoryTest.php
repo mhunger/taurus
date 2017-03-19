@@ -101,6 +101,7 @@ class BaseRepositoryTest extends AbstractDatabaseTest
     function getFixtureFiles(): array
     {
         return [
+            'workout_location.xml',
             'exercise.xml',
             'workout.xml'
         ];
