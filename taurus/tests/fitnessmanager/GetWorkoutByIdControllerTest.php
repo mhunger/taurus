@@ -24,6 +24,7 @@ class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
     function getFixtureFiles(): array
     {
         return [
+            'workout_location.xml',
             'workout.xml'
         ];
     }
@@ -42,7 +43,7 @@ class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
         );
 
 
-        $json = '{"id":"1","date":"2012-01-01 12:00:00"}';
+        $json = '{"id":"1","date":"2012-01-01 12:00:00", "workoutLocation": {"id": 1, "name": "TUM Sportzentrum"}}';
         $responseObj = json_decode($json);
 
         $expectedResponse = (new HttpJsonResponse(201, $responseObj))->getJson();

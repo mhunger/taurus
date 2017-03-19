@@ -11,6 +11,7 @@ namespace fitnessmanager\workout;
 use taurus\framework\db\Entity;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\db\entity\DatabaseManager;
+use taurus\framework\error\Http404NotFoundException;
 use taurus\framework\http\Controller;
 use taurus\framework\routing\Request;
 
@@ -28,9 +29,11 @@ class GetWorkoutByIdController implements Controller
         $this->workoutBaseRepository = $workoutBaseRepository;
     }
 
+
     /**
      * @param Request $request
      * @return Entity
+     * @throws Http404NotFoundException
      */
     public function handleRequest(Request $request): Entity
     {
@@ -38,6 +41,13 @@ class GetWorkoutByIdController implements Controller
             $request->getParamByName('id'),
             Workout::class
         );
+
+        if ($result === null) {
+            throw new Http404NotFoundException(
+                $request->getParamByName('id'),
+                Workout::class
+            );
+        }
 
         return $result;
     }
