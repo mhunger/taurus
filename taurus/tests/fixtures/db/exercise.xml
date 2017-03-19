@@ -1,19 +1,17 @@
 <?xml version="1.0"?>
-<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <database name="taurus">
-        <table_data name="exercise">
-            <row>
-                <field name="exercise_id">3</field>
-                <field name="name">Pull-Up</field>
-                <field name="difficulty">hard</field>
-                <field name="variant_name">Chinup</field>
-            </row>
-            <row>
-                <field name="exercise_id">4</field>
-                <field name="name">Push-Ups</field>
-                <field name="difficulty">medium</field>
-                <field name="variant_name">Standing</field>
-            </row>
-        </table_data>
-    </database>
-</mysqldump>
+<database name="taurus_test">
+    <table_data name="exercise">
+        <row>
+            <field name="exercise_id">3</field>
+            <field name="name">Pull-Up</field>
+            <field name="difficulty">hard</field>
+            <field name="variant_name">Chinup</field>
+        </row>
+        <row>
+            <field name="exercise_id">4</field>
+            <field name="name">Push-Ups</field>
+            <field name="difficulty">medium</field>
+            <field name="variant_name">Standing</field>
+        </row>
+    </table_data>
+</database>
