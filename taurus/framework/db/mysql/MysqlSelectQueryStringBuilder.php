@@ -11,6 +11,7 @@ namespace taurus\framework\db\mysql;
 
 use taurus\framework\db\query\expression\Expression;
 use taurus\framework\db\query\expression\MultiPartExpression;
+use taurus\framework\db\query\JoinStatement;
 use taurus\framework\db\query\SelectQuery;
 use taurus\framework\db\query\SelectQueryStringBuilder;
 
@@ -21,20 +22,40 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
 
     const MYSQL_KEYWORD_SELECT = 'SELECT';
 
+    const MYSQL_KEYWORD_JOIN = 'LEFT JOIN';
+
+    const MYSQL_KEYWORD_ON = 'ON';
+
     const MYSQL_KEYWORD_FROM = 'FROM';
 
     public function getSelectQueryString(SelectQuery $selectQuery)
     {
         $tokens = [];
-
         $tokens[] = self::MYSQL_KEYWORD_SELECT;
         $tokens[] = $this->getFields($selectQuery);
         $tokens[] = self::MYSQL_KEYWORD_FROM;
         $tokens[] = $this->getStore($selectQuery);
-
+        $tokens = $this->addJoinStatements($selectQuery, $tokens);
         $tokens = $this->addFilterCriteriaToTokens($selectQuery, $tokens);
 
         return implode(' ', $tokens);
+    }
+
+    private function addJoinStatements(SelectQuery $selectQuery, array $tokens): array
+    {
+        $joins = $selectQuery->getJoin();
+
+        /** @var JoinStatement $joinStatement */
+        foreach ($joins as $joinStatement) {
+            $tokens[] = self::MYSQL_KEYWORD_JOIN;
+            $tokens[] = $joinStatement->getTable();
+            $tokens[] = self::MYSQL_KEYWORD_ON;
+            $tokens[] = $joinStatement->getTable() . '.' . $joinStatement->getField();
+            $tokens[] = '=';
+            $tokens[] = $selectQuery->getTable() . '.' . $joinStatement->getReferenceField();
+        }
+
+        return $tokens;
     }
 
     /**
