@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<database name="taurus_test">
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <database name="taurus_test">
         <table_data name="workout">
             <row>
                 <field name="id">1</field>
@@ -13,3 +14,4 @@
             </row>
         </table_data>
     </database>
+</mysqldump>
