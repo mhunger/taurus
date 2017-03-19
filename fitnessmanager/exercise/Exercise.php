@@ -17,7 +17,6 @@ use taurus\framework\db\Entity;
  */
 class Exercise implements Entity
 {
-
     /**
      * @var int
      * @Id
