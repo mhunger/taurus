@@ -10,6 +10,9 @@ namespace taurus\tests\api;
 
 
 use fitnessmanager\exercise\Exercise;
+use fitnessmanager\exercise\ExerciseGroup;
+use fitnessmanager\exercise\MuscleGroup;
+use fitnessmanager\workout\WorkoutLocation;
 use taurus\framework\api\GetByIdApiController;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
@@ -28,6 +31,9 @@ class GetByIdApiControllerTest extends AbstractDatabaseTest
     function getFixtureFiles(): array
     {
         return [
+            'workout_location.xml',
+            'muscle_group.xml',
+            'exercise_group.xml',
             'exercise.xml'
         ];
     }
@@ -57,7 +63,15 @@ class GetByIdApiControllerTest extends AbstractDatabaseTest
         ]);
 
         $actualResult = $this->controller->handleRequest($request);
-        $expectedResult = (new Exercise())->setId(3)->setDifficulty('hard')->setName('Pull-Up')->setVariantName('Chinup');
+        $expectedResult = (new Exercise())->setId(3)->setDifficulty('hard')->setName('Pull-Up')->setVariantName('Chinup')
+            ->setWorkoutLocation(
+                (new WorkoutLocation())->setId(1)->setName('TUM Sportzentrum')
+            )->setExerciseGroup(
+                (new ExerciseGroup())->setId(1)->setName('Pullups')->setDifficulty('hard')
+                    ->setMuscleGroup(
+                        (new MuscleGroup())->setId(5)->setName('Back')
+                    )
+            );
 
         $this->assertEquals(
             $expectedResult,
