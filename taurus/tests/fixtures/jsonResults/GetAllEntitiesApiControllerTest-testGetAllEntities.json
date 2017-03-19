@@ -1,0 +1,40 @@
+[
+  {
+    "id": 3,
+    "name": "Pull-Up",
+    "difficulty": "hard",
+    "variantName": "Chinup",
+    "exerciseGroup": {
+      "id": 1,
+      "name": "Pullups",
+      "difficulty": "hard",
+      "muscleGroup": {
+        "id": 5,
+        "name": "Back"
+      }
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Push-Ups",
+    "difficulty": "medium",
+    "variantName": "Standing",
+    "exerciseGroup": {
+      "id": 2,
+      "name": "Pushups",
+      "difficulty": "medium",
+      "muscleGroup": {
+        "id": 1,
+        "name": "Chest"
+      }
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  }
+]
