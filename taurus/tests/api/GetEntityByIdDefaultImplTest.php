@@ -10,6 +10,7 @@ namespace taurus\tests\api;
 
 
 use fitnessmanager\exercise\Exercise;
+use fitnessmanager\exercise\ExerciseGroup;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
@@ -34,6 +35,9 @@ class GetEntityByIdDefaultImplTest extends AbstractDatabaseTest
     function getFixtureFiles(): array
     {
         return [
+            'workout_location.xml',
+            'muscle_group.xml',
+            'exercise_group.xml',
             'exercise.xml'
         ];
     }
@@ -41,7 +45,7 @@ class GetEntityByIdDefaultImplTest extends AbstractDatabaseTest
     public function testGetEntityByIdDefaultServiceTest()
     {
         $actualResult = $this->getEntityByIdService->getEntityById(3);
-        $expectedResult = (new Exercise())->setId(3)->setDifficulty('hard')->setName('Pull-Up')->setVariantName('Chinup');
+        $expectedResult = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_BASE_REPOSITORY)->findOne(3, Exercise::class);
 
         $this->assertEquals(
             $expectedResult,
