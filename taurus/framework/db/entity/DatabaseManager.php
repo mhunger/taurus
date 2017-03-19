@@ -79,7 +79,12 @@ class DatabaseManager implements EntityAccessLayer
 
         $entities = [];
         foreach($result as $row) {
-            $relationshipData = $this->fetchDependenciesForClass($class, $row[$this->entityMetaDataImpl->getIdField($class)]);
+            $relationshipData = $this->fetchDependenciesForClass(
+                $class,
+                $row[$this->entityMetaDataImpl->getIdField($class)],
+                $row
+            );
+
             $entities[] = $this->entityBuilder->convertOne($row, $class, $relationshipData);
         }
 
@@ -100,36 +105,36 @@ class DatabaseManager implements EntityAccessLayer
             return null;
         }
 
-        $relationshipData = $this->fetchDependenciesForClass($class, $id);
+        $relationshipData = $this->fetchDependenciesForClass($class, $id, $result);
         return $this->entityBuilder->convertOne($result, $class, $relationshipData);
     }
 
     /**
      * @param string $class
      * @param $id
+     * @param $result
      * @return array
      */
-    private function fetchDependenciesForClass(string $class, $id)
+    private function fetchDependenciesForClass(string $class, $id, array $result)
     {
         $rels = $this->entityMetaDataImpl->getRelationships($class);
 
-        $result = [];
+        $dependencies = [];
         foreach($rels as $property => $annotation) {
             switch(get_class($annotation)) {
                 case OneToOne::class:
-                    $result[$annotation->getColumn()] = $this->entityBuilder
-                    ->convertOne(
-                        $this->dbConnection->executeOne(
-                            $this->oneToOneBuilder->build($annotation, $id)
-                        ),
-                        $annotation->getEntity()
-                    );
+                    $dependencies[$annotation->getColumn()] =
+                        $this->fetchOne(
+                            $this->oneToOneBuilder->build($annotation, $result[$annotation->getColumn()]),
+                            $annotation->getEntity(),
+                            $result[$annotation->getColumn()]
+                        );
 
                     break;
             }
         }
 
-        return $result;
+        return $dependencies;
     }
 
     /**
