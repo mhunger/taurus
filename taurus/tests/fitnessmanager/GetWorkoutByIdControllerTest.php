@@ -42,16 +42,10 @@ class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
             ['id' => 1]
         );
 
-
-        $json = '{"id":"1","date":"2012-01-01 12:00:00", "workoutLocation": {"id": 1, "name": "TUM Sportzentrum"}}';
-        $responseObj = json_decode($json);
-
-        $expectedResponse = (new HttpJsonResponse(201, $responseObj))->getJson();
-
-        $this->assertEquals(
-            $expectedResponse,
+        $this->assertJsonStringEqualsJsonFile(
+            $this->getJsonResultsFilePath('GetWorkoutByIdControllerTest-testGetMethod.json'),
             $actualResponse,
-            "Controller did not load correct response"
+            'Could not get workout by id correctly'
         );
     }
 }
