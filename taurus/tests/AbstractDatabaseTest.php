@@ -15,6 +15,7 @@ use PHPUnit_Extensions_Database_DataSet_IDataSet;
 use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
+use taurus\framework\exception\JsonResultsFileNotFoundException;
 
 /**
  * Class AbstractDatabaseTest
@@ -76,6 +77,20 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
     protected function getTearDownOperation()
     {
         return \PHPUnit_Extensions_Database_Operation_Factory::TRUNCATE();
+    }
+
+    /**
+     * @param string $file
+     * @return string
+     * @throws JsonResultsFileNotFoundException
+     */
+    protected function getJsonResultsFilePath(string $file): string {
+        $filePath = dirname(__FILE__) . '/fixtures/jsonResults/' . $file;
+        if(is_file($filePath)) {
+            return $filePath;
+        }
+
+        throw new JsonResultsFileNotFoundException($filePath);
     }
 
     /**
