@@ -35,6 +35,7 @@ class Router {
     /**
      * @param Request $request
      * @return HttpJsonResponse
+     * @throws \Exception
      */
     public function route(Request $request) {
         $url = $request->getUrl();
@@ -63,6 +64,8 @@ class Router {
         } catch(\Exception $ex) {
             if(!$this->isTestEnvironment()) {
                 (new HttpJsonResponse(500, $ex->getMessage()))->send();
+            } else {
+                throw $ex;
             }
         }
     }
