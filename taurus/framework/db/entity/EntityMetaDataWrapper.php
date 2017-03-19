@@ -9,6 +9,7 @@
 namespace taurus\framework\db\entity;
 
 
+use taurus\framework\annotation\AbstractAnnotation;
 use taurus\framework\db\Entity;
 
 /**
@@ -54,4 +55,14 @@ interface EntityMetaDataWrapper
      * @return array
      */
     public function getColumnNameValueMap(Entity $entity): array;
+
+    /**
+     * Return an integer that tells the caller whether the column is a mapped column.
+     * where 1 = OneToOne, 2 = OneToMany, 3 = ManyToMany, 0 = no mapped column. This is
+     * used to grab related objects or sets in entity builder.
+     *
+     * @param string $class
+     * @return AbstractAnnotation|null
+     */
+    public function getRelationships(string $class);
 }

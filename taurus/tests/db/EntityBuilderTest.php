@@ -10,6 +10,8 @@ namespace taurus\tests\db;
 
 
 use fitnessmanager\exercise\Exercise;
+use fitnessmanager\workout\Workout;
+use fitnessmanager\workout\WorkoutLocation;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\db\EntityBuilder;
@@ -44,6 +46,31 @@ class EntityBuilderTest extends AbstractTaurusTest
             $expectedEntity,
             $actualEntity,
             'Could not convert entity'
+        );
+    }
+
+    public function testConvertOneWithRelationShip()
+    {
+        $expectedEntity = (new Workout())->setId(1)->setDate('2012-01-01 12:00:00')->setWorkoutLocation(
+            (new WorkoutLocation())->setId(1)->setName('TUM Sportzentrum')
+        );
+
+        $actualEntity = $this->entityBuilder->convertOne(
+            [
+                'id' => 1,
+                'date' => '2012-01-01 12:00:00',
+                'workout_location_id' => 1
+            ],
+            Workout::class,
+            [
+                'workout_location_id' => (new WorkoutLocation())->setId(1)->setName('TUM Sportzentrum')
+            ]
+        );
+
+        $this->assertEquals(
+            $expectedEntity,
+            $actualEntity,
+            'Did not build entity with relationship correctly'
         );
     }
 

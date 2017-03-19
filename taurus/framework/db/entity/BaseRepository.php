@@ -66,7 +66,8 @@ class BaseRepository {
                 )
             );
 
-        return $this->entityAccessLayer->fetchOne($q, $entityClass);
+
+        return $this->entityAccessLayer->fetchOne($q, $entityClass, $id);
     }
 
     /**

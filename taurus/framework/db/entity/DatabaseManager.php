@@ -8,6 +8,7 @@
 
 namespace taurus\framework\db\entity;
 
+use taurus\framework\annotation\OneToOne;
 use taurus\framework\db\DbConnection;
 use taurus\framework\db\Entity;
 use taurus\framework\db\EntityBuilder;
@@ -30,14 +31,23 @@ class DatabaseManager implements EntityAccessLayer
     /** @var EntityBuilder */
     private $entityBuilder;
 
+    /** @var EntityMetaDataImpl */
+    private $entityMetaDataImpl;
+
+    /** @var OneToOneBuilder */
+    private $oneToOneBuilder;
     /**
+     * DatabaseManager constructor.
      * @param DbConnection $dbConnection
      * @param EntityBuilder $entityBuilder
+     * @param EntityMetaDataImpl $entityMetaDataImpl
      */
-    function __construct(DbConnection $dbConnection, EntityBuilder $entityBuilder)
+    function __construct(DbConnection $dbConnection, EntityBuilder $entityBuilder, EntityMetaDataImpl $entityMetaDataImpl, OneToOneBuilder $oneToOneBuilder)
     {
         $this->dbConnection = $dbConnection;
         $this->entityBuilder = $entityBuilder;
+        $this->entityMetaDataImpl = $entityMetaDataImpl;
+        $this->oneToOneBuilder = $oneToOneBuilder;
     }
 
     /**
@@ -73,9 +83,10 @@ class DatabaseManager implements EntityAccessLayer
     /**
      * @param Query $query
      * @param string $class
+     * @param $id
      * @return null|Entity
      */
-    public function fetchOne(Query $query, string $class)
+    public function fetchOne(Query $query, string $class, int $id)
     {
         $result = $this->dbConnection->executeOne($query);
 
@@ -83,7 +94,36 @@ class DatabaseManager implements EntityAccessLayer
             return null;
         }
 
-        return $this->entityBuilder->convertOne($result, $class);
+        $relationshipData = $this->fetchDependenciesForClass($class, $id);
+        return $this->entityBuilder->convertOne($result, $class, $relationshipData);
+    }
+
+    /**
+     * @param string $class
+     * @param $id
+     * @return array
+     */
+    private function fetchDependenciesForClass(string $class, $id)
+    {
+        $rels = $this->entityMetaDataImpl->getRelationships($class);
+
+        $result = [];
+        foreach($rels as $property => $annotation) {
+            switch(get_class($annotation)) {
+                case OneToOne::class:
+                    $result[$annotation->getColumn()] = $this->entityBuilder
+                    ->convertOne(
+                        $this->dbConnection->executeOne(
+                            $this->oneToOneBuilder->build($annotation, $id)
+                        ),
+                        $annotation->getEntity()
+                    );
+
+                    break;
+            }
+        }
+
+        return $result;
     }
 
     /**

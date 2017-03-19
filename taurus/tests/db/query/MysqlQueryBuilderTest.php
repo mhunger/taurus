@@ -145,4 +145,19 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
             'Delete query not created. Instance type is wrong'
         );
     }
+
+    public function testSimpleJoin()
+    {
+        $this->assertEquals(
+            'SELECT id, date FROM fitnessmanager.workout LEFT JOIN workout_location ON workout_location.id = workout.workout_location_id',
+            $this->mysqlQueryStringBuilder
+                ->getSelectQueryString(
+                    $this->queryBuilder
+                        ->query(QueryBuilder::QUERY_TYPE_SELECT)
+                        ->select(['id', 'date'])
+                        ->from('workout', 'fitnessmanager')
+                        ->join('workout_location', null, 'id', 'workout_location_id')
+                )
+        );
+    }
 }

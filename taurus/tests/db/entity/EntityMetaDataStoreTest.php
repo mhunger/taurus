@@ -10,18 +10,20 @@ namespace taurus\tests\db\entity;
 
 
 use PHPUnit\Framework\TestCase;
-use taurus\framework\annotation\Annotation;
+use taurus\framework\annotation\AbstractAnnotation;
 use taurus\framework\annotation\AnnotationProperty;
+use taurus\framework\annotation\Column;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\EntityMetaDataStore;
+use taurus\tests\AbstractTaurusTest;
 use taurus\tests\fixtures\TestEntity;
 
 /**
  * Class EntityMetaDataStoreTest
  * @package taurus\tests\db\entity
  */
-class EntityMetaDataStoreTest extends TestCase
+class EntityMetaDataStoreTest extends AbstractTaurusTest
 {
 
     /**
@@ -41,26 +43,13 @@ class EntityMetaDataStoreTest extends TestCase
     public function testGetColumns()
     {
         $expectedResult = [
-            'idTestField' => new Annotation(EntityMetaDataStore::ENTITY_ANNOTATION_COLUMN,
-                [
-                    new AnnotationProperty(
-                        EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME,
-                        'test_id'
-                    )
-                ]
-            ),
-            'testField' => new Annotation(EntityMetaDataStore::ENTITY_ANNOTATION_COLUMN,
-                [
-                    new AnnotationProperty(
-                        EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME,
-                        'test_field'
-                    )
-                ])
+            'idTestField' => new Column('idTestField', 'test_id'),
+            'testField' => new Column('testField', 'test_field')
         ];
 
         $actualResult = $this->subject
             ->getEntityMetaData(TestEntity::class)
-            ->getColumns(new TestEntity());
+            ->getColumns();
 
         $this->assertEquals(
             $expectedResult,

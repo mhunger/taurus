@@ -13,9 +13,10 @@ use PHPUnit\Framework\TestCase;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\EntityMetaDataImpl;
+use taurus\tests\AbstractTaurusTest;
 use taurus\tests\fixtures\TestEntity;
 
-class EntityMetaDataImplTest extends TestCase
+class EntityMetaDataImplTest extends AbstractTaurusTest
 {
 
     /** @var EntityMetaDataImpl */
@@ -23,6 +24,7 @@ class EntityMetaDataImplTest extends TestCase
 
     public function setUp()
     {
+        parent::setUp();
         $this->entityMetaDataImpl = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_ENTITY_METADATA);
     }
 

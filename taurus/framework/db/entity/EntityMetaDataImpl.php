@@ -8,8 +8,9 @@
 
 namespace taurus\framework\db\entity;
 
-use taurus\framework\annotation\Annotation;
+use taurus\framework\annotation\AbstractAnnotation;
 use taurus\framework\annotation\AnnotationReader;
+use taurus\framework\annotation\Column;
 use taurus\framework\db\Entity;
 use taurus\framework\error\GetterDoesNotExistException;
 
@@ -66,6 +67,8 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
     }
 
     /**
+     * Returns the table column names as an array
+     *
      * @param Entity $class
      * @return array
      */
@@ -77,9 +80,10 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
 
         $columns = [];
 
-        /** @var Annotation $annoation */
-        foreach($columnAnnotations as $annoation) {
-            $columns[] = $annoation->getPropertyValue(EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME);
+        /** @var AbstractAnnotation $annotation */
+        foreach($columnAnnotations as $annotation) {
+            /** @var Column $annoation */
+            $columns[] = $annotation->getColumnName();
         }
 
         return $columns;
@@ -101,10 +105,10 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
 
         /**
          * @var string $property
-         * @var Annotation $columnAnnotation
+         * @var Column $columnAnnotation
          */
         foreach ($columnAnnotations as $property => $columnAnnotation) {
-            $columnName = $columnAnnotation->getPropertyValue(EntityMetaDataStore::ANNOTATION_PROPERTY_COLUMN_NAME);
+            $columnName = $columnAnnotation->getColumnName();
             $map[$columnName] = $property;
         }
 
@@ -112,6 +116,9 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
     }
 
     /**
+     * Returns a list of values for each column in the database in the order of the fields in the entity. This
+     * is used to build the "values" part of insert statements
+     *
      * @param Entity $entity
      * @return array
      */
@@ -130,6 +137,9 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
     }
 
     /**
+     * Method returns an array that maps the column names in the database to the values in the entity of the
+     * respective property. This is used for update-query building
+     *
      * @param Entity $entity
      * @return array
      */
@@ -164,5 +174,19 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
         }
 
         throw new GetterDoesNotExistException('Getter [' . $getterMethodName . '] does not exist in [' . get_class($entity) . ']');
+    }
+
+    /**
+     * Return the relationships as an array, where the key is the property and the value is
+     * the Mapping Annotation Class OneToOne, OneToMany, ManyToMany
+     *
+     * @param string $class
+     * @return array
+     */
+    public function getRelationships(string $class): array
+    {
+        return $this->entityMetaDataStore
+            ->getEntityMetaData($class)
+            ->getRelationships();
     }
 }

@@ -9,8 +9,9 @@
 namespace taurus\framework\db\entity;
 
 
-use taurus\framework\annotation\Annotation;
+use taurus\framework\annotation\AbstractAnnotation;
 use taurus\framework\annotation\AnnotationReader;
+use taurus\framework\annotation\Entity;
 use taurus\framework\error\EntityMetaDataMissingException;
 
 class EntityMetaDataStore
@@ -20,6 +21,9 @@ class EntityMetaDataStore
     const ANNOTATION_PROPERTY_COLUMN_NAME = 'name';
     const ENTITY_ANNOTATIONS_ENTITY = 'Entity';
     const ANNOTATION_PROPERTY_ENTITY_TABLE = 'table';
+    const ANNOTATION_ENTITY_REL_ONE_TO_ONE = 'OneToOne';
+    const ANNOTATION_ENTITY_REL_ONE_TO_MANY = 'OneToMany';
+    const ANNOTATION_ENTITY_REL_MANY_TO_MANY = 'ManyToMany';
 
     /**
      * @var array
@@ -43,7 +47,7 @@ class EntityMetaDataStore
      * @param $class
      * @return EntityMetaData
      */
-    public function getEntityMetaData($class)
+    public function getEntityMetaData($class): EntityMetaData
     {
         if (!isset($this->entityMetaDataStore[$class])) {
             $this->createEntityMetaData($class);
@@ -51,7 +55,6 @@ class EntityMetaDataStore
 
         return $this->entityMetaDataStore[$class];
     }
-
 
     /**
      * @param $class
@@ -71,37 +74,81 @@ class EntityMetaDataStore
             }
 
             if (isset($annotations[self::ENTITY_ANNOTATION_ID])) {
-                $idFieldName = $annotations[self::ENTITY_ANNOTATION_COLUMN]->getPropertyValue(self::ANNOTATION_PROPERTY_COLUMN_NAME);
+                $idFieldName = $annotations[self::ENTITY_ANNOTATION_COLUMN]->getColumnName();
             }
         }
 
+        /** get the table from entity annotations */
         $classAnnotations = $this->reader->getClassAnnotations();
-        /**
-         * @var string $name
-         * @var Annotation $annotation
-         */
-        foreach ($classAnnotations as $name => $annotation) {
-            if ($name == self::ENTITY_ANNOTATIONS_ENTITY) {
-                $table = $annotation->getPropertyValue(self::ANNOTATION_PROPERTY_ENTITY_TABLE);
-            }
-        }
+        $table = $this->getTableFromAnnotations($classAnnotations);
+
+        $relationships = $this->getRelationshipsFromPropertyAnnotations($propertyAnnotations);
 
         if ($idFieldName === null || $table === null) {
             throw new EntityMetaDataMissingException();
         }
 
-        $this->cacheEntityMetaData($class, $idFieldName, $table, $columns);
+        $this->cacheEntityMetaData($class, $idFieldName, $table, $columns, $relationships);
     }
-
 
     /**
      * @param $class
      * @param $idFieldName
      * @param $tableName
      * @param array $columns
+     * @param array $relationships
      */
-    private function cacheEntityMetaData($class, $idFieldName, $tableName, array $columns)
+    private function cacheEntityMetaData($class, $idFieldName, $tableName, array $columns, array $relationships = [])
     {
-        $this->entityMetaDataStore[$class] = new EntityMetaData($idFieldName, $tableName, $columns);
+        $this->entityMetaDataStore[$class] = new EntityMetaData($idFieldName, $tableName, $columns, $relationships);
+    }
+
+    /**
+     * @param array $classAnnotations
+     * @return string
+     * @throws \Exception
+     */
+    private function getTableFromAnnotations(array $classAnnotations): string {
+
+        /**
+         * @var string $name
+         * @var AbstractAnnotation $annotation
+         */
+        foreach ($classAnnotations as $name => $annotation) {
+            if ($name == self::ENTITY_ANNOTATIONS_ENTITY) {
+                /** @var $annotation Entity */
+                return $annotation->getTable();
+            }
+        }
+
+        throw new \Exception('Could not find table in Entity Annotations');
+    }
+
+    /**
+     * @param array $propertyAnnotations
+     * @return array
+     */
+    private function getRelationshipsFromPropertyAnnotations(array $propertyAnnotations): array {
+        $relationships = [];
+
+        /**
+         * @var $propertyAnnotation string
+         * @var $annotations array
+         */
+        foreach($propertyAnnotations as $property => $annotations) {
+            if(array_key_exists(self::ANNOTATION_ENTITY_REL_ONE_TO_ONE, $annotations)){
+                $relationships[$property] = $annotations[self::ANNOTATION_ENTITY_REL_ONE_TO_ONE];
+            }
+
+            if(array_key_exists(self::ANNOTATION_ENTITY_REL_ONE_TO_MANY, $annotations)) {
+                $relationships[$property] = $annotations[self::ANNOTATION_ENTITY_REL_ONE_TO_MANY];
+            }
+
+            if(array_key_exists(self::ANNOTATION_ENTITY_REL_MANY_TO_MANY, $annotations)) {
+                $relationships[$property] = $annotations[self::ANNOTATION_ENTITY_REL_MANY_TO_MANY];
+            }
+        }
+
+        return $relationships;
     }
 }

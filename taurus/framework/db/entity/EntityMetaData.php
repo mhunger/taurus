@@ -28,17 +28,23 @@ class EntityMetaData {
     /** @var array */
     private $columns;
 
+    /** @var array */
+    private $relationships;
+
     /**
+     * EntityMetaData constructor.
      * @param $id
      * @param $table
      * @param array $columns
+     * @param array $relationships
      */
-    function __construct($id, $table, array $columns)
+    function __construct($id, $table, array $columns, array $relationships = null)
     {
         ksort($columns);
         $this->columns = $columns;
         $this->id = $id;
         $this->table = $table;
+        $this->relationships = $relationships;
     }
 
     /**
@@ -63,5 +69,13 @@ class EntityMetaData {
     public function getColumns()
     {
         return $this->columns;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRelationships(): array
+    {
+        return $this->relationships;
     }
 }

@@ -26,6 +26,7 @@ class GetAllWorkoutsControllerTest extends AbstractDatabaseTest
     function getFixtureFiles(): array
     {
         return [
+            'workout_location.xml',
             'workout.xml'
         ];
     }

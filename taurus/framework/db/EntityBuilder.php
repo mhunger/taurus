@@ -30,22 +30,36 @@ class EntityBuilder {
      *
      * @param array $input
      * @param $class
+     * @param array $relationshipData
      * @return Entity
      */
-    public function convertOne(array $input, $class): Entity
+    public function convertOne(array $input, $class, array $relationshipData = []): Entity
     {
         $columns = $this->entityMetaDataImpl->getColumnMap($class);
         $reflectionClass = new \ReflectionClass($class);
         $entity = $reflectionClass->newInstance();
 
         foreach ($input as $column => $value) {
-            call_user_func([
-                $entity,
-                $this->getSetterMethodName($columns[$column]),
-            ], $value);
+            if(array_key_exists($column, $relationshipData)) {
+                $this->setEntityValue($entity, $columns[$column], $relationshipData[$column]);
+            } else {
+                $this->setEntityValue($entity, $columns[$column], $value);
+            }
         }
 
         return $entity;
+    }
+
+    private function setEntityValue(Entity $entity, string $column, $value)
+    {
+        $reflectionClass = new \ReflectionClass($entity);
+
+        if($reflectionClass->getMethod($this->getSetterMethodName($column)) !== null) {
+            call_user_func([
+                $entity,
+                $this->getSetterMethodName($column),
+            ], $value);
+        }
     }
 
     private function getSetterMethodName($property)
