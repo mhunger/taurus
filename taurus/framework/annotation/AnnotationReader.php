@@ -60,9 +60,19 @@ class AnnotationReader {
      */
     public function getAnnotationsByClassname($className)
     {
+        //first reset everything to prevent inconsistent annotations info
+        $this->reset();
         $this->getAnnotationsForClass(
             new ReflectionClass($className)
         );
+    }
+
+    public function reset()
+    {
+        $this->classAnnotations = array();
+        $this->propertyAnnotations = array();
+        $this->methodAnnotations = array();
+        $this->annotationList = array();
     }
 
     /**
