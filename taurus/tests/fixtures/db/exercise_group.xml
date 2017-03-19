@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <database name="taurus">
+        <table_data name="exercise_group">
+            <row>
+                <field name="id">1</field>
+                <field name="name">Pullups</field>
+                <field name="difficulty">hard</field>
+                <field name="muscle_group_id">5</field>
+            </row>
+            <row>
+                <field name="id">2</field>
+                <field name="name">Pushups</field>
+                <field name="difficulty">medium</field>
+                <field name="muscle_group_id">1</field>
+            </row>
+            <row>
+                <field name="id">3</field>
+                <field name="name">Crunches</field>
+                <field name="difficulty">easy</field>
+                <field name="muscle_group_id">6</field>
+            </row>
+        </table_data>
+    </database>
+</mysqldump>

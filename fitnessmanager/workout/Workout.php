@@ -39,10 +39,10 @@ class Workout implements Entity {
     public $workoutLocation;
 
     /**
-     * @param $id
+     * @param int $id
      * @return $this
      */
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -63,7 +63,7 @@ class Workout implements Entity {
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }

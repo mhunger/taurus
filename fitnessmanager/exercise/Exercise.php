@@ -8,6 +8,7 @@
 
 namespace fitnessmanager\exercise;
 
+use fitnessmanager\workout\WorkoutLocation;
 use taurus\framework\db\Entity;
 
 /**
@@ -43,18 +44,32 @@ class Exercise implements Entity
     public $variantName;
 
     /**
+     * @var ExerciseGroup
+     * @Column(name="exercise_group_id")
+     * @OneToOne(entity="fitnessmanager\exercise\ExerciseGroup", column="exercise_group_id", reference_table="exercise_group", reference_key_field="id")
+     */
+    public $exerciseGroup;
+
+    /**
+     * @var WorkoutLocation
+     * @Column(name="workout_location_id")
+     * @OneToOne(entity="fitnessmanager\workout\WorkoutLocation", column="workout_location_id", reference_table="workout_location", reference_key_field="id")
+     */
+    public $workoutLocation;
+
+    /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return $this
      */
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -116,6 +131,42 @@ class Exercise implements Entity
     {
         $this->variantName = $variantName;
 
+        return $this;
+    }
+
+    /**
+     * @return ExerciseGroup
+     */
+    public function getExerciseGroup(): ExerciseGroup
+    {
+        return $this->exerciseGroup;
+    }
+
+    /**
+     * @param ExerciseGroup $exerciseGroup
+     * @return $this
+     */
+    public function setExerciseGroup(ExerciseGroup $exerciseGroup)
+    {
+        $this->exerciseGroup = $exerciseGroup;
+        return $this;
+    }
+
+    /**
+     * @return WorkoutLocation
+     */
+    public function getWorkoutLocation(): WorkoutLocation
+    {
+        return $this->workoutLocation;
+    }
+
+    /**
+     * @param WorkoutLocation $workoutLocation
+     * @return $this
+     */
+    public function setWorkoutLocation(WorkoutLocation $workoutLocation)
+    {
+        $this->workoutLocation = $workoutLocation;
         return $this;
     }
 }
