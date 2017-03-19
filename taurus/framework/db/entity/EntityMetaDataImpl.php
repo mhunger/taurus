@@ -130,10 +130,30 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
             ->getColumns();
 
         foreach($columns as $property => $columnAnnotation) {
-            $values[] = $this->executeGetterOnEntity($entity, $property);
+            $values[] = $this->getColumnValue($entity, $property);
         }
 
         return $values;
+    }
+
+    /**
+     * @param Entity $entity
+     * @param string $property
+     * @return mixed
+     */
+    private function getColumnValue(Entity $entity, string $property)
+    {
+        $rels = $this->entityMetaDataStore
+            ->getEntityMetaData(get_class($entity))
+            ->getRelationships();
+
+        $value = $this->executeGetterOnEntity($entity, $property);
+
+        if(array_key_exists($property, $rels)) {
+            return $value->getId();
+        }
+
+        return $value;
     }
 
     /**
@@ -150,8 +170,12 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
             ->getEntityMetaData(get_class($entity))
             ->getColumns();
 
+        /**
+         * @var string $property
+         * @var Column $columnAnnotation
+         */
         foreach ($columns as $property => $columnAnnotation) {
-            $values[$property] = $this->executeGetterOnEntity($entity, $property);
+            $values[$columnAnnotation->getColumnName()] = $this->getColumnValue($entity, $property);
         }
 
         return $values;

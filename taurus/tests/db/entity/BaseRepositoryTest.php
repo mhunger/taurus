@@ -9,7 +9,10 @@
 namespace taurus\tests\db\entity;
 
 use fitnessmanager\exercise\Exercise;
+use fitnessmanager\exercise\ExerciseGroup;
+use fitnessmanager\exercise\MuscleGroup;
 use fitnessmanager\workout\Workout;
+use fitnessmanager\workout\WorkoutLocation;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\BaseRepository;
@@ -41,7 +44,15 @@ class BaseRepositoryTest extends AbstractDatabaseTest
             ->setId(5)
             ->setName('Reverse Push-Up')
             ->setDifficulty('medium')
-            ->setVariantName('Two-Bars');
+            ->setVariantName('Two-Bars')
+            ->setWorkoutLocation(
+                (new WorkoutLocation())->setId(1)->setName('TUM Sportzentrum')
+            )->setExerciseGroup(
+                (new ExerciseGroup())->setId(2)->setName('Pushups')->setDifficulty('medium')
+                ->setMuscleGroup(
+                    (new MuscleGroup())->setId(1)->setName('Chest')
+                )
+            );
 
         $this->subject->save($expectedEntity);
 
@@ -102,6 +113,8 @@ class BaseRepositoryTest extends AbstractDatabaseTest
     {
         return [
             'workout_location.xml',
+            'muscle_group.xml',
+            'exercise_group.xml',
             'exercise.xml',
             'workout.xml'
         ];
