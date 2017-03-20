@@ -20,7 +20,7 @@ use taurus\framework\db\Entity;
 class ExerciseGroup implements Entity
 {
     /**
-     * @var
+     * @var int
      * @Id
      * @Column(name="id")
      */
@@ -46,9 +46,9 @@ class ExerciseGroup implements Entity
     public $muscleGroup;
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }

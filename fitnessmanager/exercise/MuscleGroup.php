@@ -36,7 +36,7 @@ class MuscleGroup implements Entity
     /**
      * @return mixed
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
