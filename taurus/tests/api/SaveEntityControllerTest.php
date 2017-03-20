@@ -80,7 +80,7 @@ class SaveEntityControllerTest extends AbstractDatabaseTest
                     ->setMuscleGroup(
                         (new MuscleGroup())->setId(5)->setName('Back')
                     )
-            );;
+            );
 
         /** @var BaseRepository $baserepo */
         $baserepo = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_BASE_REPOSITORY);
