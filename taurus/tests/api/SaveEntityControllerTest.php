@@ -10,6 +10,9 @@ namespace taurus\tests\api;
 
 
 use fitnessmanager\exercise\Exercise;
+use fitnessmanager\exercise\ExerciseGroup;
+use fitnessmanager\exercise\MuscleGroup;
+use fitnessmanager\workout\WorkoutLocation;
 use taurus\framework\api\SaveEntityApiController;
 use taurus\framework\api\SaveEntityDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
@@ -42,6 +45,9 @@ class SaveEntityControllerTest extends AbstractDatabaseTest
     function getFixtureFiles(): array
     {
         return [
+            'workout_location.xml',
+            'muscle_group.xml',
+            'exercise_group.xml',
             'exercise.xml'
         ];
     }
@@ -55,7 +61,9 @@ class SaveEntityControllerTest extends AbstractDatabaseTest
                 'exercise' => [
                     'name' => 'TestExercise',
                     'difficulty' => 'TestDifficulty',
-                    'variant_name' => 'TestVariant'
+                    'variant_name' => 'TestVariant',
+                    'exercise_group_id' => 1,
+                    'workout_location_id' => 1
                 ]
             ]);
 
@@ -64,7 +72,15 @@ class SaveEntityControllerTest extends AbstractDatabaseTest
         $expectedEntity = (new Exercise())->setId(5)
             ->setName('TestExercise')
             ->setDifficulty('TestDifficulty')
-            ->setVariantName('TestVariant');
+            ->setVariantName('TestVariant')
+            ->setWorkoutLocation(
+                (new WorkoutLocation())->setId(1)->setName('TUM Sportzentrum')
+            )->setExerciseGroup(
+                (new ExerciseGroup())->setId(1)->setName('Pullups')->setDifficulty('hard')
+                    ->setMuscleGroup(
+                        (new MuscleGroup())->setId(5)->setName('Back')
+                    )
+            );;
 
         /** @var BaseRepository $baserepo */
         $baserepo = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_BASE_REPOSITORY);

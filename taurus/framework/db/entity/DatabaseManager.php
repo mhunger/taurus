@@ -17,6 +17,7 @@ use taurus\framework\db\query\InsertQuery;
 use taurus\framework\db\query\Query;
 use taurus\framework\db\query\QueryBuilder;
 use taurus\framework\db\query\UpdateQuery;
+use taurus\framework\routing\Request;
 
 /**
  * Class DatabaseManager
@@ -81,8 +82,8 @@ class DatabaseManager implements EntityAccessLayer
         foreach($result as $row) {
             $relationshipData = $this->fetchDependenciesForClass(
                 $class,
-                $row[$this->entityMetaDataImpl->getIdField($class)],
-                $row
+                $row,
+                $row[$this->entityMetaDataImpl->getIdField($class)]
             );
 
             $entities[] = $this->entityBuilder->convertOne($row, $class, $relationshipData);
@@ -105,7 +106,7 @@ class DatabaseManager implements EntityAccessLayer
             return null;
         }
 
-        $relationshipData = $this->fetchDependenciesForClass($class, $id, $result);
+        $relationshipData = $this->fetchDependenciesForClass($class, $result, $id);
         return $this->entityBuilder->convertOne($result, $class, $relationshipData);
     }
 
@@ -115,7 +116,7 @@ class DatabaseManager implements EntityAccessLayer
      * @param $result
      * @return array
      */
-    private function fetchDependenciesForClass(string $class, $id, array $result)
+    private function fetchDependenciesForClass(string $class, array $result, int $id = null)
     {
         $rels = $this->entityMetaDataImpl->getRelationships($class);
 
@@ -144,5 +145,13 @@ class DatabaseManager implements EntityAccessLayer
     public function insert(InsertQuery $query): bool
     {
         return $this->dbConnection->insert($query);
+    }
+
+    public function convertRequestToEntity(array $input, string $class): Entity
+    {
+        $rels = $this->fetchDependenciesForClass($class, $input);
+
+        return $this->entityBuilder->convertOne($input, $class, $rels);
+
     }
 }

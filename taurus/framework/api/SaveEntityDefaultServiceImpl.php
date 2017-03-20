@@ -10,6 +10,7 @@ namespace taurus\framework\api;
 
 
 use taurus\framework\db\entity\BaseRepository;
+use taurus\framework\db\entity\DatabaseManager;
 use taurus\framework\db\EntityBuilder;
 use taurus\framework\error\ApiCouldNotSaveEntityException;
 use taurus\framework\error\ApiEntityCouldNotBeMappedInPostRequest;
@@ -28,19 +29,19 @@ class SaveEntityDefaultServiceImpl implements SaveEntityService
     private $entityClass;
 
     /**
-     * @var EntityBuilder
+     * @var DatabaseManager
      */
-    private $entityBuilder;
+    private $databaseManager;
 
     /**
      * SaveEntityDefaultServiceImpl constructor.
      * @param BaseRepository $baseRepository
-     * @param EntityBuilder $entityBuilder
+     * @param DatabaseManager $databaseManager
      */
-    public function __construct(BaseRepository $baseRepository, EntityBuilder $entityBuilder)
+    public function __construct(BaseRepository $baseRepository, DatabaseManager $databaseManager)
     {
         $this->baseRepository = $baseRepository;
-        $this->entityBuilder = $entityBuilder;
+        $this->databaseManager = $databaseManager;
     }
 
     /**
@@ -49,7 +50,7 @@ class SaveEntityDefaultServiceImpl implements SaveEntityService
      */
     public function saveEntity(Request $request)
     {
-        $entity = $this->entityBuilder->convertOne(
+        $entity = $this->databaseManager->convertRequestToEntity(
             $this->getEntityDataFromRequest($request),
             $this->entityClass
         );
