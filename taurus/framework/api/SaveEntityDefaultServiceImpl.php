@@ -34,14 +34,21 @@ class SaveEntityDefaultServiceImpl implements SaveEntityService
     private $databaseManager;
 
     /**
+     * @var RequestEntityMapper
+     */
+    private $requestEntityMapper;
+
+    /**
      * SaveEntityDefaultServiceImpl constructor.
      * @param BaseRepository $baseRepository
      * @param DatabaseManager $databaseManager
+     * @param RequestEntityMapper $requestEntityMapper
      */
-    public function __construct(BaseRepository $baseRepository, DatabaseManager $databaseManager)
+    public function __construct(BaseRepository $baseRepository, DatabaseManager $databaseManager, RequestEntityMapper $requestEntityMapper)
     {
         $this->baseRepository = $baseRepository;
         $this->databaseManager = $databaseManager;
+        $this->requestEntityMapper = $requestEntityMapper;
     }
 
     /**
@@ -51,7 +58,7 @@ class SaveEntityDefaultServiceImpl implements SaveEntityService
     public function saveEntity(Request $request)
     {
         $entity = $this->databaseManager->convertRequestToEntity(
-            $this->getEntityDataFromRequest($request),
+            $this->requestEntityMapper->getEntityDataFromRequest($request, $this->entityClass),
             $this->entityClass
         );
 
@@ -60,30 +67,6 @@ class SaveEntityDefaultServiceImpl implements SaveEntityService
         }
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     * @throws ApiEntityCouldNotBeMappedInPostRequest
-     */
-    private function getEntityDataFromRequest(Request $request): array
-    {
-        $entityName = $this->getEntityClassName();
-        if ($request->getParamByName($entityName) !== null) {
-            if (is_array($request->getParamByName($entityName))) {
-                return $request->getParamByName($entityName);
-            }
-        }
-
-        throw new ApiEntityCouldNotBeMappedInPostRequest($entityName);
-    }
-
-    /**
-     * @return string
-     */
-    private function getEntityClassName(): string
-    {
-        return strtolower(basename(str_replace('\\', '/', $this->entityClass)));
-    }
 
     /**
      * @param string $entityClass
