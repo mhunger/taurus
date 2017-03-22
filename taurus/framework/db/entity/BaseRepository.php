@@ -120,6 +120,7 @@ class BaseRepository {
 
     /**
      * @param Entity $entity
+     * @return mixed
      */
     public function update(Entity $entity)
     {
@@ -135,6 +136,6 @@ class BaseRepository {
                 $this->entityMetaData->getIdValue($entity)
             );
 
-        $this->entityAccessLayer->update($q);
+        return $this->entityAccessLayer->update($q);
     }
 }
