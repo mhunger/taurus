@@ -58,7 +58,7 @@ class GetByIdApiControllerTest extends AbstractDatabaseTest
         $request = new MockRequest();
         $request->setMethod('GET');
         $request->setUrl('/exercise');
-        $request->setInputBody([
+        $request->setRequestVariables([
             'id' => 3
         ]);
 
