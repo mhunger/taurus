@@ -30,22 +30,25 @@ class MockServer {
         $this->router = $router;
         $this->request = $request;
     }
-
+    
     /**
      * @param $url
      * @param $method
-     * @param $requestParams
+     * @param array $requestParams
+     * @param array $body
      * @return string
      */
     public function get(
         $url,
         $method,
-        $requestParams = []
+        $requestParams = [],
+        $body = []
     ) {
 
         $this->request->setMethod($method);
         $this->request->setUrl($url);
         $this->request->setRequestVariables($requestParams);
+        $this->request->setInputBody($body);
 
         $response = $this->router->route($this->request);
 

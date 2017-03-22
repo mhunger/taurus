@@ -52,4 +52,22 @@ class MockRequest extends Request {
 
         return $this;
     }
+
+    /**
+     * @param string $contentType
+     */
+    public function setContentType(string $contentType)
+    {
+        $this->contentType = $contentType;
+    }
+
+    /**
+     * @param array $inputBody
+     * @return MockRequest
+     */
+    public function setInputBody(array $inputBody): MockRequest
+    {
+        $this->inputBody = $inputBody;
+        return $this;
+    }
 }
