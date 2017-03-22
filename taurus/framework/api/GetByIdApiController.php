@@ -41,7 +41,7 @@ class GetByIdApiController implements Controller
     public function handleRequest(Request $request): Entity
     {
         return $this->getEntityByIdService->getEntityById(
-            $request->getParamByName($this->idParamName)
+            $request->getRequestParamByName($this->idParamName)
         );
     }
 

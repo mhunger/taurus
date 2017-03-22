@@ -38,13 +38,13 @@ class GetWorkoutByIdController implements Controller
     public function handleRequest(Request $request): Entity
     {
         $result = $this->workoutBaseRepository->findOne(
-            $request->getParamByName('id'),
+            $request->getRequestParamByName('id'),
             Workout::class
         );
 
         if ($result === null) {
             throw new Http404NotFoundException(
-                $request->getParamByName('id'),
+                $request->getRequestParamByName('id'),
                 Workout::class
             );
         }

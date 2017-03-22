@@ -23,9 +23,9 @@ class RequestEntityMapper
     public function getEntityDataFromRequest(Request $request, string $class): array
     {
         $entityName = $this->getEntityClassName($class);
-        if ($request->getParamByName($entityName) !== null) {
-            if (is_array($request->getParamByName($entityName))) {
-                return $request->getParamByName($entityName);
+        if ($request->getRequestParamByName($entityName) !== null) {
+            if (is_array($request->getRequestParamByName($entityName))) {
+                return $request->getRequestParamByName($entityName);
             }
         }
 
