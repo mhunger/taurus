@@ -120,7 +120,7 @@ class ApiBuilder
      * @param GetAllEntitiesService|null $getAllEntitiesService
      * @return BasicRoute
      */
-    public function cget(string $entityClass, $url = null, GetAllEntitiesService $getAllEntitiesService = null)
+    public function cget(string $entityClass, $url = null, GetAllEntitiesService $getAllEntitiesService = null): BasicRoute
     {
         if ($getAllEntitiesService === null) {
             /** @var GetAllEntitiesService $getAllEntitiesService */
@@ -136,6 +136,31 @@ class ApiBuilder
             'GET',
             $this->getApiPath($entityClass, $url, true),
             $getAllEntitiesController
+        );
+    }
+
+    /**
+     * @param string $entityClass
+     * @param null $url
+     * @param UpdateEntityService|null $updateEntityService
+     * @return BasicRoute
+     */
+    public function put(string $entityClass, $url = null, UpdateEntityService $updateEntityService = null): BasicRoute
+    {
+        if($updateEntityService === null) {
+            /** @var UpdateEntityDefaultServiceImpl $updateEntityService */
+            $updateEntityService = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_PUT_ENTITY_SERVICE);
+            $updateEntityService->setEntityClass($entityClass);
+        }
+
+        /** @var UpdateEntityApiController $updateEntityController */
+        $updateEntityController = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_PUT_ENTITY_CONTROLLER);
+        $updateEntityController->setService($updateEntityService);
+
+        return new BasicRoute(
+            'PUT',
+            $this->getApiPath($entityClass, $url),
+            $updateEntityController
         );
     }
 }
