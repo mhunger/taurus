@@ -53,6 +53,10 @@ class UpdateEntityDefaultServiceImpl implements UpdateEntityService
             $this->entityClass
         );
 
+        if($request->getRequestParamByName('id')) {
+            $entity->setId($request->getRequestParamByName('id'));
+        }
+
         $this->baseRepository->update($entity);
     }
 
