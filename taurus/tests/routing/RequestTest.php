@@ -35,7 +35,7 @@ class RequestTest extends TestCase
     public function testGetParamByName()
     {
         $expectedValue = 1;
-        $actualValue = $this->testSubject->getParamByName('id');
+        $actualValue = $this->testSubject->getRequestParamByName('id');
 
         $this->assertEquals(
             $expectedValue,
