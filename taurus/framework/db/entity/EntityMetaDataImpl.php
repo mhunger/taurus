@@ -40,7 +40,18 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
     {
         return $this->entityMetaDataStore
             ->getEntityMetaData($class)
-            ->getId();
+            ->getIdDbField();
+    }
+
+    /**
+     * @param $class
+     * @return string
+     */
+    public function getIdProperty($class)
+    {
+        return $this->entityMetaDataStore
+            ->getEntityMetaData($class)
+            ->getIdProperty();
     }
 
     /**
@@ -51,7 +62,7 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
     {
         return $this->executeGetterOnEntity(
             $entity,
-            $this->getIdField(get_class($entity))
+            $this->getIdProperty(get_class($entity))
         );
     }
 

@@ -75,6 +75,7 @@ class EntityMetaDataStore
 
             if (isset($annotations[self::ENTITY_ANNOTATION_ID])) {
                 $idFieldName = $annotations[self::ENTITY_ANNOTATION_COLUMN]->getColumnName();
+                $idProperty = $property;
             }
         }
 
@@ -88,7 +89,7 @@ class EntityMetaDataStore
             throw new EntityMetaDataMissingException();
         }
 
-        $this->cacheEntityMetaData($class, $idFieldName, $table, $columns, $relationships);
+        $this->cacheEntityMetaData($class, $idFieldName, $table, $columns, $relationships, $idProperty);
     }
 
     /**
@@ -98,9 +99,9 @@ class EntityMetaDataStore
      * @param array $columns
      * @param array $relationships
      */
-    private function cacheEntityMetaData($class, $idFieldName, $tableName, array $columns, array $relationships = [])
+    private function cacheEntityMetaData($class, $idFieldName, $tableName, array $columns, array $relationships = [], string $idProperty)
     {
-        $this->entityMetaDataStore[$class] = new EntityMetaData($idFieldName, $tableName, $columns, $relationships);
+        $this->entityMetaDataStore[$class] = new EntityMetaData($idFieldName, $tableName, $columns, $relationships, $idProperty);
     }
 
     /**

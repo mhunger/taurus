@@ -18,7 +18,7 @@ class EntityMetaData {
     /**
      * @var string
      */
-    private $id;
+    private $idDbField;
 
     /**
      * @var string
@@ -31,28 +31,33 @@ class EntityMetaData {
     /** @var array */
     private $relationships;
 
+    /** @var string */
+    private $idProperty;
+
     /**
      * EntityMetaData constructor.
      * @param $id
      * @param $table
      * @param array $columns
-     * @param array $relationships
+     * @param array|null $relationships
+     * @param string $idProperty
      */
-    function __construct($id, $table, array $columns, array $relationships = null)
+    function __construct($id, $table, array $columns, array $relationships = null, string $idProperty)
     {
         ksort($columns);
         $this->columns = $columns;
-        $this->id = $id;
+        $this->idDbField = $id;
         $this->table = $table;
         $this->relationships = $relationships;
+        $this->idProperty = $idProperty;
     }
 
     /**
      * @return mixed
      */
-    public function getId()
+    public function getIdDbField()
     {
-        return $this->id;
+        return $this->idDbField;
     }
 
     /**
@@ -77,5 +82,13 @@ class EntityMetaData {
     public function getRelationships(): array
     {
         return $this->relationships;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdProperty(): string
+    {
+        return $this->idProperty;
     }
 }
