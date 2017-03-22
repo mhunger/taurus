@@ -32,6 +32,7 @@ class UpdateEntityApiControllerTest extends AbstractDatabaseTest
         $mockServer->get(
             '/api/exercise',
             Request::HTTP_PUT,
+            [],
             [
                 'exercise' => [
                     'exercise_id' => 3,

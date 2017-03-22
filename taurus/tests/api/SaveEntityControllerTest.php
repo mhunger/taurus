@@ -57,7 +57,7 @@ class SaveEntityControllerTest extends AbstractDatabaseTest
         $mockRequest = (new MockRequest())
             ->setMethod('POST')
             ->setUrl('/exercise')
-            ->setRequestVariables([
+            ->setInputBody([
                 'exercise' => [
                     'name' => 'TestExercise',
                     'difficulty' => 'TestDifficulty',
