@@ -56,17 +56,17 @@ class Router {
             if(!$this->isTestEnvironment()) {
                 (new HttpJsonResponse(404, $e->getMessage()))->send();
             }
+            throw $e;
         } catch (Http404NotFoundException $e) {
             if (!$this->isTestEnvironment()) {
                 (new HttpJsonResponse(404, $e->getMessage()))->send();
             }
-
+            throw $e;
         } catch(\Exception $ex) {
             if(!$this->isTestEnvironment()) {
                 (new HttpJsonResponse(500, $ex->getMessage()))->send();
-            } else {
-                throw $ex;
             }
+            throw $ex;
         }
     }
 
