@@ -15,6 +15,9 @@ use taurus\framework\api\GetByIdApiController;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
 use taurus\framework\api\SaveEntityApiController;
 use taurus\framework\api\SaveEntityDefaultServiceImpl;
+use taurus\framework\api\UpdateEntityApiController;
+use taurus\framework\api\UpdateEntityDefaultServiceImpl;
+use taurus\framework\api\UpdateEntityService;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\db\entity\BaseRepository;
@@ -33,6 +36,7 @@ use taurus\framework\mock\MockServer;
 use taurus\framework\routing\Request;
 use taurus\framework\routing\RouteConfig;
 use taurus\framework\routing\Router;
+use taurus\tests\fixtures\ExerciseBuilder;
 
 /**
  * Standard taurus container config contains all the services used inside taurus
@@ -61,6 +65,10 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_DEFAULT_SAVE_ENTITY_CONTROLLER = SaveEntityApiController::class;
     const SERVICE_DEFAULT_GET_ALL_ENTITIES_SERVICE = GetAllEntitiesDefaultServiceImpl::class;
     const SERVICE_DEFAULT_GET_ALL_ENTITIES_CONTROLLER = GetAllEntitiesApiController::class;
+    const SERVICE_DEFAULT_PUT_ENTITY_SERVICE = UpdateEntityDefaultServiceImpl::class;
+    const SERVICE_DEFAULT_PUT_ENTITY_CONTROLLER = UpdateEntityApiController::class;
+    const SERVICE_EXERCISE_BUILDER = ExerciseBuilder::class;
+
 
     public function __construct() {
         $this->configure();
