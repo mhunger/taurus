@@ -11,6 +11,16 @@ namespace taurus\framework\routing;
 
 class Request {
     /**
+     *
+     */
+    const HTTP_PUT = 'PUT';
+
+    /**
+     *
+     */
+    const HTTP_CONTENT_TYPE_APPLICATION_JSON = 'application/json';
+
+    /**
      * @var
      */
     protected $url;
@@ -25,6 +35,11 @@ class Request {
      */
     protected $requestVariables;
 
+    /** @var string */
+    protected $contentType;
+
+    /** @var \stdClass */
+    protected $inputBody;
     /**
      *
      */
@@ -34,7 +49,35 @@ class Request {
 
         $this->url = $this->parseUrl();
         $this->method = $this->parseMethod();
+        $this->contentType = $this->getContentType();
         $this->parseRequestParams();
+        $this->parseRawPostData();
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getContentType()
+    {
+        return $this->server['CONTENT_TYPE'];
+    }
+
+    /**
+     *
+     */
+    private function parseRawPostData()
+    {
+        $content = file_get_contents('php://input');
+        if($this->contentType == self::HTTP_CONTENT_TYPE_APPLICATION_JSON) {
+            $this->inputBody = json_decode($content, true);
+        }
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getInputBody(){
+        return $this->inputBody;
     }
 
     /**
@@ -51,10 +94,20 @@ class Request {
      * @param $name
      * @return mixed
      */
-    public function getParamByName($name)
+    public function getRequestParamByName($name)
     {
         if (isset($this->requestVariables[$name])) {
             return $this->requestVariables[$name];
+        }
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getBodyParamByName($name) {
+        if(isset($this->inputBody[$name])) {
+            return $this->inputBody[$name];
         }
     }
 
