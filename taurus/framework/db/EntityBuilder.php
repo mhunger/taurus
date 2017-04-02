@@ -11,17 +11,23 @@ namespace taurus\framework\db;
 
 use taurus\framework\db\entity\EntityMetaDataImpl;
 use taurus\framework\db\entity\EntityMetaDataWrapper;
+use taurus\framework\util\ObjectUtils;
 
 class EntityBuilder {
 
     /** @var EntityMetaDataImpl */
     private $entityMetaDataImpl;
 
+    /** @var ObjectUtils */
+    private $objUtils;
+
     /**
      * @param EntityMetaDataWrapper $entityMetaDataImpl
+     * @param ObjectUtils $objectUtils
      */
-    function __construct(EntityMetaDataWrapper $entityMetaDataImpl)
+    function __construct(EntityMetaDataWrapper $entityMetaDataImpl, ObjectUtils $objectUtils)
     {
+        $this->objUtils = $objectUtils;
         $this->entityMetaDataImpl = $entityMetaDataImpl;
     }
 
@@ -41,31 +47,15 @@ class EntityBuilder {
 
         foreach ($input as $column => $value) {
             if(array_key_exists($column, $relationshipData)) {
-                $this->setEntityValue($entity, $columns[$column], $relationshipData[$column]);
+                $this->objUtils->setObjectValue($entity, $columns[$column], $relationshipData[$column]);
             } else {
-                $this->setEntityValue($entity, $columns[$column], $value);
+                $this->objUtils->setObjectValue($entity, $columns[$column], $value);
             }
         }
 
         return $entity;
     }
 
-    private function setEntityValue(Entity $entity, string $column, $value)
-    {
-        $reflectionClass = new \ReflectionClass($entity);
-
-        if($reflectionClass->getMethod($this->getSetterMethodName($column)) !== null) {
-            call_user_func([
-                $entity,
-                $this->getSetterMethodName($column),
-            ], $value);
-        }
-    }
-
-    private function getSetterMethodName($property)
-    {
-        return 'set' . ucfirst($property);
-    }
 
     /**
      * @param array $input
