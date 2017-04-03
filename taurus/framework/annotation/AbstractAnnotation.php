@@ -6,7 +6,7 @@ namespace taurus\framework\annotation;
 abstract class AbstractAnnotation implements Annotation
 {
     /** @var string */
-    protected $AnnoationName;
+    protected $annotationName;
 
     /** @var string */
     protected $property;
@@ -17,16 +17,16 @@ abstract class AbstractAnnotation implements Annotation
      */
     public function __construct(string $property, $name)
     {
-        $this->AnnoationName = $name;
+        $this->annotationName = $name;
         $this->property = $property;
     }
 
     /**
      * @return string
      */
-    public function getAnnoationName(): string
+    public function getAnnotationName(): string
     {
-        return $this->AnnoationName;
+        return $this->annotationName;
     }
 
     /**

@@ -23,6 +23,7 @@ class AnnotationBuilder
     ];
 
     /**
+     * @param $annotationName
      * @param $property
      * @param array $properties
      * @return Annotation

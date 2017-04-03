@@ -12,7 +12,7 @@ interface Annotation
     /**
      * @return string
      */
-    public function getAnnoationName(): string;
+    public function getAnnotationName(): string;
 
     /**
      * @return string
