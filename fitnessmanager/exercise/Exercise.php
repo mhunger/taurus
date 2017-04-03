@@ -18,6 +18,9 @@ use taurus\framework\db\Entity;
  */
 class Exercise implements Entity
 {
+
+    const EXERCISE_TABLE_NAME = 'exercise';
+
     /**
      * @var int
      * @Id
