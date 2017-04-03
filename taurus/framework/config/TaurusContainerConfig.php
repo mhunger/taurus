@@ -12,6 +12,8 @@ use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\api\GetAllEntitiesApiController;
 use taurus\framework\api\GetAllEntitiesDefaultServiceImpl;
 use taurus\framework\api\GetByIdApiController;
+use taurus\framework\api\GetBySpecificationApiController;
+use taurus\framework\api\GetBySpecificationDefaultServiceImpl;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
 use taurus\framework\api\SaveEntityApiController;
 use taurus\framework\api\SaveEntityDefaultServiceImpl;
@@ -31,7 +33,10 @@ use taurus\framework\db\mysql\MysqlInsertQueryStringBuilder;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
 use taurus\framework\db\mysql\MySqlUpdateQueryStringBuilder;
+use taurus\framework\db\query\expression\ExpressionBuilder;
+use taurus\framework\db\query\SpecificationBuilder;
 use taurus\framework\Environment;
+use taurus\framework\mock\MockRequest;
 use taurus\framework\mock\MockServer;
 use taurus\framework\routing\Request;
 use taurus\framework\routing\RouteConfig;
@@ -68,7 +73,11 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_DEFAULT_PUT_ENTITY_SERVICE = UpdateEntityDefaultServiceImpl::class;
     const SERVICE_DEFAULT_PUT_ENTITY_CONTROLLER = UpdateEntityApiController::class;
     const SERVICE_EXERCISE_BUILDER = ExerciseBuilder::class;
-
+    const SERVICE_DEFAULT_GETBYSPEC_CONTROLLER = GetBySpecificationApiController::class;
+    const SERVICE_DEFAULT_GETBYSPEC_DEFAULT_SERVICE = GetBySpecificationDefaultServiceImpl::class;
+    const SERVICE_EXPRESSION_BUILDER = ExpressionBuilder::class;
+    const SERVICE_SPECIFICATION_BUILDER = SpecificationBuilder::class;
+    const SERVICE_MOCK_REQUEST = MockRequest::class;
 
     public function __construct() {
         $this->configure();
