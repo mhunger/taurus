@@ -15,25 +15,25 @@ class GetExerciseByDateAndLocationSpecification implements Specification
 {
     /**
      * @var string
-     * @Spec(column="date", type="string")
+     * @Spec(column="name", type="string")
      */
-    private $date;
+    private $name;
 
     /**
-     * @var int
-     * @Spec(column="location_id", type="id")
+     * @var string
+     * @Spec(column="difficulty", type="id")
      */
-    private $location;
+    private $exerciseDifficulty;
 
     /**
      * GetExerciseByDateAndLocationSpecification constructor.
-     * @param string $date
-     * @param int $location
+     * @param string $name
+     * @param int $difficulty
      */
-    public function __construct($date, $location)
+    public function __construct($name, $difficulty)
     {
-        $this->date = $date;
-        $this->location = $location;
+        $this->name = $name;
+        $this->exerciseDifficulty = $difficulty;
     }
 
     /**
@@ -42,5 +42,21 @@ class GetExerciseByDateAndLocationSpecification implements Specification
     public function getTable(): string
     {
         return Exercise::EXERCISE_TABLE_NAME;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExerciseDifficulty(): string
+    {
+        return $this->exerciseDifficulty;
     }
 }

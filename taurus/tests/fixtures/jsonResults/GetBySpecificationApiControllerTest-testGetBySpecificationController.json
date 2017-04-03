@@ -1,0 +1,21 @@
+[
+  {
+    "id": 4,
+    "name": "Push-Ups",
+    "difficulty": "medium",
+    "variantName": "Standing",
+    "exerciseGroup": {
+      "id": 2,
+      "name": "Pushups",
+      "difficulty": "medium",
+      "muscleGroup": {
+        "id": 1,
+        "name": "Chest"
+      }
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  }
+]

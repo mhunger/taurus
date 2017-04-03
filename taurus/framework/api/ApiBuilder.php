@@ -10,6 +10,7 @@ namespace taurus\framework\api;
 
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
+use taurus\framework\db\query\Specification;
 use taurus\framework\routing\BasicRoute;
 
 
@@ -161,6 +162,27 @@ class ApiBuilder
             'PUT',
             $this->getApiPath($entityClass, $url),
             $updateEntityController
+        );
+    }
+
+    public function cgetBySpec(string $entityClass, string $specification, $url = null, GetBySpecificationService $getBySpecificationService = null): BasicRoute
+    {
+        if($getBySpecificationService === null) {
+            /** @var GetBySpecificationDefaultServiceImpl $getBySpecificationService */
+            $getBySpecificationService = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_GETBYSPEC_DEFAULT_SERVICE);
+        }
+
+        $getBySpecificationService->setEntityClass($entityClass);
+        $getBySpecificationService->setSpecificationClass($specification);
+
+        /** @var GetBySpecificationApiController $getBySpecificationController */
+        $getBySpecificationController = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_GETBYSPEC_CONTROLLER);
+        $getBySpecificationController->setGetBySpecificationService($getBySpecificationService);
+
+        return new BasicRoute(
+            'GET',
+            $this->getApiPath($entityClass, $url),
+            $getBySpecificationController
         );
     }
 }
