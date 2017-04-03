@@ -10,10 +10,12 @@ namespace taurus\framework\db\entity;
 
 use taurus\framework\db\Entity;
 use taurus\framework\db\query\expression\ComparisonExpression;
+use taurus\framework\db\query\expression\ExpressionBuilder;
 use taurus\framework\db\query\expression\Field;
 use taurus\framework\db\query\expression\Literal;
 use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\QueryBuilder;
+use taurus\framework\db\query\Specification;
 
 /**
  * Class BaseRepository
@@ -30,20 +32,26 @@ class BaseRepository {
     /** @var EntityAccessLayer */
     private $entityAccessLayer;
 
+    /** @var ExpressionBuilder */
+    private $expressionBuilder;
+
     /**
-     * @param QueryBuilder $queryBuilder
+     * BaseRepository constructor.
+     * @param QueryBuilder $qb
      * @param EntityMetaDataWrapper $entityMetaData
      * @param EntityAccessLayer $entityAccessLayer
+     * @param ExpressionBuilder $expressionBuilder
      */
-    function __construct(
-        QueryBuilder $queryBuilder,
+    public function __construct(
+        QueryBuilder $qb,
         EntityMetaDataWrapper $entityMetaData,
-        EntityAccessLayer $entityAccessLayer
-    )
-    {
-        $this->qb = $queryBuilder;
+        EntityAccessLayer $entityAccessLayer,
+        ExpressionBuilder $expressionBuilder
+    ) {
+        $this->qb = $qb;
         $this->entityMetaData = $entityMetaData;
         $this->entityAccessLayer = $entityAccessLayer;
+        $this->expressionBuilder = $expressionBuilder;
     }
 
     /**
@@ -51,7 +59,8 @@ class BaseRepository {
      * @param $entityClass
      * @return Entity|null
      */
-    public function findOne($id, $entityClass) {
+    public function findOne($id, $entityClass)
+    {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
             ->select()
             ->from(
@@ -137,5 +146,20 @@ class BaseRepository {
             );
 
         return $this->entityAccessLayer->update($q);
+    }
+
+    /**
+     * @param Specification $specification
+     * @param string $entityClass
+     * @return array
+     */
+    public function findBySpecification(Specification $specification, string $entityClass): array {
+        $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
+            ->select()
+            ->from($specification->getTable())
+            ->where(
+                $this->expressionBuilder->build($specification)
+            );
+        return $this->entityAccessLayer->fetchMany($q, $entityClass);
     }
 }
