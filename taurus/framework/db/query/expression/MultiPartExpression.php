@@ -13,8 +13,6 @@ use taurus\framework\db\query\operation\Operation;
 
 interface MultiPartExpression extends Expression
 {
-
-
     /**
      * @return Operation
      */
