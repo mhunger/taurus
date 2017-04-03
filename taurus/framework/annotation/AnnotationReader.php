@@ -67,6 +67,9 @@ class AnnotationReader {
         );
     }
 
+    /**
+     *
+     */
     public function reset()
     {
         $this->classAnnotations = array();
@@ -101,6 +104,23 @@ class AnnotationReader {
                 $method->getName()
             );
         }
+    }
+
+    /**
+     * @param string $name
+     * @return array
+     */
+    public function getAnnotationByName(string $name): array
+    {
+        $result = [];
+        foreach ($this->propertyAnnotations as $property => $annotationCollection)
+        {
+            if(array_key_exists($name, $annotationCollection)) {
+                $result[$property] = $annotationCollection[$name];
+            }
+        }
+
+        return $result;
     }
 
     /**
