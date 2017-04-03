@@ -55,10 +55,10 @@ class ObjectUtils
         if(is_object($obj)) {
             $reflectionClass = new \ReflectionClass($obj);
             if($reflectionClass->getMethod($this->getGetterMethodName($property)) !== null) {
-                return call_user_func(
-                    $obj,
-                    $this->getGetterMethodName($property)
-                );
+                return call_user_func([
+                        $obj,
+                        $this->getGetterMethodName($property)
+                ]);
             }
         }
     }
