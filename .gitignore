@@ -4,11 +4,10 @@
 vendor
 composer.phar
 composer.lock
-/.vagrant/
 /taurus/tests/fixtures/jsonResults/verify.json
 fitnessmanager/config/prod/
 fitnessmanager/db/QueryStringBuilderClassHierarchy.gliffy
 fitnessmanager/db/workout-manager-db-schema.gliffy
 taurus/framework/http/HttpPostRequest.php
-taurus/tests/fixtures/jsonResults/verify.json
 taurus/tests/mock/
+/web/node_modules
