@@ -10,6 +10,7 @@ namespace fitnessmanager\exercise;
 
 use fitnessmanager\workout\WorkoutLocation;
 use taurus\framework\db\Entity;
+use taurus\framework\annotation\OneToOne;
 
 /**
  * Class Exercise
