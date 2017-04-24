@@ -45,12 +45,28 @@ class EntityBuilder {
         $reflectionClass = new \ReflectionClass($class);
         $entity = $reflectionClass->newInstance();
 
+        /**
+         * First set all the values from the result set. This however, does not include OneToMany, where no column exists in the table
+         *
+         * @var string $column
+         * @var mixed $value
+         */
         foreach ($input as $column => $value) {
             if(array_key_exists($column, $relationshipData)) {
                 $this->objUtils->setObjectValue($entity, $columns[$column], $relationshipData[$column]);
             } else {
                 $this->objUtils->setObjectValue($entity, $columns[$column], $value);
             }
+        }
+
+        /**
+         * Now set the other values by getting all the keys in relationshipData that are not in input
+         * and then set them.
+         *
+         */
+        $dataToSet = array_diff(array_keys($relationshipData), array_keys($input));
+        foreach($dataToSet as $column) {
+            $this->objUtils->setObjectValue($entity, $column, $relationshipData[$column]);
         }
 
         return $entity;

@@ -8,6 +8,7 @@
 
 namespace taurus\framework\db\entity;
 
+use taurus\framework\annotation\OneToMany;
 use taurus\framework\annotation\OneToOne;
 use taurus\framework\db\DbConnection;
 use taurus\framework\db\Entity;
@@ -37,18 +38,30 @@ class DatabaseManager implements EntityAccessLayer
 
     /** @var OneToOneBuilder */
     private $oneToOneBuilder;
+
+    /** @var OneToManyBuilder */
+    private $oneToManyBuilder;
+
     /**
      * DatabaseManager constructor.
      * @param DbConnection $dbConnection
      * @param EntityBuilder $entityBuilder
      * @param EntityMetaDataImpl $entityMetaDataImpl
+     * @param OneToOneBuilder $oneToOneBuilder
+     * @param OneToManyBuilder $oneToManyBuilder
      */
-    function __construct(DbConnection $dbConnection, EntityBuilder $entityBuilder, EntityMetaDataImpl $entityMetaDataImpl, OneToOneBuilder $oneToOneBuilder)
-    {
+    function __construct(
+        DbConnection $dbConnection,
+        EntityBuilder $entityBuilder,
+        EntityMetaDataImpl $entityMetaDataImpl,
+        OneToOneBuilder $oneToOneBuilder,
+        OneToManyBuilder $oneToManyBuilder
+    ) {
         $this->dbConnection = $dbConnection;
         $this->entityBuilder = $entityBuilder;
         $this->entityMetaDataImpl = $entityMetaDataImpl;
         $this->oneToOneBuilder = $oneToOneBuilder;
+        $this->oneToManyBuilder = $oneToManyBuilder;
     }
 
     /**
@@ -72,18 +85,20 @@ class DatabaseManager implements EntityAccessLayer
     /**
      * @param Query $query
      * @param null $class
+     * @param array $loadedDependencies
      * @return array
      */
-    public function fetchMany(Query $query, $class): array
+    public function fetchMany(Query $query, $class, array $loadedDependencies = null): array
     {
         $result = $this->dbConnection->executeMany($query);
 
         $entities = [];
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $relationshipData = $this->fetchDependenciesForClass(
                 $class,
                 $row,
-                $row[$this->entityMetaDataImpl->getIdField($class)]
+                $row[$this->entityMetaDataImpl->getIdField($class)],
+                $loadedDependencies
             );
 
             $entities[] = $this->entityBuilder->convertOne($row, $class, $relationshipData);
@@ -95,10 +110,11 @@ class DatabaseManager implements EntityAccessLayer
     /**
      * @param Query $query
      * @param string $class
-     * @param $id
+     * @param int $id
+     * @param array $loadedDependencies
      * @return null|Entity
      */
-    public function fetchOne(Query $query, string $class, int $id)
+    public function fetchOne(Query $query, string $class, int $id, array $loadedDependencies = null)
     {
         $result = $this->dbConnection->executeOne($query);
 
@@ -106,36 +122,124 @@ class DatabaseManager implements EntityAccessLayer
             return null;
         }
 
-        $relationshipData = $this->fetchDependenciesForClass($class, $result, $id);
+        $relationshipData = $this->fetchDependenciesForClass($class, $result, $id, $loadedDependencies);
+
         return $this->entityBuilder->convertOne($result, $class, $relationshipData);
     }
 
     /**
      * @param string $class
-     * @param $id
-     * @param $result
+     * @param array $result
+     * @param int $id
+     * @param array $loadedDependencies
      * @return array
      */
-    private function fetchDependenciesForClass(string $class, array $result, int $id = null)
-    {
+    private function fetchDependenciesForClass(
+        string $class,
+        array $result,
+        int $id = null,
+        array $loadedDependencies = null
+    ): array {
         $rels = $this->entityMetaDataImpl->getRelationships($class);
 
+        /**
+         * If the class dependencies were already loaded before, because of circular reference, then don't load it again to
+         * prevent endless loop
+         */
+        if ($loadedDependencies !== null && in_array($class, $loadedDependencies)) {
+            return $this->fetchEmptyDependencyData($class, $rels);
+        } else {
+            return $this->fetchDependencyDataForClass($class, $result, $rels, $loadedDependencies);
+        }
+    }
+
+    /**
+     * @param string $class
+     * @param array $result
+     * @param array $rels
+     * @param array|null $loadedDependencies
+     * @return array
+     */
+    private function fetchDependencyDataForClass(
+        string $class,
+        array $result,
+        array $rels,
+        array $loadedDependencies = null
+    ): array {
         $dependencies = [];
-        foreach($rels as $property => $annotation) {
-            switch(get_class($annotation)) {
+
+        /**
+         * @var string $property
+         * @var OneToOne|OneToMany $annotation
+         */
+        foreach ($rels as $property => $annotation) {
+            switch (get_class($annotation)) {
                 case OneToOne::class:
                     $dependencies[$annotation->getColumn()] =
                         $this->fetchOne(
                             $this->oneToOneBuilder->build($annotation, $result[$annotation->getColumn()]),
                             $annotation->getEntity(),
-                            $result[$annotation->getColumn()]
+                            $result[$annotation->getColumn()],
+                            $this->updateLoadedDependencies($loadedDependencies, $class)
                         );
 
+                    break;
+                case OneToMany::class:
+                    $dependencies[$annotation->getProperty()] =
+                        $this->fetchMany(
+                            $this->oneToManyBuilder->build($annotation,
+                                $result[$this->entityMetaDataImpl->getIdField($class)]),
+                            $annotation->getEntity(),
+                            $this->updateLoadedDependencies($loadedDependencies, $class)
+                        );
                     break;
             }
         }
 
         return $dependencies;
+    }
+
+
+    /**
+     * If the dependency was already loaded in a previous level of the tree, then we have to set it, but empty.
+     * This should later become an empty entities with only id set and transformed into special subclass telling
+     * it is cut off
+     *
+     * @param string $class
+     * @param array $rels
+     * @return array
+     */
+    private function fetchEmptyDependencyData(string $class, array $rels): array
+    {
+        $dependencies = [];
+        /**
+         * @var string $property
+         * @var  OneToMany|OneToOne $annotation
+         */
+        foreach ($rels as $property => $annotation) {
+            $reflectionClass = new \ReflectionClass($annotation->getEntity());
+            $instance = $reflectionClass->newInstance();
+
+            $dependencies[$annotation->getColumn()] = $instance;
+        }
+
+        return $dependencies;
+    }
+
+    /**
+     * @param array|null $loadedDependencies
+     * @param string $class
+     * @return array
+     */
+    private function updateLoadedDependencies(array $loadedDependencies = null, string $class): array
+    {
+        if ($loadedDependencies === null) {
+            $loadedDependencies = [];
+        }
+
+        $loadedDependencies[] = $class;
+
+        return $loadedDependencies;
     }
 
     /**
@@ -147,6 +251,11 @@ class DatabaseManager implements EntityAccessLayer
         return $this->dbConnection->insert($query);
     }
 
+    /**
+     * @param array $input
+     * @param string $class
+     * @return Entity
+     */
     public function convertRequestToEntity(array $input, string $class): Entity
     {
         $rels = $this->fetchDependenciesForClass($class, $input);
