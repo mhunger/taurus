@@ -25,10 +25,11 @@ class ExerciseBuilder
      * @param int $workoutLocationId
      * @param string $workoutLocationName
      * @param int $exerciseGroupId
-     * @param string $exerciseName
-     * @param string $exerciseDifficulty
+     * @param string $exerciseGroupName
+     * @param string $exerciseGroupDifficulty
      * @param int $muscleGroupId
      * @param string $muscleGroupName
+     * @param array $exercises
      * @return Exercise
      */
     public function build(
@@ -39,10 +40,11 @@ class ExerciseBuilder
         int $workoutLocationId,
         string $workoutLocationName,
         int $exerciseGroupId,
-        string $exerciseName,
-        string $exerciseDifficulty,
+        string $exerciseGroupName,
+        string $exerciseGroupDifficulty,
         int $muscleGroupId,
-        string $muscleGroupName
+        string $muscleGroupName,
+        array $exercises
     ): Exercise {
         return (new Exercise())
             ->setId($id)
@@ -52,7 +54,7 @@ class ExerciseBuilder
             ->setWorkoutLocation(
                 (new WorkoutLocation())->setId($workoutLocationId)->setName($workoutLocationName)
             )->setExerciseGroup(
-                (new ExerciseGroup())->setId($exerciseGroupId)->setName($exerciseName)->setDifficulty($exerciseDifficulty)
+                (new ExerciseGroup())->setId($exerciseGroupId)->setName($exerciseGroupName)->setDifficulty($exerciseGroupDifficulty)->setExercises($exercises)
                     ->setMuscleGroup(
                         (new MuscleGroup())->setId($muscleGroupId)->setName($muscleGroupName)
                     )
