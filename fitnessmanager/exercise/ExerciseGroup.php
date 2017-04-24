@@ -9,7 +9,8 @@
 namespace fitnessmanager\exercise;
 
 use taurus\framework\db\Entity;
-
+use taurus\framework\annotation\OneToOne;
+use taurus\framework\annotation\OneToMany;
 
 /**
  * Class ExerciseGroup
@@ -46,6 +47,12 @@ class ExerciseGroup implements Entity
     public $muscleGroup;
 
     /**
+     * @var array
+     * @OneToMany(entity="fitnessmanager\exercise\Exercise", column="exercise_id", referenceTable="exercise", foreignKeyField="exercise_group_id")
+     */
+    public $exercises;
+
+    /**
      * @return int
      */
     public function getId()
@@ -60,6 +67,7 @@ class ExerciseGroup implements Entity
     public function setId(int $id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -78,6 +86,7 @@ class ExerciseGroup implements Entity
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -96,6 +105,7 @@ class ExerciseGroup implements Entity
     public function setDifficulty($difficulty)
     {
         $this->difficulty = $difficulty;
+
         return $this;
     }
 
@@ -114,6 +124,25 @@ class ExerciseGroup implements Entity
     public function setMuscleGroup($muscleGroup)
     {
         $this->muscleGroup = $muscleGroup;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExercises(): array
+    {
+        return $this->exercises;
+    }
+
+    /**
+     * @param array $exercises
+     * @return ExerciseGroup
+     */
+    public function setExercises(array $exercises): ExerciseGroup
+    {
+        $this->exercises = $exercises;
         return $this;
     }
 }
