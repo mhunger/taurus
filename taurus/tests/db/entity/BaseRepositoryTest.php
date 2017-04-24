@@ -17,6 +17,7 @@ use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\tests\AbstractDatabaseTest;
+use taurus\tests\fixtures\ExerciseBuilder;
 
 /**
  * Class BaseRepositoryTest
@@ -33,6 +34,17 @@ class BaseRepositoryTest extends AbstractDatabaseTest
         parent::setUp();
         $this->subject = Container::getInstance()
             ->getService(TaurusContainerConfig::SERVICE_BASE_REPOSITORY);
+    }
+
+    public function testFindOne() {
+        /** @var $exerciseBuilder ExerciseBuilder */
+        $exerciseBuilder = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_EXERCISE_BUILDER);
+
+        $this->assertEquals(
+            $exerciseBuilder->build(3, 'Pull-Up', 'hard', 'Chinup', 1, 'TUM Sportzentrum', 1, 'Pullups', 'hard', 5, 'Back', [(new Exercise())->setId(3)]),
+            $this->subject->findOne(3, Exercise::class),
+            'Could not load complete entity using base repository in base repo test'
+        );
     }
 
     /**
