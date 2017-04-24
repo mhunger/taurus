@@ -10,6 +10,7 @@ namespace taurus\framework\routing;
 
 use fitnessmanager\config\FitnessManagerConfig;
 use fitnessmanager\exercise\Exercise;
+use fitnessmanager\exercise\ExerciseGroup;
 use fitnessmanager\exercise\GetExerciseByDateAndLocationSpecification;
 use taurus\framework\api\ApiBuilder;
 use taurus\framework\Container;
@@ -65,6 +66,8 @@ class RouteConfig {
                     GetExerciseByDateAndLocationSpecification::class,
                     '/exercisesByDateAndLocation'
                 )
+            )->addDefaultRoute(
+                $this->apiBuilder->get(ExerciseGroup::class)
             );
     }
 
