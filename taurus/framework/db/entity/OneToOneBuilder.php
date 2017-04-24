@@ -8,7 +8,6 @@
 
 namespace taurus\framework\db\entity;
 
-
 use taurus\framework\annotation\OneToOne;
 use taurus\framework\db\query\expression\ComparisonExpression;
 use taurus\framework\db\query\expression\Field;
@@ -21,6 +20,7 @@ class OneToOneBuilder
 {
     /** @var EntityMetaDataImpl */
     private $entityMetaDataImpl;
+
     /** @var QueryBuilder */
     private $queryBuilder;
 
