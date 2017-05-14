@@ -45,30 +45,16 @@ class UpdateEntityApiControllerTest extends AbstractDatabaseTest
             ]
         );
 
-        /** @var ExerciseBuilder $builder */
-        $builder = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_EXERCISE_BUILDER);
-        $expectedEntity = $builder->build(
-            3,
-            'TestExercise',
-            'TestDifficulty',
-            'TestVariant',
-            1,
-            'TUM Sportzentrum',
-            1,
-            'Pullups',
-            'hard',
-            5,
-            'Back',
-            []
+        $mockServer = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
+        $actualResponse = $mockServer->get(
+            '/api/exercise',
+            'GET',
+            ['id' => 3]
         );
 
-        /** @var BaseRepository $baserepo */
-        $baserepo = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_BASE_REPOSITORY);
-        $actualEntity = $baserepo->findOne(3, Exercise::class);
-
-        $this->assertEquals(
-            $expectedEntity,
-            $actualEntity,
+        $this->compareResultToFixture(
+            $actualResponse,
+            __FUNCTION__,
             'Could not store existing entity with default service'
         );
     }

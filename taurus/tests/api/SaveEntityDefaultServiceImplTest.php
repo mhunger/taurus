@@ -17,6 +17,7 @@ use taurus\framework\api\SaveEntityDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\db\entity\BaseRepository;
+use taurus\framework\http\HttpResponse;
 use taurus\framework\mock\MockRequest;
 use taurus\tests\AbstractDatabaseTest;
 
@@ -75,13 +76,16 @@ class SaveEntityDefaultServiceImplTest extends AbstractDatabaseTest
                     )
             );
 
-        /** @var BaseRepository $baserepo */
-        $baserepo = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_BASE_REPOSITORY);
-        $actualEntity = $baserepo->findOne(5, Exercise::class);
+        $mockServer = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
+        $actualResponse = $mockServer->get(
+            '/api/exercise',
+            'GET',
+            ['id' => 5]
+        );
 
-        $this->assertEquals(
-            $expectedEntity,
-            $actualEntity,
+        $this->compareResultToFixture(
+            $actualResponse,
+            __FUNCTION__,
             'Could not store exercise entity correctly in SaveentityDefault Service'
         );
     }
