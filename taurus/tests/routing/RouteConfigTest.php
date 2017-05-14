@@ -31,6 +31,7 @@ class RouteConfigTest extends AbstractTaurusTest
 
     public function testRouteConfigDefaultGetByIdRouteOnlyEntity()
     {
+        $this->markTestSkipped('This is tested implicitly numerous times');
         /** @var GetByIdApiController $expectedController */
         $expectedController = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_GETBYID_CONTROLLER);
         /** @var GetEntityByIdDefaultServiceImpl $service */
