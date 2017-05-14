@@ -47,6 +47,7 @@ class GetAllEntitiesDefaultServiceImplTest extends AbstractDatabaseTest
 
     public function testGetAllEntities()
     {
+        $this->markTestSkipped('This is tested implicitly with the test get all entities controller test');
         $expectedResult = [
             (new Exercise())->setId(3)->setName('Pull-Up')->setDifficulty('hard')->setVariantName('Chinup')
                 ->setWorkoutLocation(
