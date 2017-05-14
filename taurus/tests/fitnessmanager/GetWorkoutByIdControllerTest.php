@@ -42,9 +42,9 @@ class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
             ['id' => 1]
         );
 
-        $this->assertJsonStringEqualsJsonFile(
-            $this->getJsonResultsFilePath('GetWorkoutByIdControllerTest-testGetMethod.json'),
+        $this->compareResultToFixture(
             $actualResponse,
+            __FUNCTION__,
             'Could not get workout by id correctly'
         );
     }

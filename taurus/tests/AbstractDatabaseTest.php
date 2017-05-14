@@ -80,17 +80,53 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
     }
 
     /**
-     * @param string $file
+     * @param string $class
+     * @param string $method
+     * @param string $actualResponse
      * @return string
      * @throws JsonResultsFileNotFoundException
+     * @internal param string $file
      */
-    protected function getJsonResultsFilePath(string $file): string {
-        $filePath = dirname(__FILE__) . '/fixtures/jsonResults/' . $file;
-        if(is_file($filePath)) {
+    protected function getOrCreateJsonResultsFilePath(string $class, string $method, string $actualResponse): string
+    {
+        $filePath = dirname(__FILE__) . '/fixtures/jsonResults/' . basename(str_replace('\\', '/', $class)) . '-' . $method . '.json';
+
+        if (is_file($filePath)) {
+            if(getenv('updateResultFiles') == 'true') {
+
+                $this->generateFile($filePath, $actualResponse);
+            }
             return $filePath;
         }
 
+        if(getenv('generateResultFiles') == 'true') {
+            $this->generateFile($filePath, $actualResponse);
+        }
+
         throw new JsonResultsFileNotFoundException($filePath);
+    }
+
+    /**
+     * @param string $actualResponse
+     * @param string $method
+     * @param string $msg
+     */
+    protected function compareResultToFixture(string $actualResponse, string $method, string $msg)
+    {
+        $this->assertJsonStringEqualsJsonFile(
+            $this->getOrCreateJsonResultsFilePath(static::class, $method, $actualResponse),
+            $actualResponse,
+            $msg
+        );
+    }
+
+    private function generateFile(string $filePath, string $actualResponse)
+    {
+        $f = fopen($filePath, 'w+');
+        fwrite($f, $actualResponse);
+        fclose($f);
+
+        echo "Written [$filePath]\n";
     }
 
     /**

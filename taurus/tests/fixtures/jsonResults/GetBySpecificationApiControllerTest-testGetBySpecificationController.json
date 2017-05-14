@@ -11,7 +11,26 @@
       "muscleGroup": {
         "id": 1,
         "name": "Chest"
-      }
+      },
+      "exercises": [
+        {
+          "id": 4,
+          "name": "Push-Ups",
+          "difficulty": "medium",
+          "variantName": "Standing",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
     },
     "workoutLocation": {
       "id": 1,

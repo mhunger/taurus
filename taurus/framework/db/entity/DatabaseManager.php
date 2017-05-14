@@ -217,10 +217,17 @@ class DatabaseManager implements EntityAccessLayer
          * @var  OneToMany|OneToOne $annotation
          */
         foreach ($rels as $property => $annotation) {
-            $reflectionClass = new \ReflectionClass($annotation->getEntity());
-            $instance = $reflectionClass->newInstance();
 
-            $dependencies[$annotation->getColumn()] = $instance;
+            switch($annotation->getAnnotationName()) {
+                case OneToMany::ANNOTATION_NAME_ONETOMANY:
+                    $dependencies[$annotation->getProperty()] = [];
+                    break;
+                case OneToOne::ANNOTATION_NAME_ONETOONE:
+                    $reflectionClass = new \ReflectionClass($annotation->getEntity());
+                    $instance = $reflectionClass->newInstance();
+                    $dependencies[$annotation->getColumn()] = $instance;
+                    break;
+            }
         }
 
         return $dependencies;

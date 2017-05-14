@@ -40,9 +40,9 @@ class GetAllEntitiesApiControllerTest extends AbstractDatabaseTest
             []
         );
 
-        $this->assertJsonStringEqualsJsonFile(
-            $this->getJsonResultsFilePath('GetAllEntitiesApiControllerTest-testGetAllEntities.json'),
+        $this->compareResultToFixture(
             $actualResponse,
+            __FUNCTION__,
             'Could not get all resources for exercises through the standard api controller'
         );
     }

@@ -46,9 +46,9 @@ class GetAllWorkoutsControllerTest extends AbstractDatabaseTest
             []
         );
 
-        $this->assertJsonStringEqualsJsonFile(
-            $this->getJsonResultsFilePath('getAllWorkoutsControllerTest-testGetMethod.json'),
+        $this->compareResultToFixture(
             $actualResponse,
+            __FUNCTION__,
             "Controller to get all workouts did not return correct result"
         );
     }

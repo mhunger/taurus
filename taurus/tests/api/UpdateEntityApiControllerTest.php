@@ -58,7 +58,8 @@ class UpdateEntityApiControllerTest extends AbstractDatabaseTest
             'Pullups',
             'hard',
             5,
-            'Back'
+            'Back',
+            []
         );
 
         /** @var BaseRepository $baserepo */
