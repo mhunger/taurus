@@ -59,7 +59,8 @@ class Application {
         try {
             $this->router->route($request);
         } catch(\Exception $e) {
-            echo "Could not route Request";
+            error_log($e);
+            echo 'Could not route request';
             exit;
         }
     }
