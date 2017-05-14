@@ -12,6 +12,8 @@ use fitnessmanager\config\FitnessManagerConfig;
 use fitnessmanager\exercise\Exercise;
 use fitnessmanager\exercise\ExerciseGroup;
 use fitnessmanager\exercise\GetExerciseByDateAndLocationSpecification;
+use fitnessmanager\exercise\MuscleGroup;
+use fitnessmanager\workout\Workout;
 use taurus\framework\api\ApiBuilder;
 use taurus\framework\Container;
 
@@ -68,6 +70,22 @@ class RouteConfig {
                 )
             )->addDefaultRoute(
                 $this->apiBuilder->get(ExerciseGroup::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->post(ExerciseGroup::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->cget(ExerciseGroup::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->cget(Workout::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->get(Workout::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->post(Workout::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->cget(MuscleGroup::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->post(MuscleGroup::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->get(MuscleGroup::class)
             );
     }
 
