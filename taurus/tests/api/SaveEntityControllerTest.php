@@ -20,6 +20,7 @@ use taurus\framework\Container;
 use taurus\framework\db\entity\BaseRepository;
 
 use taurus\framework\mock\MockRequest;
+use taurus\framework\mock\MockServer;
 use taurus\tests\AbstractDatabaseTest;
 
 class SaveEntityControllerTest extends AbstractDatabaseTest
@@ -69,27 +70,18 @@ class SaveEntityControllerTest extends AbstractDatabaseTest
 
         $this->controller->handleRequest($mockRequest);
 
-        $expectedEntity = (new Exercise())->setId(5)
-            ->setName('TestExercise')
-            ->setDifficulty('TestDifficulty')
-            ->setVariantName('TestVariant')
-            ->setWorkoutLocation(
-                (new WorkoutLocation())->setId(1)->setName('TUM Sportzentrum')
-            )->setExerciseGroup(
-                (new ExerciseGroup())->setId(1)->setName('Pullups')->setDifficulty('hard')
-                    ->setMuscleGroup(
-                        (new MuscleGroup())->setId(5)->setName('Back')
-                    )
-            );
+        /** @var MockServer $mockServer */
+        $mockServer = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
+        $actualResponse = $mockServer->get(
+            '/api/exercise',
+            'GET',
+            ['id' => 5]
+        );
 
-        /** @var BaseRepository $baserepo */
-        $baserepo = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_BASE_REPOSITORY);
-        $actualEntity = $baserepo->findOne(5, Exercise::class);
-
-        $this->assertEquals(
-            $expectedEntity,
-            $actualEntity,
-            'Could not store exercise entity correctly in save Default entity controller'
+        $this->compareResultToFixture(
+            $actualResponse,
+            __FUNCTION__,
+            'Could not store exercise using default controller'
         );
     }
 }
