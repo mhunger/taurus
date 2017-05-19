@@ -7,6 +7,7 @@ import {Select2OptionData} from "ng2-select2";
 import {Http} from "@angular/http";
 import {SelectBoxDataService} from "./selectbox-data.service";
 import {ExerciseService} from "../exercise/exercise.service";
+import {ModelDataBrokerService} from "./model-data-broker.service";
 
 @Component({
     templateUrl: './exercise-form.component.html',
@@ -14,7 +15,7 @@ import {ExerciseService} from "../exercise/exercise.service";
 })
 
 export class ExerciseFormComponent {
-    @Input() exercise: Exercise = new Exercise();
+    exercise: Exercise;
 
     private selectedExerciseGroup: number;
     private selectedWorkoutLocation: number;
@@ -22,9 +23,17 @@ export class ExerciseFormComponent {
     public exerciseGroups: Array<Select2OptionData>;
     public workoutLocations: Array<Select2OptionData>;
 
-
-    constructor(private http: Http, private optionService: SelectBoxDataService, private exerciseService: ExerciseService) {
+    constructor(private http: Http,
+                private optionService: SelectBoxDataService,
+                private exerciseService: ExerciseService,
+                private modelDataBrokerService: ModelDataBrokerService
+    ) {
         this.getOptions();
+        modelDataBrokerService.modelDataSetPubSub$.subscribe(
+            exercise => {
+                this.exercise = exercise;
+            }
+        );
     }
 
     getOptions(): void {
@@ -59,9 +68,12 @@ export class ExerciseFormComponent {
 
     setGroup(e: any) {
         this.selectedExerciseGroup = e.value;
+        console.log(this.exerciseGroups.filter(group => group.id == e.value));
+        this.modelDataBrokerService.formUpdatedWithModel(this.exerciseGroups.filter(group => group.id == e.value));
     }
 
     setLocation(e: any, o: any) {
         this.selectedWorkoutLocation = e.value;
+        console.log(e);
     }
 }

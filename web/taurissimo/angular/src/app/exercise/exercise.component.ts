@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Exercise } from '../model/exercise';
 import { ExerciseService } from './exercise.service';
+import {ModelDataBrokerService} from "../exercise-form/model-data-broker.service";
 
 @Component({
   selector: 'my-exercises',
@@ -14,7 +15,7 @@ export class ExerciseComponent {
   exercises: Exercise[];
   selectedExercise: Exercise;
 
-  constructor(private exerciseService: ExerciseService) {
+  constructor(private exerciseService: ExerciseService, private modelDataBroker: ModelDataBrokerService) {
     this.getExercises();
   }
 
@@ -25,6 +26,7 @@ export class ExerciseComponent {
   }
 
   onSelectExercise(exercise: Exercise) {
+    this.modelDataBroker.formModelSet(exercise);
     this.selectedExercise = exercise;
   }
 }

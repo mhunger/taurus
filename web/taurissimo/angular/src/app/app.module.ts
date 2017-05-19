@@ -10,6 +10,7 @@ import { ExerciseService } from "./exercise/exercise.service";
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 import { Select2Module } from 'ng2-select2';
 import { SelectBoxDataService } from "./exercise-form/selectbox-data.service";
+import {ModelDataBrokerService} from "./exercise-form/model-data-broker.service";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { SelectBoxDataService } from "./exercise-form/selectbox-data.service";
       }
     ])
   ],
-  providers: [ExerciseService, SelectBoxDataService],
+  providers: [ExerciseService, SelectBoxDataService, ModelDataBrokerService],
   bootstrap: [AppComponent]
 })
 
