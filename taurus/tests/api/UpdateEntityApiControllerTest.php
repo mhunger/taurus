@@ -35,12 +35,12 @@ class UpdateEntityApiControllerTest extends AbstractDatabaseTest
             [],
             [
                 'exercise' => [
-                    'exercise_id' => 3,
+                    'id' => 3,
                     'name' => 'TestExercise',
                     'difficulty' => 'TestDifficulty',
-                    'variant_name' => 'TestVariant',
-                    'exercise_group_id' => 1,
-                    'workout_location_id' => 1
+                    'variantName' => 'TestVariant',
+                    'exerciseGroup' => 1,
+                    'workoutLocation' => 1
                 ]
             ]
         );
