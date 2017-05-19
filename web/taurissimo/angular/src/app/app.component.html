@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav class="navbar navbar-toggleable-md navbar-light bg-faded taurus-bg">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" routerLink="/exercises">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="workout-menu-dd" data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            Workout
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="workout-menu-dd">
+                            <a class="dropdown-item" routerLink="/">New Workout</a>
+                            <a class="dropdown-item" routerLink="/">Workouts</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="exercise-menu-dd" data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            Exercises
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="exercise-menu-dd">
+                            <a class="dropdown-item" routerLink="/exercise">New Exercise</a>
+                            <a class="dropdown-item" routerLink="/exercises">Update Exercises</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

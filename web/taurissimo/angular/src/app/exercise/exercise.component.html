@@ -1,0 +1,30 @@
+<div class="row mt-3">
+    <div class="col">
+        <table class="table table-sm table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Exercise Group</th>
+                <th>Name</th>
+                <th>Difficulty</th>
+                <th>Variant-Name</th>
+                <th>Muscle Group</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let exercise of exercises"
+                    (click)="onSelectExercise(exercise)" [class.table-info]="exercise === selectedExercise">
+                    <th scope="row"> {{ exercise.id }} </th>
+                    <td>{{ exercise.exerciseGroup.name }}</td>
+                    <td>{{ exercise.name }}</td>
+                    <td>{{ exercise.difficulty }}</td>
+                    <td>{{ exercise.variantName }}</td>
+                    <td>{{ exercise.workoutLocation.name }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-10">
+        <exercise-form [exercise]="selectedExercise"></exercise-form>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "http://taurus-dev.com",
+    "secure": false
+  }
+}

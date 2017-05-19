@@ -1,0 +1,43 @@
+<div style="margin-top: 10px" *ngIf="exercise">
+    <div class="form-group row">
+        <label for="exercise-id" class="col-2 col-form-label">ID:</label>
+        <div class="col-10"><input [(ngModel)]="exercise.id" placeholder="id" id="exercise-id" type="text"
+                                   class="form-control"/></div>
+    </div>
+    <div class="form-group row">
+        <label for="exercise-name" class="col-2 col-form-label">Name:</label>
+        <div class="col-10">
+            <input [(ngModel)]="exercise.name" placeholder="name" id="exercise-name" type="text"
+                   class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="exercise-difficulty" class="col-2 col-form-label">Difficulty:</label>
+        <div class="col-10">
+            <input [(ngModel)]="exercise.difficulty" placeholder="difficulty" id="exercise-difficulty" type="text"
+                   class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="exercise-variant" class="col-2 col-form-label">Variant:</label>
+        <div class="col-10">
+            <input [(ngModel)]="exercise.variantName" placeholder="name" id="exercise-variant" type="text"
+                   class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="exercise-group" class="col-2 col-form-label">Exercise-Group:</label>
+        <div class="col-10">
+            <select2 [data]="exerciseGroups" id="exercise-group" (valueChanged)="setGroup($event)"
+                     [value]="exercise.exerciseGroup.id"></select2>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="workout-location" class="col-2 col-form-label">Workout Location:</label>
+        <div class="col-10">
+            <select2 [data]="workoutLocations" id="workout-location" [value]="exercise.workoutLocation.id"
+                     (valueChanged)="setLocation($event)"></select2>
+        </div>
+    </div>
+    <button class="btn btn-primary" (click)="saveExercise()">Submit</button>
+</div>

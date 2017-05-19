@@ -11,3 +11,4 @@ fitnessmanager/db/workout-manager-db-schema.gliffy
 taurus/framework/http/HttpPostRequest.php
 taurus/tests/mock/
 /web/node_modules
+/web/taurissimo/scripts/node_modules/
