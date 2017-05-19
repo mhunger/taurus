@@ -2,7 +2,7 @@
  * Created by michaelhunger on 06/04/17.
  */
 import {Injectable} from '@angular/core';
-import {Exercise} from './exercise';
+import {Exercise} from '../model/exercise';
 import {Headers, Http} from "@angular/http";
 
 import '../../../node_modules/rxjs/add/operator/toPromise';

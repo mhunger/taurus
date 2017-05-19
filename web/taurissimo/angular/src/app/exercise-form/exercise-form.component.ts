@@ -2,7 +2,7 @@
  * Created by michaelhunger on 06/04/17.
  */
 import {Component, Input, OnInit} from '@angular/core';
-import {Exercise} from "../exercise/exercise";
+import {Exercise} from "../model/exercise";
 import {Select2OptionData} from "ng2-select2";
 import {Http} from "@angular/http";
 import {SelectBoxDataService} from "./selectbox-data.service";

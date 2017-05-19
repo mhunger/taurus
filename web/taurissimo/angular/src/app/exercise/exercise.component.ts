@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Exercise } from './exercise';
+import { Exercise } from '../model/exercise';
 import { ExerciseService } from './exercise.service';
 
 @Component({
