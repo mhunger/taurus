@@ -101,12 +101,14 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
     }
 
     /**
-     * Returns a map that has the column names as keys and the respective property names as values
+     * Returns a map that has the column names as keys and the respective property names as values.
+     * If flip is true flips the array so that properties are the keys. It depends on whether
+     * we are looking at incoming data or outgoing, which of the structures is needed.
      *
      * @param $class
      * @return array
      */
-    public function getColumnMap($class)
+    public function getColumnMap($class, $flip = false)
     {
         $columnAnnotations = $this->entityMetaDataStore
             ->getEntityMetaData($class)
@@ -123,7 +125,11 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
             $map[$columnName] = $property;
         }
 
-        return $map;
+        if($flip) {
+            return array_flip($map);
+        } else {
+            return $map;
+        }
     }
 
     /**
