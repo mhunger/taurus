@@ -259,15 +259,39 @@ class DatabaseManager implements EntityAccessLayer
     }
 
     /**
-     * @param array $input
+     * @param array $requestInput
      * @param string $class
      * @return Entity
      */
-    public function convertRequestToEntity(array $input, string $class): Entity
+    public function convertRequestToEntity(array $requestInput, string $class): Entity
     {
-        $rels = $this->fetchDependenciesForClass($class, $input);
+        $input = $this->mapRequestInputPropertyNamesToColumnNames($requestInput, $class);
+        $rels = $this->fetchDependenciesForClass(
+            $class,
+            $input
+
+        );
 
         return $this->entityBuilder->convertOne($input, $class, $rels);
 
+    }
+
+    /**
+     * Maps incoming request property name of the entity to database name as incoming data is using
+     * entity names / property names, while internals work on persistence layer names.
+     *
+     * @param array $requestInput
+     * @param string $class
+     * @return array
+     */
+    public function mapRequestInputPropertyNamesToColumnNames(array $requestInput, string $class): array
+    {
+        $columnMap = $this->entityMetaDataImpl->getColumnMap($class, true);
+
+        $input = [];
+        foreach ($requestInput as $propertyName => $value) {
+            $input[$columnMap[$propertyName]] = $value;
+        }
+        return $input;
     }
 }
