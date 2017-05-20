@@ -7,6 +7,7 @@ import {Injectable} from "@angular/core";
 
 @Injectable()
 export class SelectBoxDataService {
+    private itemCache: Array<any> = [];
     constructor(private http: Http) { }
     /**
      *
@@ -21,10 +22,19 @@ export class SelectBoxDataService {
 
                 for(let entry of response.json()) {
                     options.push(mapper(entry));
+                    if(!this.itemCache[url]) {
+                        this.itemCache[url] = [];
+                    }
+                    this.itemCache[url][entry.id] = entry;
                 }
 
+                console.log(this.itemCache);
                 return options;
             })
             .catch((error => console.log(error)));
+    }
+
+    getItemForBoxData(url: string, id: number) {
+        return this.itemCache[url][id];
     }
 }
