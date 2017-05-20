@@ -17,6 +17,19 @@ export class ExerciseComponent {
 
   constructor(private exerciseService: ExerciseService, private modelDataBroker: ModelDataBrokerService) {
     this.getExercises();
+    modelDataBroker.modelDataSetPubSub$.subscribe(
+        exercise => {
+          this.exercises = this.exercises.map(
+              (v, i) => {
+                if(v.id == exercise.id) {
+                  return exercise
+                }
+                return v;
+              }
+          )
+          this.selectedExercise = exercise;
+        }
+    );
   }
 
   getExercises(): void {

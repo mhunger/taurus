@@ -29,9 +29,11 @@ export class ExerciseFormComponent {
                 private modelDataBrokerService: ModelDataBrokerService
     ) {
         this.getOptions();
-        modelDataBrokerService.modelDataSetPubSub$.subscribe(
+        modelDataBrokerService.modelDataPubSub$.subscribe(
             exercise => {
                 this.exercise = exercise;
+                this.selectedExerciseGroup = exercise.exerciseGroup.id;
+                this.selectedWorkoutLocation = exercise.workoutLocation.id
             }
         );
     }
@@ -67,13 +69,19 @@ export class ExerciseFormComponent {
     }
 
     setGroup(e: any) {
+        console.log(e);
         this.selectedExerciseGroup = e.value;
-        console.log(this.exerciseGroups.filter(group => group.id == e.value));
-        this.modelDataBrokerService.formUpdatedWithModel(this.exerciseGroups.filter(group => group.id == e.value));
+        this.exercise.exerciseGroup = this.optionService.getItemForBoxData('/api/exercisegroups', e.value);
+        this.modelDataBrokerService.formUpdatedWithModel(this.exercise);
+        console.log('new group');
+
     }
 
     setLocation(e: any, o: any) {
-        this.selectedWorkoutLocation = e.value;
         console.log(e);
+        this.selectedWorkoutLocation = e.value;
+        this.exercise.workoutLocation = this.optionService.getItemForBoxData('/api/workoutlocations', e.value);
+        console.log('testlocation');
+        this.modelDataBrokerService.formUpdatedWithModel(this.exercise);
     }
 }

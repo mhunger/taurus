@@ -13,10 +13,10 @@ export class ModelDataBrokerService {
     public modelDataSetPubSub$ = this.modelDataSetPubSub.asObservable();
 
     formUpdatedWithModel(model: any) {
-        this.modelDataPubSub.next(model);
+        this.modelDataSetPubSub.next(model);
     }
 
     formModelSet(model: any) {
-        this.modelDataSetPubSub.next(model);
+        this.modelDataPubSub.next(model);
     }
 }
