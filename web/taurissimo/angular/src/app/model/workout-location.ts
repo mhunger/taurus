@@ -3,6 +3,6 @@
  */
 
 export class WorkoutLocation{
-  private id: number;
-  private name: string;
+  public id: number;
+  public name: string;
 }
