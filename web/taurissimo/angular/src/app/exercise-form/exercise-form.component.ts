@@ -8,6 +8,9 @@ import {Http} from "@angular/http";
 import {SelectBoxDataService} from "./selectbox-data.service";
 import {ExerciseService} from "../exercise/exercise.service";
 import {ModelDataBrokerService} from "./model-data-broker.service";
+import {ExerciseBuilderService} from '../model/exercise-builder.service';
+import {ExerciseGroup} from "../model/exercise-group";
+import {WorkoutLocation} from "../model/workout-location";
 
 @Component({
     templateUrl: './exercise-form.component.html',
@@ -20,8 +23,8 @@ export class ExerciseFormComponent {
     private selectedExerciseGroup: number;
     private selectedWorkoutLocation: number;
 
-    public exerciseGroups: Array<Select2OptionData>;
-    public workoutLocations: Array<Select2OptionData>;
+    public exerciseGroups: Array<ExerciseGroup>;
+    public workoutLocations: Array<WorkoutLocation>;
 
     constructor(private http: Http,
                 private optionService: SelectBoxDataService,
@@ -39,19 +42,12 @@ export class ExerciseFormComponent {
     }
 
     getOptions(): void {
-        this.optionService.getSelectBoxData('/api/workoutlocations', entry => ({
-            id: entry.id,
-            text: entry.name
-        } as Select2OptionData))
+        this.optionService.getSelectBoxData('/api/workoutlocations')
             .then(
                 workoutLocations => this.workoutLocations = workoutLocations
             );
 
-        this.optionService.getSelectBoxData('/api/exercisegroups', entry => ({
-            id: entry.id,
-            text: entry.name,
-            additional: entry
-        } as Select2OptionData))
+        this.optionService.getSelectBoxData('/api/exercisegroups')
             .then(
                 exerciseGroups => this.exerciseGroups = exerciseGroups
             )
@@ -69,19 +65,16 @@ export class ExerciseFormComponent {
     }
 
     setGroup(e: any) {
-        console.log(e);
         this.selectedExerciseGroup = e.value;
-        this.exercise.exerciseGroup = this.optionService.getItemForBoxData('/api/exercisegroups', e.value);
+        this.exercise.exerciseGroup = this.exerciseGroups.filter(v => v.id == e)[0];
         this.modelDataBrokerService.formUpdatedWithModel(this.exercise);
-        console.log('new group');
 
     }
 
     setLocation(e: any, o: any) {
-        console.log(e);
-        this.selectedWorkoutLocation = e.value;
-        this.exercise.workoutLocation = this.optionService.getItemForBoxData('/api/workoutlocations', e.value);
-        console.log('testlocation');
+
+        this.selectedWorkoutLocation = e;
+        this.exercise.workoutLocation = this.workoutLocations.filter((v) => v.id == e)[0];
         this.modelDataBrokerService.formUpdatedWithModel(this.exercise);
     }
 }
