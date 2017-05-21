@@ -22,6 +22,7 @@ export class ExerciseComponent {
           this.exercises = this.exercises.map(
               (v, i) => {
                 if(v.id == exercise.id) {
+                    console.log('model data set in list component');
                   return exercise
                 }
                 return v;
