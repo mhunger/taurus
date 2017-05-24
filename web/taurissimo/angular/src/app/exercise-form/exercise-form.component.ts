@@ -1,24 +1,23 @@
 /**
  * Created by michaelhunger on 06/04/17.
  */
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit} from '@angular/core';
 import {Exercise} from "../model/exercise";
-import {Select2OptionData} from "ng2-select2";
 import {Http} from "@angular/http";
 import {SelectBoxDataService} from "./selectbox-data.service";
 import {ExerciseService} from "../exercise/exercise.service";
 import {ModelDataBrokerService} from "./model-data-broker.service";
-import {ExerciseBuilderService} from '../model/exercise-builder.service';
 import {ExerciseGroup} from "../model/exercise-group";
 import {WorkoutLocation} from "../model/workout-location";
+import {ExerciseBuilderService} from "../model/exercise-builder.service";
 
 @Component({
     templateUrl: './exercise-form.component.html',
     selector: 'exercise-form'
 })
 
-export class ExerciseFormComponent {
-    exercise: Exercise;
+export class ExerciseFormComponent implements OnInit{
+    @Input() exercise: Exercise;
 
     private selectedExerciseGroup: number;
     private selectedWorkoutLocation: number;
@@ -26,10 +25,13 @@ export class ExerciseFormComponent {
     public exerciseGroups: Array<ExerciseGroup>;
     public workoutLocations: Array<WorkoutLocation>;
 
+    @Input() public inlineForm: boolean = false;
+
     constructor(private http: Http,
                 private optionService: SelectBoxDataService,
                 private exerciseService: ExerciseService,
-                private modelDataBrokerService: ModelDataBrokerService
+                private modelDataBrokerService: ModelDataBrokerService,
+                private exerciseBuilder: ExerciseBuilderService
     ) {
         this.getOptions();
         modelDataBrokerService.modelDataPubSub$.subscribe(
@@ -39,6 +41,12 @@ export class ExerciseFormComponent {
                 this.selectedWorkoutLocation = exercise.workoutLocation.id
             }
         );
+    }
+
+    ngOnInit(): void {
+        if(this.inlineForm == false && !this.exercise) {
+            this.exercise = this.exerciseBuilder.build();
+        }
     }
 
     getOptions(): void {
@@ -65,7 +73,7 @@ export class ExerciseFormComponent {
     }
 
     setGroup(e: any) {
-        this.selectedExerciseGroup = e.value;
+        this.selectedExerciseGroup = e;
         this.exercise.exerciseGroup = this.exerciseGroups.filter(v => v.id == e)[0];
         this.modelDataBrokerService.formUpdatedWithModel(this.exercise);
 
