@@ -2,10 +2,10 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 .taurus-bg {
-    background-color: #e3f2fd;
+    background-color: #0275d8;
 }
 
 .table-striped>tbody>tr:nth-child(odd)>td,
 .table-striped>tbody>tr:nth-child(odd)>th {
-    background-color: #e3f2fd;
+    background-color: #0275d8;
 }
