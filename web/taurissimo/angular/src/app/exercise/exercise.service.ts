@@ -40,11 +40,19 @@ export class ExerciseService {
     }
 
     saveExercise(exercise: any): Promise<string> {
-        return this.http
-            .put('/api/exercise', JSON.stringify({exercise: exercise}), {headers: this.headers})
-            .toPromise()
-            .then(res => res.statusText)
-            .catch(this.handleError);
+        if(exercise.id) {
+            return this.http
+                .put('/api/exercise', JSON.stringify({exercise: exercise}), {headers: this.headers})
+                .toPromise()
+                .then(res => res.statusText)
+                .catch(this.handleError);
+        } else {
+            return this.http
+                .post('/api/exercise', JSON.stringify({exercise: exercise}), {headers: this.headers})
+                .toPromise()
+                .then(res => res.statusText)
+                .catch(this.handleError);
+        }
     }
 
     private handleError(error: any): Promise<any> {
