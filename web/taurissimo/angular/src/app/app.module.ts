@@ -10,7 +10,9 @@ import { ExerciseService } from "./exercise/exercise.service";
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 import { Select2Module } from 'ng2-select2';
 import { SelectBoxDataService } from "./exercise-form/selectbox-data.service";
-import {ModelDataBrokerService} from "./exercise-form/model-data-broker.service";
+import { ModelDataBrokerService } from "./exercise-form/model-data-broker.service";
+import { ExerciseBuilderService } from "./model/exercise-builder.service";
+import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import {ModelDataBrokerService} from "./exercise-form/model-data-broker.service"
     FormsModule,
     HttpModule,
     Select2Module,
+    NgbModule.forRoot(),
     RouterModule.forRoot([
       {
         path: 'exercises',
@@ -30,16 +33,19 @@ import {ModelDataBrokerService} from "./exercise-form/model-data-broker.service"
       },
       {
         path: 'exercise',
-        component: ExerciseFormComponent
+        component: ExerciseFormComponent,
+        data: {
+          newExercise: true
+        }
       },
       {
         path: '',
-        redirectTo: '/exercise',
+        redirectTo: '/exercises',
         pathMatch: 'full',
       }
     ])
   ],
-  providers: [ExerciseService, SelectBoxDataService, ModelDataBrokerService],
+  providers: [ExerciseService, SelectBoxDataService, ModelDataBrokerService, ExerciseBuilderService, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 

@@ -12,19 +12,34 @@
             </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let exercise of exercises"
-                    (click)="onSelectExercise(exercise)" [class.table-info]="exercise === selectedExercise">
-                    <th scope="row"> {{ exercise.id }} </th>
-                    <td>{{ exercise.exerciseGroup.name }}</td>
-                    <td>{{ exercise.name }}</td>
-                    <td>{{ exercise.difficulty }}</td>
-                    <td>{{ exercise.variantName }}</td>
-                    <td>{{ exercise.workoutLocation.name }}</td>
-                </tr>
+            <tr *ngFor="let exercise of exercises"
+                (click)="onSelectExercise(exercise, formContent)" [class.table-info]="exercise === selectedExercise"
+                data-toggle="modal" data-target="#myModal">
+                <th scope="row"> {{ exercise.id }}</th>
+                <td>{{ exercise.exerciseGroup.name }}</td>
+                <td>{{ exercise.name }}</td>
+                <td>{{ exercise.difficulty }}</td>
+                <td>{{ exercise.variantName }}</td>
+                <td>{{ exercise.workoutLocation.name }}</td>
+            </tr>
             </tbody>
         </table>
     </div>
     <div class="col-10">
-        <exercise-form></exercise-form>
+        <ng-template #formContent let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Exercise</h4>
+                <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <exercise-form [inlineForm]="true" [exercise]="selectedExercise"></exercise-form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Close
+                </button>
+            </div>
+        </ng-template>
     </div>
 </div>
