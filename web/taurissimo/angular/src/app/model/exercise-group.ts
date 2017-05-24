@@ -8,4 +8,11 @@ export class ExerciseGroup {
     name: string;
     difficulty: string;
     muscleGroup: MuscleGroup;
+
+    constructor(id: number, name: string, difficulty: string, muscleGroup: MuscleGroup) {
+        this.id = id;
+        this.name = name;
+        this.difficulty = difficulty;
+        this.muscleGroup = muscleGroup;
+    }
 }
