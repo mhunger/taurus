@@ -29,7 +29,7 @@
         <ng-template #formContent let-c="close" let-d="dismiss">
             <div class="modal-header">
                 <h4 class="modal-title">Update Exercise</h4>
-                <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross Click')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -37,7 +37,7 @@
                 <exercise-form [inlineForm]="true" [exercise]="selectedExercise"></exercise-form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Close
+                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close
                 </button>
             </div>
         </ng-template>
