@@ -1,7 +1,7 @@
 /**
  * Created by michaelhunger on 06/04/17.
  */
-import {AfterViewInit, Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, OnChanges} from '@angular/core';
 import {Exercise} from "../model/exercise";
 import {Http} from "@angular/http";
 import {SelectBoxDataService} from "./selectbox-data.service";
@@ -9,15 +9,17 @@ import {ExerciseService} from "../exercise/exercise.service";
 import {ModelDataBrokerService} from "./model-data-broker.service";
 import {ExerciseGroup} from "../model/exercise-group";
 import {WorkoutLocation} from "../model/workout-location";
-import {ExerciseBuilderService} from "../model/exercise-builder.service";
+import { ExerciseBuilderService} from "../model/exercise-builder.service";
+import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
 
 @Component({
     templateUrl: './exercise-form.component.html',
     selector: 'exercise-form'
 })
 
-export class ExerciseFormComponent implements OnInit{
+export class ExerciseFormComponent implements OnInit, OnChanges {
     @Input() exercise: Exercise;
+    exerciseForm: FormGroup;
 
     private selectedExerciseGroup: number;
     private selectedWorkoutLocation: number;
@@ -31,9 +33,10 @@ export class ExerciseFormComponent implements OnInit{
                 private optionService: SelectBoxDataService,
                 private exerciseService: ExerciseService,
                 private modelDataBrokerService: ModelDataBrokerService,
-                private exerciseBuilder: ExerciseBuilderService
-    ) {
+                private exerciseBuilder: ExerciseBuilderService,
+                private formBuilder: FormBuilder) {
         this.getOptions();
+        this.createForm();
         modelDataBrokerService.modelDataPubSub$.subscribe(
             exercise => {
                 this.exercise = exercise;
@@ -43,8 +46,32 @@ export class ExerciseFormComponent implements OnInit{
         );
     }
 
+
+    ngOnChanges(): void {
+        this.exerciseForm.reset();
+        this.exerciseForm.setValue({
+            id: this.exercise.id,
+            name: this.exercise.name,
+            difficulty: this.exercise.difficulty,
+            variant: this.exercise.variantName,
+            exerciseGroup: this.exercise.exerciseGroup.id,
+            workoutLocation: this.exercise.workoutLocation.id
+        });
+    }
+
+    createForm() {
+        this.exerciseForm = this.formBuilder.group({
+            id: '',
+            name: '',
+            difficulty: '',
+            variant: '',
+            exerciseGroup: '',
+            workoutLocation: ''
+        });
+    }
+
     ngOnInit(): void {
-        if(this.inlineForm == false && !this.exercise) {
+        if (this.inlineForm == false && !this.exercise) {
             this.exercise = this.exerciseBuilder.build();
         }
     }
@@ -61,15 +88,17 @@ export class ExerciseFormComponent implements OnInit{
             )
     }
 
-    saveExercise(exercise: Exercise) {
-        this.exerciseService.saveExercise({
-            id: this.exercise.id,
-            name: this.exercise.name,
-            variantName: this.exercise.variantName,
-            difficulty: this.exercise.difficulty,
-            exerciseGroup: this.selectedExerciseGroup,
-            workoutLocation: this.selectedWorkoutLocation
-        });
+    saveExercise() {
+        this.exercise.difficulty = this.exerciseForm.value.difficulty;
+        this.exercise.variantName = this.exerciseForm.value.variant;
+        this.exercise.name = this.exerciseForm.value.name;
+        this.exercise.id = this.exerciseForm.value.id;
+        this.exercise.exerciseGroup = this.exerciseGroups.filter(v => v.id == this.exerciseForm.value.exerciseGroup)[0];
+        this.exercise.workoutLocation = this.workoutLocations.filter((v) => v.id == this.exerciseForm.value.workoutLocation)[0];
+        console.log(this.exercise);
+
+        this.modelDataBrokerService.formUpdatedWithModel(this.exercise);
+        //this.exerciseService.saveExercise(this.exercise);
     }
 
     setGroup(e: any) {

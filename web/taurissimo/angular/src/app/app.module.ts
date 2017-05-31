@@ -13,6 +13,7 @@ import { SelectBoxDataService } from "./exercise-form/selectbox-data.service";
 import { ModelDataBrokerService } from "./exercise-form/model-data-broker.service";
 import { ExerciseBuilderService } from "./model/exercise-builder.service";
 import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     HttpModule,
     Select2Module,
+    ReactiveFormsModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
       {
