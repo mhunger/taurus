@@ -1,4 +1,4 @@
-<div style="margin-top: 10px" *ngIf="exercise">
+<div style="margin-top: 10px" *ngIf="resource">
     <form [formGroup]="form" novalidate>
         <div class="form-group row">
             <label for="exercise-name" class="col-4 col-form-label">Name:</label>
@@ -45,6 +45,6 @@
                 </select>
             </div>
         </div>
-        <button class="btn btn-primary" (click)="saveExercise()">Save</button>
+        <button class="btn btn-primary" (click)="saveResource()">Save</button>
     </form>
 </div>

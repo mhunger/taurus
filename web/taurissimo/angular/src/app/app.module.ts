@@ -14,6 +14,7 @@ import { ModelDataBrokerService } from "./exercise-form/model-data-broker.servic
 import { ExerciseBuilderService } from "./model/exercise-builder.service";
 import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms'
+import {ResourceService} from "./taurus/resource.service";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { ReactiveFormsModule } from '@angular/forms'
       }
     ])
   ],
-  providers: [ExerciseService, SelectBoxDataService, ModelDataBrokerService, ExerciseBuilderService, NgbActiveModal],
+  providers: [ExerciseService, SelectBoxDataService, ModelDataBrokerService, ExerciseBuilderService, NgbActiveModal, ResourceService],
   bootstrap: [AppComponent]
 })
 
