@@ -1,5 +1,5 @@
 <div style="margin-top: 10px" *ngIf="exercise">
-    <form [formGroup]="exerciseForm" novalidate>
+    <form [formGroup]="form" novalidate>
         <div class="form-group row">
             <label for="exercise-name" class="col-4 col-form-label">Name:</label>
             <div class="col-8">
@@ -45,7 +45,6 @@
                 </select>
             </div>
         </div>
-        <button class="btn btn-primary" (click)="saveExercise()">Submit</button>
-        <p>{{ exerciseForm.value | json}}</p>
+        <button class="btn btn-primary" (click)="saveExercise()">Save</button>
     </form>
 </div>
