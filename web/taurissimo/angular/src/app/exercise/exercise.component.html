@@ -3,7 +3,6 @@
         <table class="table table-sm table-hover">
             <thead>
             <tr>
-                <th>#</th>
                 <th>Exercise Group</th>
                 <th>Name</th>
                 <th>Difficulty</th>
@@ -15,7 +14,6 @@
             <tr *ngFor="let exercise of exercises"
                 (click)="onSelectExercise(exercise, formContent)" [class.table-info]="exercise === selectedExercise"
                 data-toggle="modal" data-target="#myModal">
-                <th scope="row"> {{ exercise.id }}</th>
                 <td>{{ exercise.exerciseGroup.name }}</td>
                 <td>{{ exercise.name }}</td>
                 <td>{{ exercise.difficulty }}</td>

@@ -3,14 +3,13 @@
  */
 import {Component, Input, OnInit, OnChanges} from '@angular/core';
 import {Exercise} from "../model/exercise";
-import {Http} from "@angular/http";
 import {SelectBoxDataService} from "./selectbox-data.service";
-import {ExerciseService} from "../exercise/exercise.service";
 import {ModelDataBrokerService} from "./model-data-broker.service";
 import {ExerciseGroup} from "../model/exercise-group";
 import {WorkoutLocation} from "../model/workout-location";
 import { ExerciseBuilderService} from "../model/exercise-builder.service";
-import { FormControl, FormGroup, FormBuilder } from "@angular/forms";
+import { FormGroup, FormBuilder } from "@angular/forms";
+import {ExerciseService} from "../exercise/exercise.service";
 
 @Component({
     templateUrl: './exercise-form.component.html',
@@ -29,12 +28,11 @@ export class ExerciseFormComponent implements OnInit, OnChanges {
 
     @Input() public inlineForm: boolean = false;
 
-    constructor(private http: Http,
-                private optionService: SelectBoxDataService,
-                private exerciseService: ExerciseService,
+    constructor(private optionService: SelectBoxDataService,
                 private modelDataBrokerService: ModelDataBrokerService,
                 private exerciseBuilder: ExerciseBuilderService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private exerciseService: ExerciseService) {
         this.getOptions();
         this.createForm();
         modelDataBrokerService.modelDataPubSub$.subscribe(
@@ -95,23 +93,8 @@ export class ExerciseFormComponent implements OnInit, OnChanges {
         this.exercise.id = this.exerciseForm.value.id;
         this.exercise.exerciseGroup = this.exerciseGroups.filter(v => v.id == this.exerciseForm.value.exerciseGroup)[0];
         this.exercise.workoutLocation = this.workoutLocations.filter((v) => v.id == this.exerciseForm.value.workoutLocation)[0];
-        console.log(this.exercise);
 
         this.modelDataBrokerService.formUpdatedWithModel(this.exercise);
-        //this.exerciseService.saveExercise(this.exercise);
-    }
-
-    setGroup(e: any) {
-        this.selectedExerciseGroup = e;
-        this.exercise.exerciseGroup = this.exerciseGroups.filter(v => v.id == e)[0];
-        this.modelDataBrokerService.formUpdatedWithModel(this.exercise);
-
-    }
-
-    setLocation(e: any, o: any) {
-
-        this.selectedWorkoutLocation = e;
-        this.exercise.workoutLocation = this.workoutLocations.filter((v) => v.id == e)[0];
-        this.modelDataBrokerService.formUpdatedWithModel(this.exercise);
+        this.exerciseService.saveExercise(this.exercise);
     }
 }

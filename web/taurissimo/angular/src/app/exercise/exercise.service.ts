@@ -42,13 +42,13 @@ export class ExerciseService {
     saveExercise(exercise: any): Promise<string> {
         if(exercise.id) {
             return this.http
-                .put('/api/exercise', JSON.stringify({exercise: exercise}), {headers: this.headers})
+                .put('/api/exercise', JSON.stringify({exercise: this.prepareExercise(exercise)}), {headers: this.headers})
                 .toPromise()
                 .then(res => res.statusText)
                 .catch(this.handleError);
         } else {
             return this.http
-                .post('/api/exercise', JSON.stringify({exercise: exercise}), {headers: this.headers})
+                .post('/api/exercise', JSON.stringify({exercise: this.prepareExercise(exercise)}), {headers: this.headers})
                 .toPromise()
                 .then(res => res.statusText)
                 .catch(this.handleError);
@@ -58,5 +58,21 @@ export class ExerciseService {
     private handleError(error: any): Promise<any> {
         console.log('An error occurred when trying to receive exercises');
         return Promise.reject(error.message || error);
+    }
+
+    private prepareExercise(exercise: Exercise) {
+        const exerciseToSave = {
+            name: exercise.name,
+            difficulty: exercise.difficulty,
+            variantName: exercise.variantName,
+            exerciseGroup: exercise.exerciseGroup.id,
+            workoutLocation: exercise.workoutLocation.id
+        };
+
+        if(exercise.id) {
+            exerciseToSave['id'] = exercise.id;
+        }
+
+        return exerciseToSave;
     }
 }

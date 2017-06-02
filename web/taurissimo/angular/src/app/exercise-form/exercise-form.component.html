@@ -1,11 +1,6 @@
 <div style="margin-top: 10px" *ngIf="exercise">
     <form [formGroup]="exerciseForm" novalidate>
         <div class="form-group row">
-            <label for="exercise-id" class="col-4 col-form-label">ID:</label>
-            <div class="col-8"><input formControlName="id" placeholder="id" id="exercise-id" type="text"
-                                      class="form-control"/></div>
-        </div>
-        <div class="form-group row">
             <label for="exercise-name" class="col-4 col-form-label">Name:</label>
             <div class="col-8">
                 <input formControlName="name" placeholder="name" id="exercise-name" type="text"
@@ -51,5 +46,6 @@
             </div>
         </div>
         <button class="btn btn-primary" (click)="saveExercise()">Submit</button>
+        <p>{{ exerciseForm.value | json}}</p>
     </form>
 </div>

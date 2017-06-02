@@ -13,6 +13,7 @@ use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\DatabaseManager;
 use taurus\framework\Environment;
+use taurus\framework\generator\TaurusGenerator;
 use taurus\framework\routing\Router;
 use taurus\framework\routing\Request;
 
@@ -48,6 +49,12 @@ class Application {
         }
 
         Container::getInstance()->setContainerConfig($config);
+    }
+
+    public function buildTaurus() {
+        /** @var TaurusGenerator $taurus */
+        $taurus = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_TAURUS_GENERATOR);
+        $taurus->generateApp();
     }
 
     public function run()

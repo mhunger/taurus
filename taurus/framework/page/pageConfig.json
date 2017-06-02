@@ -1,0 +1,19 @@
+{
+  "menu": {
+    "name": "fitnessmanager menu",
+    "type": "top",
+    "menuItems": [
+      {
+        "name": "workouts",
+        "path": "/workouts",
+        "component": "WorkoutList"
+      },
+      {
+        "name": "exercise locations",
+        "path": "exercise-locations",
+        "component": "ExerciseLocationList"
+      }
+    ]
+  },
+  "breadcrumb": null
+}

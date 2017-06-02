@@ -36,6 +36,7 @@ use taurus\framework\db\mysql\MySqlUpdateQueryStringBuilder;
 use taurus\framework\db\query\expression\ExpressionBuilder;
 use taurus\framework\db\query\SpecificationBuilder;
 use taurus\framework\Environment;
+use taurus\framework\generator\TaurusGenerator;
 use taurus\framework\mock\MockRequest;
 use taurus\framework\mock\MockServer;
 use taurus\framework\routing\Request;
@@ -78,6 +79,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_EXPRESSION_BUILDER = ExpressionBuilder::class;
     const SERVICE_SPECIFICATION_BUILDER = SpecificationBuilder::class;
     const SERVICE_MOCK_REQUEST = MockRequest::class;
+    const SERVICE_TAURUS_GENERATOR = TaurusGenerator::class;
 
     public function __construct() {
         $this->configure();
