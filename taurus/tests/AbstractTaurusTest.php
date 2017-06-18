@@ -20,7 +20,6 @@ abstract class AbstractTaurusTest extends TestCase
     protected function setUp()
     {
         $config = (new TaurusContainerConfig())
-            ->merge(new FitnessManagerTestConfig())
             ->merge(new TestContainerConfig());
         Container::getInstance()->setContainerConfig($config);
         parent::setUp();

@@ -39,10 +39,6 @@ class TaurusTestRouteConfig extends AbstractRouteConfig
         parent::__construct($base, $apiBuilder);
 
         $this
-            ->addRoute('GET', 'item',
-                Container::getInstance()->getService(FitnessManagerTestConfig::SERVICE_GET_WORKOUT_BY_ID_CONTROLLER))
-            ->addRoute('GET', 'items',
-                Container::getInstance()->getService(FitnessManagerTestConfig::SERVICE_GET_WORKOUTS_CONTROLLER))
             ->addDefaultRoute(
                 $this->apiBuilder->get(Exercise::class)
             )->addDefaultRoute(
