@@ -6,7 +6,7 @@
  * Time: 18:58
  */
 
-namespace taurus\tests\testmodel;
+namespace fitnessmanager\workout;
 
 
 use taurus\framework\db\Entity;
