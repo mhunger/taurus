@@ -37,7 +37,6 @@ export class ExerciseFormComponent extends TaurusForm implements OnInit, OnChang
     ngOnChanges(): void {
         this.form.reset();
         this.form.setValue({
-            id: this.resource.id,
             name: this.resource.name,
             difficulty: this.resource.difficulty,
             variant: this.resource.variantName,
