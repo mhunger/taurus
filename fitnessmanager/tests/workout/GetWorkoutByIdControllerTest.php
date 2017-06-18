@@ -9,14 +9,13 @@
 namespace taurus\tests\fitnessmanager;
 
 
+use fitnessmanager\tests\AbstractFitnessManagerDatabaseTest;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
-use taurus\framework\http\HttpJsonResponse;
 use taurus\framework\mock\MockServer;
-use taurus\tests\AbstractDatabaseTest;
 
 
-class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
+class GetWorkoutByIdControllerTest extends AbstractFitnessManagerDatabaseTest
 {
     /**
      * @return array
@@ -37,7 +36,7 @@ class GetWorkoutByIdControllerTest extends AbstractDatabaseTest
         $mockServer = Container::getInstance()
             ->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
         $actualResponse = $mockServer->get(
-            '/api/item',
+            '/fitness-api/item',
             'GET',
             ['id' => 1]
         );

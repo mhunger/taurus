@@ -8,6 +8,7 @@
 
 namespace fitnessmanager\workout;
 
+
 use taurus\framework\db\Entity;
 
 /**

@@ -1,0 +1,38 @@
+{
+  "id": 3,
+  "name": "TestExercise",
+  "difficulty": "TestDifficulty",
+  "variantName": "TestVariant",
+  "exerciseGroup": {
+    "id": 1,
+    "name": "Pullups",
+    "difficulty": "hard",
+    "muscleGroup": {
+      "id": 5,
+      "name": "Back"
+    },
+    "exercises": [
+      {
+        "id": 3,
+        "name": "TestExercise",
+        "difficulty": "TestDifficulty",
+        "variantName": "TestVariant",
+        "exerciseGroup": {
+          "id": null,
+          "name": null,
+          "difficulty": null,
+          "muscleGroup": null,
+          "exercises": null
+        },
+        "workoutLocation": {
+          "id": null,
+          "name": null
+        }
+      }
+    ]
+  },
+  "workoutLocation": {
+    "id": 1,
+    "name": "TUM Sportzentrum"
+  }
+}

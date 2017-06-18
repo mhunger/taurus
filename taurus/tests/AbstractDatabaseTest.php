@@ -2,44 +2,35 @@
 /**
  * Created by PhpStorm.
  * User: michaelhunger
- * Date: 05/02/17
- * Time: 19:33
+ * Date: 18/06/17
+ * Time: 14:10
  */
 
 namespace taurus\tests;
 
-use fitnessmanager\config\FitnessManagerConfig;
-use fitnessmanager\config\test\TestContainerConfig;
+
 use PDO;
 use PHPUnit_Extensions_Database_DataSet_IDataSet;
 use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
-use taurus\framework\config\TaurusContainerConfig;
-use taurus\framework\Container;
 use taurus\framework\exception\JsonResultsFileNotFoundException;
 
-/**
- * Class AbstractDatabaseTest
- * @package taurus\tests
- */
 abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCase
 {
-
     /** @var array */
     protected $fixtureFiles = [];
 
     /** @var string */
     protected $fixturePath;
 
+    protected $dbname, $dbuser, $dbpw, $dbhost;
+
+    protected $fixturesDbState, $fixturesJsonResults;
+
     /**
      * Set the test config in container and load the fixture path.
      */
     public function setUp()
     {
-        $config = (new TaurusContainerConfig())
-            ->merge(new FitnessManagerConfig())
-            ->merge(new TestContainerConfig());
-        Container::getInstance()->setContainerConfig($config);
-
         parent::setUp();
     }
 
@@ -50,9 +41,9 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
      */
     protected function getConnection()
     {
-        $pdo = new PDO('mysql:dbname=taurus_test;host=localhost', 'taurus', 'taurus');
+        $pdo = new PDO("mysql:dbname=$this->dbname;host=$this->dbhost", $this->dbuser, $this->dbpw);
 
-        return $this->createDefaultDBConnection($pdo, 'taurus_test');
+        return $this->createDefaultDBConnection($pdo, $this->dbname);
     }
 
     /**
@@ -63,7 +54,7 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
     protected function getDataSet()
     {
         $datasets = [];
-        $this->fixturePath = dirname(__FILE__) . '/fixtures/db/';
+        $this->fixturePath = dirname(__FILE__) . $this->fixturesDbState;
         foreach ($this->getFixtureFiles() as $file) {
             $datasets[] = $this->createMySQLXMLDataSet($this->fixturePath . $file);
         }
@@ -89,7 +80,7 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
      */
     protected function getOrCreateJsonResultsFilePath(string $class, string $method, string $actualResponse): string
     {
-        $filePath = dirname(__FILE__) . '/fixtures/jsonResults/' . basename(str_replace('\\', '/', $class)) . '-' . $method . '.json';
+        $filePath = dirname(__FILE__) . $this->fixturesJsonResults . basename(str_replace('\\', '/', $class)) . '-' . $method . '.json';
 
         if (is_file($filePath)) {
             if(getenv('updateResultFiles') == 'true') {

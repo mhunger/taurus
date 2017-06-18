@@ -9,10 +9,10 @@
 namespace taurus\tests\fixtures;
 
 
-use fitnessmanager\exercise\Exercise;
-use fitnessmanager\exercise\ExerciseGroup;
-use fitnessmanager\exercise\MuscleGroup;
-use fitnessmanager\workout\WorkoutLocation;
+use taurus\tests\testmodel\Exercise;
+use taurus\tests\testmodel\ExerciseGroup;
+use taurus\tests\testmodel\MuscleGroup;
+use taurus\tests\testmodel\WorkoutLocation;
 
 class ExerciseBuilder
 {
@@ -30,7 +30,7 @@ class ExerciseBuilder
      * @param int $muscleGroupId
      * @param string $muscleGroupName
      * @param array $exercises
-     * @return Exercise
+     * @return \taurus\tests\testmodel\Exercise
      */
     public function build(
         int $id,

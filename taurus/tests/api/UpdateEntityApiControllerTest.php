@@ -9,16 +9,16 @@
 namespace taurus\tests\api;
 
 
-use fitnessmanager\exercise\Exercise;
+use taurus\tests\testmodel\Exercise;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\db\entity\BaseRepository;
 use taurus\framework\mock\MockServer;
 use taurus\framework\routing\Request;
-use taurus\tests\AbstractDatabaseTest;
+use taurus\tests\AbstractTaurusDatabaseTest;
 use taurus\tests\fixtures\ExerciseBuilder;
 
-class UpdateEntityApiControllerTest extends AbstractDatabaseTest
+class UpdateEntityApiControllerTest extends AbstractTaurusDatabaseTest
 {
     public function setUp()
     {

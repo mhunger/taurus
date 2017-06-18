@@ -6,7 +6,7 @@
  * Time: 20:18
  */
 
-namespace fitnessmanager\config\test;
+namespace taurus\framework\config;
 
 
 use fitnessmanager\workout\GetAllWorkoutsController;
@@ -20,7 +20,7 @@ use taurus\framework\db\mysql\MySqlConnection;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 
 use taurus\framework\Environment;
-use taurus\framework\routing\RouteConfig;
+use taurus\framework\routing\TaurusTestRouteConfig;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
 use taurus\tests\fixtures\LoadDependenciesWithParamsInDependency;
 use taurus\tests\fixtures\TestSingleton;
@@ -54,7 +54,7 @@ class TestContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[TaurusContainerConfig::SERVICE_ROUTE_CONFIG] =
             new ServiceConfig(TaurusContainerConfig::SERVICE_ROUTE_CONFIG,
                 null,
-                [RouteConfig::API_BASE_PATH],
+                [TaurusTestRouteConfig::API_BASE_PATH],
                 true
             );
 
@@ -78,5 +78,13 @@ class TestContainerConfig extends AbstractContainerConfig {
                 [1],
                 true
             );
+
+        $this->serviceDefinitions[TaurusContainerConfig::SERVICE_ROUTER] =
+            new ServiceConfig(TaurusContainerConfig::SERVICE_ROUTER,
+                'router',
+                [
+                    TaurusTestRouteConfig::class,
+                    null
+                ]);
     }
 }

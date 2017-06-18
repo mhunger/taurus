@@ -16,7 +16,7 @@ use taurus\framework\mock\MockRequest;
 
 
 use taurus\framework\routing\Router;
-use taurus\framework\routing\RouteConfig;
+use taurus\framework\routing\TaurusTestRouteConfig;
 
 
 class RouterTest extends TestCase {
@@ -37,7 +37,7 @@ class RouterTest extends TestCase {
         ]);
 
         $this->router = new Router(
-            new RouteConfig(RouteConfig::API_BASE_PATH, new ApiBuilder()),
+            new TaurusTestRouteConfig(TaurusTestRouteConfig::API_BASE_PATH, new ApiBuilder()),
             new Environment(Environment::TEST)
         );
     }

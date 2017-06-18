@@ -8,8 +8,11 @@
 namespace fitnessmanager\config;
 
 use fitnessmanager\workout\GetAllWorkoutsController;
+use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\container\AbstractContainerConfig;
 use fitnessmanager\workout\GetWorkoutByIdController;
+use taurus\framework\container\ServiceConfig;
+use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 
 /**
  * FitnessManager specific container config. will be merged with taurus config
@@ -19,6 +22,7 @@ use fitnessmanager\workout\GetWorkoutByIdController;
 class FitnessManagerConfig extends AbstractContainerConfig {
     const SERVICE_GET_WORKOUT_BY_ID_CONTROLLER = GetWorkoutByIdController::class;
     const SERVICE_GET_WORKOUTS_CONTROLLER = GetAllWorkoutsController::class;
+    const SERVICE_FITNESSMANAGER_ROUTE_CONFIG = FitnessManagerRouteconfig::class;
 
     protected $serviceDefinitions = [];
 
@@ -29,6 +33,26 @@ class FitnessManagerConfig extends AbstractContainerConfig {
      */
     protected function configure()
     {
-        // TODO: Implement configure() method.
+        $this->serviceDefinitions[TaurusContainerConfig::SERVICE_MYSQL_CONNECTION] =
+            new ServiceConfig(TaurusContainerConfig::SERVICE_MYSQL_CONNECTION,
+                'MysqlConnection',
+                ['localhost', 'fitness', 'fitness', 'fitnessmanager', MySqlQueryStringBuilderImpl::class],
+                true
+            );
+
+        $this->serviceDefinitions[TaurusContainerConfig::SERVICE_ROUTER] =
+            new ServiceConfig(TaurusContainerConfig::SERVICE_ROUTER,
+                'router',
+                [
+                    FitnessManagerRouteconfig::class,
+                    null
+                ]);
+
+        $this->serviceDefinitions[self::SERVICE_FITNESSMANAGER_ROUTE_CONFIG] =
+            new ServiceConfig(self::SERVICE_FITNESSMANAGER_ROUTE_CONFIG,
+                null,
+                [FitnessManagerRouteconfig::API_BASE_PATH],
+                true
+            );
     }
 }

@@ -9,16 +9,16 @@
 namespace taurus\tests\api;
 
 
-use fitnessmanager\exercise\Exercise;
-use fitnessmanager\exercise\ExerciseGroup;
-use fitnessmanager\exercise\MuscleGroup;
-use fitnessmanager\workout\WorkoutLocation;
+use taurus\tests\testmodel\Exercise;
+use taurus\tests\testmodel\ExerciseGroup;
+use taurus\tests\testmodel\MuscleGroup;
+use taurus\tests\testmodel\WorkoutLocation;
 use taurus\framework\api\GetAllEntitiesDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
-use taurus\tests\AbstractDatabaseTest;
+use taurus\tests\AbstractTaurusDatabaseTest;
 
-class GetAllEntitiesDefaultServiceImplTest extends AbstractDatabaseTest
+class GetAllEntitiesDefaultServiceImplTest extends AbstractTaurusDatabaseTest
 {
     /** @var GetAllEntitiesDefaultServiceImpl */
     private $service;

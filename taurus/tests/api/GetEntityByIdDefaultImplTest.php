@@ -9,14 +9,14 @@
 namespace taurus\tests\api;
 
 
-use fitnessmanager\exercise\Exercise;
-use fitnessmanager\exercise\ExerciseGroup;
+use taurus\tests\testmodel\Exercise;
+use taurus\tests\testmodel\ExerciseGroup;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
-use taurus\tests\AbstractDatabaseTest;
+use taurus\tests\AbstractTaurusDatabaseTest;
 
-class GetEntityByIdDefaultImplTest extends AbstractDatabaseTest
+class GetEntityByIdDefaultImplTest extends AbstractTaurusDatabaseTest
 {
     /** @var GetEntityByIdDefaultServiceImpl */
     private $getEntityByIdService;

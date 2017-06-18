@@ -9,10 +9,10 @@
 namespace taurus\tests\api;
 
 
-use fitnessmanager\exercise\Exercise;
-use fitnessmanager\exercise\ExerciseGroup;
-use fitnessmanager\exercise\MuscleGroup;
-use fitnessmanager\workout\WorkoutLocation;
+use taurus\tests\testmodel\Exercise;
+use taurus\tests\testmodel\ExerciseGroup;
+use taurus\tests\testmodel\MuscleGroup;
+use taurus\tests\testmodel\WorkoutLocation;
 use taurus\framework\api\SaveEntityApiController;
 use taurus\framework\api\SaveEntityDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
@@ -21,9 +21,9 @@ use taurus\framework\db\entity\BaseRepository;
 
 use taurus\framework\mock\MockRequest;
 use taurus\framework\mock\MockServer;
-use taurus\tests\AbstractDatabaseTest;
+use taurus\tests\AbstractTaurusDatabaseTest;
 
-class SaveEntityControllerTest extends AbstractDatabaseTest
+class SaveEntityControllerTest extends AbstractTaurusDatabaseTest
 {
     /** @var SaveEntityApiController */
     private $controller;

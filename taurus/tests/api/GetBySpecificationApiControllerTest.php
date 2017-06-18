@@ -12,9 +12,9 @@ namespace taurus\tests\api;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\mock\MockServer;
-use taurus\tests\AbstractDatabaseTest;
+use taurus\tests\AbstractTaurusDatabaseTest;
 
-class GetBySpecificationApiControllerTest extends AbstractDatabaseTest
+class GetBySpecificationApiControllerTest extends AbstractTaurusDatabaseTest
 {
     public function setUp()
     {

@@ -1,0 +1,2004 @@
+[
+  {
+    "id": 3,
+    "name": "TestExercise",
+    "difficulty": "TestDifficulty",
+    "variantName": "TestVariant",
+    "exerciseGroup": {
+      "id": 1,
+      "name": "Pullups",
+      "difficulty": "hard",
+      "muscleGroup": {
+        "id": 5,
+        "name": "Back"
+      },
+      "exercises": [
+        {
+          "id": 3,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 8,
+          "name": "Pullup",
+          "difficulty": "hard",
+          "variantName": "One Leg standing on Wip",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 12,
+          "name": "Chinup",
+          "difficulty": "medium",
+          "variantName": "Standing on Pole",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 14,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Inside Out Alternative 1",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 16,
+          "name": "Blub Exercise 1",
+          "difficulty": "testdifficulty 2",
+          "variantName": "Testvariant 3",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 17,
+          "name": "New Name",
+          "difficulty": "hard",
+          "variantName": "New Name Variant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 18,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 19,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Pushup",
+    "difficulty": "medium",
+    "variantName": "Standard Pushup on the Ground",
+    "exerciseGroup": {
+      "id": 2,
+      "name": "Pushups",
+      "difficulty": "medium",
+      "muscleGroup": {
+        "id": 1,
+        "name": "Chest"
+      },
+      "exercises": [
+        {
+          "id": 4,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Standard Pushup on the Ground",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 5,
+          "name": "Reverse Push-Up",
+          "difficulty": "medium",
+          "variantName": "Two-Bars",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 7,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Negative with Legs Up",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 13,
+          "name": "Pushup1",
+          "difficulty": "medium",
+          "variantName": "Negative on a slope",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 15,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Put the legs on the ball and do negative Push",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 2,
+      "name": "Home"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Reverse Push-Up",
+    "difficulty": "medium",
+    "variantName": "Two-Bars",
+    "exerciseGroup": {
+      "id": 2,
+      "name": "Pushups",
+      "difficulty": "medium",
+      "muscleGroup": {
+        "id": 1,
+        "name": "Chest"
+      },
+      "exercises": [
+        {
+          "id": 4,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Standard Pushup on the Ground",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 5,
+          "name": "Reverse Push-Up",
+          "difficulty": "medium",
+          "variantName": "Two-Bars",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 7,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Negative with Legs Up",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 13,
+          "name": "Pushup1",
+          "difficulty": "medium",
+          "variantName": "Negative on a slope",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 15,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Put the legs on the ball and do negative Push",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Pushup",
+    "difficulty": "medium",
+    "variantName": "Negative with Legs Up",
+    "exerciseGroup": {
+      "id": 2,
+      "name": "Pushups",
+      "difficulty": "medium",
+      "muscleGroup": {
+        "id": 1,
+        "name": "Chest"
+      },
+      "exercises": [
+        {
+          "id": 4,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Standard Pushup on the Ground",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 5,
+          "name": "Reverse Push-Up",
+          "difficulty": "medium",
+          "variantName": "Two-Bars",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 7,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Negative with Legs Up",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 13,
+          "name": "Pushup1",
+          "difficulty": "medium",
+          "variantName": "Negative on a slope",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 15,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Put the legs on the ball and do negative Push",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 2,
+      "name": "Home"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Pullup",
+    "difficulty": "hard",
+    "variantName": "One Leg standing on Wip",
+    "exerciseGroup": {
+      "id": 1,
+      "name": "Pullups",
+      "difficulty": "hard",
+      "muscleGroup": {
+        "id": 5,
+        "name": "Back"
+      },
+      "exercises": [
+        {
+          "id": 3,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 8,
+          "name": "Pullup",
+          "difficulty": "hard",
+          "variantName": "One Leg standing on Wip",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 12,
+          "name": "Chinup",
+          "difficulty": "medium",
+          "variantName": "Standing on Pole",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 14,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Inside Out Alternative 1",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 16,
+          "name": "Blub Exercise 1",
+          "difficulty": "testdifficulty 2",
+          "variantName": "Testvariant 3",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 17,
+          "name": "New Name",
+          "difficulty": "hard",
+          "variantName": "New Name Variant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 18,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 19,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 9,
+    "name": "TestExerciseName",
+    "difficulty": "medium",
+    "variantName": "TestVariantName",
+    "exerciseGroup": {
+      "id": 3,
+      "name": "Crunches",
+      "difficulty": "easy",
+      "muscleGroup": {
+        "id": 6,
+        "name": "Abs"
+      },
+      "exercises": [
+        {
+          "id": 9,
+          "name": "TestExerciseName",
+          "difficulty": "medium",
+          "variantName": "TestVariantName",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 10,
+          "name": "TestExerciseName",
+          "difficulty": "medium",
+          "variantName": "TestVariantName2",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 11,
+          "name": "TestExerciseName",
+          "difficulty": "medium",
+          "variantName": "TestVariantName2",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 10,
+    "name": "TestExerciseName",
+    "difficulty": "medium",
+    "variantName": "TestVariantName2",
+    "exerciseGroup": {
+      "id": 3,
+      "name": "Crunches",
+      "difficulty": "easy",
+      "muscleGroup": {
+        "id": 6,
+        "name": "Abs"
+      },
+      "exercises": [
+        {
+          "id": 9,
+          "name": "TestExerciseName",
+          "difficulty": "medium",
+          "variantName": "TestVariantName",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 10,
+          "name": "TestExerciseName",
+          "difficulty": "medium",
+          "variantName": "TestVariantName2",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 11,
+          "name": "TestExerciseName",
+          "difficulty": "medium",
+          "variantName": "TestVariantName2",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 11,
+    "name": "TestExerciseName",
+    "difficulty": "medium",
+    "variantName": "TestVariantName2",
+    "exerciseGroup": {
+      "id": 3,
+      "name": "Crunches",
+      "difficulty": "easy",
+      "muscleGroup": {
+        "id": 6,
+        "name": "Abs"
+      },
+      "exercises": [
+        {
+          "id": 9,
+          "name": "TestExerciseName",
+          "difficulty": "medium",
+          "variantName": "TestVariantName",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 10,
+          "name": "TestExerciseName",
+          "difficulty": "medium",
+          "variantName": "TestVariantName2",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 11,
+          "name": "TestExerciseName",
+          "difficulty": "medium",
+          "variantName": "TestVariantName2",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Chinup",
+    "difficulty": "medium",
+    "variantName": "Standing on Pole",
+    "exerciseGroup": {
+      "id": 1,
+      "name": "Pullups",
+      "difficulty": "hard",
+      "muscleGroup": {
+        "id": 5,
+        "name": "Back"
+      },
+      "exercises": [
+        {
+          "id": 3,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 8,
+          "name": "Pullup",
+          "difficulty": "hard",
+          "variantName": "One Leg standing on Wip",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 12,
+          "name": "Chinup",
+          "difficulty": "medium",
+          "variantName": "Standing on Pole",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 14,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Inside Out Alternative 1",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 16,
+          "name": "Blub Exercise 1",
+          "difficulty": "testdifficulty 2",
+          "variantName": "Testvariant 3",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 17,
+          "name": "New Name",
+          "difficulty": "hard",
+          "variantName": "New Name Variant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 18,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 19,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 3,
+      "name": "Kickboxen"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Pushup1",
+    "difficulty": "medium",
+    "variantName": "Negative on a slope",
+    "exerciseGroup": {
+      "id": 2,
+      "name": "Pushups",
+      "difficulty": "medium",
+      "muscleGroup": {
+        "id": 1,
+        "name": "Chest"
+      },
+      "exercises": [
+        {
+          "id": 4,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Standard Pushup on the Ground",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 5,
+          "name": "Reverse Push-Up",
+          "difficulty": "medium",
+          "variantName": "Two-Bars",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 7,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Negative with Legs Up",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 13,
+          "name": "Pushup1",
+          "difficulty": "medium",
+          "variantName": "Negative on a slope",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 15,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Put the legs on the ball and do negative Push",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 14,
+    "name": "Pushup",
+    "difficulty": "medium",
+    "variantName": "Inside Out Alternative 1",
+    "exerciseGroup": {
+      "id": 1,
+      "name": "Pullups",
+      "difficulty": "hard",
+      "muscleGroup": {
+        "id": 5,
+        "name": "Back"
+      },
+      "exercises": [
+        {
+          "id": 3,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 8,
+          "name": "Pullup",
+          "difficulty": "hard",
+          "variantName": "One Leg standing on Wip",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 12,
+          "name": "Chinup",
+          "difficulty": "medium",
+          "variantName": "Standing on Pole",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 14,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Inside Out Alternative 1",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 16,
+          "name": "Blub Exercise 1",
+          "difficulty": "testdifficulty 2",
+          "variantName": "Testvariant 3",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 17,
+          "name": "New Name",
+          "difficulty": "hard",
+          "variantName": "New Name Variant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 18,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 19,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 3,
+      "name": "Kickboxen"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Pushup",
+    "difficulty": "medium",
+    "variantName": "Put the legs on the ball and do negative Push",
+    "exerciseGroup": {
+      "id": 2,
+      "name": "Pushups",
+      "difficulty": "medium",
+      "muscleGroup": {
+        "id": 1,
+        "name": "Chest"
+      },
+      "exercises": [
+        {
+          "id": 4,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Standard Pushup on the Ground",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 5,
+          "name": "Reverse Push-Up",
+          "difficulty": "medium",
+          "variantName": "Two-Bars",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 7,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Negative with Legs Up",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 13,
+          "name": "Pushup1",
+          "difficulty": "medium",
+          "variantName": "Negative on a slope",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 15,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Put the legs on the ball and do negative Push",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 2,
+      "name": "Home"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Blub Exercise 1",
+    "difficulty": "testdifficulty 2",
+    "variantName": "Testvariant 3",
+    "exerciseGroup": {
+      "id": 1,
+      "name": "Pullups",
+      "difficulty": "hard",
+      "muscleGroup": {
+        "id": 5,
+        "name": "Back"
+      },
+      "exercises": [
+        {
+          "id": 3,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 8,
+          "name": "Pullup",
+          "difficulty": "hard",
+          "variantName": "One Leg standing on Wip",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 12,
+          "name": "Chinup",
+          "difficulty": "medium",
+          "variantName": "Standing on Pole",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 14,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Inside Out Alternative 1",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 16,
+          "name": "Blub Exercise 1",
+          "difficulty": "testdifficulty 2",
+          "variantName": "Testvariant 3",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 17,
+          "name": "New Name",
+          "difficulty": "hard",
+          "variantName": "New Name Variant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 18,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 19,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 17,
+    "name": "New Name",
+    "difficulty": "hard",
+    "variantName": "New Name Variant",
+    "exerciseGroup": {
+      "id": 1,
+      "name": "Pullups",
+      "difficulty": "hard",
+      "muscleGroup": {
+        "id": 5,
+        "name": "Back"
+      },
+      "exercises": [
+        {
+          "id": 3,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 8,
+          "name": "Pullup",
+          "difficulty": "hard",
+          "variantName": "One Leg standing on Wip",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 12,
+          "name": "Chinup",
+          "difficulty": "medium",
+          "variantName": "Standing on Pole",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 14,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Inside Out Alternative 1",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 16,
+          "name": "Blub Exercise 1",
+          "difficulty": "testdifficulty 2",
+          "variantName": "Testvariant 3",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 17,
+          "name": "New Name",
+          "difficulty": "hard",
+          "variantName": "New Name Variant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 18,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 19,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 18,
+    "name": "TestExercise",
+    "difficulty": "TestDifficulty",
+    "variantName": "TestVariant",
+    "exerciseGroup": {
+      "id": 1,
+      "name": "Pullups",
+      "difficulty": "hard",
+      "muscleGroup": {
+        "id": 5,
+        "name": "Back"
+      },
+      "exercises": [
+        {
+          "id": 3,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 8,
+          "name": "Pullup",
+          "difficulty": "hard",
+          "variantName": "One Leg standing on Wip",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 12,
+          "name": "Chinup",
+          "difficulty": "medium",
+          "variantName": "Standing on Pole",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 14,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Inside Out Alternative 1",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 16,
+          "name": "Blub Exercise 1",
+          "difficulty": "testdifficulty 2",
+          "variantName": "Testvariant 3",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 17,
+          "name": "New Name",
+          "difficulty": "hard",
+          "variantName": "New Name Variant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 18,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 19,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  },
+  {
+    "id": 19,
+    "name": "TestExercise",
+    "difficulty": "TestDifficulty",
+    "variantName": "TestVariant",
+    "exerciseGroup": {
+      "id": 1,
+      "name": "Pullups",
+      "difficulty": "hard",
+      "muscleGroup": {
+        "id": 5,
+        "name": "Back"
+      },
+      "exercises": [
+        {
+          "id": 3,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 8,
+          "name": "Pullup",
+          "difficulty": "hard",
+          "variantName": "One Leg standing on Wip",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 12,
+          "name": "Chinup",
+          "difficulty": "medium",
+          "variantName": "Standing on Pole",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 14,
+          "name": "Pushup",
+          "difficulty": "medium",
+          "variantName": "Inside Out Alternative 1",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 16,
+          "name": "Blub Exercise 1",
+          "difficulty": "testdifficulty 2",
+          "variantName": "Testvariant 3",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 17,
+          "name": "New Name",
+          "difficulty": "hard",
+          "variantName": "New Name Variant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 18,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        },
+        {
+          "id": 19,
+          "name": "TestExercise",
+          "difficulty": "TestDifficulty",
+          "variantName": "TestVariant",
+          "exerciseGroup": {
+            "id": null,
+            "name": null,
+            "difficulty": null,
+            "muscleGroup": null,
+            "exercises": null
+          },
+          "workoutLocation": {
+            "id": null,
+            "name": null
+          }
+        }
+      ]
+    },
+    "workoutLocation": {
+      "id": 1,
+      "name": "TUM Sportzentrum"
+    }
+  }
+]

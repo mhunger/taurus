@@ -9,10 +9,9 @@
 namespace taurus\tests\db;
 
 
-use fitnessmanager\exercise\Exercise;
-use fitnessmanager\exercise\ExerciseGroup;
-use fitnessmanager\workout\Workout;
-use fitnessmanager\workout\WorkoutLocation;
+use taurus\tests\testmodel\Exercise;
+use taurus\tests\testmodel\Workout;
+use taurus\tests\testmodel\WorkoutLocation;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\db\EntityBuilder;

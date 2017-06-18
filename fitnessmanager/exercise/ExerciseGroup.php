@@ -6,7 +6,7 @@
  * Time: 12:47
  */
 
-namespace fitnessmanager\exercise;
+namespace taurus\tests\testmodel;
 
 use taurus\framework\db\Entity;
 use taurus\framework\annotation\OneToOne;
@@ -42,13 +42,13 @@ class ExerciseGroup implements Entity
     /**
      * @var
      * @Column(name="muscle_group_id")
-     * @OneToOne(entity="fitnessmanager\exercise\MuscleGroup", column="muscle_group_id", reference_table="muscle_group", reference_key_field="id")
+     * @OneToOne(entity="taurus\tests\testmodel\MuscleGroup", column="muscle_group_id", reference_table="muscle_group", reference_key_field="id")
      */
     public $muscleGroup;
 
     /**
      * @var array
-     * @OneToMany(entity="fitnessmanager\exercise\Exercise", column="exercise_id", referenceTable="exercise", foreignKeyField="exercise_group_id")
+     * @OneToMany(entity="taurus\tests\testmodel\Exercise", column="exercise_id", referenceTable="exercise", foreignKeyField="exercise_group_id")
      */
     public $exercises;
 

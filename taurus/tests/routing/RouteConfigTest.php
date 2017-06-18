@@ -9,13 +9,14 @@
 namespace taurus\tests\routing;
 
 
-use fitnessmanager\exercise\Exercise;
+use taurus\framework\routing\RouteConfig;
+use taurus\tests\testmodel\Exercise;
 use taurus\framework\api\GetByIdApiController;
 use taurus\framework\api\GetEntityByIdDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 
-use taurus\framework\routing\RouteConfig;
+use taurus\framework\routing\TaurusTestRouteConfig;
 use taurus\tests\AbstractTaurusTest;
 
 class RouteConfigTest extends AbstractTaurusTest

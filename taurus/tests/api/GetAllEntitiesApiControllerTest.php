@@ -9,16 +9,16 @@
 namespace taurus\tests\api;
 
 
-use fitnessmanager\exercise\Exercise;
+use taurus\tests\testmodel\Exercise;
 use taurus\framework\api\GetAllEntitiesApiController;
 use taurus\framework\api\GetAllEntitiesDefaultServiceImpl;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\mock\MockRequest;
 use taurus\framework\mock\MockServer;
-use taurus\tests\AbstractDatabaseTest;
+use taurus\tests\AbstractTaurusDatabaseTest;
 
-class GetAllEntitiesApiControllerTest extends AbstractDatabaseTest
+class GetAllEntitiesApiControllerTest extends AbstractTaurusDatabaseTest
 {
     /** @var GetAllEntitiesApiController */
     private $controller;

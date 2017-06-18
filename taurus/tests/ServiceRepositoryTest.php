@@ -9,7 +9,7 @@
 namespace taurus\tests;
 
 
-use fitnessmanager\config\test\TestContainerConfig;
+use taurus\framework\config\TestContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\container\ServiceRepository;
 
@@ -42,7 +42,6 @@ class ServiceRepositoryTest extends AbstractTaurusTest
             $actualObject,
             "Did not add and return service to service repo correct"
         );
-
     }
 
     public function testGetServiceFromRepository()

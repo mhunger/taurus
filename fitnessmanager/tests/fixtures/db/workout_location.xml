@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <database name="taurus_test">
+        <table_data name="workout_location">
+            <row>
+                <field name="id">1</field>
+                <field name="name">TUM Sportzentrum</field>
+            </row>
+
+            <row>
+                <field name="id">2</field>
+                <field name="name">Home</field>
+            </row>
+
+            <row>
+                <field name="id">3</field>
+                <field name="name">Kickboxen</field>
+            </row>
+
+        </table_data>
+
+    </database>
+</mysqldump>

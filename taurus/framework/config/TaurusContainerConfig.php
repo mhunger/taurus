@@ -19,7 +19,6 @@ use taurus\framework\api\SaveEntityApiController;
 use taurus\framework\api\SaveEntityDefaultServiceImpl;
 use taurus\framework\api\UpdateEntityApiController;
 use taurus\framework\api\UpdateEntityDefaultServiceImpl;
-use taurus\framework\api\UpdateEntityService;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\db\entity\BaseRepository;
@@ -39,7 +38,7 @@ use taurus\framework\Environment;
 use taurus\framework\mock\MockRequest;
 use taurus\framework\mock\MockServer;
 use taurus\framework\routing\Request;
-use taurus\framework\routing\RouteConfig;
+use taurus\framework\routing\TaurusTestRouteConfig;
 use taurus\framework\routing\Router;
 use taurus\tests\fixtures\ExerciseBuilder;
 
@@ -51,7 +50,7 @@ use taurus\tests\fixtures\ExerciseBuilder;
  */
 class TaurusContainerConfig extends AbstractContainerConfig {
 
-    const SERVICE_ROUTE_CONFIG = RouteConfig::class;
+    const SERVICE_ROUTE_CONFIG = TaurusTestRouteConfig::class;
     const SERVICE_REQUEST = Request::class;
     const SERVICE_MOCK_SERVER = MockServer::class;
     const SERVICE_MYSQL_CONNECTION = MySqlConnection::class;
@@ -93,14 +92,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
         $this->serviceDefinitions[self::SERVICE_ROUTE_CONFIG] =
             new ServiceConfig(self::SERVICE_ROUTE_CONFIG,
                 null,
-                [RouteConfig::API_BASE_PATH],
-                true
-            );
-
-        $this->serviceDefinitions[self::SERVICE_MYSQL_CONNECTION] =
-            new ServiceConfig(self::SERVICE_MYSQL_CONNECTION,
-                'MysqlConnection',
-                ['localhost', 'taurus', 'taurus', 'taurus', MySqlQueryStringBuilderImpl::class],
+                [TaurusTestRouteConfig::API_BASE_PATH],
                 true
             );
 

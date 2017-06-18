@@ -8,22 +8,22 @@
 
 namespace taurus\tests\db\entity;
 
-use fitnessmanager\exercise\Exercise;
-use fitnessmanager\exercise\ExerciseGroup;
-use fitnessmanager\exercise\MuscleGroup;
-use fitnessmanager\workout\Workout;
-use fitnessmanager\workout\WorkoutLocation;
+use taurus\tests\testmodel\Exercise;
+use taurus\tests\testmodel\ExerciseGroup;
+use taurus\tests\testmodel\MuscleGroup;
+use taurus\tests\testmodel\Workout;
+use taurus\tests\testmodel\WorkoutLocation;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\BaseRepository;
-use taurus\tests\AbstractDatabaseTest;
+use taurus\tests\AbstractTaurusDatabaseTest;
 use taurus\tests\fixtures\ExerciseBuilder;
 
 /**
  * Class BaseRepositoryTest
  * @package taurus\tests\db\entity
  */
-class BaseRepositoryTest extends AbstractDatabaseTest
+class BaseRepositoryTest extends AbstractTaurusDatabaseTest
 {
 
     /** @var BaseRepository */
@@ -106,7 +106,7 @@ class BaseRepositoryTest extends AbstractDatabaseTest
 
     public function testUpdate()
     {
-        /** @var Workout $expectedWorkout */
+        /** @var \taurus\tests\testmodel\Workout $expectedWorkout */
         $expectedWorkout = $this->subject->findOne(2, Workout::class);
         $expectedWorkout->setDate('2017-01-01 00:00:00');
         $this->subject->update($expectedWorkout);

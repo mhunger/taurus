@@ -12,13 +12,13 @@ use taurus\framework\api\ApiBuilder;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\container\ServiceRepository;
-use taurus\framework\routing\RouteConfig;
+use taurus\framework\routing\TaurusTestRouteConfig;
 use taurus\tests\fixtures\Dependency;
 use taurus\tests\fixtures\DependencyLoadTestClass;
 use taurus\tests\fixtures\DependencyTwo;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
 use taurus\tests\fixtures\LoadDependenciesMultipleParamsTestClass;
-use fitnessmanager\config\test\TestContainerConfig;
+use taurus\framework\config\TestContainerConfig;
 use taurus\tests\fixtures\LoadDependenciesWithParamsInDependency;
 
 class ContainerTest extends AbstractTaurusTest
@@ -67,7 +67,7 @@ class ContainerTest extends AbstractTaurusTest
 
     public function testLoadDependenciesWithLiteralParameters()
     {
-        $expectedObject = new RouteConfig("api", new ApiBuilder());
+        $expectedObject = new TaurusTestRouteConfig("api", new ApiBuilder());
         $this->assertEquals(
             $expectedObject,
             $this->subject->getService(TaurusContainerConfig::SERVICE_ROUTE_CONFIG),
