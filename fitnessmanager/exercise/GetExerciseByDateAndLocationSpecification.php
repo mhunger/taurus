@@ -10,7 +10,6 @@ namespace fitnessmanager\exercise;
 
 
 use taurus\framework\db\query\Specification;
-use fitnessmanager\exercise\Exercise;
 
 class GetExerciseByDateAndLocationSpecification implements Specification
 {

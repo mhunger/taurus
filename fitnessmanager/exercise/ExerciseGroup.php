@@ -6,7 +6,7 @@
  * Time: 12:47
  */
 
-namespace taurus\tests\testmodel;
+namespace fitnessmanager\exercise;
 
 use taurus\framework\db\Entity;
 use taurus\framework\annotation\OneToOne;
