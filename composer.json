@@ -1,4 +1,6 @@
 {
+    "name": "mike/taurus-framework",
+    "desription": "A framework for building REST API based backends",
     "require-dev": {
       "phpunit/phpunit": "5.5.*",
       "phpunit/dbunit": ">=1.2"
