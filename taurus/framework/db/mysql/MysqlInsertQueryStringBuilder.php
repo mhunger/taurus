@@ -29,7 +29,7 @@ class MysqlInsertQueryStringBuilder implements InsertQueryStringBuilder
 
         $tokens[] = self::MYSQL_KEY_WORD_INSERT;
         $tokens[] = $insertQuery->getTable();
-        $tokens[] = '(' . implode(', ', $insertQuery->getInsertFields()) . ')';
+        $tokens[] = '(`' . implode('`, `', $insertQuery->getInsertFields()) . '`)';
         $tokens[] = self::MYSQL_KEY_WORD_VALUES;
         $tokens[] = '(' . $this->getValues($insertQuery->getValues()) . ')';
 
