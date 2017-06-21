@@ -121,7 +121,7 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
     public function testInsertQuery()
     {
         $this->assertEquals(
-            'INSERT INTO exercise (exercise_id, name, difficulty, variant_name) VALUES (null, \'Push-Ups\', \'medium\', \'Standing\')',
+            'INSERT INTO exercise (`exercise_id`, `name`, `difficulty`, `variant_name`) VALUES (null, \'Push-Ups\', \'medium\', \'Standing\')',
             $this->mysqlQueryStringBuilder->getInsertQueryString(
                 $this->queryBuilder->query(QueryBuilder::QUERY_TYPE_INSERT)
                     ->insertInto(
