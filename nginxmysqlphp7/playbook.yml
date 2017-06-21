@@ -3,7 +3,7 @@
   sudo: true
   vars:
     web_server: nginxphp
-    servername: dev-taurus.com 192.168.44.14
+    servername: carcada-dev.com 192.168.44.15
     timezone: UTC
   vars_files:
     - vars/mysql.yml
@@ -11,10 +11,6 @@
     - [ "vars/nginxphp.yml", "vars/ws_defaults.yml" ]
   roles:
     - init
-    - php5-cli
     - nginx
-    - php5-fpm
     - mysql
-    - phpcommon
-    - php-pecl
-    - app
+    - php7

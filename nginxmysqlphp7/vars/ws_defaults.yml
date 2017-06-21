@@ -2,5 +2,5 @@
 # default web server
 
 ws_vhost_path: /etc/nginx/sites-available
-ws_vhost_file: taurus
+ws_vhost_file: carcada
 ws_template: default.tpl

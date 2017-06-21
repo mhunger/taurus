@@ -1,7 +1,5 @@
 ---
-    php_ppa: php5-5.6
-    doc_root: /var/www/taurus-dev.com
+    php_ppa: php
+    doc_root: /var/www/carcada-dev.com
     sys_packages: ["git","imagemagick"]
     dist: precise
-    php_packages: ["php5-cli", "php5-curl", "php5-cgi","php-pear","php5-imagick","php5-common","php5-fpm","php5-gd","php5-geoip","php5-intl","php5-mcrypt","php5-memcached","php5-xdebug","php5-xmlrpc","php5-xcache","php5-mysql"]
-    pecl_packages: ["memcached", "memoize","date_time","timezonedb"]
