@@ -40,10 +40,10 @@ class Application {
     private function bootConfig()
     {
         $config = new TaurusContainerConfig();
-        $config->merge(##app-container-class##());
+        $config->merge(new ##app-container-class##());
         if($this->env == Environment::TEST) {
             $config->merge(
-                ##app-test-container-class##()
+                new ##app-test-container-class##()
             );
         }
 

@@ -6,7 +6,7 @@
  * Time: 20:16
  */
 
-namespace carcada\config;
+namespace ##app-name##\config;
 
 use ##app-name##\config\##route-config-class##;
 use taurus\framework\config\TaurusContainerConfig;
