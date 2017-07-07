@@ -7,9 +7,8 @@
  */
 namespace taurus;
 
-use fitnessmanager\config\FitnessManagerConfig;
-use fitnessmanager\config\FitnessManagerTestConfig;
-use taurus\framework\config\TestContainerConfig;
+use ##app-name##\config\##app-container-class##;
+use ##app-name##\config\##app-test-container-class##;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\DatabaseManager;
@@ -41,10 +40,10 @@ class Application {
     private function bootConfig()
     {
         $config = new TaurusContainerConfig();
-        $config->merge(new FitnessManagerConfig());
+        $config->merge(##app-container-class##());
         if($this->env == Environment::TEST) {
             $config->merge(
-                new FitnessManagerTestConfig()
+                ##app-test-container-class##()
             );
         }
 
