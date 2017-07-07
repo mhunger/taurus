@@ -1,5 +1,5 @@
 <?php
-
+namespace tpl;
 /**
  * Created by PhpStorm.
  * User: michael_hunger
@@ -32,7 +32,8 @@ class Taurus
     private $dbpw = 'root';
 
 
-    const PROJECT_BASE_PATH = __DIR__ . '/..';
+    const PROJECT_BASE_PATH = __DIR__ . '/framework2';
+    const TPL_PATH = 'tpl/files';
 
     static  $_noisy = true;
 
@@ -80,8 +81,8 @@ class Taurus
 
     protected function createApplicationFile($appName, $data)
     {
-        $appTpl = new ApplicationFileTemplate(
-            'tpl/Application.php.tpl',
+        $appTpl = new TaurusProjectFileTemplate(
+            self::TPL_PATH . '/Application.php.tpl',
             $this->getAppPath($appName),
             $data
         );
@@ -90,30 +91,33 @@ class Taurus
 
         $appTpl->writeContent($this->getAppPath($appName), 'Application.php');
 
-        $routeConfigTpl = new ApplicationFileTemplate(
-            'tpl/RouteConfig.php.tpl',
-            $this->getConfigPath($appName, 'route'),
-            $data
-        );
+        $config = [
+            [
+                'tpl' => 'RouteConfig',
+                'type' => 'route'
+            ],
+            [
+                'tpl' => 'ContainerConfig',
+                'type' => 'container'
+            ],
+            [
+                'tpl' => 'TestcontainerConfig',
+                'type' => 'testContainer'
+            ]
+        ];
 
-        $routeConfigTpl->render()->writeContent();
+        foreach($config as $file) {
+            $tpl = new TaurusProjectFileTemplate(
+                self::TPL_PATH . '/' . $file['tpl'],
+                $this->getConfigPath($appName, $file['type']),
+                $data
+            );
 
-        $containerConfigTpl = new ApplicationFileTemplate(
-            'tpl/ContainerConfig.php.tpl',
-            $this->getConfigPath($appName, 'container'),
-            $data
-        );
+            $tpl->render()
+                ->writeContent();
 
-        $containerConfigTpl->render()->writeContent();
-
-        $testContainer = new ApplicationFileTemplate(
-            'tpl/TestContainerConfig.php.tpl',
-            $this->getConfigPath($appName, 'testContainer'),
-            $data
-        );
-
-        $testContainer->render()->writeContent();
-
+            unset($tpl);
+        }
     }
 
     protected function createConfigFiles($appName, $data)

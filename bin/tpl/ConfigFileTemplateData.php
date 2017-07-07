@@ -1,5 +1,7 @@
 <?php
 
+namespace tpl;
+
 /**
  * Created by PhpStorm.
  * User: michael_hunger

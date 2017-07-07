@@ -1,14 +1,16 @@
 <?php
 
+namespace tpl;
+
 /**
  * Created by PhpStorm.
  * User: michael_hunger
  * Date: 07/07/17
  * Time: 09:30
  */
-class ApplicationFileTemplate extends AbstractTemplate
+class TaurusProjectFileTemplate extends AbstractTemplate
 {
-    function render(): ApplicationFileTemplate
+    function render(): TaurusProjectFileTemplate
     {
         Taurus::info('Render Application', $this->getTplContent());
 
