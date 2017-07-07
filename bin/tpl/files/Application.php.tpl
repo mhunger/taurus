@@ -5,7 +5,7 @@
  * Date: 23/10/16
  * Time: 11:16
  */
-namespace taurus;
+namespace ##app-name##;
 
 use ##app-name##\config\##app-container-class##;
 use ##app-name##\config\##app-test-container-class##;
