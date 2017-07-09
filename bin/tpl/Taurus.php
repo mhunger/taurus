@@ -32,8 +32,8 @@ class Taurus
     private $dbpw = 'root';
 
 
-    const PROJECT_BASE_PATH = __DIR__ . '/framework2';
-    const TPL_PATH = 'tpl/files';
+    const PROJECT_BASE_PATH = __DIR__ . '/../../';
+    const TPL_PATH = __DIR__ . '/files';
 
     static  $_noisy = true;
 
@@ -108,7 +108,7 @@ class Taurus
 
         foreach($config as $file) {
             $tpl = new TaurusProjectFileTemplate(
-                self::TPL_PATH . '/' . $file['tpl'],
+                self::TPL_PATH . '/' . $file['tpl'] . '.php.tpl',
                 $this->getConfigPath($appName, $file['type']),
                 $data
             );
