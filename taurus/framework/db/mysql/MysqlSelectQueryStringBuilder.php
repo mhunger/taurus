@@ -14,6 +14,7 @@ use taurus\framework\db\query\expression\MultiPartExpression;
 use taurus\framework\db\query\JoinStatement;
 use taurus\framework\db\query\SelectQuery;
 use taurus\framework\db\query\SelectQueryStringBuilder;
+use taurus\framework\util\MysqlUtils;
 
 class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
 {
@@ -27,6 +28,20 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
     const MYSQL_KEYWORD_ON = 'ON';
 
     const MYSQL_KEYWORD_FROM = 'FROM';
+
+    /**
+     * @var MysqlUtils
+     */
+    private $utils;
+
+    /**
+     * MysqlSelectQueryStringBuilder constructor.
+     * @param MysqlUtils $utils
+     */
+    public function __construct(MysqlUtils $utils)
+    {
+        $this->utils = $utils;
+    }
 
     public function getSelectQueryString(SelectQuery $selectQuery)
     {
@@ -48,11 +63,11 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         /** @var JoinStatement $joinStatement */
         foreach ($joins as $joinStatement) {
             $tokens[] = self::MYSQL_KEYWORD_JOIN;
-            $tokens[] = $joinStatement->getTable();
+            $tokens[] = $this->utils->addMysqlTicks($joinStatement->getTable());
             $tokens[] = self::MYSQL_KEYWORD_ON;
-            $tokens[] = $joinStatement->getTable() . '.' . $joinStatement->getField();
+            $tokens[] = $this->utils->addMysqlTicks($joinStatement->getTable()) . '.' . $this->utils->addMysqlTicks($joinStatement->getField());
             $tokens[] = '=';
-            $tokens[] = $selectQuery->getTable() . '.' . $joinStatement->getReferenceField();
+            $tokens[] = $this->utils->addMysqlTicks($selectQuery->getTable()) . '.' . $this->utils->addMysqlTicks($joinStatement->getReferenceField());
         }
 
         return $tokens;
@@ -82,7 +97,7 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
     private function getStore(SelectQuery $selectQuery)
     {
         if ($selectQuery->getDb() !== null) {
-            return $selectQuery->getDb() . '.' . $selectQuery->getTable();
+            return $this->utils->addMysqlTicks($selectQuery->getDb()) . '.' . $this->utils->addMysqlTicks($selectQuery->getTable());
         } else {
             return $selectQuery->getTable();
         }
@@ -97,7 +112,7 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         if ($selectQuery->getFields() === null) {
             return self::MYSQL_SYNTAX_ALL_FIELDS;
         } else {
-            return implode(', ', $selectQuery->getFields());
+            return implode(', ', $this->utils->addMysqlTicks($selectQuery->getFields()));
         }
     }
 

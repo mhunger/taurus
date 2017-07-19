@@ -59,7 +59,7 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
     public function testSimpleQueryWithFieldsAndDb()
     {
         $this->assertEquals(
-            'SELECT id, date FROM fitnessmanager.workout',
+            'SELECT `id`, `date` FROM `fitnessmanager`.`workout`',
             $this->mysqlQueryStringBuilder
                 ->getSelectQueryString(
                     $this->queryBuilder
@@ -121,7 +121,7 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
     public function testInsertQuery()
     {
         $this->assertEquals(
-            'INSERT INTO exercise (`exercise_id`, `name`, `difficulty`, `variant_name`) VALUES (null, \'Push-Ups\', \'medium\', \'Standing\')',
+            'INSERT INTO `exercise` (`exercise_id`, `name`, `difficulty`, `variant_name`) VALUES (null, \'Push-Ups\', \'medium\', \'Standing\')',
             $this->mysqlQueryStringBuilder->getInsertQueryString(
                 $this->queryBuilder->query(QueryBuilder::QUERY_TYPE_INSERT)
                     ->insertInto(
@@ -149,7 +149,7 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
     public function testSimpleJoin()
     {
         $this->assertEquals(
-            'SELECT id, date FROM fitnessmanager.workout LEFT JOIN workout_location ON workout_location.id = workout.workout_location_id',
+            'SELECT `id`, `date` FROM `fitnessmanager`.`workout` LEFT JOIN `workout_location` ON `workout_location`.`id` = `workout`.`workout_location_id`',
             $this->mysqlQueryStringBuilder
                 ->getSelectQueryString(
                     $this->queryBuilder

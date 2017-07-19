@@ -37,7 +37,7 @@ class MySqlDeleteQueryStringBuilderTest extends AbstractTaurusTest
     public function testParseDeleteQueryWithSingleId()
     {
 
-        $expectedQuery = 'DELETE FROM test_table WHERE id = 1';
+        $expectedQuery = 'DELETE FROM `test_table` WHERE `id` = 1';
 
         $this->assertEquals(
             $expectedQuery,
@@ -52,7 +52,7 @@ class MySqlDeleteQueryStringBuilderTest extends AbstractTaurusTest
 
     public function testParseDeleteQueryWithMultipleIds()
     {
-        $expectedQuery = 'DELETE FROM test_table WHERE id IN (1, 2)';
+        $expectedQuery = 'DELETE FROM `test_table` WHERE `id` IN (1, 2)';
 
         $this->assertEquals(
             $expectedQuery,

@@ -13,6 +13,7 @@ use taurus\framework\Container;
 use taurus\framework\db\mysql\MySqlUpdateQueryStringBuilder;
 use taurus\framework\db\query\QueryBuilder;
 
+use taurus\framework\util\MysqlUtils;
 use taurus\tests\AbstractTaurusTest;
 
 class MysqlUpdateQueryStringBuilderTest extends AbstractTaurusTest
@@ -27,7 +28,7 @@ class MysqlUpdateQueryStringBuilderTest extends AbstractTaurusTest
     public function setUp()
     {
         parent::setUp();
-        $this->subject = new MySqlUpdateQueryStringBuilder();
+        $this->subject = new MySqlUpdateQueryStringBuilder(new MysqlUtils());
         $this->qb = Container::getInstance()->getService(QueryBuilder::class);
     }
 
@@ -43,7 +44,7 @@ class MysqlUpdateQueryStringBuilderTest extends AbstractTaurusTest
             )->where('id', 1);
 
         $actualSql = $this->subject->getUpdateQueryString($q);
-        $expectedSql = "UPDATE test_table SET test_field = 1, test_field2 = '2017-01-01' WHERE id = 1";
+        $expectedSql = "UPDATE `test_table` SET `test_field` = 1, `test_field2` = '2017-01-01' WHERE `id` = 1";
 
         $this->assertEquals(
             $expectedSql,
