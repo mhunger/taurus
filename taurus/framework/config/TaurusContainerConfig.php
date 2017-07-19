@@ -40,6 +40,7 @@ use taurus\framework\mock\MockServer;
 use taurus\framework\routing\Request;
 use taurus\framework\routing\TaurusTestRouteConfig;
 use taurus\framework\routing\Router;
+use taurus\framework\util\MysqlUtils;
 use taurus\tests\fixtures\ExerciseBuilder;
 
 /**
@@ -77,6 +78,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_EXPRESSION_BUILDER = ExpressionBuilder::class;
     const SERVICE_SPECIFICATION_BUILDER = SpecificationBuilder::class;
     const SERVICE_MOCK_REQUEST = MockRequest::class;
+    const SERVICE_MYSQL_UTILS = MysqlUtils::class;
 
     public function __construct() {
         $this->configure();
