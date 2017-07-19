@@ -1,0 +1,7 @@
+$ip = "192.168.44.18"
+$host = "taurus.dev"
+$app = "taurus-framework"
+$mysqlRootPassword = "taurus2017"
+$mysqlUser = "taurus"
+$mysqlPassword = "taurus"
+$mysqlDatabase = "taurus_test"
