@@ -13,6 +13,7 @@ use tpl\TaurusInitiator;
 class TaurusInitiatorTest extends AbstractTaurusTest
 {
 
+    const FIXTURE_PATH = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'fixtures';
     /**
      * @var TaurusInitiator
      */
