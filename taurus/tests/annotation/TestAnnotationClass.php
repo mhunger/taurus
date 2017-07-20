@@ -30,14 +30,15 @@ class TestAnnotationClass {
 
     /**
      * @var TestEntity
-     * @Column(entity="TestEntity")
+     * @Column(name="TestEntity")
+     * @OneToOne(entity="\taurus\framework\db\Entity\TestEntity", column="entity_id_column", reference_table="test_table", reference_table_field="id_test")
      */
     public $entity;
 
     public $instance;
 
     /**
-     * @Setter(property="id")
+     * @Setter(attribute="id")
      */
     public function method() {
 

@@ -15,9 +15,9 @@ abstract class AbstractAnnotation implements Annotation
      * AbstractAnnotation constructor.
      * @param string $property
      */
-    public function __construct(string $property, $name)
+    public function __construct(string $property, $annotationName)
     {
-        $this->annotationName = $name;
+        $this->annotationName = $annotationName;
         $this->property = $property;
     }
 

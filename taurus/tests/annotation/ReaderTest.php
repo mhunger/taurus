@@ -11,10 +11,12 @@ namespace taurus\tests\annotation;
 
 use PHPUnit\Framework\TestCase;
 use taurus\framework\annotation\AbstractAnnotation;
+use taurus\framework\annotation\Annotation;
 use taurus\framework\annotation\AnnotationProperty;
 use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\annotation\Column;
 use taurus\framework\annotation\Entity;
+use taurus\framework\annotation\OneToOne;
 use taurus\framework\annotation\Setter;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
@@ -56,6 +58,18 @@ class ReaderTest extends AbstractTaurusTest
             $this->testSubject->getPropertyAnnotations()['test']['Column']
         );
 
+    }
+
+    public function testParseAnnoationMultipleProps()
+    {
+        $property = 'entity';
+        $expectedAnnotation = new OneToOne($property, '\taurus\framework\db\Entity\TestEntity', 'entity_id_column', 'test_table', 'id_test');
+
+        $this->assertEquals(
+            $expectedAnnotation,
+            $this->testSubject->getAnnotationsForProperty($property)[EntityMetaDataStore::ANNOTATION_ENTITY_REL_ONE_TO_ONE],
+            'Could not parse OneToOne annotation correctly'
+        );
     }
 
     public function testParseMethodAnnotations() {

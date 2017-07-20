@@ -9,8 +9,12 @@
 namespace taurus\framework\annotation;
 
 
+use function array_key_exists;
+use const null;
+use ReflectionClass;
 use taurus\framework\error\AnnotationClassCouldNotBeFound;
 use taurus\framework\error\AnnotationCouldNotBeInstantiatedException;
+use taurus\framework\error\MandatoryAnnotationParameterMissing;
 
 class AnnotationBuilder
 {
@@ -38,17 +42,19 @@ class AnnotationBuilder
 
         if (class_exists(__NAMESPACE__ . '\\' . $annotationName)) {
             $args = array_merge(
-                [$property],
+                [
+                    'property' => $property
+                ],
                 $properties
             );
 
             $annotationReflectionClass = new \ReflectionClass(__NAMESPACE__ . '\\' . $annotationName);
 
-            if ($this->checkConstructorArguments($annotationReflectionClass->getConstructor(), $args)) {
+            if ($this->checkAndOrderArguments($annotationReflectionClass->getConstructor(), $args, $annotationName)) {
                 return $annotationReflectionClass->newInstanceArgs($args);
             }
 
-            throw new AnnotationCouldNotBeInstantiatedException($property, $properties);
+            throw new AnnotationCouldNotBeInstantiatedException($annotationName, $property, $properties);
         }
 
         throw new AnnotationClassCouldNotBeFound($annotationName);
@@ -57,19 +63,25 @@ class AnnotationBuilder
     /**
      * @param \ReflectionMethod $constructor
      * @param array $args
-     * @return bool
+     * @param string $annotation
+     * @return array
+     * @throws MandatoryAnnotationParameterMissing
      */
-    public function checkConstructorArguments(\ReflectionMethod $constructor, array $args): bool
+    public function checkAndOrderArguments(\ReflectionMethod $constructor, array $args, string $annotation): array
     {
-        $mandatoryParameters = 0;
+        $orderedArguments = [];
+
         $parameters = $constructor->getParameters();
         /** @var \ReflectionParameter $parameter */
         foreach ($parameters as $parameter) {
-            if (!$parameter->isOptional()) {
-                $mandatoryParameters++;
+            if (!$parameter->isOptional() && !array_key_exists($parameter->getName(), $args)) {
+                throw new MandatoryAnnotationParameterMissing($parameter->getName(), $annotation);
             }
+
+            $orderedArguments[] = isset($args[$parameter->getName()])?$args[$parameter->getName()]:null;
         }
 
-        return $mandatoryParameters <= count($args);
+        return $orderedArguments;
     }
 }
+

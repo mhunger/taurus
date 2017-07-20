@@ -13,9 +13,9 @@ use Exception;
 
 class AnnotationCouldNotBeInstantiatedException extends \Exception
 {
-    public function __construct(string $annotation, array $args = [])
+    public function __construct(string $annotation, $property, array $args = [])
     {
-        $message = 'Could not instantiate annotation [' . $annotation . '][' . implode(', ',
+        $message = 'Could not instantiate annotation [' . $annotation . '] on property: [' . $property . '] with args: [' . implode(', ',
                 $args) . '], because of too few arguments';
         parent::__construct($message);
     }
