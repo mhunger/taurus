@@ -56,15 +56,15 @@ class ConfigFileTemplateData
 
     public function getVars() {
         return [
-            Taurus::basePath => $this->basePath,
-            Taurus::appname => $this->appname,
-            Taurus::route_config_class => $this->routeConfigClass,
-            Taurus::dbhost => $this->dbhost,
-            Taurus::dbuser => $this->dbuser,
-            Taurus::dbpw => $this->dbpw,
-            Taurus::db => $this->db,
-            Taurus::app_container_class => $this->containerClass,
-            Taurus::app_test_container_class => $this->testContainerClass
+            TaurusInitiator::basePath => $this->basePath,
+            TaurusInitiator::appname => $this->appname,
+            TaurusInitiator::route_config_class => $this->routeConfigClass,
+            TaurusInitiator::dbhost => $this->dbhost,
+            TaurusInitiator::dbuser => $this->dbuser,
+            TaurusInitiator::dbpw => $this->dbpw,
+            TaurusInitiator::db => $this->db,
+            TaurusInitiator::app_container_class => $this->containerClass,
+            TaurusInitiator::app_test_container_class => $this->testContainerClass
         ];
     }
 
