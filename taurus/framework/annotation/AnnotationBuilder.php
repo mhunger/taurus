@@ -50,11 +50,14 @@ class AnnotationBuilder
 
             $annotationReflectionClass = new \ReflectionClass(__NAMESPACE__ . '\\' . $annotationName);
 
-            if ($this->checkAndOrderArguments($annotationReflectionClass->getConstructor(), $args, $annotationName)) {
-                return $annotationReflectionClass->newInstanceArgs($args);
-            }
 
-            throw new AnnotationCouldNotBeInstantiatedException($annotationName, $property, $properties);
+            return $annotationReflectionClass->newInstanceArgs(
+                $this->checkAndOrderArguments(
+                    $annotationReflectionClass->getConstructor(),
+                    $args,
+                    $annotationName
+                )
+            );
         }
 
         throw new AnnotationClassCouldNotBeFound($annotationName);

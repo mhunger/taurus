@@ -72,6 +72,18 @@ class ReaderTest extends AbstractTaurusTest
         );
     }
 
+    public function testParseAnnotationMultiplePropsDiffOrder()
+    {
+        $property = 'instance';
+        $expectedAnnotation = new OneToOne($property, '\taurus\framework\db\Entity\TestEntity', 'entity_id_column', 'test_table', 'id_test');
+
+        $this->assertEquals(
+            $expectedAnnotation,
+            $this->testSubject->getAnnotationsForProperty($property)[EntityMetaDataStore::ANNOTATION_ENTITY_REL_ONE_TO_ONE],
+            'Could not parse OneToOne annotation correctly when order is different from constructor parameter order'
+        );
+    }
+
     public function testParseMethodAnnotations() {
         $expectedAnnotation = new Setter(
             'method',

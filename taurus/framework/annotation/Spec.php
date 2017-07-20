@@ -22,13 +22,13 @@ class Spec extends AbstractAnnotation
     /**
      * Spec constructor.
      * @param string $property
-     * @param string $name
+     * @param string $column
      * @param string $type
      */
-    public function __construct(string $property, string $name, string $type)
+    public function __construct(string $property, string $column, string $type)
     {
         parent::__construct($property, self::ANNOTATION_NAME_SPEC);
-        $this->column = $name;
+        $this->column = $column;
         $this->type = $type;
     }
 

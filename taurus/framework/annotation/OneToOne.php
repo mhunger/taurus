@@ -26,12 +26,12 @@ class OneToOne extends AbstractAnnotation
     /**
      * @var string
      */
-    private $reference_table;
+    private $referenceTable;
 
     /**
      * @var string
      */
-    private $reference_table_field;
+    private $referenceTableField;
 
     /**
      * OneToOne constructor.
@@ -51,8 +51,8 @@ class OneToOne extends AbstractAnnotation
         parent::__construct($property, self::ANNOTATION_NAME_ONETOONE);
         $this->entity = $entity;
         $this->column = $column;
-        $this->reference_table = $reference_table;
-        $this->reference_table_field = $reference_table_field;
+        $this->referenceTable = $reference_table;
+        $this->referenceTableField = $reference_table_field;
     }
 
     /**
@@ -76,7 +76,7 @@ class OneToOne extends AbstractAnnotation
      */
     public function getReferenceTable(): string
     {
-        return $this->reference_table;
+        return $this->referenceTable;
     }
 
     /**
@@ -84,6 +84,6 @@ class OneToOne extends AbstractAnnotation
      */
     public function getReferenceTableField(): string
     {
-        return $this->reference_table_field;
+        return $this->referenceTableField;
     }
 }

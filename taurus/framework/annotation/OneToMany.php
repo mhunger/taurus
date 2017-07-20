@@ -31,21 +31,21 @@ class OneToMany extends AbstractAnnotation
      * @param string $property
      * @param string $entity
      * @param string $column
-     * @param string $referenceTable
-     * @param string $foreignKeyField
+     * @param string $reference_table
+     * @param string $foreign_key_field
      */
     public function __construct(
         string $property,
         string $entity,
         string $column,
-        string $referenceTable,
-        string $foreignKeyField
+        string $reference_table,
+        string $foreign_key_field
     ) {
         parent::__construct($property, self::ANNOTATION_NAME_ONETOMANY);
         $this->entity = $entity;
         $this->column = $column;
-        $this->referenceTable = $referenceTable;
-        $this->foreignKeyField = $foreignKeyField;
+        $this->referenceTable = $reference_table;
+        $this->foreignKeyField = $foreign_key_field;
     }
 
     /**

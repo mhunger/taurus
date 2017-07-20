@@ -50,14 +50,14 @@ class Exercise implements Entity
     /**
      * @var ExerciseGroup
      * @Column(name="exercise_group_id")
-     * @OneToOne(entity="taurus\tests\testmodel\ExerciseGroup", column="exercise_group_id", reference_table="exercise_group", reference_key_field="id")
+     * @OneToOne(entity="taurus\tests\testmodel\ExerciseGroup", column="exercise_group_id", reference_table="exercise_group", reference_table_field="id")
      */
     public $exerciseGroup;
 
     /**
      * @var WorkoutLocation
      * @Column(name="workout_location_id")
-     * @OneToOne(entity="taurus\tests\testmodel\WorkoutLocation", column="workout_location_id", reference_table="workout_location", reference_key_field="id")
+     * @OneToOne(entity="taurus\tests\testmodel\WorkoutLocation", column="workout_location_id", reference_table="workout_location", reference_table_field="id")
      */
     public $workoutLocation;
 

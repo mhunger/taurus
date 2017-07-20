@@ -35,6 +35,10 @@ class TestAnnotationClass {
      */
     public $entity;
 
+    /**
+     * @var
+     * @OneToOne(entity="\taurus\framework\db\Entity\TestEntity", reference_table="test_table", column="entity_id_column", reference_table_field="id_test")
+     */
     public $instance;
 
     /**
