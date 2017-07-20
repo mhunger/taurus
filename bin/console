@@ -1,8 +1,7 @@
 #!/usr/local/bin/php
 
 <?php
-
-namespace bin;
+use bin\Taurus;
 
 require_once '../vendor/autoload.php';
 
