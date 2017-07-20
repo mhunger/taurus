@@ -1,5 +1,7 @@
 <?php
-namespace tpl;
+namespace bin;
+use bin\tpl\TaurusInitiator;
+
 /**
  * Created by PhpStorm.
  * User: michael_hunger

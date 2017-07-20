@@ -6,9 +6,10 @@
  * Time: 08:59
  */
 
-namespace tpl;
+namespace bin\tpl;
 
 
+use bin\Taurus;
 use const null;
 
 class TaurusInitiator

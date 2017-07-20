@@ -7,8 +7,8 @@
  */
 
 use taurus\tests\AbstractTaurusTest;
-use tpl\Taurus;
-use tpl\TaurusInitiator;
+use bin\Taurus;
+use bin\tpl\TaurusInitiator;
 
 class TaurusInitiatorTest extends AbstractTaurusTest
 {

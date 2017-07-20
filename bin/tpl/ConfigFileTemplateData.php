@@ -1,6 +1,6 @@
 <?php
 
-namespace tpl;
+namespace bin\tpl;
 
 /**
  * Created by PhpStorm.

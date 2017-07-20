@@ -1,6 +1,8 @@
 <?php
 
-namespace tpl;
+namespace bin\tpl;
+
+use bin\Taurus;
 
 /**
  * Created by PhpStorm.

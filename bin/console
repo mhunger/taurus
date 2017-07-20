@@ -2,8 +2,8 @@
 
 <?php
 
-require_once '../vendor/autoload.php';
+namespace bin;
 
-use tpl\Taurus;
+require_once '../vendor/autoload.php';
 
 (new Taurus($argv))->run();
