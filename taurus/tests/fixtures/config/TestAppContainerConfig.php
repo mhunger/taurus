@@ -6,17 +6,17 @@
  * Time: 20:16
  */
 
-namespace ##app-name##\config;
+namespace testApp\config;
 
-use ##app-name##\config\##route-config-class##;
+use testApp\config\TestAppRouteConfig;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\container\AbstractContainerConfig;
 use taurus\framework\container\ServiceConfig;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 
-class ##app-container-class## extends AbstractContainerConfig
+class TestAppContainerConfig extends AbstractContainerConfig
 {
-    const SERVICE_##app-name##_ROUTE_CONFIG = ##route-config-class##::class;
+    const SERVICE_testApp_ROUTE_CONFIG = TestAppRouteConfig::class;
 
     protected function configure()
     {
@@ -24,7 +24,7 @@ class ##app-container-class## extends AbstractContainerConfig
         $this->serviceDefinitions[TaurusContainerConfig::SERVICE_MYSQL_CONNECTION] =
             new ServiceConfig(TaurusContainerConfig::SERVICE_MYSQL_CONNECTION,
                 'MysqlConnection',
-                ['##dbhost##', '##dbuser##', '##dbpw##', '##db##', MySqlQueryStringBuilderImpl::class],
+                ['localhost', 'root', 'root', '', MySqlQueryStringBuilderImpl::class],
                 true
             );
 
@@ -32,14 +32,14 @@ class ##app-container-class## extends AbstractContainerConfig
             new ServiceConfig(TaurusContainerConfig::SERVICE_ROUTER,
                 'router',
                 [
-                    ##route-config-class##::class,
+                    TestAppRouteConfig::class,
                     null
                 ]);
 
-        $this->serviceDefinitions[self::SERVICE_##app-name##_ROUTE_CONFIG] =
-            new ServiceConfig(self::SERVICE_##app-name##_ROUTE_CONFIG,
+        $this->serviceDefinitions[self::SERVICE_testApp_ROUTE_CONFIG] =
+            new ServiceConfig(self::SERVICE_testApp_ROUTE_CONFIG,
                 null,
-                [##route-config-class##::API_BASE_PATH],
+                [TestAppRouteConfig::API_BASE_PATH],
                 true
             );
     }
