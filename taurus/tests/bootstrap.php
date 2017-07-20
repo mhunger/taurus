@@ -6,7 +6,6 @@
  * Time: 13:29
  */
 
-use taurus\Application;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\config\TestContainerConfig;
 use taurus\framework\Container;
