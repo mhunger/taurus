@@ -83,7 +83,7 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
      * @param Entity $class
      * @return array
      */
-    public function getColumns($class)
+    public function getColumns(string $class)
     {
         $columnAnnotations = $this->entityMetaDataStore
             ->getEntityMetaData($class)
@@ -229,5 +229,16 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
         return $this->entityMetaDataStore
             ->getEntityMetaData($class)
             ->getRelationships();
+    }
+
+    /**
+     * @param string $class
+     * @return array
+     */
+    public function getJsonTypes(string $class): array
+    {
+        return $this->entityMetaDataStore
+            ->getEntityMetaData($class)
+            ->getJsonTypes();
     }
 }

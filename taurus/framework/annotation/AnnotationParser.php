@@ -47,6 +47,8 @@ class AnnotationParser {
 
                     $annotationCollection[$annotation[1]] = $annotationCreated;
 
+                } else {
+
                 }
             }
         }

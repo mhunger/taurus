@@ -42,7 +42,7 @@ abstract class AbstractTemplate
 
     protected function setVars(array $vars)
     {
-        foreach($vars as $name => $val) {
+        foreach ($vars as $name => $val) {
             Taurus::info('Replacing', $name . '/' . $val);
             $this->tplContent = str_replace('##' . $name . '##', $val, $this->tplContent);
         }
@@ -58,7 +58,7 @@ abstract class AbstractTemplate
 
     public function writeContent(string $target = null, $filename = null)
     {
-        if($target === null) {
+        if ($target === null) {
             $fh = fopen($this->tplTarget, 'w');
         } else {
             $fh = fopen($target . '/' . $filename, 'w');

@@ -10,6 +10,7 @@ namespace taurus\tests\db\entity;
 
 
 use PHPUnit\Framework\TestCase;
+use taurus\framework\annotation\Json;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\EntityMetaDataImpl;
@@ -64,6 +65,20 @@ class EntityMetaDataImplTest extends AbstractTaurusTest
             $expectedResult,
             $actualResult,
             'Did not receive the column list correctly from meta data'
+        );
+    }
+
+    public function testGetJsonTypes()
+    {
+        $expectedResult = [
+            'idTestField' => new Json('idTestField', 'number'),
+            'testField' => new Json('testField', 'string')
+        ];
+
+        $this->assertEquals(
+            $expectedResult,
+            $this->entityMetaDataImpl->getJsonTypes(TestEntity::class),
+            'Did not get correct Json Types for TestEntity class'
         );
     }
 }

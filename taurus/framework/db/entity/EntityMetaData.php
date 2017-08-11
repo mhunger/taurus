@@ -34,6 +34,9 @@ class EntityMetaData {
     /** @var string */
     private $idProperty;
 
+    /** @var array */
+    private $jsonTypes;
+
     /**
      * EntityMetaData constructor.
      * @param $id
@@ -41,8 +44,9 @@ class EntityMetaData {
      * @param array $columns
      * @param array|null $relationships
      * @param string $idProperty
+     * @param array $jsonTypes
      */
-    function __construct($id, $table, array $columns, array $relationships = null, string $idProperty)
+    function __construct($id, $table, array $columns, array $relationships = null, string $idProperty, array $jsonTypes)
     {
         ksort($columns);
         $this->columns = $columns;
@@ -50,6 +54,7 @@ class EntityMetaData {
         $this->table = $table;
         $this->relationships = $relationships;
         $this->idProperty = $idProperty;
+        $this->jsonTypes = $jsonTypes;
     }
 
     /**
@@ -90,5 +95,13 @@ class EntityMetaData {
     public function getIdProperty(): string
     {
         return $this->idProperty;
+    }
+
+    /**
+     * @return array
+     */
+    public function getJsonTypes(): array
+    {
+        return $this->jsonTypes;
     }
 }

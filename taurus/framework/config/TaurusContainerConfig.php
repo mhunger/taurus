@@ -8,6 +8,8 @@
 
 namespace taurus\framework\config;
 
+use bin\generator\TaurusGenerator;
+use bin\tpl\TaurusInitiator;
 use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\api\GetAllEntitiesApiController;
 use taurus\framework\api\GetAllEntitiesDefaultServiceImpl;
@@ -42,6 +44,7 @@ use taurus\framework\routing\TaurusTestRouteConfig;
 use taurus\framework\routing\Router;
 use taurus\framework\util\MysqlUtils;
 use taurus\tests\fixtures\ExerciseBuilder;
+use const true;
 
 /**
  * Standard taurus container config contains all the services used inside taurus
@@ -79,9 +82,11 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_SPECIFICATION_BUILDER = SpecificationBuilder::class;
     const SERVICE_MOCK_REQUEST = MockRequest::class;
     const SERVICE_MYSQL_UTILS = MysqlUtils::class;
+    const SERVICE_TAURUS_GENERATOR = TaurusGenerator::class;
+    const SERVICE_TAURUS_INITIALISER = TaurusInitiator::class;
 
     public function __construct() {
-        $this->configure();
+        parent::__construct();
     }
 
     /**
@@ -136,5 +141,13 @@ class TaurusContainerConfig extends AbstractContainerConfig {
                 [
                     EntityMetaDataImpl::class
                 ]);
+
+        $this->serviceDefinitions[self::SERVICE_TAURUS_GENERATOR] =
+            new ServiceConfig(self::SERVICE_TAURUS_GENERATOR,
+                'taurusGenerator',
+                [
+                    self::SERVICE_ENTITY_METADATA
+                ],
+                true);
     }
 }

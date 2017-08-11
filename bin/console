@@ -5,4 +5,6 @@ use bin\Taurus;
 
 require_once '../vendor/autoload.php';
 
-(new Taurus($argv))->run();
+(new Taurus($argv))
+    ->bootstrap()
+    ->run();

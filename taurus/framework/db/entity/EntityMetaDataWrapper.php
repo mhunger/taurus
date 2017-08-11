@@ -36,7 +36,7 @@ interface EntityMetaDataWrapper
      * @return array
      * @internal param Entity $entity
      */
-    public function getColumns($class);
+    public function getColumns(string $class);
 
     /**
      * @param Entity $entity
@@ -65,4 +65,12 @@ interface EntityMetaDataWrapper
      * @return AbstractAnnotation|null
      */
     public function getRelationships(string $class);
+
+    /**
+     * Return the annotations Json that define what type the properties in the json should be. This is used for API parsing,
+     * but also for generation of Typescript entities for Taurissimo
+     * @param string $class
+     * @return array
+     */
+    public function getJsonTypes(string $class): array;
 }

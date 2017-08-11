@@ -1,6 +1,10 @@
 <?php
 namespace bin;
+use bin\generator\TaurusGenerator;
 use bin\tpl\TaurusInitiator;
+use taurus\framework\config\TaurusContainerConfig;
+use taurus\framework\Container;
+use taurus\tests\fixtures\TestEntity;
 
 /**
  * Created by PhpStorm.
@@ -39,17 +43,27 @@ class Taurus
      */
     private $initialiser;
 
+    /** @var TaurusGenerator */
+    private $generator;
+
     /**
      * Taurus constructor.
      */
     public function __construct($args)
     {
-        $this->initialiser = new TaurusInitiator();
         $this->args = $args;
         $this->cmd = $args[1];
 
         $this->checkCommand($this->cmd);
         $this->argument = $args[2];
+    }
+
+    public function bootstrap()
+    {
+        Container::getInstance()->setContainerConfig(
+            new TaurusContainerConfig()
+        );
+        return $this;
     }
 
     /**
@@ -70,10 +84,13 @@ class Taurus
     {
         switch($this->cmd) {
             case self::CMD_INIT_APP:
+                $this->initialiser = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_TAURUS_INITIALISER);
                 $this->initialiser->initApp($this->argument);
                 break;
 
             case self::CMD_GENERATE_FE:
+                $this->generator = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_TAURUS_GENERATOR);
+                $this->generator->generateEntity(TestEntity::class);
                 break;
         }
     }

@@ -142,4 +142,12 @@ class MySqlConnection implements DbConnection {
             $this->queryStringBuilder->getUpdateQueryString($updateQuery)
         );
     }
+
+    /**
+     * @return \mysqli
+     */
+    public function getMysqli(): \mysqli
+    {
+        return $this->mysqli;
+    }
 }

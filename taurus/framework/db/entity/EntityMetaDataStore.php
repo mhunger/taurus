@@ -9,9 +9,11 @@
 namespace taurus\framework\db\entity;
 
 
+use const null;
 use taurus\framework\annotation\AbstractAnnotation;
 use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\annotation\Entity;
+use taurus\framework\annotation\Json;
 use taurus\framework\error\EntityMetaDataMissingException;
 
 class EntityMetaDataStore
@@ -47,7 +49,7 @@ class EntityMetaDataStore
      * @param $class
      * @return EntityMetaData
      */
-    public function getEntityMetaData($class): EntityMetaData
+    public function getEntityMetaData(string $class): EntityMetaData
     {
         if (!isset($this->entityMetaDataStore[$class])) {
             $this->createEntityMetaData($class);
@@ -67,6 +69,7 @@ class EntityMetaDataStore
         $propertyAnnotations = $this->reader->getPropertyAnnotations();
 
         $columns = [];
+        $jsonTypes = [];
 
         foreach ($propertyAnnotations as $property => $annotations) {
             if (isset($annotations[self::ENTITY_ANNOTATION_COLUMN])) {
@@ -77,6 +80,11 @@ class EntityMetaDataStore
                 $idFieldName = $annotations[self::ENTITY_ANNOTATION_COLUMN]->getColumnName();
                 $idProperty = $property;
             }
+
+            if (isset($annotations[Json::ANNOTATION_NAME])) {
+                $jsonTypes[$property] = $annotations[Json::ANNOTATION_NAME];
+            }
+
         }
 
         /** get the table from entity annotations */
@@ -89,19 +97,28 @@ class EntityMetaDataStore
             throw new EntityMetaDataMissingException();
         }
 
-        $this->cacheEntityMetaData($class, $idFieldName, $table, $columns, $relationships, $idProperty);
+        $this->cacheEntityMetaData($class, $idFieldName, $table, $columns, $relationships, $idProperty, $jsonTypes);
     }
 
     /**
-     * @param $class
-     * @param $idFieldName
-     * @param $tableName
+     * @param string $class
+     * @param string $idFieldName
+     * @param string $tableName
      * @param array $columns
      * @param array $relationships
+     * @param string $idProperty
+     * @param array $jsonTypes
      */
-    private function cacheEntityMetaData($class, $idFieldName, $tableName, array $columns, array $relationships = [], string $idProperty)
-    {
-        $this->entityMetaDataStore[$class] = new EntityMetaData($idFieldName, $tableName, $columns, $relationships, $idProperty);
+    private function cacheEntityMetaData(
+        string $class,
+        string $idFieldName,
+        string $tableName,
+        array $columns,
+        array $relationships = [],
+        string $idProperty,
+        array $jsonTypes = []
+    ) {
+        $this->entityMetaDataStore[$class] = new EntityMetaData($idFieldName, $tableName, $columns, $relationships, $idProperty, $jsonTypes);
     }
 
     /**
@@ -109,7 +126,8 @@ class EntityMetaDataStore
      * @return string
      * @throws \Exception
      */
-    private function getTableFromAnnotations(array $classAnnotations): string {
+    private function getTableFromAnnotations(array $classAnnotations): string
+    {
 
         /**
          * @var string $name
@@ -129,27 +147,33 @@ class EntityMetaDataStore
      * @param array $propertyAnnotations
      * @return array
      */
-    private function getRelationshipsFromPropertyAnnotations(array $propertyAnnotations): array {
+    private function getRelationshipsFromPropertyAnnotations(array $propertyAnnotations): array
+    {
         $relationships = [];
 
         /**
          * @var $propertyAnnotation string
          * @var $annotations array
          */
-        foreach($propertyAnnotations as $property => $annotations) {
-            if(array_key_exists(self::ANNOTATION_ENTITY_REL_ONE_TO_ONE, $annotations)){
+        foreach ($propertyAnnotations as $property => $annotations) {
+            if (array_key_exists(self::ANNOTATION_ENTITY_REL_ONE_TO_ONE, $annotations)) {
                 $relationships[$property] = $annotations[self::ANNOTATION_ENTITY_REL_ONE_TO_ONE];
             }
 
-            if(array_key_exists(self::ANNOTATION_ENTITY_REL_ONE_TO_MANY, $annotations)) {
+            if (array_key_exists(self::ANNOTATION_ENTITY_REL_ONE_TO_MANY, $annotations)) {
                 $relationships[$property] = $annotations[self::ANNOTATION_ENTITY_REL_ONE_TO_MANY];
             }
 
-            if(array_key_exists(self::ANNOTATION_ENTITY_REL_MANY_TO_MANY, $annotations)) {
+            if (array_key_exists(self::ANNOTATION_ENTITY_REL_MANY_TO_MANY, $annotations)) {
                 $relationships[$property] = $annotations[self::ANNOTATION_ENTITY_REL_MANY_TO_MANY];
             }
         }
 
         return $relationships;
+    }
+
+    public function getJsonTypes()
+    {
+
     }
 }

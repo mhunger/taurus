@@ -9,6 +9,7 @@
 namespace taurus\tests\fixtures;
 
 use taurus\framework\db\Entity;
+use taurus\framework\annotation\Json;
 
 /**
  * Class TestEntity
@@ -23,12 +24,14 @@ class TestEntity implements Entity
      * @var int
      * @Id
      * @Column(name="test_id")
+     * @Json(type="number")
      */
     public $idTestField;
 
     /**
      * @var string
      * @Column(name="test_field")
+     * @Json(type="string")
      */
     public $testField;
 

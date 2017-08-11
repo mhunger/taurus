@@ -36,10 +36,6 @@ class AnnotationBuilder
      */
     public function build($annotationName, $property, array $properties = []): Annotation
     {
-        if (in_array($property, self::DOC_BLOCK_ANNOATIONS)) {
-
-        }
-
         if (class_exists(__NAMESPACE__ . '\\' . $annotationName)) {
             $args = array_merge(
                 [
