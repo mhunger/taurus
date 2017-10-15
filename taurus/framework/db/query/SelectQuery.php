@@ -50,6 +50,9 @@ class SelectQuery implements Query
     private $join = [];
 
     /**
+     * The $fields array has the form [table => field, table => field, ...]
+     * @TODO this should be an object in future not an array with specific structure
+     *
      * @param array $fields
      * @return SelectQuery
      */

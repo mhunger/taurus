@@ -73,6 +73,11 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         return $tokens;
     }
 
+    private function addMysqlTicks($token): string
+    {
+        return '`' . $token . '`';
+    }
+
     /**
      * @param SelectQuery $selectQuery
      * @param $tokens
@@ -112,8 +117,29 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         if ($selectQuery->getFields() === null) {
             return self::MYSQL_SYNTAX_ALL_FIELDS;
         } else {
-            return implode(', ', $this->utils->addMysqlTicks($selectQuery->getFields()));
+            return $this->buildFieldList($selectQuery);
         }
+    }
+
+    /**
+     * @param SelectQuery $selectQuery
+     * @return string
+     * @internal param array $fieldList
+     */
+    private function buildFieldList(SelectQuery $selectQuery): string
+    {
+        $fieldsWithTableName = [];
+
+        foreach($selectQuery->getFields() as $table => $fieldName) {
+            if(!is_numeric($table)) {
+                $fieldsWithTableName[] = $this->addMysqlTicks($table) . '.' . $this->addMysqlTicks($fieldName);
+            } else {
+                $fieldsWithTableName[] = $this->getStore($selectQuery) . '.' . $this->addMysqlTicks($fieldName);
+            }
+        }
+
+        return implode(', ', $fieldsWithTableName);
+
     }
 
     /**
