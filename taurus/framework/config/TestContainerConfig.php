@@ -21,6 +21,8 @@ use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 
 use taurus\framework\Environment;
 use taurus\framework\routing\TaurusTestRouteConfig;
+use taurus\framework\security\StandardTokenAuthenticationServiceImpl;
+use taurus\framework\security\StandardTokenImpl;
 use taurus\tests\fixtures\LoadDependenciesForLiteralsTestClass;
 use taurus\tests\fixtures\LoadDependenciesWithParamsInDependency;
 use taurus\tests\fixtures\TestSingleton;
@@ -84,7 +86,9 @@ class TestContainerConfig extends AbstractContainerConfig {
                 'router',
                 [
                     TaurusTestRouteConfig::class,
-                    null
+                    null,
+                    StandardTokenAuthenticationServiceImpl::class,
+                    StandardTokenImpl::class
                 ]);
     }
 }

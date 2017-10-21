@@ -90,7 +90,7 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
             return $filePath;
         }
 
-        if(getenv('generateResultFiles') == 'true') {
+        if(strtolower(getenv('generateResultFiles')) == 'true') {
             $this->generateFile($filePath, $actualResponse);
         }
 

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<!--
+-
+- Sequel Pro XML dump
+- Version 4529
+-
+- http://www.sequelpro.com/
+- https://github.com/sequelpro/sequelpro
+-
+- Host: taurus-dev.com (MySQL 5.5.52-0ubuntu0.14.04.1)
+- Database: taurus_test
+- Generation Time Time: 2017-10-21 12:43:36 +0000
+-
+-->
+
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <database name="taurus_test">
+
+        <table_data name="user">
+
+            <row>
+                <field name="id_user">1</field>
+                <field name="username">mike</field>
+                <field name="password">mike123</field>
+            </row>
+
+            <row>
+                <field name="id_user">2</field>
+                <field name="username">test</field>
+                <field name="password">test123</field>
+            </row>
+
+        </table_data>
+
+    </database>
+</mysqldump>

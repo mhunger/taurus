@@ -165,6 +165,13 @@ class ApiBuilder
         );
     }
 
+    /**
+     * @param string $entityClass
+     * @param string $specification
+     * @param null $url
+     * @param GetBySpecificationService|null $getBySpecificationService
+     * @return BasicRoute
+     */
     public function cgetBySpec(string $entityClass, string $specification, $url = null, GetBySpecificationService $getBySpecificationService = null): BasicRoute
     {
         if($getBySpecificationService === null) {
@@ -183,6 +190,35 @@ class ApiBuilder
             'GET',
             $this->getApiPath($entityClass, $url),
             $getBySpecificationController
+        );
+    }
+
+    /**
+     * @param string $method
+     * @param string $path
+     * @param AuthenticationHandlerService|null $authenticationHandlerService
+     * @return BasicRoute
+     */
+    public function buildAuthenticationRoute(
+        string $method,
+        string $path,
+        AuthenticationHandlerService $authenticationHandlerService = null
+    ): BasicRoute
+    {
+        /** @var AuthenticationController $authenticationController */
+        $authenticationController = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_AUTH_CONTROLLER);
+
+        if($authenticationHandlerService === null) {
+            /** @var AuthenticationHandlerDefaultServiceImpl $authenticationHandlerService */
+            $authenticationHandlerService = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_AUTH_HANDLER_DEFAULT_SERVICE);
+        }
+
+        $authenticationController->setAuthenticationHandlerService($authenticationHandlerService);
+
+        return new BasicRoute(
+            $method,
+            $path,
+            $authenticationController
         );
     }
 }

@@ -11,6 +11,8 @@ namespace taurus\framework\config;
 use bin\generator\TaurusGenerator;
 use bin\tpl\TaurusInitiator;
 use taurus\framework\annotation\AnnotationReader;
+use taurus\framework\api\AuthenticationController;
+use taurus\framework\api\AuthenticationHandlerDefaultServiceImpl;
 use taurus\framework\api\GetAllEntitiesApiController;
 use taurus\framework\api\GetAllEntitiesDefaultServiceImpl;
 use taurus\framework\api\GetByIdApiController;
@@ -43,8 +45,10 @@ use taurus\framework\routing\Request;
 use taurus\framework\routing\TaurusTestRouteConfig;
 use taurus\framework\routing\Router;
 use taurus\framework\util\MysqlUtils;
+use taurus\framework\security\AuthenticationService;
+use taurus\framework\security\StandardTokenAuthenticationServiceImpl;
+use taurus\framework\security\StandardTokenImpl;
 use taurus\tests\fixtures\ExerciseBuilder;
-use const true;
 
 /**
  * Standard taurus container config contains all the services used inside taurus
@@ -81,6 +85,10 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_EXPRESSION_BUILDER = ExpressionBuilder::class;
     const SERVICE_SPECIFICATION_BUILDER = SpecificationBuilder::class;
     const SERVICE_MOCK_REQUEST = MockRequest::class;
+    const SERVICE_STANDARD_AUTHENTICATION_SERVICE = StandardTokenAuthenticationServiceImpl::class;
+    const SERVICE_AUTHENTICATION_TOKEN = StandardTokenImpl::class;
+    const SERVICE_AUTH_CONTROLLER = AuthenticationController::class;
+    const SERVICE_AUTH_HANDLER_DEFAULT_SERVICE = AuthenticationHandlerDefaultServiceImpl::class;
     const SERVICE_MYSQL_UTILS = MysqlUtils::class;
     const SERVICE_TAURUS_GENERATOR = TaurusGenerator::class;
     const SERVICE_TAURUS_INITIALISER = TaurusInitiator::class;
@@ -149,5 +157,35 @@ class TaurusContainerConfig extends AbstractContainerConfig {
                     self::SERVICE_ENTITY_METADATA
                 ],
                 true);
+
+        $this->serviceDefinitions[self::SERVICE_AUTHENTICATION_TOKEN] =
+            new ServiceConfig(self::SERVICE_AUTHENTICATION_TOKEN,
+                'auth_token',
+                null,
+                true
+            );
+        $this->serviceDefinitions[self::SERVICE_AUTH_HANDLER_DEFAULT_SERVICE] =
+            new ServiceConfig(self::SERVICE_AUTH_HANDLER_DEFAULT_SERVICE,
+                'default_auth_handler_service',
+                [
+                    StandardTokenImpl::class
+                ]);
+
+        $this->serviceDefinitions[self::SERVICE_ROUTER] =
+            new ServiceConfig(self::SERVICE_ROUTER,
+                'router',
+                [
+                    null, null,
+                    StandardTokenAuthenticationServiceImpl::class,
+                    StandardTokenImpl::class
+                ]);
+
+        $this->serviceDefinitions[self::SERVICE_STANDARD_AUTHENTICATION_SERVICE] =
+            new ServiceConfig(self::SERVICE_STANDARD_AUTHENTICATION_SERVICE,
+                'standard_auth_service',
+                [
+                    null,
+                    StandardTokenImpl::class
+                ]);
     }
 }

@@ -10,5 +10,8 @@
           "taurus\\": "taurus/",
           "bin\\": "bin/"
         }
+    },
+    "require": {
+        "firebase/php-jwt": "^5.0"
     }
 }

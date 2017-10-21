@@ -47,6 +47,7 @@ class GetAllEntitiesApiControllerTest extends AbstractTaurusDatabaseTest
         );
     }
 
+
     /**
      * @return array
      */

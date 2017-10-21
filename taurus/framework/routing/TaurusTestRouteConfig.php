@@ -9,6 +9,8 @@
 namespace taurus\framework\routing;
 
 use fitnessmanager\config\FitnessManagerTestConfig;
+use taurus\tests\testmodel\User;
+use taurus\framework\http\HttpResponse;
 use taurus\tests\testmodel\Exercise;
 use taurus\tests\testmodel\ExerciseGroup;
 use taurus\tests\testmodel\GetExerciseByDateAndLocationSpecification;
@@ -47,6 +49,13 @@ class TaurusTestRouteConfig extends AbstractRouteConfig
                 $this->apiBuilder->cget(Exercise::class)
             )->addDefaultRoute(
                 $this->apiBuilder->put(Exercise::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->cget(User::class)
+            )->addDefaultRoute(
+                $this->apiBuilder->buildAuthenticationRoute(
+                    Request::HTTP_POST,
+                    'user/login'
+                )
             )->addDefaultRoute(
                 $this->apiBuilder->cgetBySpec(
                     Exercise::class,
