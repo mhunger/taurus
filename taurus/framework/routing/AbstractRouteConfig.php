@@ -9,6 +9,7 @@
 namespace taurus\framework\routing;
 
 use taurus\framework\api\ApiBuilder;
+use taurus\framework\api\AuthenticationHandlerService;
 use taurus\framework\exception\RouteNotFoundException;
 use taurus\framework\http\Controller;
 
