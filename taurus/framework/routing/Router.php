@@ -8,6 +8,7 @@
 
 namespace taurus\framework\routing;
 
+use taurus\framework\config\TaurusConfig;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Environment;
 use taurus\framework\error\Http401UnauthorisedException;
@@ -35,22 +36,28 @@ class Router
     /** @var Token */
     private $token;
 
+    /** @var TaurusConfig */
+    private $taurusConfig;
+
     /**
      * @param RouteConfig $routeConfig
      * @param Environment $environment
      * @param AuthenticationService $authenticationService
      * @param Token $token
+     * @param TaurusConfig $taurusConfig
      */
     public function __construct(
         RouteConfig $routeConfig,
         Environment $environment,
         AuthenticationService $authenticationService,
-        Token $token
+        Token $token,
+        TaurusConfig $taurusConfig
     ) {
         $this->routeConfig = $routeConfig;
         $this->environment = $environment;
         $this->authenticationService = $authenticationService;
         $this->token = $token;
+        $this->taurusConfig = $taurusConfig;
     }
 
     /**
@@ -60,10 +67,17 @@ class Router
      */
     public function route(Request $request)
     {
-        /** @var Token $token */
-        //$token = $this->authenticate($request);
+
         $url = $request->getUrl();
         $method = $request->getMethod();
+
+        if($this->taurusConfig->getConfig(TaurusConfig::TAURUS_CONFIG_AUTHENTICATION_URL
+            == $url)) {
+
+            /** @var Token $token */
+            $token = $this->authenticate($request);
+        }
+
 
         try {
             $controller = $this->routeConfig->getRoute($method, $url);
