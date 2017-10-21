@@ -15,10 +15,21 @@ class Request {
      */
     const HTTP_PUT = 'PUT';
 
+    const HTTP_GET = 'GET';
+
+    const HTTP_POST = 'POST';
+
+    const HTTP_DELETe = 'DELETE';
+
     /**
      *
      */
     const HTTP_CONTENT_TYPE_APPLICATION_JSON = 'application/json';
+
+    /**
+     * Header prefix for http header
+     */
+    const HTTP_HEADER_PREFIX = 'HTTP_';
 
     /**
      * @var
@@ -40,6 +51,9 @@ class Request {
 
     /** @var \stdClass */
     protected $inputBody;
+
+    /** @var array */
+    protected $server;
     /**
      *
      */
@@ -117,6 +131,11 @@ class Request {
     public function getAllParams()
     {
         return $this->requestVariables;
+    }
+
+    public function getHeader(string $headerName)
+    {
+        return $this->server[self::HTTP_HEADER_PREFIX . strtoupper(str_replace('-', '_', $headerName))];
     }
 
     /**

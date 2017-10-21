@@ -43,4 +43,15 @@ class RequestTest extends TestCase
             'Could not get correct request parameter value. Got [' . $actualValue . '] expected [' . $expectedValue . ']'
         );
     }
+
+    public function testGetHeader()
+    {
+        $expected = 'no-cache';
+
+        $this->assertEquals(
+            $expected,
+            $this->testSubject->getHeader('cache-control'),
+            "Could not read correct header for cache-control"
+        );
+    }
 }
