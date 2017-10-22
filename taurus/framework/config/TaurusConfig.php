@@ -86,7 +86,7 @@ class TaurusConfig implements Config
      *
      * @var string
      */
-    private $authenticationUrl = 'user/login';
+    private $authenticationUrl = '/user/login';
 
     /**
      * @param string $name
