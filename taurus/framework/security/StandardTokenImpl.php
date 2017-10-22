@@ -17,6 +17,17 @@ class StandardTokenImpl implements Token
     /** @var string */
     private $encodedTokenString;
 
+    /**
+     * StandardTokenImpl constructor.
+     * @param mixed $data
+     * @param string $encodedTokenString
+     */
+    public function __construct($data = null, string $encodedTokenString = null)
+    {
+        $this->data = $data;
+        $this->encodedTokenString = $encodedTokenString;
+    }
+
 
     public function getData(): mixed
     {
@@ -32,10 +43,13 @@ class StandardTokenImpl implements Token
     }
 
     /**
-     * @param mixed $data
+     * Set the user data in the token. This will usually be an entity of the class defined to hold
+     * user info.
+     *
+     * @param $data
      * @return mixed|void
      */
-    public function setData(mixed $data)
+    public function setData($data)
     {
         $this->data = $data;
     }

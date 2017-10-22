@@ -32,7 +32,7 @@ Interface Token
      * @param mixed $data
      * @return mixed
      */
-    public function setData(mixed $data);
+    public function setData($data);
 
     /**
      * Set the encoded string that was encoded by JWT
