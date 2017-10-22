@@ -33,6 +33,8 @@ class TaurusConfig implements Config
 
     const TAURUS_CONFIG_PASSWORD_PARAM = 'pw';
 
+    const TAURUS_AUTH_USER_ENTITY = 'auth_user_entity';
+
     /**
      * This is the key used for the self-signed token
      *
@@ -114,6 +116,11 @@ class TaurusConfig implements Config
             case self::TAURUS_CONFIG_PASSWORD_PARAM:
                 return $this->getPasswordParameter();
                 break;
+            case self::TAURUS_AUTH_USER_ENTITY:
+                return $this->getUserEntity();
+                break;
+            default:
+                return null;
         }
     }
 
