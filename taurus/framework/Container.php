@@ -134,7 +134,7 @@ class Container {
             } else {
                 //the parameter has no class, it is a literal; try loading argument from service definition
                 if($serviceConfig !== null) {
-                    $args[] = $serviceConfig->getParameterByPosition($pos);
+                    $args[] = $serviceConfig->getParameterByPosition($pos, $param->isOptional());
                 }
             }
         }
