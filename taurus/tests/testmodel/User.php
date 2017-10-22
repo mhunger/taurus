@@ -48,10 +48,12 @@ class User implements Entity
 
     /**
      * @param int $id
+     * @return User
      */
-    public function setId(int $id)
+    public function setId(int $id): User
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -64,10 +66,12 @@ class User implements Entity
 
     /**
      * @param string $username
+     * @return User
      */
-    public function setUsername(string $username)
+    public function setUsername(string $username): User
     {
         $this->username = $username;
+        return $this;
     }
 
     /**
@@ -80,9 +84,11 @@ class User implements Entity
 
     /**
      * @param string $password
+     * @return User
      */
-    public function setPassword(string $password)
+    public function setPassword(string $password): User
     {
         $this->password = $password;
+        return $this;
     }
 }
