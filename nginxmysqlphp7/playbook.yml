@@ -1,0 +1,16 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+    web_server: nginxphp
+    servername: "{{ appname }}.dev {{ ip }}"
+    timezone: UTC
+  vars_files:
+    - vars/mysql.yml
+    - vars/common.yml
+    - [ "vars/nginxphp.yml", "vars/ws_defaults.yml" ]
+  roles:
+    - init
+    - nginx
+    - mysql
+    - php7

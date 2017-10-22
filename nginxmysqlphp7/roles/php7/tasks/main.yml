@@ -1,0 +1,15 @@
+---
+# tasks file for php7
+- name: install php7
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php7.1
+    - php7.1-common
+    - php7.1-mysql
+    - php7.1-pdo
+    - php7.1-xml
+    - php7.1-cli
+    - php7.1-cgi
+    - php7.1-fpm
+    - php-xdebug
