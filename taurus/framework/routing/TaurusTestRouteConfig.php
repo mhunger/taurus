@@ -54,7 +54,7 @@ class TaurusTestRouteConfig extends AbstractRouteConfig
             )->addDefaultRoute(
                 $this->apiBuilder->buildAuthenticationRoute(
                     Request::HTTP_POST,
-                    'user/login'
+                    '/user/login'
                 )
             )->addDefaultRoute(
                 $this->apiBuilder->cgetBySpec(
