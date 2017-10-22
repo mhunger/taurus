@@ -51,6 +51,10 @@ class ExpressionBuilder
 
     }
 
+    /**
+     * @param $comparisonExpressions
+     * @return MultiPartExpression
+     */
     private function createConditional($comparisonExpressions): MultiPartExpression
     {
         while(sizeof($comparisonExpressions) > 1) {
