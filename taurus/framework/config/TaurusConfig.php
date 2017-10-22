@@ -10,6 +10,7 @@ namespace taurus\framework\config;
 
 
 use taurus\tests\testmodel\User;
+use taurus\tests\testmodel\UserAuthTestSpecification;
 
 class TaurusConfig implements Config
 {
@@ -34,6 +35,9 @@ class TaurusConfig implements Config
     const TAURUS_CONFIG_PASSWORD_PARAM = 'pw';
 
     const TAURUS_AUTH_USER_ENTITY = 'auth_user_entity';
+
+    const TAURUS_AUTH_USER_QUERY_SPECIFICATION = 'auth_user_specification';
+
 
     /**
      * This is the key used for the self-signed token
@@ -89,6 +93,13 @@ class TaurusConfig implements Config
     private $authenticationUrl = '/user/login';
 
     /**
+     * The specification to build the query to authentication the user, when he logs in
+     *
+     * @var string
+     */
+    private $authUserSpecification = UserAuthTestSpecification::class;
+
+    /**
      * @param string $name
      * @return mixed
      */
@@ -118,6 +129,9 @@ class TaurusConfig implements Config
                 break;
             case self::TAURUS_AUTH_USER_ENTITY:
                 return $this->getUserEntity();
+                break;
+            case self::TAURUS_AUTH_USER_QUERY_SPECIFICATION:
+                return $this->getAuthUserSpecification();
                 break;
             default:
                 return null;
@@ -187,4 +201,13 @@ class TaurusConfig implements Config
     {
         return $this->authenticationUrl;
     }
+
+    /**
+     * @return string
+     */
+    public function getAuthUserSpecification(): string
+    {
+        return $this->authUserSpecification;
+    }
+
 }
