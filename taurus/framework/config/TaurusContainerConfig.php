@@ -92,6 +92,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_MYSQL_UTILS = MysqlUtils::class;
     const SERVICE_TAURUS_GENERATOR = TaurusGenerator::class;
     const SERVICE_TAURUS_INITIALISER = TaurusInitiator::class;
+    const SERVICE_TAURUS_CONFIG = TaurusConfig::class;
 
     public function __construct() {
         parent::__construct();
