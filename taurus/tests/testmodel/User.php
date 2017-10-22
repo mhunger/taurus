@@ -19,6 +19,8 @@ use taurus\framework\db\Entity;
  */
 class User implements Entity
 {
+    const USER_TABLE_NAME = 'user';
+
     /**
      * @var int
      * @Id
