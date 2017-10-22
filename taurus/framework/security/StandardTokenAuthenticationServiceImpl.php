@@ -12,6 +12,7 @@ namespace taurus\framework\security;
 use Firebase\JWT\JWT;
 use taurus\framework\config\TaurusConfig;
 use taurus\framework\db\entity\BaseRepository;
+use taurus\framework\db\query\SpecificationBuilder;
 use taurus\framework\error\Http401UnauthorisedException;
 use taurus\framework\routing\Request;
 
@@ -27,17 +28,26 @@ class StandardTokenAuthenticationServiceImpl implements AuthenticationService
     /** @var BaseRepository */
     private $baseRepository;
 
+    /** @var SpecificationBuilder */
+    private $specificationBuilder;
+
     /**
      * StandardTokenAuthenticationServiceImpl constructor.
      * @param TaurusConfig $taurusConfig
      * @param Token $token
      * @param BaseRepository $baseRepository
+     * @param SpecificationBuilder $specificationBuilder
      */
-    public function __construct(TaurusConfig $taurusConfig, Token $token, BaseRepository $baseRepository)
-    {
+    public function __construct(
+        TaurusConfig $taurusConfig,
+        Token $token,
+        BaseRepository $baseRepository,
+        SpecificationBuilder $specificationBuilder
+    ) {
         $this->taurusConfig = $taurusConfig;
         $this->token = $token;
         $this->baseRepository = $baseRepository;
+        $this->specificationBuilder = $specificationBuilder;
     }
 
     /**
@@ -90,28 +100,23 @@ class StandardTokenAuthenticationServiceImpl implements AuthenticationService
      */
     private function authenticateUsernameAndPassword(Request $request): bool
     {
-        $username = $request->getBodyParamByName(
-            $this->taurusConfig->getUsernameParameter()
+        $authenticatedUser = $this->baseRepository->findBySpecification(
+            $this->specificationBuilder->build(
+                $request,
+                $this->taurusConfig->getConfig(TaurusConfig::TAURUS_AUTH_USER_QUERY_SPECIFICATION)
+            ),
+            $this->taurusConfig->getConfig(TaurusConfig::TAURUS_AUTH_USER_ENTITY)
         );
 
-        $password = $request->getBodyParamByName(
-            $this->taurusConfig->getPasswordParameter()
-        );
-
-        /**
-         * @TODO remove fix ID here with making real request. Implement findBy in base repo first.
-         */
-        $authenticatedUser = $this->baseRepository->findOne(1, $this->taurusConfig->getConfig(TaurusConfig::TAURUS_AUTH_USER_ENTITY));
-
-        if($authenticatedUser === null) {
+        if(empty($authenticatedUser) || sizeof($authenticatedUser) > 1) {
             throw new Http401UnauthorisedException('Username and Password unauthorised');
         }
 
-        $this->token->setData($authenticatedUser);
+        $this->token->setData($authenticatedUser[0]);
 
         $this->token->setEncodedTokenString(
             JWT::encode(
-                $authenticatedUser,
+                $authenticatedUser[0],
                 $this->taurusConfig->getConfig(TaurusConfig::TAURUS_CONFIG_SECRET_KEY)
             )
         );
