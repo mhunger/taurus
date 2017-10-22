@@ -13,6 +13,7 @@ use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\db\query\SpecificationBuilder;
 use taurus\framework\mock\MockRequest;
+use taurus\framework\routing\Request;
 use taurus\tests\AbstractTaurusTest;
 use taurus\tests\fixtures\TestSpecification;
 
@@ -37,7 +38,7 @@ class SpecificationBuilderTest extends AbstractTaurusTest
             'spec1' => 'test',
             'spec2' => 1,
             'spec3' => 'mytest'
-        ]);
+        ])->setMethod(Request::HTTP_GET);
 
         $actualResult = $this->specBuilder->build($mockRequest, TestSpecification::class);
 
