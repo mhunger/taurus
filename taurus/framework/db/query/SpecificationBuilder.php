@@ -43,13 +43,23 @@ class SpecificationBuilder
             $reflectionClass = new \ReflectionClass($class);
             $constructorArgs = $this->extractConstructorParameters($reflectionClass);
 
-            $args = $this->getArgs($input->getAllParams(), $constructorArgs);
+            if($input->getMethod() == Request::HTTP_GET) {
+                $args = $this->getArgsFromRequestVariables($input->getAllParams(), $constructorArgs);
+            } elseif ($input->getMethod() == Request::HTTP_POST) {
+                $args = $this->getArgsFromBody($input, $constructorArgs);
+            }
 
             return $reflectionClass->newInstanceArgs($args);
         }
     }
 
-    private function getArgs(array $values, array $parameters): array
+    /**
+     * @param array $values
+     * @param array $parameters
+     * @return array
+     * @throws CannotMapRequestToSpecificationParameterException
+     */
+    private function getArgsFromRequestVariables(array $values, array $parameters): array
     {
         $args = [];
 
@@ -65,6 +75,36 @@ class SpecificationBuilder
         return $args;
     }
 
+    /**
+     * @param Request $input
+     * @param array $parameters
+     * @return array
+     * @throws CannotMapRequestToSpecificationParameterException
+     */
+    private function getArgsFromBody(Request $input, array $parameters): array
+    {
+        $args = [];
+
+        /** @var \ReflectionParameter $parameter */
+        foreach ($parameters as $parameter) {
+            if ($input->getBodyParamByName($parameter->getName()) !== null) {
+                $args[] = $input->getBodyParamByName($parameter->getName());
+            } else {
+                throw new CannotMapRequestToSpecificationParameterException(
+                    $parameter,
+                    print_r($input, true)
+                );
+            }
+        }
+
+        return $args;
+
+    }
+
+    /**
+     * @param \ReflectionClass $class
+     * @return array
+     */
     private function extractConstructorParameters(\ReflectionClass $class): array
     {
         $constructor = $class->getConstructor();
