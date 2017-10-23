@@ -59,13 +59,13 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
     public function testSimpleQueryWithFieldsAndDb()
     {
         $this->assertEquals(
-            'SELECT `id`, `date` FROM `fitnessmanager`.`workout`',
+            'SELECT `taurus_test`.`workout`.`id`, `taurus_test`.`workout`.`date` FROM `taurus_test`.`workout`',
             $this->mysqlQueryStringBuilder
                 ->getSelectQueryString(
                     $this->queryBuilder
                         ->query(QueryBuilder::QUERY_TYPE_SELECT)
                         ->select(['id', 'date'])
-                        ->from('workout', 'fitnessmanager')
+                        ->from('workout', 'taurus_test')
                 )
         );
     }
@@ -149,13 +149,13 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
     public function testSimpleJoin()
     {
         $this->assertEquals(
-            'SELECT `id`, `date` FROM `fitnessmanager`.`workout` LEFT JOIN `workout_location` ON `workout_location`.`id` = `workout`.`workout_location_id`',
+            'SELECT `taurus_test`.`workout`.`id`, `taurus_test`.`workout`.`date` FROM `taurus_test`.`workout` LEFT JOIN `workout_location` ON `workout_location`.`id` = `workout`.`workout_location_id`',
             $this->mysqlQueryStringBuilder
                 ->getSelectQueryString(
                     $this->queryBuilder
                         ->query(QueryBuilder::QUERY_TYPE_SELECT)
                         ->select(['id', 'date'])
-                        ->from('workout', 'fitnessmanager')
+                        ->from('workout', 'taurus_test')
                         ->join('workout_location', null, 'id', 'workout_location_id')
                 )
         );
