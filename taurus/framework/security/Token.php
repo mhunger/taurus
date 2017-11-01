@@ -17,7 +17,7 @@ Interface Token
      *
      * @return mixed
      */
-    public function getData(): mixed;
+    public function getData();
 
     /**
      * Returns the decoded JWT that is then used to secure each channels
@@ -41,4 +41,9 @@ Interface Token
      * @return mixed
      */
     public function setEncodedTokenString(string $tokenString);
+
+    /**
+     * @return bool
+     */
+    public function isAuthenticated(): bool ;
 }

@@ -36,18 +36,22 @@ abstract class HttpResponse {
     }
 
     public function send() {
-        header($this->buildHeaders(), true, $this->responseCode);
+        $this->sendHeader();
         $this->body();
+        $this->sendResponseCode();
     }
 
-    private function buildHeaders() {
-        $headerString = "Content-Type: " . $this->contentType . "\n";
+    private function sendHeader() {
+        header("Content-Type: " . $this->contentType . "\n", true, $this->responseCode);
 
         foreach($this->headers as $name => $v) {
-            $headerString .= $name . ": " . $v . "\n";
+            header($name . ': ' . $v . "\n");
         }
+    }
 
-        return $headerString;
+    private function sendResponseCode()
+    {
+        http_response_code($this->responseCode);
     }
 
     abstract protected function body();

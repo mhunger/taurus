@@ -47,7 +47,6 @@ class ServiceConfig {
      * @param $position
      * @param bool $isOptional
      * @return mixed
-     * @throws ServiceParameterNotFoundInConfigException
      */
     public function getParameterByPosition($position, bool $isOptional = false) {
         if(isset($this->parameters[$position])) {
@@ -57,8 +56,6 @@ class ServiceConfig {
         if($isOptional) {
             return null;
         }
-
-        throw new ServiceParameterNotFoundInConfigException();
     }
 
     /**

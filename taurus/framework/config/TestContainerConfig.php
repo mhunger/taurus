@@ -81,14 +81,5 @@ class TestContainerConfig extends AbstractContainerConfig {
                 true
             );
 
-        $this->serviceDefinitions[TaurusContainerConfig::SERVICE_ROUTER] =
-            new ServiceConfig(TaurusContainerConfig::SERVICE_ROUTER,
-                'router',
-                [
-                    TaurusTestRouteConfig::class,
-                    null,
-                    StandardTokenAuthenticationServiceImpl::class,
-                    StandardTokenImpl::class
-                ]);
     }
 }

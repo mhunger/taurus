@@ -29,7 +29,10 @@ class StandardTokenImpl implements Token
     }
 
 
-    public function getData(): mixed
+    /**
+     * @return mixed|null
+     */
+    public function getData()
     {
         return $this->data;
     }
@@ -61,5 +64,17 @@ class StandardTokenImpl implements Token
     public function setEncodedTokenString(string $encodedTokenString)
     {
         $this->encodedTokenString = $encodedTokenString;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAuthenticated(): bool
+    {
+        if(!empty($this->encodedTokenString)) {
+            return true;
+        }
+
+        return false;
     }
 }

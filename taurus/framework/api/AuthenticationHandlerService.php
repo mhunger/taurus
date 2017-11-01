@@ -18,5 +18,5 @@ interface AuthenticationHandlerService
      * @param Request $request
      * @return mixed
      */
-    public function handleAuthentication(Request $request): mixed;
+    public function handleAuthentication(Request $request);
 }

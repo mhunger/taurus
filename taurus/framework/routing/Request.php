@@ -54,12 +54,16 @@ class Request {
 
     /** @var array */
     protected $server;
+
+    /** @var array */
+    private $cookie;
     /**
      *
      */
     public function __construct() {
         $this->server = $_SERVER;
         $this->request = $_REQUEST;
+        $this->cookie = $_COOKIE;
 
         $this->url = $this->parseUrl();
         $this->method = $this->parseMethod();
@@ -133,6 +137,10 @@ class Request {
         return $this->requestVariables;
     }
 
+    /**
+     * @param string $headerName
+     * @return mixed
+     */
     public function getHeader(string $headerName)
     {
         return $this->server[self::HTTP_HEADER_PREFIX . strtoupper(str_replace('-', '_', $headerName))];
@@ -166,5 +174,18 @@ class Request {
     public function getMethod()
     {
         return $this->method;
+    }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function getCookieByName(string $name)
+    {
+        if(isset($this->cookie[$name])) {
+            return $this->cookie[$name];
+        }
+
+        return null;
     }
 }

@@ -33,7 +33,7 @@ class AuthenticationController implements Controller
      * @param Request $request
      * @return mixed
      */
-    public function handleRequest(Request $request): mixed
+    public function handleRequest(Request $request)
     {
         return $this->authenticationHandlerService->handleAuthentication($request);
     }

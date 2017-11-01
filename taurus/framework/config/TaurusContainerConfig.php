@@ -134,6 +134,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
                 true
             );
 
+
         $this->serviceDefinitions[self::SERVICE_MYSQL_QUERY_STRING_BUILDER] =
             new ServiceConfig(self::SERVICE_MYSQL_QUERY_STRING_BUILDER,
                 'mysqlQueryStringBuilder',
@@ -172,11 +173,12 @@ class TaurusContainerConfig extends AbstractContainerConfig {
                     StandardTokenImpl::class
                 ]);
 
-        $this->serviceDefinitions[self::SERVICE_ROUTER] =
-            new ServiceConfig(self::SERVICE_ROUTER,
+        $this->serviceDefinitions[TaurusContainerConfig::SERVICE_ROUTER] =
+            new ServiceConfig(TaurusContainerConfig::SERVICE_ROUTER,
                 'router',
                 [
-                    null, null,
+                    TaurusTestRouteConfig::class,
+                    null,
                     StandardTokenAuthenticationServiceImpl::class,
                     StandardTokenImpl::class
                 ]);

@@ -80,9 +80,19 @@ class Router
             if ($this->isTestEnvironment()) {
                 $this->requestHandled = true;
 
-                return new HttpJsonResponse(201, $body);
+                return new HttpJsonResponse(
+                    201,
+                    $body,
+                    Request::HTTP_CONTENT_TYPE_APPLICATION_JSON,
+                    $this->addToken()
+                );
             } else {
-                (new HttpJsonResponse(201, $body))->send();
+                (new HttpJsonResponse(
+                    201,
+                    $body,
+                    Request::HTTP_CONTENT_TYPE_APPLICATION_JSON,
+                    $this->addToken())
+                )->send();
                 $this->requestHandled = true;
             }
         } catch (RouteNotFoundException $e) {
@@ -122,6 +132,17 @@ class Router
         }
 
         return $this->token;
+    }
+
+    private function addToken(): array
+    {
+        if($this->token->isAuthenticated()) {
+            return [
+                $this->taurusConfig->getTokenParamName() => $this->token->getEncodedTokenString()
+            ];
+        }
+
+        return [];
     }
 
     /**

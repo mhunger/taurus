@@ -70,4 +70,16 @@ class MockRequest extends Request {
         $this->inputBody = $inputBody;
         return $this;
     }
+
+
+    /**
+     * @param string $name
+     * @param string $value
+     * @return MockRequest
+     */
+    public function setHeader(string $name, string $value): MockRequest
+    {
+        $this->server[self::HTTP_HEADER_PREFIX . strtoupper(str_replace('-', '_', $name))] = $value;
+        return $this;
+    }
 }

@@ -12,6 +12,7 @@ use taurus\framework\container\ServiceConfig;
 use taurus\framework\container\ContainerConfig;
 use taurus\framework\container\ServiceRepository;
 use taurus\framework\error\ContainerCannotInstantiateService;
+use taurus\framework\error\ServiceParameterNotFoundInConfigException;
 
 class Container {
 
@@ -112,6 +113,7 @@ class Container {
      * @param \ReflectionMethod $constructor
      * @param ServiceConfig $serviceConfig
      * @return array
+     * @throws ServiceParameterNotFoundInConfigException
      */
     private function getArgs(\ReflectionMethod $constructor, ServiceConfig $serviceConfig = null) {
         $params = $constructor->getParameters();
@@ -125,6 +127,9 @@ class Container {
                 if($hintedClass->isInterface()) {
                     //The parameter is an interface; we need to load concrete class from serviceConfig
                     $className = $serviceConfig->getParameterByPosition($pos);
+                    if(empty($className)) {
+                        throw new ServiceParameterNotFoundInConfigException($pos, $param);
+                    }
                 } else {
                     //the parameter is a class we need the name to load it
                     $className = $hintedClass->getName();
