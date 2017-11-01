@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use taurus\Application;
+use legaltech\Application;
 
 (new Application)
     ->boot()

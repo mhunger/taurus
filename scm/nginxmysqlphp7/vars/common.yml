@@ -1,7 +1,6 @@
 ---
     php_ppa: php
     doc_root: "/var/www/{{ hostname }}"
-    sys_packages: ["git","imagemagick"]
     dist: precise
     appname: "{{ appname }}"
     ip: "{{ ip }}"
