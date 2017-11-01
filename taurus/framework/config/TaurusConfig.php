@@ -104,10 +104,15 @@ class TaurusConfig implements Config
     private $authUserSpecification = UserAuthTestSpecification::class;
 
     /** @var array */
-    private $publicResources = [];
+    private $publicResources = [
+        '/api/users',
+        '/api/exercises',
+        '/api/exercise',
+        '/api/exercisesByDateAndLocation'
+    ];
 
     /** @var bool */
-    private $auth = false;
+    private $auth = true;
 
 
 

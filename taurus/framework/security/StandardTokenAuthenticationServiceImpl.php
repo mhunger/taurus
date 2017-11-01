@@ -77,6 +77,10 @@ class StandardTokenAuthenticationServiceImpl implements AuthenticationService
         ) {
             $tokenValue = $request->getHeader($this->taurusConfig->getConfig(TaurusConfig::TAURUS_CONFIG_TOKEN_NAME));
 
+            if(empty($tokenValue)) {
+                throw new Http401UnauthorisedException('Token missing');
+            }
+
             $decodedToken = JWT::decode(
                 $tokenValue,
                 $this->taurusConfig->getConfig(TaurusConfig::TAURUS_CONFIG_SECRET_KEY),
