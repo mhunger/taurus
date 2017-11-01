@@ -12,3 +12,4 @@ taurus/framework/http/HttpPostRequest.php
 taurus/tests/mock/
 /web/node_modules
 /vendor/
+/scm/
