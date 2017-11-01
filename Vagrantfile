@@ -42,7 +42,6 @@ Vagrant.configure("2") do |config|
 
     config.vm.provision "ansible" do |ansible|
         ansible.playbook = "scm/nginxmysqlphp7/playbook.yml"
-        ansible.inventory_path = "scm/nginxmysqlphp7/inventories/dev"
         ansible.limit = 'all'
         ansible.extra_vars = {
             private_interface: $ip,
@@ -70,5 +69,5 @@ Vagrant.configure("2") do |config|
         end
       end
 
-    config.vm.synced_folder ".", "/var/www/" + $app, :nfs => true
+    config.vm.synced_folder ".", "/var/www/" + $host, :nfs => true
 end
