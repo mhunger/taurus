@@ -100,7 +100,7 @@ class StandardTokenAuthenticationServiceImpl implements AuthenticationService
      */
     private function authenticateUsernameAndPassword(Request $request): bool
     {
-        $authenticatedUser = $this->baseRepository->findBySpecification(
+        $authenticatedUsers = $this->baseRepository->findBySpecification(
             $this->specificationBuilder->build(
                 $request,
                 $this->taurusConfig->getConfig(TaurusConfig::TAURUS_AUTH_USER_QUERY_SPECIFICATION)
@@ -108,15 +108,26 @@ class StandardTokenAuthenticationServiceImpl implements AuthenticationService
             $this->taurusConfig->getConfig(TaurusConfig::TAURUS_AUTH_USER_ENTITY)
         );
 
-        if(empty($authenticatedUser) || sizeof($authenticatedUser) > 1) {
+        if(empty($authenticatedUsers) || sizeof($authenticatedUsers) > 1) {
             throw new Http401UnauthorisedException('Username and Password unauthorised');
         }
 
-        $this->token->setData($authenticatedUser[0]);
+        /** @var AuthenticationResource $authenticatedUser */
+        $authenticatedUser = $authenticatedUsers[0];
+
+        if (!password_verify(
+                $request->getBodyParamByName($this->taurusConfig->getPasswordParameter()),
+                $authenticatedUser->getPassword()
+            )
+        ) {
+            throw new Http401UnauthorisedException('Unauthorised User');
+        }
+
+        $this->token->setData($authenticatedUser);
 
         $this->token->setEncodedTokenString(
             JWT::encode(
-                $authenticatedUser[0],
+                $authenticatedUser,
                 $this->taurusConfig->getConfig(TaurusConfig::TAURUS_CONFIG_SECRET_KEY)
             )
         );

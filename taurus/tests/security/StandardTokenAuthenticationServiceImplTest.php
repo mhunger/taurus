@@ -57,9 +57,9 @@ class StandardTokenAuthenticationServiceImplTest extends AbstractTaurusDatabaseT
 
         $this->assertEquals(
             new StandardTokenImpl(
-                $this->buildUser(1, 'mike', 'mike123'),
+                $this->buildUser(1, 'mike', '$2y$12$uSMt.tn4X2TF0Z24/gYDuejZ97Vn37qNTXRwTQFlAed35MIbFUlDm'),
                 JWT::encode(
-                    $this->buildUser(1, 'mike', 'mike123'),
+                    $this->buildUser(1, 'mike', '$2y$12$uSMt.tn4X2TF0Z24/gYDuejZ97Vn37qNTXRwTQFlAed35MIbFUlDm'),
                     Container::getInstance()->getService(TaurusContainerConfig::SERVICE_TAURUS_CONFIG)
                         ->getConfig(TaurusConfig::TAURUS_CONFIG_SECRET_KEY)
                 )),

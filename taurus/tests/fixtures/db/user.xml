@@ -22,13 +22,13 @@
             <row>
                 <field name="id_user">1</field>
                 <field name="username">mike</field>
-                <field name="password">mike123</field>
+                <field name="password">$2y$12$uSMt.tn4X2TF0Z24/gYDuejZ97Vn37qNTXRwTQFlAed35MIbFUlDm</field>
             </row>
 
             <row>
                 <field name="id_user">2</field>
                 <field name="username">test</field>
-                <field name="password">test123</field>
+                <field name="password">$2y$12$h38QV1avMPH/6nmUjvVYK.k1G.RVuwoS.Lha3tTYyoBAwUaj1ff46</field>
             </row>
 
         </table_data>

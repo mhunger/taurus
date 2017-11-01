@@ -38,6 +38,10 @@ class TaurusConfig implements Config
 
     const TAURUS_AUTH_USER_QUERY_SPECIFICATION = 'auth_user_specification';
 
+    const TAURUS_AUTH_PUBLIC_RESOURCES = 'auth_pub_res';
+
+    const TAURUS_AUTH_STATUS = 'auth_status';
+
 
     /**
      * This is the key used for the self-signed token
@@ -99,6 +103,14 @@ class TaurusConfig implements Config
      */
     private $authUserSpecification = UserAuthTestSpecification::class;
 
+    /** @var array */
+    private $publicResources = [];
+
+    /** @var bool */
+    private $auth = false;
+
+
+
     /**
      * @param string $name
      * @return mixed
@@ -133,6 +145,13 @@ class TaurusConfig implements Config
             case self::TAURUS_AUTH_USER_QUERY_SPECIFICATION:
                 return $this->getAuthUserSpecification();
                 break;
+            case self::TAURUS_AUTH_PUBLIC_RESOURCES:
+                return $this->getPublicResources();
+                break;
+            case self::TAURUS_AUTH_STATUS:
+                return $this->isAuth();
+                break;
+
             default:
                 return null;
         }
@@ -210,4 +229,19 @@ class TaurusConfig implements Config
         return $this->authUserSpecification;
     }
 
+    /**
+     * @return array
+     */
+    public function getPublicResources(): array
+    {
+        return $this->publicResources;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAuth(): bool
+    {
+        return $this->auth;
+    }
 }

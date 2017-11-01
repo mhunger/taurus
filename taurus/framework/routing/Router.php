@@ -71,13 +71,7 @@ class Router
         $url = $request->getUrl();
         $method = $request->getMethod();
 
-        if($this->taurusConfig->getConfig(TaurusConfig::TAURUS_CONFIG_AUTHENTICATION_URL
-            == $url)) {
-
-            /** @var Token $token */
-            $token = $this->authenticate($request);
-        }
-
+        $this->authenticate($request);
 
         try {
             $controller = $this->routeConfig->getRoute($method, $url);
@@ -119,8 +113,15 @@ class Router
      */
     private function authenticate(Request $request): Token
     {
-        /** @var StandardTokenAuthenticationServiceImpl $authenticationService */
-        return $this->authenticationService->authenticate($request);
+
+        if(!in_array($request->getUrl(), $this->taurusConfig->getConfig(TaurusConfig::TAURUS_AUTH_PUBLIC_RESOURCES))
+            && $this->taurusConfig->getConfig(TaurusConfig::TAURUS_AUTH_STATUS) == true) {
+
+            /** @var StandardTokenAuthenticationServiceImpl $authenticationService */
+            return $this->authenticationService->authenticate($request);
+        }
+
+        return $this->token;
     }
 
     /**

@@ -9,7 +9,7 @@
 namespace taurus\tests\testmodel;
 
 use taurus\framework\db\Entity;
-
+use taurus\framework\security\AuthenticationResource;
 
 /**
  * Class User
@@ -17,7 +17,7 @@ use taurus\framework\db\Entity;
  *
  * @Entity(table="user")
  */
-class User implements Entity
+class User implements Entity, AuthenticationResource
 {
     const USER_TABLE_NAME = 'user';
 

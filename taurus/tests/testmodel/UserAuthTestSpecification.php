@@ -22,21 +22,12 @@ class UserAuthTestSpecification implements Specification
     private $username;
 
     /**
-     * @var string
-     *
-     * @Spec(column="password", type="string")
-     */
-    private $password;
-
-    /**
      * UserAuthTestSpecification constructor.
      * @param string $username
-     * @param string $password
      */
-    public function __construct(string $username = null, string $password = null)
+    public function __construct(string $username = null)
     {
         $this->username = $username;
-        $this->password = $password;
     }
 
     /**
@@ -61,21 +52,5 @@ class UserAuthTestSpecification implements Specification
     public function setUsername(string $username)
     {
         $this->username = $username;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function setPassword(string $password)
-    {
-        $this->password = $password;
     }
 }
