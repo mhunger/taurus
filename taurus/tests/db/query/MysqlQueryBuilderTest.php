@@ -59,7 +59,7 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
     public function testSimpleQueryWithFieldsAndDb()
     {
         $this->assertEquals(
-            'SELECT `id`, `date` FROM `fitnessmanager`.`workout`',
+            'SELECT `fitnessmanager`.`workout`.`id`, `fitnessmanager`.`workout`.`date` FROM `fitnessmanager`.`workout`',
             $this->mysqlQueryStringBuilder
                 ->getSelectQueryString(
                     $this->queryBuilder
@@ -149,7 +149,7 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
     public function testSimpleJoin()
     {
         $this->assertEquals(
-            'SELECT `id`, `date` FROM `fitnessmanager`.`workout` LEFT JOIN `workout_location` ON `workout_location`.`id` = `workout`.`workout_location_id`',
+            'SELECT `fitnessmanager`.`workout`.`id`, `fitnessmanager`.`workout`.`date` FROM `fitnessmanager`.`workout` LEFT JOIN `workout_location` ON `workout_location`.`id` = `workout`.`workout_location_id`',
             $this->mysqlQueryStringBuilder
                 ->getSelectQueryString(
                     $this->queryBuilder
