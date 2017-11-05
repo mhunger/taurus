@@ -1,12 +1,1 @@
-[
-  {
-    "id": 1,
-    "username": "mike",
-    "password": "$2y$12$uSMt.tn4X2TF0Z24\/gYDuejZ97Vn37qNTXRwTQFlAed35MIbFUlDm"
-  },
-  {
-    "id": 2,
-    "username": "test",
-    "password": "$2y$12$h38QV1avMPH\/6nmUjvVYK.k1G.RVuwoS.Lha3tTYyoBAwUaj1ff46"
-  }
-]
+[{"id":1,"username":"mike","password":"$2y$12$uSMt.tn4X2TF0Z24\/gYDuejZ97Vn37qNTXRwTQFlAed35MIbFUlDm"},{"id":2,"username":"test","password":"$2y$12$h38QV1avMPH\/6nmUjvVYK.k1G.RVuwoS.Lha3tTYyoBAwUaj1ff46"}]

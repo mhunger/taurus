@@ -49,4 +49,27 @@ class AuthenticationLoginTest extends AbstractTaurusDatabaseTest
             'Could not get all users to further test authentication'
         );
     }
+
+    public function testTokenInRequest()
+    {
+        $token = $this->login();
+
+        /** @var MockServer $mockServer */
+        $mockServer = Container::getInstance()
+            ->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
+
+        $actualResponse = $mockServer->get(
+            '/api/user',
+            'GET',
+            ['id' => 1],
+            [],
+            ['x-token' => $token->getEncodedTokenString()]
+        );
+
+        $this->compareResultToFixture(
+            $actualResponse,
+            __FUNCTION__,
+            'Could not authenticate user'
+        );
+    }
 }
