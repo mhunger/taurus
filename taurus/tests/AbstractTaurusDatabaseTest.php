@@ -15,6 +15,10 @@ use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\exception\JsonResultsFileNotFoundException;
+use taurus\framework\mock\MockRequest;
+use taurus\framework\routing\Request;
+use taurus\framework\security\StandardTokenAuthenticationServiceImpl;
+use taurus\framework\security\Token;
 
 /**
  * Class AbstractTaurusDatabaseTest
@@ -22,6 +26,8 @@ use taurus\framework\exception\JsonResultsFileNotFoundException;
  */
 abstract class AbstractTaurusDatabaseTest extends AbstractDatabaseTest
 {
+    /** @var StandardTokenAuthenticationServiceImpl */
+    protected $authenticationService;
 
     /** @var array */
     protected $fixtureFiles = [];
@@ -47,6 +53,27 @@ abstract class AbstractTaurusDatabaseTest extends AbstractDatabaseTest
             ->merge(new TestContainerConfig());
         Container::getInstance()->setContainerConfig($config);
 
+        $this->authenticationService = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_STANDARD_AUTHENTICATION_SERVICE);
+
         parent::setUp();
+    }
+
+
+    /**
+     * @return Token
+     */
+    protected function login(): Token
+    {
+        /** @var MockRequest $mockRequest */
+        $mockRequest = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_REQUEST);
+        $mockRequest->setInputBody(
+            [
+                'username' => 'mike',
+                'password' => 'mike123'
+            ]
+        )->setUrl('/user/login')
+            ->setMethod(Request::HTTP_POST);
+
+        return $this->authenticationService->authenticate($mockRequest);
     }
 }

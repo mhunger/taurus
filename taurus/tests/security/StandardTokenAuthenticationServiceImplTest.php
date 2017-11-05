@@ -24,14 +24,10 @@ use taurus\tests\testmodel\User;
 
 class StandardTokenAuthenticationServiceImplTest extends AbstractTaurusDatabaseTest
 {
-    /** @var StandardTokenAuthenticationServiceImpl */
-    private $authenticationService;
 
     public function setUp()
     {
         parent::setUp();
-
-        $this->authenticationService = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_STANDARD_AUTHENTICATION_SERVICE);
     }
 
     /**
@@ -44,6 +40,9 @@ class StandardTokenAuthenticationServiceImplTest extends AbstractTaurusDatabaseT
         ];
     }
 
+    /**
+     *
+     */
     public function testUsernamePasswordAuthentication()
     {
         $this->assertEquals(
@@ -59,6 +58,9 @@ class StandardTokenAuthenticationServiceImplTest extends AbstractTaurusDatabaseT
         );
     }
 
+    /**
+     *
+     */
     public function testTokenAuthentication()
     {
 
@@ -75,8 +77,6 @@ class StandardTokenAuthenticationServiceImplTest extends AbstractTaurusDatabaseT
             $this->authenticationService->authenticate($mockRequest),
             'Could not verify token successful.'
         );
-
-
     }
 
     /**
@@ -90,20 +90,5 @@ class StandardTokenAuthenticationServiceImplTest extends AbstractTaurusDatabaseT
         return (new User())->setId($id)
             ->setUsername($user)
             ->setPassword($pw);
-    }
-
-    private function login(): Token
-    {
-        /** @var MockRequest $mockRequest */
-        $mockRequest = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_REQUEST);
-        $mockRequest->setInputBody(
-            [
-                'username' => 'mike',
-                'password' => 'mike123'
-            ]
-        )->setUrl('/user/login')
-            ->setMethod(Request::HTTP_POST);
-
-        return $this->authenticationService->authenticate($mockRequest);
     }
 }
