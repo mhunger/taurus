@@ -36,6 +36,13 @@ class TestEntity implements Entity
     public $testField;
 
     /**
+     * @var string
+     * @PasswordHash(algo="PASSWORD_BCRYPT", cost="12")
+     */
+    public $password;
+
+
+    /**
      * @return int
      */
     public function getIdTestField()
@@ -65,5 +72,13 @@ class TestEntity implements Entity
     public function setTestField($testField)
     {
         $this->testField = $testField;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
     }
 }

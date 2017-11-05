@@ -37,13 +37,14 @@ class User implements Entity, AuthenticationResource
     /**
      * @var string
      * @Column(name="password")
+     * @PasswordHash(algo="PASSWORD_BCRYPT", cost="12")
      */
     public $password;
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }

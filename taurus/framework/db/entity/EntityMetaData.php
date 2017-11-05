@@ -8,12 +8,15 @@
 
 namespace taurus\framework\db\entity;
 
+use taurus\framework\annotation\InputProcessor;
+
 
 /**
  * Class EntityMetaData
  * @package taurus\framework\db
  */
-class EntityMetaData {
+class EntityMetaData
+{
 
     /**
      * @var string
@@ -37,6 +40,9 @@ class EntityMetaData {
     /** @var array */
     private $jsonTypes;
 
+    /** @var array */
+    private $inputProcessors;
+
     /**
      * EntityMetaData constructor.
      * @param $id
@@ -45,9 +51,17 @@ class EntityMetaData {
      * @param array|null $relationships
      * @param string $idProperty
      * @param array $jsonTypes
+     * @param array $inputProcessors
      */
-    function __construct($id, $table, array $columns, array $relationships = null, string $idProperty, array $jsonTypes)
-    {
+    function __construct(
+        $id,
+        $table,
+        array $columns,
+        array $relationships = null,
+        string $idProperty,
+        array $jsonTypes,
+        array $inputProcessors
+    ) {
         ksort($columns);
         $this->columns = $columns;
         $this->idDbField = $id;
@@ -55,6 +69,7 @@ class EntityMetaData {
         $this->relationships = $relationships;
         $this->idProperty = $idProperty;
         $this->jsonTypes = $jsonTypes;
+        $this->inputProcessors = $inputProcessors;
     }
 
     /**
@@ -103,5 +118,17 @@ class EntityMetaData {
     public function getJsonTypes(): array
     {
         return $this->jsonTypes;
+    }
+
+    /**
+     * @param string $property
+     * @return array|InputProcessor
+     */
+    public function getInputProcessors(string $property)
+    {
+        if (isset($this->inputProcessors[$property])) {
+            return $this->inputProcessors[$property];
+        }
+        return null;
     }
 }

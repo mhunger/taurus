@@ -80,7 +80,7 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
     /**
      * Returns the table column names as an array
      *
-     * @param Entity $class
+     * @param string|Entity $class
      * @return array
      */
     public function getColumns(string $class)
@@ -240,5 +240,17 @@ class EntityMetaDataImpl implements EntityMetaDataWrapper
         return $this->entityMetaDataStore
             ->getEntityMetaData($class)
             ->getJsonTypes();
+    }
+
+    /**
+     * @param string $class
+     * @param string $property
+     * @return array
+     */
+    public function getInputProcessors(string $class, string $property)
+    {
+        return $this->entityMetaDataStore
+            ->getEntityMetaData($class)
+            ->getInputProcessors($property);
     }
 }

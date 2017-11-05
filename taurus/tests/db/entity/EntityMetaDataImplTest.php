@@ -11,6 +11,7 @@ namespace taurus\tests\db\entity;
 
 use PHPUnit\Framework\TestCase;
 use taurus\framework\annotation\Json;
+use taurus\framework\annotation\PasswordHash;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\db\entity\EntityMetaDataImpl;
@@ -79,6 +80,17 @@ class EntityMetaDataImplTest extends AbstractTaurusTest
             $expectedResult,
             $this->entityMetaDataImpl->getJsonTypes(TestEntity::class),
             'Did not get correct Json Types for TestEntity class'
+        );
+    }
+
+    public function testGetInputProcessors()
+    {
+        $expectedResult = new PasswordHash('password', 'PASSWORD_BCRYPT', '12');
+
+        $this->assertEquals(
+            $expectedResult,
+            $this->entityMetaDataImpl->getInputProcessors(TestEntity::class, 'password'),
+            'Could not get Input Processors Correctly'
         );
     }
 }

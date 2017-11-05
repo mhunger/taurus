@@ -14,6 +14,7 @@ use taurus\framework\annotation\AbstractAnnotation;
 use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\annotation\Entity;
 use taurus\framework\annotation\Json;
+use taurus\framework\annotation\PasswordHash;
 use taurus\framework\error\EntityMetaDataMissingException;
 
 class EntityMetaDataStore
@@ -70,6 +71,7 @@ class EntityMetaDataStore
 
         $columns = [];
         $jsonTypes = [];
+        $inputProcessors = [];
 
         foreach ($propertyAnnotations as $property => $annotations) {
             if (isset($annotations[self::ENTITY_ANNOTATION_COLUMN])) {
@@ -85,6 +87,10 @@ class EntityMetaDataStore
                 $jsonTypes[$property] = $annotations[Json::ANNOTATION_NAME];
             }
 
+            if (isset($annotations[PasswordHash::ANNOTATION_NAME_PASSWORD_HASH])) {
+                $inputProcessors[$property] = $annotations[PasswordHash::ANNOTATION_NAME_PASSWORD_HASH];
+            }
+
         }
 
         /** get the table from entity annotations */
@@ -97,7 +103,8 @@ class EntityMetaDataStore
             throw new EntityMetaDataMissingException();
         }
 
-        $this->cacheEntityMetaData($class, $idFieldName, $table, $columns, $relationships, $idProperty, $jsonTypes);
+        $this->cacheEntityMetaData($class, $idFieldName, $table, $columns, $relationships, $idProperty, $jsonTypes,
+            $inputProcessors);
     }
 
     /**
@@ -108,6 +115,7 @@ class EntityMetaDataStore
      * @param array $relationships
      * @param string $idProperty
      * @param array $jsonTypes
+     * @param array $inputProcessors
      */
     private function cacheEntityMetaData(
         string $class,
@@ -116,9 +124,11 @@ class EntityMetaDataStore
         array $columns,
         array $relationships = [],
         string $idProperty,
-        array $jsonTypes = []
+        array $jsonTypes = [],
+        array $inputProcessors = []
     ) {
-        $this->entityMetaDataStore[$class] = new EntityMetaData($idFieldName, $tableName, $columns, $relationships, $idProperty, $jsonTypes);
+        $this->entityMetaDataStore[$class] = new EntityMetaData($idFieldName, $tableName, $columns, $relationships,
+            $idProperty, $jsonTypes, $inputProcessors);
     }
 
     /**
@@ -170,10 +180,5 @@ class EntityMetaDataStore
         }
 
         return $relationships;
-    }
-
-    public function getJsonTypes()
-    {
-
     }
 }

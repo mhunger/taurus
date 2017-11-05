@@ -8,8 +8,10 @@
 
 namespace taurus\framework\db\entity;
 
+use taurus\framework\annotation\InputProcessor;
 use taurus\framework\annotation\OneToMany;
 use taurus\framework\annotation\OneToOne;
+use taurus\framework\annotation\PasswordHash;
 use taurus\framework\db\DbConnection;
 use taurus\framework\db\Entity;
 use taurus\framework\db\EntityBuilder;
@@ -290,8 +292,26 @@ class DatabaseManager implements EntityAccessLayer
 
         $input = [];
         foreach ($requestInput as $propertyName => $value) {
-            $input[$columnMap[$propertyName]] = $value;
+            $input[$columnMap[$propertyName]] = $this->processInputData($class, $columnMap[$propertyName], $value);
         }
         return $input;
+    }
+
+    /**
+     * @param string $class
+     * @param string $propertyName
+     * @param $value
+     * @return bool|string
+     */
+    private function processInputData(string $class, string $propertyName, $value)
+    {
+        /** @var PasswordHash $passwordHashAnnotation */
+        $passwordHashAnnotation = $this->entityMetaDataImpl->getInputProcessors($class, $propertyName);
+
+        if($passwordHashAnnotation !== null && $passwordHashAnnotation instanceof InputProcessor) {
+            return $passwordHashAnnotation->apply($value);
+        }
+
+        return $value;
     }
 }
