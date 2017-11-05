@@ -71,9 +71,8 @@ class Router
         $url = $request->getUrl();
         $method = $request->getMethod();
 
-        $this->authenticate($request);
-
         try {
+            $this->authenticate($request);
             $controller = $this->routeConfig->getRoute($method, $url);
             $body = $controller->handleRequest($request);
 
@@ -109,6 +108,7 @@ class Router
             if(!$this->isTestEnvironment()) {
                 (new HttpJsonResponse(401, $e->getMessage()))->send();
             }
+            throw $e;
         } catch (\Exception $ex) {
             if (!$this->isTestEnvironment()) {
                 (new HttpJsonResponse(500, $ex->getMessage()))->send();
@@ -134,6 +134,9 @@ class Router
         return $this->token;
     }
 
+    /**
+     * @return array
+     */
     private function addToken(): array
     {
         if($this->token->isAuthenticated()) {
