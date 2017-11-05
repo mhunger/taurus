@@ -77,9 +77,19 @@ class MockRequest extends Request {
      * @param string $value
      * @return MockRequest
      */
-    public function setHeader(string $name, string $value): MockRequest
+    public function addHeader(string $name, string $value): MockRequest
     {
         $this->server[self::HTTP_HEADER_PREFIX . strtoupper(str_replace('-', '_', $name))] = $value;
         return $this;
+    }
+
+    /**
+     * @param array $headers
+     */
+    public function setHeader(array $headers)
+    {
+        foreach($headers as $name => $value) {
+            $this->addHeader($name, $value);
+        }
     }
 }

@@ -68,7 +68,7 @@ class StandardTokenAuthenticationServiceImplTest extends AbstractTaurusDatabaseT
 
         /** @var MockRequest $mockRequest */
         $mockRequest = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_REQUEST);
-        $mockRequest->setHeader('x-token',  $token->getEncodedTokenString())
+        $mockRequest->addHeader('x-token',  $token->getEncodedTokenString())
             ->setUrl('/api/user?id=1')
             ->setMethod(Request::HTTP_GET);
 
