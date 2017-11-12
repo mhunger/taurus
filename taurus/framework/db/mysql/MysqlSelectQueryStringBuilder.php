@@ -29,6 +29,10 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
 
     const MYSQL_KEYWORD_FROM = 'FROM';
 
+    const MYSQL_KEYWORD_LIMIT = 'LIMIT';
+
+    const MYSQL_KEYWORD_OFFSET = 'OFFSET';
+
     /**
      * @var MysqlUtils
      */
@@ -43,6 +47,10 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         $this->utils = $utils;
     }
 
+    /**
+     * @param SelectQuery $selectQuery
+     * @return string
+     */
     public function getSelectQueryString(SelectQuery $selectQuery)
     {
         $tokens = [];
@@ -52,10 +60,16 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         $tokens[] = $this->getStore($selectQuery);
         $tokens = $this->addJoinStatements($selectQuery, $tokens);
         $tokens = $this->addFilterCriteriaToTokens($selectQuery, $tokens);
+        $tokens = $this->getLimitAndOffset($selectQuery, $tokens);
 
         return implode(' ', $tokens);
     }
 
+    /**
+     * @param SelectQuery $selectQuery
+     * @param array $tokens
+     * @return array
+     */
     private function addJoinStatements(SelectQuery $selectQuery, array $tokens): array
     {
         $joins = $selectQuery->getJoin();
@@ -73,6 +87,10 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         return $tokens;
     }
 
+    /**
+     * @param $token
+     * @return string
+     */
     private function addMysqlTicks($token): string
     {
         return '`' . $token . '`';
@@ -187,5 +205,52 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         }
 
         return $expression->getValue();
+    }
+
+    /**
+     * @param SelectQuery $selectQuery
+     * @return int|null
+     */
+    private function getLimit(SelectQuery $selectQuery): ?int
+    {
+        return $selectQuery->getLimit();
+    }
+
+    /**
+     * @param SelectQuery $selectQuery
+     * @return int
+     */
+    private function getOffset(SelectQuery $selectQuery): int
+    {
+        if($selectQuery->getOffset() === null) {
+            return 0;
+        }
+
+        return $selectQuery->getOffset();
+    }
+
+    /**
+     * @param SelectQuery $selectQuery
+     * @param array $tokens
+     * @return array
+     */
+    private function getLimitAndOffset(SelectQuery $selectQuery, array $tokens): array
+    {
+        $limit = $this->getLimit($selectQuery);
+        $offset = $this->getOffset($selectQuery);
+
+        if($limit === null) {
+            return $tokens;
+        }
+
+        $tokens[] = self::MYSQL_KEYWORD_LIMIT;
+        $tokens[] = $limit;
+
+        if($offset >= 0) {
+            $tokens[] = self::MYSQL_KEYWORD_OFFSET;
+            $tokens[] = $offset;
+        }
+
+        return $tokens;
     }
 }
