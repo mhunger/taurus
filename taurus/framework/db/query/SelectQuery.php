@@ -56,7 +56,7 @@ class SelectQuery implements Query
      * @param array $fields
      * @return SelectQuery
      */
-    public function select(array $fields = null)
+    public function select(array $fields = null): SelectQuery
     {
         $this->fields = $fields;
 
@@ -66,9 +66,9 @@ class SelectQuery implements Query
     /**
      * @param string $table
      * @param string|null $db
-     * @return $this
+     * @return SelectQuery
      */
-    public function from(string $table, string $db = null)
+    public function from(string $table, string $db = null): SelectQuery
     {
         $this->table = $table;
         $this->db = $db;
@@ -97,9 +97,9 @@ class SelectQuery implements Query
 
     /**
      * @param MultiPartExpression $multiPartExpression
-     * @return $this
+     * @return SelectQuery
      */
-    public function where(MultiPartExpression $multiPartExpression)
+    public function where(MultiPartExpression $multiPartExpression): SelectQuery
     {
         $this->where = $multiPartExpression;
 
@@ -117,19 +117,24 @@ class SelectQuery implements Query
     /**
      * @param $offset
      * @param $limit
+     * @return SelectQuery
      */
-    public function limit($offset, $limit)
+    public function limit($offset, $limit): SelectQuery
     {
         $this->limit = $limit;
         $this->offset = $offset;
+
+        return $this;
     }
 
     /**
      * @param array $orderBy
+     * @return SelectQuery
      */
-    public function orderBy(array $orderBy)
+    public function orderBy(array $orderBy): SelectQuery
     {
         $this->orderBy = $orderBy;
+        return $this;
     }
 
     /**
