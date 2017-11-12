@@ -65,6 +65,13 @@ class TaurusInitiatorTest extends AbstractTaurusTest
             );
 
         }
+
+        /** check config file */
+        $this->assertEquals(
+            file_get_contents($appPath . 'config' . DIRECTORY_SEPARATOR . 'testapp.config.yaml'),
+            file_get_contents(self::FIXTURE_PATH . DIRECTORY_SEPARATOR . 'testapp.config.yaml'),
+            'Config template was not correctly copied'
+        );
     }
 
     /**

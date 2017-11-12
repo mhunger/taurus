@@ -7,11 +7,11 @@
  */
 namespace ##app-name##;
 
+use taurus\framework\config\TaurusConfig;
 use ##app-name##\config\##app-container-class##;
 use ##app-name##\config\##app-test-container-class##;
 use taurus\framework\Container;
 use taurus\framework\config\TaurusContainerConfig;
-use taurus\framework\db\entity\DatabaseManager;
 use taurus\framework\Environment;
 use taurus\framework\routing\Router;
 use taurus\framework\routing\Request;
@@ -48,6 +48,9 @@ class Application {
         }
 
         Container::getInstance()->setContainerConfig($config);
+        /** @var TaurusConfig $taurusConfig */
+        $taurusConfig = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_TAURUS_CONFIG);
+        $taurusConfig->loadUserConfigFromYaml(file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config'. DIRECTORY_SEPARATOR . '##app-name##.conf.yaml'));
     }
 
     public function run()

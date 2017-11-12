@@ -12,6 +12,10 @@ namespace bin\tpl;
 use bin\Taurus;
 use const null;
 
+/**
+ * Class TaurusInitiator
+ * @package bin\tpl
+ */
 class TaurusInitiator
 {
     const routetpl = 'routeTpl';
@@ -63,7 +67,10 @@ class TaurusInitiator
         $this->createFiles($appName);
     }
 
-    private function createFiles($appName)
+    /**
+     * @param $appName
+     */
+    private function createFiles(string $appName)
     {
         $data = new ConfigFileTemplateData(
             'api',
@@ -81,7 +88,11 @@ class TaurusInitiator
 
     }
 
-    protected function createApplicationFile($appName, $data)
+    /**
+     * @param string $appName
+     * @param ConfigFileTemplateData $data
+     */
+    protected function createApplicationFile(string $appName, ConfigFileTemplateData $data)
     {
         $appTpl = new TaurusProjectFileTemplate(
             self::TPL_PATH . '/Application.php.tpl',
@@ -120,8 +131,18 @@ class TaurusInitiator
 
             unset($tpl);
         }
+
+        /** copy config file template */
+        copy(
+            self::TPL_PATH . DIRECTORY_SEPARATOR . 'appconfig.config.yaml',
+            $this->getAppPath($appName) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . $appName . '.config.yaml'
+        );
+
     }
 
+    /**
+     * @param string $appName
+     */
     private function createDirectories(string $appName)
     {
         Taurus::info( 'trying to create dir', $this->path . '/' . $appName);
@@ -137,14 +158,28 @@ class TaurusInitiator
         }
     }
 
+    /**
+     * @param string $appName
+     * @return string
+     */
     private function getAppPath(string $appName) {
         return $this->path . '/' . $appName;
     }
 
+    /**
+     * @param string $appName
+     * @param string $type
+     * @return string
+     */
     private function getConfigPath(string $appName, string $type) {
         return $this->getAppPath($appName) . '/config/' . $this->getConfigClassName($appName, $type) . '.php';
     }
 
+    /**
+     * @param string $appName
+     * @param string $type
+     * @return string
+     */
     private function getConfigClassName(string $appName, string $type) {
         return ucfirst($appName) . ucfirst($type) . 'Config';
     }
