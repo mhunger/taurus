@@ -190,5 +190,12 @@ class TaurusContainerConfig extends AbstractContainerConfig {
                     null,
                     StandardTokenImpl::class
                 ]);
+
+        $this->serviceDefinitions[self::SERVICE_TAURUS_CONFIG] =
+            new ServiceConfig(self::SERVICE_TAURUS_CONFIG,
+                'taurus_config',
+                [],
+                true
+            );
     }
 }
