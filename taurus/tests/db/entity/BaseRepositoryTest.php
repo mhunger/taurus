@@ -54,7 +54,7 @@ class BaseRepositoryTest extends AbstractTaurusDatabaseTest
     public function testInsert()
     {
         $expectedEntity = (new Exercise())
-            ->setId(5)
+            ->setId(6)
             ->setName('Reverse Push-Up')
             ->setDifficulty('medium')
             ->setVariantName('Two-Bars')
@@ -73,7 +73,7 @@ class BaseRepositoryTest extends AbstractTaurusDatabaseTest
         $actualResponse = $mockServer->get(
             '/api/exercise',
             'GET',
-            ['id' => 5]
+            ['id' => 6]
         );
 
         $this->compareResultToFixture(

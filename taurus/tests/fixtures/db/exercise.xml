@@ -18,6 +18,14 @@
                 <field name="exercise_group_id">2</field>
                 <field name="workout_location_id">1</field>
             </row>
+            <row>
+                <field name="exercise_id">5</field>
+                <field name="name">Push-Ups</field>
+                <field name="difficulty">medium</field>
+                <field name="variant_name">Wide Arms</field>
+                <field name="exercise_group_id">2</field>
+                <field name="workout_location_id">1</field>
+            </row>
         </table_data>
     </database>
 </mysqldump>
