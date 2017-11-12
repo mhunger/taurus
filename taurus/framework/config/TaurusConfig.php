@@ -42,6 +42,12 @@ class TaurusConfig implements Config
 
     const TAURUS_AUTH_STATUS = 'auth_status';
 
+    const TAURUS_DEFAULT_PAGE_SIZE = 'default_page_size';
+
+    const TAURUS_PAGE_SIZE_PARAM_NAME = 'page_size_param_name';
+
+    const TAURUS_PAGE_PARAM_NAME = 'page_param_name';
+
 
     /**
      * This is the key used for the self-signed token
@@ -103,6 +109,15 @@ class TaurusConfig implements Config
      */
     private $authUserSpecification = UserAuthTestSpecification::class;
 
+    /** @var int */
+    private $defaultPageSize = 20;
+
+    /** @var string */
+    private $defaultPageSizeParamName = 'pageSize';
+
+    /** @var string */
+    private $defaultPageParamName = 'page';
+
     /** @var array */
     private $publicResources = [
         '/api/users',
@@ -113,7 +128,6 @@ class TaurusConfig implements Config
 
     /** @var bool */
     private $auth = true;
-
 
 
     /**
@@ -156,7 +170,15 @@ class TaurusConfig implements Config
             case self::TAURUS_AUTH_STATUS:
                 return $this->isAuth();
                 break;
-
+            case self::TAURUS_DEFAULT_PAGE_SIZE:
+                return $this->getDefaultPageSize();
+                break;
+            case self::TAURUS_PAGE_SIZE_PARAM_NAME:
+                return $this->getDefaultPageParamName();
+                break;
+            case self::TAURUS_PAGE_PARAM_NAME:
+                return $this->getDefaultPageParamName();
+                break;
             default:
                 return null;
         }
@@ -248,5 +270,29 @@ class TaurusConfig implements Config
     public function isAuth(): bool
     {
         return $this->auth;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDefaultPageSize(): int
+    {
+        return $this->defaultPageSize;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultPageSizeParamName(): string
+    {
+        return $this->defaultPageSizeParamName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultPageParamName(): string
+    {
+        return $this->defaultPageParamName;
     }
 }
