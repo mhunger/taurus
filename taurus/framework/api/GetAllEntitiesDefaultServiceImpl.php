@@ -21,7 +21,7 @@ class GetAllEntitiesDefaultServiceImpl implements GetAllEntitiesService
     /** @var string */
     private $entityClass;
 
-    public function __construct(BaseRepository $baseRepository, TaurusConfig $taurusConfig)
+    public function __construct(BaseRepository $baseRepository)
     {
         $this->baseRepo = $baseRepository;
     }
