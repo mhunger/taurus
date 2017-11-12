@@ -33,7 +33,6 @@ class TestContainerConfig extends AbstractContainerConfig {
     const SERVICE_TEST_LITERALS_IN_DEPENDENCY = LoadDependenciesWithParamsInDependency::class;
     const SERVICE_ENVIRONMENT = Environment::class;
     const SERVICE_MYSQL_CONNECTION = MySqlConnection::class;
-    const SERVICE_GET_WORKOUTS_CONTROLLER = GetAllWorkoutsController::class;
     const SERVICE_TEST_SINGLETON = TestSingleton::class;
 
     /**

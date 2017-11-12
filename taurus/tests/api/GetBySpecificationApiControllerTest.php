@@ -53,4 +53,29 @@ class GetBySpecificationApiControllerTest extends AbstractTaurusDatabaseTest
         );
 
     }
+
+    public function testGetBySpecificationWithPagination()
+    {
+        /** @var MockServer $mockServer */
+        $mockServer = Container::getInstance()
+            ->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
+
+        $actualResponse = $mockServer->get(
+            '/api/exercisesByDateAndLocation',
+            'GET',
+            [
+                'name' => 'Push-Ups',
+                'difficulty' => 'medium',
+                'page' => 2,
+                'pageSize' => 1
+            ]
+        );
+
+        $this->compareResultToFixture(
+            $actualResponse,
+            __FUNCTION__,
+            'Could not get all resources for exercises through the standard api controller'
+        );
+
+    }
 }

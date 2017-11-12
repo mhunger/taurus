@@ -21,7 +21,8 @@ use taurus\framework\db\query\Specification;
  * Class BaseRepository
  * @package taurus\framework\db\entity
  */
-class BaseRepository {
+class BaseRepository
+{
 
     /** @var QueryBuilder */
     private $qb;
@@ -88,7 +89,7 @@ class BaseRepository {
      * @internal param int $offset
      * @internal param int $limit
      */
-    public function findAll($entityClass, int $page = 0, int $pageSize = null): array
+    public function findAll($entityClass, int $page = 1, int $pageSize = null): array
     {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
             ->select()
@@ -159,15 +160,26 @@ class BaseRepository {
     /**
      * @param Specification $specification
      * @param string $entityClass
+     * @param int $page
+     * @param int $pageSize
      * @return array
      */
-    public function findBySpecification(Specification $specification, string $entityClass): array {
+    public function findBySpecification(
+        Specification $specification,
+        string $entityClass,
+        int $page = 1,
+        int $pageSize = null
+    ): array {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
             ->select()
             ->from($specification->getTable())
             ->where(
                 $this->expressionBuilder->build($specification)
+            )->limit(
+                $this->getOffsetFromPageAndPageSize($page, $pageSize),
+                $pageSize
             );
+
         return $this->entityAccessLayer->fetchMany($q, $entityClass);
     }
 
@@ -176,8 +188,12 @@ class BaseRepository {
      * @param int $pageSize
      * @return int
      */
-    private function getOffsetFromPageAndPageSize(int $page, int $pageSize)
+    private function getOffsetFromPageAndPageSize(int $page, int $pageSize = null)
     {
+        if($pageSize === null) {
+            return 0;
+        }
+
         return ($page - 1) * $pageSize;
     }
 }

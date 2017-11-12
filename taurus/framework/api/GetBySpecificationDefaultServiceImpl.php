@@ -45,7 +45,13 @@ class GetBySpecificationDefaultServiceImpl implements GetBySpecificationService
     public function getResultByRequest(Request $request): array
     {
         $specification = $this->specificiationBuilder->build($request, $this->specificationClass);
-        return $this->baseRepository->findBySpecification($specification, $this->entityClass);
+
+        return $this->baseRepository->findBySpecification(
+            $specification,
+            $this->entityClass,
+            $request->getPage(),
+            $request->getPageSize()
+        );
     }
 
     /**
