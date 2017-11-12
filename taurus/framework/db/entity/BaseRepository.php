@@ -81,14 +81,22 @@ class BaseRepository {
 
     /**
      * @param $entityClass
+     * @param int $page
+     * @param int $pageSize
      * @return array
+     * @internal param $int $
+     * @internal param int $offset
+     * @internal param int $limit
      */
-    public function findAll($entityClass): array
+    public function findAll($entityClass, int $page = 0, int $pageSize = null): array
     {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
             ->select()
             ->from(
                 $this->entityMetaData->getTable($entityClass)
+            )->limit(
+                $this->getOffsetFromPageAndPageSize($page, $pageSize),
+                $pageSize
             );
 
         return $this->entityAccessLayer->fetchMany($q, $entityClass);
@@ -161,5 +169,15 @@ class BaseRepository {
                 $this->expressionBuilder->build($specification)
             );
         return $this->entityAccessLayer->fetchMany($q, $entityClass);
+    }
+
+    /**
+     * @param int $page
+     * @param int $pageSize
+     * @return int
+     */
+    private function getOffsetFromPageAndPageSize(int $page, int $pageSize)
+    {
+        return ($page - 1) * $pageSize;
     }
 }
