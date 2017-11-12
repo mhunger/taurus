@@ -83,7 +83,7 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
         $filePath = dirname(__FILE__) . $this->fixturesJsonResults . basename(str_replace('\\', '/', $class)) . '-' . $method . '.json';
 
         if (is_file($filePath)) {
-            if(getenv('updateResultFiles') == 'true') {
+            if(getenv('updateResultFiles') == 'TRUE') {
 
                 $this->generateFile($filePath, $actualResponse);
             }
