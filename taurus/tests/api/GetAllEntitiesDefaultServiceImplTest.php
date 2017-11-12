@@ -48,6 +48,7 @@ class GetAllEntitiesDefaultServiceImplTest extends AbstractTaurusDatabaseTest
     public function testGetAllEntities()
     {
         $this->markTestSkipped('This is tested implicitly with the test get all entities controller test');
+
         $expectedResult = [
             (new Exercise())->setId(3)->setName('Pull-Up')->setDifficulty('hard')->setVariantName('Chinup')
                 ->setWorkoutLocation(
@@ -71,7 +72,9 @@ class GetAllEntitiesDefaultServiceImplTest extends AbstractTaurusDatabaseTest
 
         $this->assertEquals(
             $expectedResult,
-            $this->service->getAllEntities(),
+            $this->service->getAllEntities(
+                Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_REQUEST)
+            ),
             'Could not load all entities in api default service implementation'
         );
 

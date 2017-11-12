@@ -55,7 +55,7 @@ class SaveEntityControllerTest extends AbstractTaurusDatabaseTest
 
     public function testDefaultSaveEntityController()
     {
-        $mockRequest = (new MockRequest())
+        $mockRequest = (Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_REQUEST))
             ->setMethod('POST')
             ->setUrl('/exercise')
             ->setInputBody([

@@ -57,7 +57,7 @@ class SaveEntityWithInputProcessorTest extends AbstractTaurusDatabaseTest
 
     public function testSaveEntityWithInputProcessor()
     {
-        $mockRequest = (new MockRequest())
+        $mockRequest = (Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_REQUEST))
             ->setMethod('POST')
             ->setUrl('/api/user')
             ->setInputBody([

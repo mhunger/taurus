@@ -9,7 +9,9 @@
 namespace taurus\framework\api;
 
 
+use taurus\framework\config\TaurusConfig;
 use taurus\framework\db\entity\BaseRepository;
+use taurus\framework\routing\Request;
 
 class GetAllEntitiesDefaultServiceImpl implements GetAllEntitiesService
 {
@@ -19,17 +21,22 @@ class GetAllEntitiesDefaultServiceImpl implements GetAllEntitiesService
     /** @var string */
     private $entityClass;
 
-    public function __construct(BaseRepository $baseRepository)
+    public function __construct(BaseRepository $baseRepository, TaurusConfig $taurusConfig)
     {
         $this->baseRepo = $baseRepository;
     }
 
     /**
+     * @param Request $request
      * @return array
      */
-    public function getAllEntities(): array
+    public function getAllEntities(Request $request): array
     {
-        return $this->baseRepo->findAll($this->entityClass);
+
+        return $this->baseRepo->findAll(
+            $this->entityClass,
+            $request->getPage(),
+            $request->getPageSize());
     }
 
     /**

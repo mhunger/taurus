@@ -23,7 +23,7 @@ class GetAllEntitiesApiController implements Controller
      */
     public function handleRequest(Request $request): array
     {
-        return $this->service->getAllEntities();
+        return $this->service->getAllEntities($request);
     }
 
     public function setGetAllEntitiesService(GetAllEntitiesService $getAllEntitiesService)

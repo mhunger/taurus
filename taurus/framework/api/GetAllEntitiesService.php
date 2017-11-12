@@ -9,12 +9,15 @@
 namespace taurus\framework\api;
 
 
+use taurus\framework\routing\Request;
+
 interface GetAllEntitiesService
 {
     /**
+     * @param Request $request
      * @return array
      */
-    public function getAllEntities(): array;
+    public function getAllEntities(Request $request): array;
 
     /**
      * @param string $entityClass
