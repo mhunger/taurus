@@ -13,3 +13,4 @@ taurus/tests/mock/
 /web/node_modules
 /vendor/
 /taurusdev/
+/legaltech/config/
