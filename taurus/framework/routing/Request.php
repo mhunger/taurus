@@ -9,6 +9,8 @@
 namespace taurus\framework\routing;
 
 
+use taurus\framework\config\TaurusConfig;
+
 class Request {
     /**
      *
@@ -31,19 +33,13 @@ class Request {
      */
     const HTTP_HEADER_PREFIX = 'HTTP_';
 
-    /**
-     * @var
-     */
+    /** @var string */
     protected $url;
 
-    /**
-     * @var
-     */
+    /** @var string */
     protected $method;
 
-    /**
-     * @var
-     */
+    /** @var array */
     protected $requestVariables;
 
     /** @var string */
@@ -57,10 +53,19 @@ class Request {
 
     /** @var array */
     private $cookie;
+
+    /** @var TaurusConfig */
+    protected $taurusConfig;
+
+
     /**
-     *
+     * Request constructor.
+     * @param TaurusConfig $taurusConfig
      */
-    public function __construct() {
+    public function __construct(TaurusConfig $taurusConfig)
+    {
+        $this->taurusConfig = $taurusConfig;
+
         $this->server = $_SERVER;
         $this->request = $_REQUEST;
         $this->cookie = $_COOKIE;
@@ -149,7 +154,8 @@ class Request {
     /**
      * @return mixed
      */
-    public function parseUrl() {
+    public function parseUrl()
+    {
         return parse_url($this->server['REQUEST_URI'], PHP_URL_PATH);
     }
 
@@ -187,5 +193,37 @@ class Request {
         }
 
         return null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPage(): int
+    {
+        $pageParamName = $this->taurusConfig->getDefaultPageParamName();
+
+
+        $page = $this->getRequestParamByName($pageParamName);
+
+        if($page === null) {
+            $page = 0;
+        }
+
+        return $page;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPageSize(): int
+    {
+        $pageSizeParamName = $this->taurusConfig->getDefaultPageSizeParamName();
+        $pageSize = $this->getRequestParamByName($pageSizeParamName);
+
+        if($pageSize === null) {
+            $pageSize = $this->taurusConfig->getDefaultPageSize();
+        }
+
+        return $pageSize;
     }
 }

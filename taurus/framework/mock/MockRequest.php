@@ -9,16 +9,20 @@
 namespace taurus\framework\mock;
 
 
+use taurus\framework\config\TaurusConfig;
 use taurus\framework\routing\Request;
 
 class MockRequest extends Request {
 
     /**
      * MockRequest constructor.
+     * @param TaurusConfig $taurusConfig
      */
-    public function __construct() {
-        //do nothing here
+    public function __construct(TaurusConfig $taurusConfig)
+    {
+        $this->taurusConfig = $taurusConfig;
     }
+
 
     /**
      * @param $url

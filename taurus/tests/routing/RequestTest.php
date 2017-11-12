@@ -9,6 +9,8 @@
 namespace taurus\tests\routing;
 
 use PHPUnit\Framework\TestCase;
+use taurus\framework\config\TaurusContainerConfig;
+use taurus\framework\Container;
 use taurus\framework\routing\Request;
 use taurus\tests\fixtures\GlobalVariablesMock;
 
@@ -28,7 +30,7 @@ class RequestTest extends TestCase
         $this->globalVariableMock = new GlobalVariablesMock();
         $this->globalVariableMock->setGlobalVariables();
 
-        $this->testSubject = new Request();
+        $this->testSubject = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_REQUEST);
 
     }
 
