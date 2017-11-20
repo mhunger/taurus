@@ -8,8 +8,7 @@
     "autoload": {
         "psr-4": {
           "taurus\\": "taurus/",
-          "bin\\": "bin/",
-          "legaltech\\": "legaltech/"
+          "bin\\": "bin/"
         }
     },
     "require": {
