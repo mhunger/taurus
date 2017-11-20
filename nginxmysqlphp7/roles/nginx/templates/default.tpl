@@ -1,7 +1,7 @@
 server {
     listen  80;
 
-    root /var/www/carcada/web;
+    root /var/www/{{ hostname }}/web;
     index index.php
 
     server_name carcada-dev.com 192.168.44.14;
