@@ -54,12 +54,29 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
     protected function getDataSet()
     {
         $datasets = [];
-        $this->fixturePath = dirname(__FILE__) . $this->fixturesDbState;
+
+        $this->getFixturePath();
         foreach ($this->getFixtureFiles() as $file) {
             $datasets[] = $this->createMySQLXMLDataSet($this->fixturePath . $file);
         }
 
         return new \PHPUnit_Extensions_Database_DataSet_CompositeDataSet($datasets);
+    }
+
+    private function getFixturePath()
+    {
+        $this->fixturePath = dirname(__FILE__) . $this->fixturesDbState;
+    }
+
+
+    /**
+     * @param string $class
+     * @param string $method
+     * @return string
+     */
+    protected function getJsonResultFilePath(string $class, string $method)
+    {
+        return dirname(__FILE__) . $this->fixturesJsonResults . basename(str_replace('\\', '/', $class)) . '-' . $method . '.json';
     }
 
     /**
@@ -80,7 +97,7 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
      */
     protected function getOrCreateJsonResultsFilePath(string $class, string $method, string $actualResponse): string
     {
-        $filePath = dirname(__FILE__) . $this->fixturesJsonResults . basename(str_replace('\\', '/', $class)) . '-' . $method . '.json';
+        $filePath = $this->getJsonResultFilePath($class, $method);
 
         if (is_file($filePath)) {
             if(getenv('updateResultFiles') == 'TRUE') {
