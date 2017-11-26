@@ -23,7 +23,17 @@ class AnnotationBuilder
         'var',
         'return',
         'package',
-        'param'
+        'param',
+        'SWG',
+        'SWG\\Info',
+        'SWG\\Swagger',
+        'SWG\\Property',
+        'SWG\\Get',
+        'SWG\\Response',
+        'SWG\\Schema',
+        'SWG\\Post',
+        'SWG\\Delete',
+        'SWG\\Patch'
     ];
 
     /**

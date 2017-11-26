@@ -12,11 +12,16 @@ use taurus\tests\fixtures\TestEntity;
 /**
  * Class TestAnnotationClass
  * @Entity(table="test")
+ *
+ * @SWG\Info()
+ * @SWG\Swagger()
+ * @SWG\Definition()
  */
 class TestAnnotationClass {
 
     /**
      * @var int
+     * @SWG\Property()
      * @Id
      * @Column(name="test_id")
      */
