@@ -7,3 +7,8 @@
   sudo: yes
   template: src={{ ws_template }} dest={{ ws_vhost_path }}/{{ ws_vhost_file }}
   notify: restart nginx
+
+- name: Copy Swagger location
+  sudo: yes
+  notify: restart nginx
+  template: src={{ swagger_template_file }} dest={{ ws_vhost_path }}/{{ swagger_host_file }}
