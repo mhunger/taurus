@@ -63,7 +63,7 @@ abstract class AbstractDatabaseTest extends \PHPUnit_Extensions_Database_TestCas
         return new \PHPUnit_Extensions_Database_DataSet_CompositeDataSet($datasets);
     }
 
-    private function getFixturePath()
+    protected function getFixturePath()
     {
         $this->fixturePath = dirname(__FILE__) . $this->fixturesDbState;
     }
