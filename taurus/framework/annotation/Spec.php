@@ -44,6 +44,7 @@ class Spec extends AbstractAnnotation
         parent::__construct($property, self::ANNOTATION_NAME_SPEC);
         $this->column = $column;
         $this->filterType = $filterType;
+        $this->argumentType = $argumentType;
     }
 
     /**
@@ -65,7 +66,7 @@ class Spec extends AbstractAnnotation
     /**
      * @return string
      */
-    public function getArgumentType(): string
+    public function getArgumentType(): ?string
     {
         return $this->argumentType;
     }
