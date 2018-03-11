@@ -30,7 +30,7 @@ class GetExerciseByDateAndLocationSpecification implements Specification
      * @param string $name
      * @param int $difficulty
      */
-    public function __construct($name, $difficulty)
+    public function __construct($name, $difficulty = null)
     {
         $this->name = $name;
         $this->exerciseDifficulty = $difficulty;
@@ -55,7 +55,7 @@ class GetExerciseByDateAndLocationSpecification implements Specification
     /**
      * @return string
      */
-    public function getExerciseDifficulty(): string
+    public function getExerciseDifficulty(): ?string
     {
         return $this->exerciseDifficulty;
     }
