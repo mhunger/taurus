@@ -29,7 +29,7 @@ class ConditionalExpression extends AbstractMultiPartExpression
         }
     }
 
-    public function getType()
+    public function getType(): int
     {
         return Expression::EXPRESSION_TYPE_CONDITIONAL;
     }

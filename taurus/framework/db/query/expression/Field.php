@@ -40,8 +40,8 @@ class Field extends ScalarExpression
     /**
      *
      */
-    public function getType()
+    public function getType(): int
     {
-        Expression::EXPRESSION_TYPE_FIELD;
+        return Expression::EXPRESSION_TYPE_FIELD;
     }
 }

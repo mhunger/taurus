@@ -31,5 +31,5 @@ abstract class ScalarExpression implements Expression
         return $this->value;
     }
 
-    abstract public function getType();
+    abstract public function getType(): int ;
 }

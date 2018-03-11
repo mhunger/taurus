@@ -54,6 +54,29 @@ class GetBySpecificationApiControllerTest extends AbstractTaurusDatabaseTest
 
     }
 
+    public function testGetBySpecificationControllerWithLikeFilterType()
+    {
+        /** @var MockServer $mockServer */
+        $mockServer = Container::getInstance()
+            ->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
+
+        $actualResponse = $mockServer->get(
+            '/api/exercisesByDateAndLocation',
+            'GET',
+            [
+                'name' => 'Pull',
+                'difficulty' => 'hard'
+            ]
+        );
+
+        $this->compareResultToFixture(
+            $actualResponse,
+            __FUNCTION__,
+            'Could not get correct exercises when trying to filter by name [Pull] as like. Should return two exercises, because of like Pull% search'
+        );
+
+    }
+
     public function testGetBySpecificationWithPagination()
     {
         /** @var MockServer $mockServer */

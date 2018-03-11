@@ -24,5 +24,5 @@ interface Expression
     /**
      * @return int
      */
-    public function getType();
+    public function getType(): int;
 }

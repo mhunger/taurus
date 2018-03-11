@@ -41,7 +41,7 @@ class ExpressionBuilderTest extends AbstractTaurusTest
             'test2'
         );
 
-        $expectedExpresion = new ConditionalExpression(
+        $expectedExpression = new ConditionalExpression(
             new ComparisonExpression(
                 new Field('spec_3'),
                 new Equals(),
@@ -64,7 +64,7 @@ class ExpressionBuilderTest extends AbstractTaurusTest
         );
 
         $this->assertEquals(
-            $expectedExpresion,
+            $expectedExpression,
             $this->expressionBuilder->build($testSpec),
             'Did not build correct expresion out of test expression'
         );

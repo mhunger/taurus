@@ -15,6 +15,7 @@ use taurus\framework\db\query\operation\AndOperation;
 use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\operation\Like;
 use taurus\framework\db\query\Specification;
+use taurus\framework\error\SpecificationFilterTypeNotDefine;
 use taurus\framework\util\ObjectUtils;
 
 class ExpressionBuilder
@@ -76,18 +77,18 @@ class ExpressionBuilder
     }
 
 
-
     /**
      * @param array $specs
      * @param Specification $specification
      * @return array
+     * @throws SpecificationFilterTypeNotDefine
      */
     private function getComparisonExpressions(array $specs, Specification $specification): array
     {
         $result = [];
-        /** @var Spec $specAnnoation */
-        foreach($specs as $specAnnoation) {
-            switch ($specAnnoation->getFilterType()) {
+        /** @var Spec $specAnnotation */
+        foreach($specs as $specAnnotation) {
+            switch ($specAnnotation->getFilterType()) {
                 case Spec::SPEC_ANNOTATION_FILTER_TYPE_EQUALS:
                     $operation = new Equals();
                     break;
@@ -95,12 +96,22 @@ class ExpressionBuilder
                 case Spec::SPEC_ANNOTATION_FILTER_TYPE_LIKE:
                     $operation = new Like();
                     break;
+
+                default:
+                    throw new SpecificationFilterTypeNotDefine('Could not define the FilterType for a Specification Annotation');
             }
 
             $result[] = new ComparisonExpression(
-                new Field($specAnnoation->getColumn()),
+                new Field($specAnnotation->getColumn()),
                 $operation,
-                new Literal($this->objectUtils->getObjectValue($specification, $specAnnoation->getProperty()))
+                new Literal(
+                    $this->objectUtils->getObjectValue(
+                        $specification,
+                        $specAnnotation->getProperty()
+                    ),
+                    $specAnnotation->getFilterType(),
+                    $specAnnotation->getArgumentType()
+                )
             );
         }
         return $result;
