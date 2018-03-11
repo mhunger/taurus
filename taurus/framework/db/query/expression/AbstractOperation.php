@@ -22,7 +22,7 @@ abstract class AbstractOperation implements Operation
     /**
      * @return mixed
      */
-    public function getOperation()
+    public function getOperation(): string
     {
         return $this->operation;
     }

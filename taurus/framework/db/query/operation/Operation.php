@@ -14,10 +14,11 @@ interface Operation
 
     const OPERATION_COMPARISON_EQUALS = '=';
     const OPERATION_CONDITIONAL_AND = 'AND';
+    const OPERATION_COMPARISON_LIKE = 'like';
 
 
     /**
-     * @return int
+     * @return string
      */
-    public function getOperation();
+    public function getOperation(): string;
 }

@@ -43,7 +43,7 @@ abstract class AbstractMultiPartExpression extends ScalarExpression implements M
     /**
      * @return Expression
      */
-    public function getOperand()
+    public function getOperand(): ?Expression
     {
         return $this->operand;
     }

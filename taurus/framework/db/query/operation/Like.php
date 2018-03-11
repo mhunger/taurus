@@ -2,13 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: michaelhunger
- * Date: 02/02/17
- * Time: 21:30
+ * Date: 11/03/18
+ * Time: 14:52
  */
 
 namespace taurus\framework\db\query\operation;
 
-class AndOperation implements ConditionalOperation
+
+class Like implements ComparisonOperation
 {
 
     /**
@@ -16,6 +17,6 @@ class AndOperation implements ConditionalOperation
      */
     public function getOperation(): string
     {
-        return Operation::OPERATION_CONDITIONAL_AND;
+        return Operation::OPERATION_COMPARISON_LIKE;
     }
 }
