@@ -17,7 +17,7 @@ class UserAuthTestSpecification implements Specification
     /**
      * @var string
      *
-     * @Spec(column="username", type="string")
+     * @Spec(column="username", filterType="string")
      */
     private $username;
 
