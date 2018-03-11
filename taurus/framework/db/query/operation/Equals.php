@@ -11,7 +11,10 @@ namespace taurus\framework\db\query\operation;
 
 class Equals implements ComparisonOperation
 {
-    public function getOperation()
+    /**
+     * @return string
+     */
+    public function getOperation(): string
     {
         return Operation::OPERATION_COMPARISON_EQUALS;
     }
