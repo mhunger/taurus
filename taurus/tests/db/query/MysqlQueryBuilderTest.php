@@ -9,6 +9,7 @@
 namespace taurus\tests\db\query;
 
 
+use taurus\framework\annotation\Spec;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 
@@ -82,7 +83,7 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
                         new ComparisonExpression(
                             new Field('id'),
                             new Equals(),
-                            new Literal(1)
+                            new Literal(1, Spec::SPEC_ANNOTATION_FILTER_TYPE_EQUALS, Spec::SPEC_ANNOTATION_ARGUMENT_TYPE_NUMBER)
                         )
                     )
             ),
@@ -103,13 +104,13 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
                             new ComparisonExpression(
                                 new Field('id'),
                                 new Equals(),
-                                new Literal(1)
+                                new Literal(1, Spec::SPEC_ANNOTATION_FILTER_TYPE_EQUALS, Spec::SPEC_ANNOTATION_ARGUMENT_TYPE_NUMBER)
                             ),
                             new AndOperation(),
                             new ComparisonExpression(
                                 new Field('date'),
                                 new Equals(),
-                                new Literal('2016-01-01')
+                                new Literal('2016-01-01', Spec::SPEC_ANNOTATION_ARGUMENT_TYPE_STRING, Spec::SPEC_ANNOTATION_ARGUMENT_TYPE_STRING)
                             )
                         )
                     )

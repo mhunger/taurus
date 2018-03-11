@@ -21,7 +21,7 @@ class TestSpecification implements Specification
 
     /**
      * @var
-     * @Spec(column="spec_2", filterType="equals", argumentType="string")
+     * @Spec(column="spec_2", filterType="equals", argumentType="number")
      */
     private $spec2;
 
@@ -35,11 +35,13 @@ class TestSpecification implements Specification
      * TestSpecification constructor.
      * @param string $spec1
      * @param $spec2
+     * @param $spec3
      */
     public function __construct($spec1, $spec2, $spec3)
     {
         $this->spec1 = $spec1;
         $this->spec2 = $spec2;
+        $this->spec3 = $spec3;
     }
 
     /**

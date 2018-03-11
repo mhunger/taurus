@@ -176,7 +176,7 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         ) {
             $tokens = $this->buildTokensForExpression($value, $tokens);
         } else {
-            $tokens[] = $this->addLiteral($value);
+            $tokens[] = $value->getValue();
         }
 
         $tokens[] = $operation->getOperation();
@@ -186,26 +186,12 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         ) {
             $tokens = $this->buildTokensForExpression($operand, $tokens);
         } else {
-            $tokens[] = $this->addLiteral($operand);
+            $tokens[] = $operand->getValue();
         }
 
         return $tokens;
     }
 
-    /**
-     * @param Expression $expression
-     * @return string|Expression
-     */
-    private function addLiteral(Expression $expression)
-    {
-        if ($expression->getType() == Expression::EXPRESSION_TYPE_LITERAL) {
-            if (is_string($expression->getValue())) {
-                return "'" . $expression->getValue() . "'";
-            }
-        }
-
-        return $expression->getValue();
-    }
 
     /**
      * @param SelectQuery $selectQuery

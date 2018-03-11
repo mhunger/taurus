@@ -21,7 +21,7 @@ class TestSpecificationEven implements Specification
 
     /**
      * @var
-     * @Spec(column="spec_2", filterType="equals", argumentType="integer")
+     * @Spec(column="spec_2", filterType="equals", argumentType="number")
      */
     private $spec2;
 
@@ -33,7 +33,7 @@ class TestSpecificationEven implements Specification
 
     /**
      * @var
-     * @Spec(column="spec_4", filterType="equals", argumentType="integer")
+     * @Spec(column="spec_4", filterType="equals", argumentType="number")
      */
     private $spec4;
 
@@ -48,6 +48,8 @@ class TestSpecificationEven implements Specification
     {
         $this->spec1 = $spec1;
         $this->spec2 = $spec2;
+        $this->spec3 = $spec3;
+        $this->spec4 = $spec4;
     }
 
     /**
