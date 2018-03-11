@@ -14,6 +14,7 @@ use taurus\framework\annotation\Spec;
 use taurus\framework\db\query\operation\AndOperation;
 use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\operation\Like;
+use taurus\framework\db\query\operation\Operation;
 use taurus\framework\db\query\Specification;
 use taurus\framework\error\SpecificationFilterTypeNotDefine;
 use taurus\framework\util\ObjectUtils;
@@ -88,32 +89,57 @@ class ExpressionBuilder
         $result = [];
         /** @var Spec $specAnnotation */
         foreach($specs as $specAnnotation) {
-            switch ($specAnnotation->getFilterType()) {
-                case Spec::SPEC_ANNOTATION_FILTER_TYPE_EQUALS:
-                    $operation = new Equals();
-                    break;
 
-                case Spec::SPEC_ANNOTATION_FILTER_TYPE_LIKE:
-                    $operation = new Like();
-                    break;
+            /**
+             * only build a condition, when the filter was passed, therefore first check whether the value
+             * in the specificaiton is not null. s
+             */
+            if ($this->objectUtils->getObjectValue(
+                    $specification,
+                    $specAnnotation->getProperty()
+                ) !== null
+            ) {
 
-                default:
-                    throw new SpecificationFilterTypeNotDefine('Could not define the FilterType for a Specification Annotation');
+                /**
+                 * Here we build the comparison expression for the filter value passed in the request
+                 * by getting column from the spec annotation and creating a literal on the other side
+                 * with the filter value from the specification object
+                 */
+                $result[] = new ComparisonExpression(
+                    new Field($specAnnotation->getColumn()),
+                    $this->getOperation($specAnnotation->getFilterType()),
+                    new Literal(
+                        $this->objectUtils->getObjectValue(
+                            $specification,
+                            $specAnnotation->getProperty()
+                        ),
+                        $specAnnotation->getFilterType(),
+                        $specAnnotation->getArgumentType()
+                    )
+                );
             }
-
-            $result[] = new ComparisonExpression(
-                new Field($specAnnotation->getColumn()),
-                $operation,
-                new Literal(
-                    $this->objectUtils->getObjectValue(
-                        $specification,
-                        $specAnnotation->getProperty()
-                    ),
-                    $specAnnotation->getFilterType(),
-                    $specAnnotation->getArgumentType()
-                )
-            );
         }
+
         return $result;
+    }
+
+    /**
+     * Return the correct operation based on the filter type. It can be equals or like
+     *
+     * @param string $filterType
+     * @return Operation
+     * @throws SpecificationFilterTypeNotDefine
+     */
+    private function getOperation(string $filterType): Operation
+    {
+        switch ($filterType) {
+            case Spec::SPEC_ANNOTATION_FILTER_TYPE_EQUALS:
+                return new Equals();
+            case Spec::SPEC_ANNOTATION_FILTER_TYPE_LIKE:
+                return new Like();
+
+            default:
+                throw new SpecificationFilterTypeNotDefine('Could not define the FilterType for a Specification Annotation');
+        }
     }
 }
