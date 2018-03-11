@@ -13,11 +13,15 @@ class Spec extends AbstractAnnotation
 {
     const ANNOTATION_NAME_SPEC = 'Spec';
 
-    const ANNOTATION_ARGUMENT_TYPE_STRING = 'string';
+    const SPEC_ANNOTATION_ARGUMENT_TYPE_STRING = 'string';
 
-    const ANNOTATION_ARGUMENT_TYPE_NUMBER = 'number';
+    const SPEC_ANNOTATION_ARGUMENT_TYPE_NUMBER = 'number';
 
-    const ANNOTATION_ARGUMENT_TYPE_RANGE = 'range';
+    const SPEC_ANNOTATION_ARGUMENT_TYPE_RANGE = 'range';
+
+    const SPEC_ANNOTATION_FILTER_TYPE_EQUALS = 'equals';
+
+    const SPEC_ANNOTATION_FILTER_TYPE_LIKE = 'like';
 
     /** @var string */
     private $column;
