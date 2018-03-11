@@ -65,7 +65,7 @@ class AnnotationParser {
     {
         $properties = [];
 
-        $pattern = '/([a-z_]+)\s?=\s?"?([a-zA-z_\-0-9]+)"?/';
+        $pattern = '/([a-zA-Z_]+)\s?=\s?"?([a-zA-z_\-0-9]+)"?/';
 
         if(preg_match_all($pattern, $stringToParse, $result, PREG_SET_ORDER) > 0) {
             foreach($result as $annotation) {
