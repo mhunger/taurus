@@ -13,6 +13,7 @@ use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\annotation\Spec;
 use taurus\framework\db\query\operation\AndOperation;
 use taurus\framework\db\query\operation\Equals;
+use taurus\framework\db\query\operation\Like;
 use taurus\framework\db\query\Specification;
 use taurus\framework\util\ObjectUtils;
 
@@ -86,9 +87,19 @@ class ExpressionBuilder
         $result = [];
         /** @var Spec $specAnnoation */
         foreach($specs as $specAnnoation) {
+            switch ($specAnnoation->getFilterType()) {
+                case Spec::SPEC_ANNOTATION_FILTER_TYPE_EQUALS:
+                    $operation = new Equals();
+                    break;
+
+                case Spec::SPEC_ANNOTATION_FILTER_TYPE_LIKE:
+                    $operation = new Like();
+                    break;
+            }
+
             $result[] = new ComparisonExpression(
                 new Field($specAnnoation->getColumn()),
-                new Equals(),
+                $operation,
                 new Literal($this->objectUtils->getObjectValue($specification, $specAnnoation->getProperty()))
             );
         }
