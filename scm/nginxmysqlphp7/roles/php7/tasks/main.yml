@@ -1,4 +1,12 @@
 ---
+#install yaml
+
+- name: install yaml for php7.x
+  sudo: yes
+  apt:
+    pkg: libyaml-dev
+    state: latest
+
 # tasks file for php7
 - name: install php7
   sudo: yes
@@ -13,4 +21,5 @@
     - php7.1-cgi
     - php7.1-fpm
     - php-xdebug
+    - php7.0-dev
     - php7.1-yaml
