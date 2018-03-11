@@ -1,5 +1,5 @@
 {
-  "id": 6,
+  "id": 7,
   "name": "TestExercise",
   "difficulty": "TestDifficulty",
   "variantName": "TestVariant",
@@ -30,7 +30,7 @@
         }
       },
       {
-        "id": 6,
+        "id": 7,
         "name": "TestExercise",
         "difficulty": "TestDifficulty",
         "variantName": "TestVariant",

@@ -26,6 +26,14 @@
                 <field name="exercise_group_id">2</field>
                 <field name="workout_location_id">1</field>
             </row>
+            <row>
+                <field name="exercise_id">6</field>
+                <field name="name">Pull-Upsters</field>
+                <field name="difficulty">hard</field>
+                <field name="variant_name">Inverted Hands</field>
+                <field name="exercise_group_id">2</field>
+                <field name="workout_location_id">1</field>
+            </row>
         </table_data>
     </database>
 </mysqldump>
