@@ -49,7 +49,7 @@ class GetBySpecificationApiControllerTest extends AbstractTaurusDatabaseTest
         $this->compareResultToFixture(
             $actualResponse,
             __FUNCTION__,
-            'Could not get all resources for exercises through the standard api controller'
+            'Could not get correct exercises when trying to filter by name [Push-Ups] and difficulty [medium]'
         );
 
     }

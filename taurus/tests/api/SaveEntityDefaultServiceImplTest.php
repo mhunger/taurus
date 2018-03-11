@@ -80,7 +80,7 @@ class SaveEntityDefaultServiceImplTest extends AbstractTaurusDatabaseTest
         $actualResponse = $mockServer->get(
             '/api/exercise',
             'GET',
-            ['id' => 6]
+            ['id' => 7]
         );
 
         $this->compareResultToFixture(
