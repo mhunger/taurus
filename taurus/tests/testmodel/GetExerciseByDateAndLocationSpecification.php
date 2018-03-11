@@ -15,13 +15,13 @@ class GetExerciseByDateAndLocationSpecification implements Specification
 {
     /**
      * @var string
-     * @Spec(column="name", type="string")
+     * @Spec(column="name", filterType="equals", argumentType="string")
      */
     private $name;
 
     /**
      * @var string
-     * @Spec(column="difficulty", type="id")
+     * @Spec(column="difficulty", filterType="equals", argumentType="string")
      */
     private $exerciseDifficulty;
 

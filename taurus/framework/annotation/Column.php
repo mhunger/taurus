@@ -23,13 +23,13 @@ class Column extends AbstractAnnotation
      * Column constructor.
      * @param string $property
      * @param string $name
-     * @param string $type
+     * @param string $filterType
      */
-    public function __construct(string $property, string $name, string $type = null)
+    public function __construct(string $property, string $name, string $filterType = null)
     {
         parent::__construct($property, self::ANNOTATOIN_NAME_COLUMN);
         $this->columnName = $name;
-        $this->type = $type;
+        $this->type = $filterType;
     }
 
     /**

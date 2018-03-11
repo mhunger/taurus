@@ -15,25 +15,25 @@ class TestSpecificationEven implements Specification
 {
     /**
      * @var string
-     * @Spec(column="spec_1", type="string")
+     * @Spec(column="spec_1", filterType="equals", argumentType="string")
      */
     private $spec1;
 
     /**
      * @var
-     * @Spec(column="spec_2", type="integer")
+     * @Spec(column="spec_2", filterType="equals", argumentType="integer")
      */
     private $spec2;
 
     /**
      * @var
-     * @Spec(column="spec_3", type="string")
+     * @Spec(column="spec_3", filterType="equals", argumentType="string")
      */
     private $spec3;
 
     /**
      * @var
-     * @Spec(column="spec_4", type="integer")
+     * @Spec(column="spec_4", filterType="equals", argumentType="integer")
      */
     private $spec4;
 

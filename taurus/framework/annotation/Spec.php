@@ -13,23 +13,33 @@ class Spec extends AbstractAnnotation
 {
     const ANNOTATION_NAME_SPEC = 'Spec';
 
+    const ANNOTATION_ARGUMENT_TYPE_STRING = 'string';
+
+    const ANNOTATION_ARGUMENT_TYPE_NUMBER = 'number';
+
+    const ANNOTATION_ARGUMENT_TYPE_RANGE = 'range';
+
     /** @var string */
     private $column;
 
     /** @var string */
-    private $type;
+    private $filterType;
+
+    /** @var string */
+    private $argumentType;
 
     /**
      * Spec constructor.
      * @param string $property
      * @param string $column
-     * @param string $type
+     * @param string $filterType
+     * @param string $argumentType
      */
-    public function __construct(string $property, string $column, string $type)
+    public function __construct(string $property, string $column, string $filterType, string $argumentType = null)
     {
         parent::__construct($property, self::ANNOTATION_NAME_SPEC);
         $this->column = $column;
-        $this->type = $type;
+        $this->filterType = $filterType;
     }
 
     /**
@@ -43,8 +53,16 @@ class Spec extends AbstractAnnotation
     /**
      * @return string
      */
-    public function getType(): string
+    public function getFilterType(): string
     {
-        return $this->type;
+        return $this->filterType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getArgumentType(): string
+    {
+        return $this->argumentType;
     }
 }
