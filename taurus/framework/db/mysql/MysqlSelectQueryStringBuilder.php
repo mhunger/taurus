@@ -176,7 +176,7 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         ) {
             $tokens = $this->buildTokensForExpression($value, $tokens);
         } else {
-            $tokens[] = $value->getValue();
+            $tokens[] = $this->addMysqlTicks($value->getValue());
         }
 
         $tokens[] = $operation->getOperation();

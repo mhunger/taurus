@@ -73,7 +73,7 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
 
     public function testQueryWithSimpleWhereClause() {
         $this->assertEquals(
-            'SELECT * FROM workout WHERE id = 1',
+            'SELECT * FROM workout WHERE `id` = 1',
             $this->mysqlQueryStringBuilder->getSelectQueryString(
                 $this->queryBuilder
                     ->query(QueryBuilder::QUERY_TYPE_SELECT)
@@ -93,7 +93,7 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
 
     public function testQueryWithMultipleAndConditions() {
         $this->assertEquals(
-            'SELECT * FROM workout WHERE id = 1 AND date = \'2016-01-01\'',
+            'SELECT * FROM workout WHERE `id` = 1 AND `date` = \'2016-01-01\'',
             $this->mysqlQueryStringBuilder->getSelectQueryString(
                 $this->queryBuilder
                     ->query(QueryBuilder::QUERY_TYPE_SELECT)
