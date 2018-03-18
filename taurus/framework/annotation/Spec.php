@@ -23,6 +23,14 @@ class Spec extends AbstractAnnotation
 
     const SPEC_ANNOTATION_FILTER_TYPE_LIKE = 'like';
 
+    const SPEC_ANNOTATION_FILTER_TYPE_SmallerThan = 'smallerthan';
+
+    const SPEC_ANNOTATION_FILTER_TYPE_GreaterThan = 'greaterthan';
+
+    const SPEC_ANNOTATION_FILTER_TYPE_SmallerThanEquals = 'smallerthanequals';
+
+    const SPEC_ANNOTATION_FILTER_TYPE_GreaterThanEquals = 'greaterthanequals';
+
     /** @var string */
     private $column;
 

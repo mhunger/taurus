@@ -15,6 +15,10 @@ interface Operation
     const OPERATION_COMPARISON_EQUALS = '=';
     const OPERATION_CONDITIONAL_AND = 'AND';
     const OPERATION_COMPARISON_LIKE = 'like';
+    const OPERATION_COMPARISON_ST = '<';
+    const OPERATION_COMPARISON_GT = '>';
+    const OPERATION_COMPARISON_STEQ = '<=';
+    const OPERATION_COMPARISON_GTEQ = '>=';
 
 
     /**
