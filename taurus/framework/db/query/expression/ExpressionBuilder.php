@@ -13,8 +13,12 @@ use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\annotation\Spec;
 use taurus\framework\db\query\operation\AndOperation;
 use taurus\framework\db\query\operation\Equals;
+use taurus\framework\db\query\operation\GreaterThan;
+use taurus\framework\db\query\operation\GreaterThanEquals;
 use taurus\framework\db\query\operation\Like;
 use taurus\framework\db\query\operation\Operation;
+use taurus\framework\db\query\operation\SmallerThan;
+use taurus\framework\db\query\operation\SmallerThanEquals;
 use taurus\framework\db\query\Specification;
 use taurus\framework\error\SpecificationFilterTypeNotDefine;
 use taurus\framework\util\ObjectUtils;
@@ -137,7 +141,14 @@ class ExpressionBuilder
                 return new Equals();
             case Spec::SPEC_ANNOTATION_FILTER_TYPE_LIKE:
                 return new Like();
-
+            case Spec::SPEC_ANNOTATION_FILTER_TYPE_SmallerThan:
+                return new SmallerThan();
+            case Spec::SPEC_ANNOTATION_FILTER_TYPE_GreaterThan:
+                return new GreaterThan();
+            case Spec::SPEC_ANNOTATION_FILTER_TYPE_GreaterThanEquals:
+                return new GreaterThanEquals();
+            case Spec::SPEC_ANNOTATION_FILTER_TYPE_SmallerThanEquals:
+                return new SmallerThanEquals();
             default:
                 throw new SpecificationFilterTypeNotDefine('Could not define the FilterType for a Specification Annotation');
         }

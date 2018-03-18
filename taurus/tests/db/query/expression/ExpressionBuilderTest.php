@@ -9,6 +9,7 @@
 namespace taurus\tests\db\query\expression;
 
 
+use taurus\framework\annotation\Spec;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
 use taurus\framework\db\query\expression\ComparisonExpression;
@@ -18,6 +19,11 @@ use taurus\framework\db\query\expression\Field;
 use taurus\framework\db\query\expression\Literal;
 use taurus\framework\db\query\operation\AndOperation;
 use taurus\framework\db\query\operation\Equals;
+use taurus\framework\db\query\operation\GreaterThan;
+use taurus\framework\db\query\operation\GreaterThanEquals;
+use taurus\framework\db\query\operation\Like;
+use taurus\framework\db\query\operation\SmallerThan;
+use taurus\framework\db\query\operation\SmallerThanEquals;
 use taurus\tests\AbstractTaurusTest;
 use taurus\tests\fixtures\TestSpecification;
 use taurus\tests\fixtures\TestSpecificationEven;
@@ -44,8 +50,8 @@ class ExpressionBuilderTest extends AbstractTaurusTest
         $expectedExpression = new ConditionalExpression(
             new ComparisonExpression(
                 new Field('spec_3'),
-                new Equals(),
-                new Literal('test2')
+                new GreaterThanEquals(),
+                new Literal('test2', Spec::SPEC_ANNOTATION_FILTER_TYPE_GreaterThanEquals)
             ),
             new AndOperation(),
             new ConditionalExpression(
@@ -57,8 +63,8 @@ class ExpressionBuilderTest extends AbstractTaurusTest
                 new AndOperation(),
                 new ComparisonExpression(
                     new Field('spec_2'),
-                    new Equals(),
-                    new Literal(1)
+                    new SmallerThanEquals(),
+                    new Literal(1, Spec::SPEC_ANNOTATION_FILTER_TYPE_SmallerThanEquals)
                 )
             )
         );
@@ -89,22 +95,22 @@ class ExpressionBuilderTest extends AbstractTaurusTest
                 new AndOperation(),
                 new ComparisonExpression(
                     new Field('spec_2'),
-                    new Equals(),
-                    new Literal(1)
+                    new SmallerThan(),
+                    new Literal(1, Spec::SPEC_ANNOTATION_FILTER_TYPE_SmallerThan)
                 )
             ),
             new AndOperation(),
             new ConditionalExpression(
                 new ComparisonExpression(
                     new Field('spec_3'),
-                    new Equals(),
-                    new Literal('test2')
+                    new GreaterThan(),
+                    new Literal('test2', Spec::SPEC_ANNOTATION_FILTER_TYPE_GreaterThan)
                 ),
                 new AndOperation(),
                 new ComparisonExpression(
                     new Field('spec_4'),
-                    new Equals(),
-                    new Literal(4)
+                    new Like(),
+                    new Literal(4, Spec::SPEC_ANNOTATION_FILTER_TYPE_LIKE)
                 )
             )
         );

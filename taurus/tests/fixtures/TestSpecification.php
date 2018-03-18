@@ -21,13 +21,13 @@ class TestSpecification implements Specification
 
     /**
      * @var
-     * @Spec(column="spec_2", filterType="equals", argumentType="number")
+     * @Spec(column="spec_2", filterType="smallerthanequals", argumentType="number")
      */
     private $spec2;
 
     /**
      * @var
-     * @Spec(column="spec_3", filterType="equals", argumentType="string")
+     * @Spec(column="spec_3", filterType="greaterthanequals", argumentType="string")
      */
     private $spec3;
 

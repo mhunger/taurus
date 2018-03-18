@@ -9,6 +9,12 @@
 namespace taurus\framework\annotation;
 
 
+use taurus\framework\error\SpecAnnotationInvalidFilterType;
+
+/**
+ * Class Spec
+ * @package taurus\framework\annotation
+ */
 class Spec extends AbstractAnnotation
 {
     const ANNOTATION_NAME_SPEC = 'Spec';
@@ -31,6 +37,18 @@ class Spec extends AbstractAnnotation
 
     const SPEC_ANNOTATION_FILTER_TYPE_GreaterThanEquals = 'greaterthanequals';
 
+    /**
+     * @var array The valid filter types in Spec annotations.
+     */
+    private static $filterTypes = [
+        Spec::SPEC_ANNOTATION_FILTER_TYPE_GreaterThanEquals,
+        Spec::SPEC_ANNOTATION_FILTER_TYPE_GreaterThan,
+        Spec::SPEC_ANNOTATION_FILTER_TYPE_SmallerThan,
+        Spec::SPEC_ANNOTATION_FILTER_TYPE_SmallerThanEquals,
+        Spec::SPEC_ANNOTATION_FILTER_TYPE_LIKE,
+        Spec::SPEC_ANNOTATION_FILTER_TYPE_EQUALS
+    ];
+
     /** @var string */
     private $column;
 
@@ -49,10 +67,24 @@ class Spec extends AbstractAnnotation
      */
     public function __construct(string $property, string $column, string $filterType, string $argumentType = null)
     {
+
+        $this->checkFilterType($filterType);
+
         parent::__construct($property, self::ANNOTATION_NAME_SPEC);
         $this->column = $column;
         $this->filterType = $filterType;
         $this->argumentType = $argumentType;
+    }
+
+    /**
+     * @param string $filterType
+     * @throws SpecAnnotationInvalidFilterType
+     */
+    private function checkFilterType(string $filterType): void
+    {
+        if(!in_array($filterType, self::$filterTypes)) {
+            throw new SpecAnnotationInvalidFilterType($filterType);
+        }
     }
 
     /**

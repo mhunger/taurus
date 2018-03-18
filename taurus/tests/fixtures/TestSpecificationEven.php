@@ -21,19 +21,19 @@ class TestSpecificationEven implements Specification
 
     /**
      * @var
-     * @Spec(column="spec_2", filterType="equals", argumentType="number")
+     * @Spec(column="spec_2", filterType="smallerthan", argumentType="number")
      */
     private $spec2;
 
     /**
      * @var
-     * @Spec(column="spec_3", filterType="equals", argumentType="string")
+     * @Spec(column="spec_3", filterType="greaterthan", argumentType="string")
      */
     private $spec3;
 
     /**
      * @var
-     * @Spec(column="spec_4", filterType="equals", argumentType="number")
+     * @Spec(column="spec_4", filterType="like", argumentType="number")
      */
     private $spec4;
 
