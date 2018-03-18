@@ -21,6 +21,8 @@ use taurus\framework\db\query\expression\Field;
 use taurus\framework\db\query\expression\Literal;
 use taurus\framework\db\query\operation\AndOperation;
 use taurus\framework\db\query\operation\Equals;
+use taurus\framework\db\query\operation\GreaterThan;
+use taurus\framework\db\query\operation\SmallerThanEquals;
 use taurus\framework\db\query\QueryBuilder;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 use taurus\tests\AbstractTaurusTest;
@@ -110,6 +112,34 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
                             new ComparisonExpression(
                                 new Field('date'),
                                 new Equals(),
+                                new Literal('2016-01-01', Spec::SPEC_ANNOTATION_ARGUMENT_TYPE_STRING, Spec::SPEC_ANNOTATION_ARGUMENT_TYPE_STRING)
+                            )
+                        )
+                    )
+            ),
+            "Could not generate query with single where clause"
+        );
+    }
+
+    public function testQueryWithMultipleAndConditionsAndOperations() {
+        $this->assertEquals(
+            'SELECT * FROM workout WHERE `id` > 1 AND `date` <= \'2016-01-01\'',
+            $this->mysqlQueryStringBuilder->getSelectQueryString(
+                $this->queryBuilder
+                    ->query(QueryBuilder::QUERY_TYPE_SELECT)
+                    ->select()
+                    ->from('workout')
+                    ->where(
+                        new ConditionalExpression(
+                            new ComparisonExpression(
+                                new Field('id'),
+                                new GreaterThan(),
+                                new Literal(1, Spec::SPEC_ANNOTATION_FILTER_TYPE_EQUALS, Spec::SPEC_ANNOTATION_ARGUMENT_TYPE_NUMBER)
+                            ),
+                            new AndOperation(),
+                            new ComparisonExpression(
+                                new Field('date'),
+                                new SmallerThanEquals(),
                                 new Literal('2016-01-01', Spec::SPEC_ANNOTATION_ARGUMENT_TYPE_STRING, Spec::SPEC_ANNOTATION_ARGUMENT_TYPE_STRING)
                             )
                         )
