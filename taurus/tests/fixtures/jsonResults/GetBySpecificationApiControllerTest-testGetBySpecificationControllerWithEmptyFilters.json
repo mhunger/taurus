@@ -27,14 +27,16 @@
           },
           "workoutLocation": {
             "id": null,
-            "name": null
+            "name": null,
+            "geoLocation": null
           }
         }
       ]
     },
     "workoutLocation": {
       "id": 1,
-      "name": "TUM Sportzentrum"
+      "name": "TUM Sportzentrum",
+      "geoLocation": ""
     }
   },
   {
@@ -65,7 +67,8 @@
           },
           "workoutLocation": {
             "id": null,
-            "name": null
+            "name": null,
+            "geoLocation": null
           }
         },
         {
@@ -82,7 +85,8 @@
           },
           "workoutLocation": {
             "id": null,
-            "name": null
+            "name": null,
+            "geoLocation": null
           }
         },
         {
@@ -99,14 +103,16 @@
           },
           "workoutLocation": {
             "id": null,
-            "name": null
+            "name": null,
+            "geoLocation": null
           }
         }
       ]
     },
     "workoutLocation": {
       "id": 1,
-      "name": "TUM Sportzentrum"
+      "name": "TUM Sportzentrum",
+      "geoLocation": ""
     }
   }
 ]

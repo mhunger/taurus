@@ -25,4 +25,11 @@ interface Specification
      * @return string
      */
     public function getTable(): string;
+
+
+    /**
+     * Return the select statement replaceing some data in the query
+     * @return string
+     */
+    public function getSelect(): ?string;
 }

@@ -30,14 +30,16 @@ class SpecificationBuilderTest extends AbstractTaurusTest
 
     public function testBuildSpecification()
     {
-        $expectedSpecification = new TestSpecification('test', 1, 'mytest');
+        $expectedSpecification = new TestSpecification('test', 1, 'mytest', 'POINT(48.148641, 11.544918)', 50000);
 
         /** @var MockRequest $mockRequest */
         $mockRequest = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_REQUEST);
         $mockRequest->setRequestVariables([
             'spec1' => 'test',
             'spec2' => 1,
-            'spec3' => 'mytest'
+            'spec3' => 'mytest',
+            'requestGeoLocation' => 'POINT(48.148641, 11.544918)',
+            'radius' => 50000
         ])->setMethod(Request::HTTP_GET);
 
         $actualResult = $this->specBuilder->build($mockRequest, TestSpecification::class);

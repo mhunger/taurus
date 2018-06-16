@@ -10,6 +10,7 @@ namespace taurus\tests\fixtures;
 
 use taurus\framework\db\Entity;
 use taurus\framework\annotation\Json;
+use taurus\framework\db\entity\types\GeoPoint;
 
 /**
  * Class TestEntity
@@ -40,6 +41,13 @@ class TestEntity implements Entity
      * @PasswordHash(algo="PASSWORD_BCRYPT", cost="12")
      */
     public $password;
+
+
+    /**
+     * @var GeoPoint
+     * @GeoPoint()
+     */
+    public $point;
 
 
     /**
@@ -80,5 +88,21 @@ class TestEntity implements Entity
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPoint(): ?GeoPoint
+    {
+        return $this->point;
+    }
+
+    /**
+     * @param mixed $point
+     */
+    public function setPoint(GeoPoint $point)
+    {
+        $this->point = $point;
     }
 }

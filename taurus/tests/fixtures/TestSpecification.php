@@ -11,8 +11,27 @@ namespace taurus\tests\fixtures;
 
 use taurus\framework\db\query\Specification;
 
+/**
+ * Class TestSpecification
+ * @package taurus\tests\fixtures
+ *
+ *
+ *
+ */
 class TestSpecification implements Specification
 {
+
+    /**
+     * @var string
+     * @Having(column="radius", filterType="smallerthanequals", argumentType="number")
+     */
+    private $radius;
+
+    /**
+     * @var string
+     */
+    private $requestGeoLocation;
+
     /**
      * @var string
      * @Spec(column="spec_1", filterType="equals", argumentType="string")
@@ -31,17 +50,22 @@ class TestSpecification implements Specification
      */
     private $spec3;
 
+
     /**
      * TestSpecification constructor.
      * @param string $spec1
      * @param $spec2
      * @param $spec3
+     * @param $requestGeoLocation
+     * @param $radius
      */
-    public function __construct($spec1, $spec2, $spec3)
+    public function __construct($spec1, $spec2, $spec3, $requestGeoLocation, $radius)
     {
         $this->spec1 = $spec1;
         $this->spec2 = $spec2;
         $this->spec3 = $spec3;
+        $this->requestGeoLocation = $requestGeoLocation;
+        $this->radius = $radius;
     }
 
     /**
@@ -76,5 +100,26 @@ class TestSpecification implements Specification
     public function getTable(): string
     {
         return 'test_table';
+    }
+
+    public function getSelect(): string
+    {
+        return sprintf('select test_table.*, st_distance_sphere(geo_location, %s)', $this->requestGeoLocation);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRadius(): ?string
+    {
+        return $this->radius;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestGeoLocation(): ?string
+    {
+        return $this->requestGeoLocation;
     }
 }

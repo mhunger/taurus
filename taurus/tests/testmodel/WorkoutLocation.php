@@ -10,6 +10,8 @@ namespace taurus\tests\testmodel;
 
 
 use taurus\framework\db\Entity;
+use taurus\framework\db\entity\types\GeoPoint;
+use taurus\framework\annotation\Column;
 
 /**
  * Class WorkoutLocation
@@ -33,12 +35,21 @@ class WorkoutLocation implements Entity
     public $name;
 
     /**
+     * @var GeoPoint
+     * @Column(name="geo_location")
+     * @GeoPoint()
+     */
+    public $geoLocation;
+
+    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
     }
+
+
 
     /**
      * @param int $id
@@ -68,5 +79,21 @@ class WorkoutLocation implements Entity
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @return GeoPoint
+     */
+    public function getGeoLocation()
+    {
+        return $this->geoLocation;
+    }
+
+    /**
+     * @param GeoPoint $geoLocation
+     */
+    public function setGeoLocation($geoLocation = null)
+    {
+        $this->geoLocation = $geoLocation;
     }
 }

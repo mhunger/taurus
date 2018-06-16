@@ -10,6 +10,7 @@ namespace taurus\tests\db\entity;
 
 
 use PHPUnit\Framework\TestCase;
+use taurus\framework\annotation\GeoPoint;
 use taurus\framework\annotation\Json;
 use taurus\framework\annotation\PasswordHash;
 use taurus\framework\Container;
@@ -87,10 +88,19 @@ class EntityMetaDataImplTest extends AbstractTaurusTest
     {
         $expectedResult = new PasswordHash('password', 'PASSWORD_BCRYPT', '12');
 
+
         $this->assertEquals(
             $expectedResult,
             $this->entityMetaDataImpl->getInputProcessors(TestEntity::class, 'password'),
             'Could not get Input Processors Correctly'
+        );
+
+        $expectedResult = new GeoPoint('point');
+
+        $this->assertEquals(
+            $expectedResult,
+            $this->entityMetaDataImpl->getInputProcessors(TestEntity::class, 'point'),
+            'Could not get Input Processors for point Correctly'
         );
     }
 }

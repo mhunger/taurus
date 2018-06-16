@@ -13,6 +13,7 @@ use const null;
 use taurus\framework\annotation\AbstractAnnotation;
 use taurus\framework\annotation\AnnotationReader;
 use taurus\framework\annotation\Entity;
+use taurus\framework\annotation\GeoPoint;
 use taurus\framework\annotation\Json;
 use taurus\framework\annotation\PasswordHash;
 use taurus\framework\error\EntityMetaDataMissingException;
@@ -87,8 +88,14 @@ class EntityMetaDataStore
                 $jsonTypes[$property] = $annotations[Json::ANNOTATION_NAME];
             }
 
-            if (isset($annotations[PasswordHash::ANNOTATION_NAME_PASSWORD_HASH])) {
-                $inputProcessors[$property] = $annotations[PasswordHash::ANNOTATION_NAME_PASSWORD_HASH];
+            $annotationProps = array_keys($annotations);
+            $found = array_intersect(
+                $annotationProps,
+                [PasswordHash::ANNOTATION_NAME_PASSWORD_HASH, GeoPoint::ANNOTATION_NAME_GeoPoint]);
+
+            if(!empty($found))
+            {
+                $inputProcessors[$property] = $annotations[array_pop($found)];
             }
 
         }

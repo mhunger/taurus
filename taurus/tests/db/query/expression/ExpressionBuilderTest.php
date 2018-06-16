@@ -9,6 +9,7 @@
 namespace taurus\tests\db\query\expression;
 
 
+use taurus\framework\annotation\Having;
 use taurus\framework\annotation\Spec;
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
@@ -44,7 +45,9 @@ class ExpressionBuilderTest extends AbstractTaurusTest
         $testSpec = new TestSpecification(
             'test',
             1,
-            'test2'
+            'test2',
+            'POINT(48.148641, 11.544918)',
+            50000
         );
 
         $expectedExpression = new ConditionalExpression(
@@ -72,6 +75,29 @@ class ExpressionBuilderTest extends AbstractTaurusTest
         $this->assertEquals(
             $expectedExpression,
             $this->expressionBuilder->build($testSpec),
+            'Did not build correct expresion out of test expression'
+        );
+    }
+
+    public function testBuildExpressionHaving()
+    {
+        $testSpec = new TestSpecification(
+            'test',
+            1,
+            'test2',
+            'POINT(48.148641, 11.544918)',
+            50000
+        );
+
+        $expectedExpression = new ComparisonExpression(
+            new Field('radius'),
+            new SmallerThanEquals(),
+            new Literal(50000, Spec::SPEC_ANNOTATION_FILTER_TYPE_SmallerThanEquals, Spec::SPEC_ANNOTATION_ARGUMENT_TYPE_NUMBER)
+        );
+
+        $this->assertEquals(
+            $expectedExpression,
+            $this->expressionBuilder->build($testSpec, Having::ANNOTATION_NAME_HAVING),
             'Did not build correct expresion out of test expression'
         );
     }

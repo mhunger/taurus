@@ -49,7 +49,8 @@ class SaveEntityControllerTest extends AbstractTaurusDatabaseTest
             'workout_location.xml',
             'muscle_group.xml',
             'exercise_group.xml',
-            'exercise.xml'
+            'exercise.xml',
+            'user.xml'
         ];
     }
 
@@ -76,6 +77,45 @@ class SaveEntityControllerTest extends AbstractTaurusDatabaseTest
             '/api/exercise',
             'GET',
             ['id' => 7]
+        );
+
+        $this->compareResultToFixture(
+            $actualResponse,
+            __FUNCTION__,
+            'Could not store exercise using default controller'
+        );
+    }
+
+    public function testPointDataSavedCorrectly()
+    {
+        $token = $this->login();
+        /** @var MockRequest $mockRequest */
+        $mockRequest = (Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_REQUEST))
+            ->setMethod('POST')
+            ->setUrl('/workout-location')
+            ->setInputBody([
+                'workoutlocation' => [
+                    'name' => 'Home',
+                    'geoLocation' => '1, 2'
+                ]
+            ])
+            ->addHeader('x-token', $token->getEncodedTokenString());
+
+
+        /** @var SaveEntityDefaultServiceImpl $service */
+        $service = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_DEFAULT_SAVE_ENTITY_SERVICE);
+        $service->setEntityClass(WorkoutLocation::class);
+        $this->controller->setService($service);
+        $this->controller->handleRequest($mockRequest);
+
+        /** @var MockServer $mockServer */
+        $mockServer = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
+        $actualResponse = $mockServer->get(
+            '/api/workout-location',
+            'GET',
+            ['id' => 4],
+            [],
+            ['x-token' => $token->getEncodedTokenString()]
         );
 
         $this->compareResultToFixture(

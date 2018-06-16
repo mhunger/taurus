@@ -103,6 +103,8 @@ class DatabaseManager implements EntityAccessLayer
                 $loadedDependencies
             );
 
+
+
             $entities[] = $this->entityBuilder->convertOne($row, $class, $relationshipData);
         }
 
@@ -126,6 +128,7 @@ class DatabaseManager implements EntityAccessLayer
 
         $relationshipData = $this->fetchDependenciesForClass($class, $result, $id, $loadedDependencies);
 
+        $result = $this->processOutputData($result, $class);
         return $this->entityBuilder->convertOne($result, $class, $relationshipData);
     }
 
@@ -292,9 +295,18 @@ class DatabaseManager implements EntityAccessLayer
 
         $input = [];
         foreach ($requestInput as $propertyName => $value) {
-            $input[$columnMap[$propertyName]] = $this->processInputData($class, $columnMap[$propertyName], $value);
+            $input[$columnMap[$propertyName]] = $this->processInputData($class, $propertyName, $value, InputProcessor::APPLY_ON_INPUT);
         }
         return $input;
+    }
+
+    private function processOutputData(array $row, string $class) {
+        $dbFieldMap = $this->entityMetaDataImpl->getColumnMap($class, false);
+
+        foreach ($row as $field => $value) {
+            $row[$field] = $this->processInputData($class, $dbFieldMap[$field], $value, InputProcessor::APPLY_ON_OUTPUT);
+        }
+        return $row;
     }
 
     /**
@@ -303,15 +315,21 @@ class DatabaseManager implements EntityAccessLayer
      * @param $value
      * @return bool|string
      */
-    private function processInputData(string $class, string $propertyName, $value)
+    private function processInputData(string $class, string $propertyName, $value, $type)
     {
-        /** @var PasswordHash $passwordHashAnnotation */
-        $passwordHashAnnotation = $this->entityMetaDataImpl->getInputProcessors($class, $propertyName);
+        /** @var PasswordHash $inputProcessor */
+        $inputProcessor = $this->entityMetaDataImpl->getInputProcessors($class, $propertyName);
 
-        if($passwordHashAnnotation !== null && $passwordHashAnnotation instanceof InputProcessor) {
-            return $passwordHashAnnotation->apply($value);
+        if($inputProcessor !== null) {
+            switch($type) {
+                case InputProcessor::APPLY_ON_INPUT:
+                    return $inputProcessor->applyOnInput($value, $propertyName);
+                    break;
+                case InputProcessor::APPLY_ON_OUTPUT:
+                    return $inputProcessor->applyOnOutput($value, $propertyName);
+                    break;
+            }
         }
-
         return $value;
     }
 }

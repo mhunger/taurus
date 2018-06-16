@@ -5,16 +5,19 @@
             <row>
                 <field name="id">1</field>
                 <field name="name">TUM Sportzentrum</field>
+                <field name="geo_location" xsi:nil="true"/>
             </row>
 
             <row>
                 <field name="id">2</field>
                 <field name="name">Home</field>
+                <field name="geo_location" xsi:nil="true"/>
             </row>
 
             <row>
                 <field name="id">3</field>
                 <field name="name">Kickboxen</field>
+                <field name="geo_location" xsi:nil="true"/>
             </row>
 
         </table_data>

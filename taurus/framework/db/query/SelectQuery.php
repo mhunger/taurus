@@ -46,6 +46,9 @@ class SelectQuery implements Query
     /** @var MultiPartExpression */
     private $where;
 
+    /** @var MultiPartExpression */
+    private $having;
+
     /** @var array */
     private $join = [];
 
@@ -102,6 +105,13 @@ class SelectQuery implements Query
     public function where(MultiPartExpression $multiPartExpression): SelectQuery
     {
         $this->where = $multiPartExpression;
+
+        return $this;
+    }
+
+    public function having(MultiPartExpression $multiPartExpression): SelectQuery
+    {
+        $this->having = $multiPartExpression;
 
         return $this;
     }
@@ -199,6 +209,14 @@ class SelectQuery implements Query
     public function getWhere()
     {
         return $this->where;
+    }
+
+    /**
+     * @return MultiPartExpression
+     */
+    public function getHaving(): ?MultiPartExpression
+    {
+        return $this->having;
     }
 
     /**

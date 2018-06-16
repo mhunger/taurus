@@ -46,6 +46,10 @@ class TaurusTestRouteConfig extends AbstractRouteConfig
             )->addDefaultRoute(
                 $this->apiBuilder->post(Exercise::class)
             )->addDefaultRoute(
+                $this->apiBuilder->post(WorkoutLocation::class, 'workout-location')
+            )->addDefaultRoute(
+                $this->apiBuilder->get(WorkoutLocation::class, 'workout-location')
+            )->addDefaultRoute(
                 $this->apiBuilder->cget(Exercise::class)
             )->addDefaultRoute(
                 $this->apiBuilder->put(Exercise::class)

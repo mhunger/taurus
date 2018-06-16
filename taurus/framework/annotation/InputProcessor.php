@@ -11,11 +11,22 @@ namespace taurus\framework\annotation;
 
 interface InputProcessor
 {
+    const APPLY_ON_INPUT = 1;
+
+    const APPLY_ON_OUTPUT = 2;
 
     /**
      * @param $value
      * @param string|null $property
      * @return mixed
      */
-    public function apply($value, string $property = null);
+    public function applyOnInput($value, string $property = null);
+
+
+    /**
+     * @param $value
+     * @param string $property
+     * @return mixed
+     */
+    public function applyOnOutput($value, string $property);
 }

@@ -89,7 +89,7 @@ class User implements Entity, AuthenticationResource
      * @param string $password
      * @return User
      */
-    public function setPassword(string $password): User
+    public function setPassword(string $password = null): User
     {
         $this->password = $password;
         return $this;

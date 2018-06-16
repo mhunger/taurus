@@ -87,14 +87,13 @@ CREATE TABLE `workout` (
 
 
 
-# Dump of table workout_location
-# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `workout_location`;
 
 CREATE TABLE `workout_location` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT '',
+  `geo_location` point ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

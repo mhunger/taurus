@@ -23,7 +23,6 @@ use taurus\framework\db\query\Specification;
  */
 class BaseRepository
 {
-
     /** @var QueryBuilder */
     private $qb;
 
@@ -171,9 +170,11 @@ class BaseRepository
         int $pageSize = null
     ): array {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
-            ->select()
+            ->select($specification->getSelect())
             ->from($specification->getTable())
             ->where(
+                $this->expressionBuilder->build($specification)
+            )->having(
                 $this->expressionBuilder->build($specification)
             )->limit(
                 $this->getOffsetFromPageAndPageSize($page, $pageSize),

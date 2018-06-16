@@ -53,4 +53,9 @@ class UserAuthTestSpecification implements Specification
     {
         $this->username = $username;
     }
+
+    public function getSelect(): ?string
+    {
+        return null;
+    }
 }

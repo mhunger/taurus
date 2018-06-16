@@ -16,6 +16,10 @@ use taurus\framework\db\query\SelectQuery;
 use taurus\framework\db\query\SelectQueryStringBuilder;
 use taurus\framework\util\MysqlUtils;
 
+/**
+ * Class MysqlSelectQueryStringBuilder
+ * @package taurus\framework\db\mysql
+ */
 class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
 {
 
@@ -32,6 +36,8 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
     const MYSQL_KEYWORD_LIMIT = 'LIMIT';
 
     const MYSQL_KEYWORD_OFFSET = 'OFFSET';
+
+    const MYSQL_KEYWORD_HAVING = 'HAVING';
 
     /**
      * @var MysqlUtils
@@ -60,6 +66,7 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         $tokens[] = $this->getStore($selectQuery);
         $tokens = $this->addJoinStatements($selectQuery, $tokens);
         $tokens = $this->addFilterCriteriaToTokens($selectQuery, $tokens);
+        $tokens = $this->addHavingCriteriaToTokens($selectQuery, $tokens);
         $tokens = $this->getLimitAndOffset($selectQuery, $tokens);
 
         return implode(' ', $tokens);
@@ -112,6 +119,22 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
         return $tokens;
     }
 
+    /**
+     * @param SelectQuery $selectQuery
+     * @param array $tokens
+     * @return array
+     */
+    private function addHavingCriteriaToTokens(SelectQuery $selectQuery, array $tokens): array
+    {
+        if ($selectQuery->getHaving() !== null) {
+            $tokens[] = MysqlSelectQueryStringBuilder::MYSQL_KEYWORD_HAVING;
+
+            $tokens = $this->buildTokensForExpression($selectQuery->getHaving(), $tokens);
+        }
+
+        return $tokens;
+    }
+
 
     /**
      * @param SelectQuery $selectQuery
@@ -134,6 +157,8 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
     {
         if ($selectQuery->getFields() === null) {
             return self::MYSQL_SYNTAX_ALL_FIELDS;
+        } elseif(is_string($selectQuery->getFields())) {
+            return $selectQuery->getFields();
         } else {
             return $this->buildFieldList($selectQuery);
         }

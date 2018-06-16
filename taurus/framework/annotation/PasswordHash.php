@@ -53,8 +53,20 @@ class PasswordHash extends AbstractAnnotation implements InputProcessor
      * @param string $property
      * @return bool|string
      */
-    public function apply($password, string $property = null)
+    public function applyOnInput($password, string $property = null)
     {
         return password_hash($password, constant($this->algo), ['cost' => $this->cost]);
+    }
+
+    /**
+     * We don't want to return password hashes, neither passwords in the clear, so set these fields to empty
+     *
+     * @param $value
+     * @param string $property
+     * @return string
+     */
+    public function applyOnOutput($value, string $property)
+    {
+        return $value;
     }
 }
