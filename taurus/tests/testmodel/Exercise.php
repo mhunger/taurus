@@ -62,6 +62,18 @@ class Exercise implements Entity
     public $workoutLocation;
 
     /**
+     * @var int
+     * @Column(name="repetitions")
+     */
+    public $repetitions;
+
+    /**
+     * @var int
+     * @Column(name="sets")
+     */
+    public $sets;
+
+    /**
      * @return int
      */
     public function getId()
@@ -171,6 +183,42 @@ class Exercise implements Entity
     public function setWorkoutLocation(WorkoutLocation $workoutLocation)
     {
         $this->workoutLocation = $workoutLocation;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRepetitions(): ?int
+    {
+        return $this->repetitions;
+    }
+
+    /**
+     * @param int $repetitions
+     * @return Exercise
+     */
+    public function setRepetitions(int $repetitions= null): Exercise
+    {
+        $this->repetitions = $repetitions;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSets(): ?int
+    {
+        return $this->sets;
+    }
+
+    /**
+     * @param int $sets
+     * @return Exercise
+     */
+    public function setSets(int $sets = null): Exercise
+    {
+        $this->sets = $sets;
         return $this;
     }
 }

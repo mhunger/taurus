@@ -60,7 +60,7 @@ class GetExerciseByDateAndLocationSpecification implements Specification
         return $this->exerciseDifficulty;
     }
 
-    public function getSelect(): ?string
+    public function getSelect(): ?array
     {
         return null;
     }

@@ -12,6 +12,7 @@ namespace taurus\framework\db\mysql;
 use taurus\framework\db\query\expression\Expression;
 use taurus\framework\db\query\expression\MultiPartExpression;
 use taurus\framework\db\query\JoinStatement;
+use taurus\framework\db\query\SelectItem;
 use taurus\framework\db\query\SelectQuery;
 use taurus\framework\db\query\SelectQueryStringBuilder;
 use taurus\framework\util\MysqlUtils;
@@ -38,6 +39,8 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
     const MYSQL_KEYWORD_OFFSET = 'OFFSET';
 
     const MYSQL_KEYWORD_HAVING = 'HAVING';
+
+    const MYSQL_KEYWORD_AS = 'AS';
 
     /**
      * @var MysqlUtils
@@ -157,8 +160,6 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
     {
         if ($selectQuery->getFields() === null) {
             return self::MYSQL_SYNTAX_ALL_FIELDS;
-        } elseif(is_string($selectQuery->getFields())) {
-            return $selectQuery->getFields();
         } else {
             return $this->buildFieldList($selectQuery);
         }
@@ -173,11 +174,22 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
     {
         $fieldsWithTableName = [];
 
-        foreach($selectQuery->getFields() as $table => $fieldName) {
-            if(!is_numeric($table)) {
-                $fieldsWithTableName[] = $this->addMysqlTicks($table) . '.' . $this->addMysqlTicks($fieldName);
-            } else {
-                $fieldsWithTableName[] = $this->getStore($selectQuery) . '.' . $this->addMysqlTicks($fieldName);
+        /**
+         * @var SelectItem $selectItems
+         */
+        foreach($selectQuery->getFields() as $table => $selectItems) {
+
+            switch ($selectItems->getType()) {
+                case SelectItem::SELECT_ITEM_TYPE_FIELD:
+                    $fieldsWithTableName[] = $this->getStore($selectQuery) .
+                        '.' . $this->addMysqlTicks($selectItems->getValue())
+                         . $this->addAlias($selectItems->getAlias());
+                    break;
+                case SelectItem::SELECT_ITEM_TYPE_FUNCTION:
+                    $fieldsWithTableName[] = $selectItems->getValue() . '(' . implode(', ', $selectItems->getParameters()) . ')'
+                    . $this->addAlias($selectItems->getAlias());
+                    break;
+
             }
         }
 
@@ -185,6 +197,17 @@ class MysqlSelectQueryStringBuilder implements SelectQueryStringBuilder
 
     }
 
+    /**
+     * @param string $alias
+     * @return string
+     */
+    private function addAlias(string $alias = null)
+    {
+        if(!empty($alias)) {
+            return ' ' . self::MYSQL_KEYWORD_AS . ' ' . $alias;
+        }
+        return '';
+    }
     /**
      * @param MultiPartExpression $expression
      * @param array $tokens

@@ -9,6 +9,7 @@
 namespace taurus\framework\routing;
 
 use fitnessmanager\config\FitnessManagerTestConfig;
+use taurus\tests\testmodel\GetWorkoutLocationWithinRadiusSpecification;
 use taurus\tests\testmodel\User;
 use taurus\framework\http\HttpResponse;
 use taurus\tests\testmodel\Exercise;
@@ -50,6 +51,8 @@ class TaurusTestRouteConfig extends AbstractRouteConfig
             )->addDefaultRoute(
                 $this->apiBuilder->get(WorkoutLocation::class, 'workout-location')
             )->addDefaultRoute(
+                $this->apiBuilder->put(WorkoutLocation::class, 'workout-location')
+            )->addDefaultRoute(
                 $this->apiBuilder->cget(Exercise::class)
             )->addDefaultRoute(
                 $this->apiBuilder->put(Exercise::class)
@@ -67,6 +70,12 @@ class TaurusTestRouteConfig extends AbstractRouteConfig
                     Exercise::class,
                     GetExerciseByDateAndLocationSpecification::class,
                     '/exercisesByDateAndLocation'
+                )
+            )->addDefaultRoute(
+                $this->apiBuilder->cgetBySpec(
+                    WorkoutLocation::class,
+                    GetWorkoutLocationWithinRadiusSpecification::class,
+                    '/workoutLocationByRadius'
                 )
             );
     }

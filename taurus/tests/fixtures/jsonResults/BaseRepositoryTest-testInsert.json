@@ -28,7 +28,9 @@
           "id": null,
           "name": null,
           "geoLocation": null
-        }
+        },
+        "repetitions": 10,
+        "sets": 3
       },
       {
         "id": 5,
@@ -46,7 +48,9 @@
           "id": null,
           "name": null,
           "geoLocation": null
-        }
+        },
+        "repetitions": 10,
+        "sets": 3
       },
       {
         "id": 6,
@@ -64,7 +68,9 @@
           "id": null,
           "name": null,
           "geoLocation": null
-        }
+        },
+        "repetitions": 10,
+        "sets": 3
       },
       {
         "id": 7,
@@ -82,7 +88,9 @@
           "id": null,
           "name": null,
           "geoLocation": null
-        }
+        },
+        "repetitions": null,
+        "sets": null
       }
     ]
   },
@@ -90,5 +98,7 @@
     "id": 1,
     "name": "TUM Sportzentrum",
     "geoLocation": ""
-  }
+  },
+  "repetitions": null,
+  "sets": null
 }

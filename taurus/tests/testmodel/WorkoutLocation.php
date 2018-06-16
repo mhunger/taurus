@@ -21,6 +21,8 @@ use taurus\framework\annotation\Column;
  */
 class WorkoutLocation implements Entity
 {
+
+    const TABLE_NAME = 'workout_location';
     /**
      * @var int
      * @Id

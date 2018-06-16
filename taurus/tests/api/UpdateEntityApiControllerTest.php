@@ -40,7 +40,9 @@ class UpdateEntityApiControllerTest extends AbstractTaurusDatabaseTest
                     'difficulty' => 'TestDifficulty',
                     'variantName' => 'TestVariant',
                     'exerciseGroup' => 1,
-                    'workoutLocation' => 1
+                    'workoutLocation' => 1,
+                    'repetitions' => 10,
+                    'sets' => 3
                 ]
             ]
         );

@@ -94,7 +94,7 @@ class TestSpecificationEven implements Specification
         return 'test_table';
     }
 
-    public function getSelect(): ?string
+    public function getSelect(): ?array
     {
         return null;
     }

@@ -39,6 +39,8 @@ CREATE TABLE `exercise` (
   CONSTRAINT `exercise_ibfk_2` FOREIGN KEY (`workout_location_id`) REFERENCES `workout_location` (`id`) ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/* 19:20:34 taurus taurus */ ALTER TABLE `exercise` ADD `repetitions` INT  NULL  DEFAULT NULL  AFTER `workout_location_id`;
+/* 19:20:36 taurus taurus */ ALTER TABLE `exercise` ADD `sets` INT  NULL  DEFAULT NULL  AFTER `repetitions`;
 
 
 # Dump of table exercise_group

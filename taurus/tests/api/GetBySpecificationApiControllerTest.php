@@ -11,7 +11,9 @@ namespace taurus\tests\api;
 
 use taurus\framework\config\TaurusContainerConfig;
 use taurus\framework\Container;
+use taurus\framework\mock\MockRequest;
 use taurus\framework\mock\MockServer;
+use taurus\framework\routing\Request;
 use taurus\tests\AbstractTaurusDatabaseTest;
 
 class GetBySpecificationApiControllerTest extends AbstractTaurusDatabaseTest
@@ -27,7 +29,8 @@ class GetBySpecificationApiControllerTest extends AbstractTaurusDatabaseTest
             'workout_location.xml',
             'muscle_group.xml',
             'exercise_group.xml',
-            'exercise.xml'
+            'exercise.xml',
+            'user.xml'
         ];
     }
 
@@ -115,6 +118,45 @@ class GetBySpecificationApiControllerTest extends AbstractTaurusDatabaseTest
                 'page' => 2,
                 'pageSize' => 1
             ]
+        );
+
+        $this->compareResultToFixture(
+            $actualResponse,
+            __FUNCTION__,
+            'Could not get all resources for exercises through the standard api controller'
+        );
+
+    }
+
+    public function testGetBySpecificationWithGroupFunctionAndHaving()
+    {
+        $token = $this->login();
+        /** @var MockServer $mockServer */
+        $mockServer = Container::getInstance()->getService(TaurusContainerConfig::SERVICE_MOCK_SERVER);
+        $mockServer->get(
+            '/api/workout-location',
+            Request::HTTP_PUT,
+            [],
+            [
+                'workoutlocation' => [
+                    'id' => 3,
+                    'name' => 'Home',
+                    'geoLocation' => '48.148641, 11.544918'
+                ]
+            ],
+            ['x-token' => $token->getEncodedTokenString()]
+        );
+
+        $actualResponse = $mockServer->get(
+            '/api/workoutLocationByRadius',
+            'GET',
+            [
+                'name' => 'Home',
+                'radius' => 50000,
+                'workoutLocation' => 'POINT(48.148641, 11.544918)'
+            ],
+            [],
+            ['x-token' => $token->getEncodedTokenString()]
         );
 
         $this->compareResultToFixture(

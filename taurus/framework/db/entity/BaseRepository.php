@@ -8,6 +8,7 @@
 
 namespace taurus\framework\db\entity;
 
+use taurus\framework\annotation\Having;
 use taurus\framework\db\Entity;
 use taurus\framework\db\query\expression\ComparisonExpression;
 use taurus\framework\db\query\expression\ExpressionBuilder;
@@ -175,7 +176,7 @@ class BaseRepository
             ->where(
                 $this->expressionBuilder->build($specification)
             )->having(
-                $this->expressionBuilder->build($specification)
+                $this->expressionBuilder->build($specification, Having::ANNOTATION_NAME_HAVING)
             )->limit(
                 $this->getOffsetFromPageAndPageSize($page, $pageSize),
                 $pageSize

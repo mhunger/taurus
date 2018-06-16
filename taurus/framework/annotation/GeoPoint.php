@@ -19,7 +19,6 @@ class GeoPoint extends AbstractAnnotation implements InputProcessor
     /**
      * GeoPoint constructor.
      * @param string $property
-     * @internal param $annotationName
      */
     public function __construct($property)
     {
@@ -44,7 +43,6 @@ class GeoPoint extends AbstractAnnotation implements InputProcessor
      */
     public function applyOnOutput($value, string $property)
     {
-
         return '';
     }
 }

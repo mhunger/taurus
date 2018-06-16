@@ -25,6 +25,8 @@ use taurus\framework\db\query\operation\GreaterThan;
 use taurus\framework\db\query\operation\SmallerThanEquals;
 use taurus\framework\db\query\QueryBuilder;
 use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
+use taurus\framework\db\query\SelectField;
+use taurus\framework\db\query\SelectItemFunction;
 use taurus\tests\AbstractTaurusTest;
 
 class MysqlQueryBuilderTest extends AbstractTaurusTest
@@ -67,7 +69,10 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
                 ->getSelectQueryString(
                     $this->queryBuilder
                         ->query(QueryBuilder::QUERY_TYPE_SELECT)
-                        ->select(['id', 'date'])
+                        ->select([
+                                new SelectField(null, 'id'),
+                                new SelectField(null, 'date')]
+                        )
                         ->from('workout', 'fitnessmanager')
                 )
         );
@@ -185,7 +190,25 @@ class MysqlQueryBuilderTest extends AbstractTaurusTest
                 ->getSelectQueryString(
                     $this->queryBuilder
                         ->query(QueryBuilder::QUERY_TYPE_SELECT)
-                        ->select(['id', 'date'])
+                        ->select([new SelectField(null, 'id'),
+                            new SelectField(null, 'date')])
+                        ->from('workout', 'fitnessmanager')
+                        ->join('workout_location', null, 'id', 'workout_location_id')
+                )
+        );
+    }
+
+    public function testDateAddFunctionInSelect()
+    {
+        $this->assertEquals(
+            'SELECT ADDDATE(date, INTERVAL 31 DAY) AS newDate, `fitnessmanager`.`workout`.`id`, `fitnessmanager`.`workout`.`date` FROM `fitnessmanager`.`workout` LEFT JOIN `workout_location` ON `workout_location`.`id` = `workout`.`workout_location_id`',
+            $this->mysqlQueryStringBuilder
+                ->getSelectQueryString(
+                    $this->queryBuilder
+                        ->query(QueryBuilder::QUERY_TYPE_SELECT)
+                        ->select([new SelectItemFunction('ADDDATE', 'newDate', ['date', 'INTERVAL 31 DAY']),
+                            new SelectField(null, 'id'),
+                            new SelectField(null, 'date')])
                         ->from('workout', 'fitnessmanager')
                         ->join('workout_location', null, 'id', 'workout_location_id')
                 )

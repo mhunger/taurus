@@ -29,7 +29,7 @@ interface Specification
 
     /**
      * Return the select statement replaceing some data in the query
-     * @return string
+     * @return array|null|string
      */
-    public function getSelect(): ?string;
+    public function getSelect(): ?array;
 }

@@ -48,10 +48,14 @@ class ExpressionBuilder
      * @param string $annotation
      * @return MultiPartExpression
      */
-    public function build(Specification $specification, string $annotation = Spec::ANNOTATION_NAME_SPEC): MultiPartExpression
+    public function build(Specification $specification, string $annotation = Spec::ANNOTATION_NAME_SPEC): ?MultiPartExpression
     {
         $this->annotationReader->getAnnotationsForObject($specification);
         $specs = $this->annotationReader->getAnnotationByName($annotation);
+
+        if(empty($specs)) {
+            return null;
+        }
 
         $comparisonExpressions = $this->getComparisonExpressions($specs, $specification);
 

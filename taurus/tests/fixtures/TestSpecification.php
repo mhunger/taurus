@@ -9,6 +9,8 @@
 namespace taurus\tests\fixtures;
 
 
+use taurus\framework\db\query\SelectField;
+use taurus\framework\db\query\SelectItemFunction;
 use taurus\framework\db\query\Specification;
 
 /**
@@ -102,9 +104,12 @@ class TestSpecification implements Specification
         return 'test_table';
     }
 
-    public function getSelect(): string
+    public function getSelect(): ?array
     {
-        return sprintf('select test_table.*, st_distance_sphere(geo_location, %s)', $this->requestGeoLocation);
+        return [
+            new SelectField('test_table', '*'),
+            new SelectItemFunction('st_distance_sphere', 'radius', ['geo_location', $this->requestGeoLocation])
+        ];
     }
 
     /**

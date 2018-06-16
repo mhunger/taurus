@@ -55,7 +55,9 @@ class EntityBuilder {
             if(array_key_exists($column, $relationshipData)) {
                 $this->objUtils->setObjectValue($entity, $columns[$column], $relationshipData[$column]);
             } else {
-                $this->objUtils->setObjectValue($entity, $columns[$column], $value);
+                if(array_key_exists($column, $columns)) {
+                    $this->objUtils->setObjectValue($entity, $columns[$column], $value);
+                }
             }
         }
 

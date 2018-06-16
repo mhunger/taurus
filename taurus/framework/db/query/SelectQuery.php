@@ -102,14 +102,14 @@ class SelectQuery implements Query
      * @param MultiPartExpression $multiPartExpression
      * @return SelectQuery
      */
-    public function where(MultiPartExpression $multiPartExpression): SelectQuery
+    public function where(MultiPartExpression $multiPartExpression = null): SelectQuery
     {
         $this->where = $multiPartExpression;
 
         return $this;
     }
 
-    public function having(MultiPartExpression $multiPartExpression): SelectQuery
+    public function having(MultiPartExpression $multiPartExpression = null): SelectQuery
     {
         $this->having = $multiPartExpression;
 
