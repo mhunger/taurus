@@ -99,7 +99,7 @@ class BaseRepository
     public function findAll($entityClass, int $page = 1, int $pageSize = null): array
     {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
-            ->select()
+            ->select($this->selectFieldsBuilder->build($entityClass))
             ->from(
                 $this->entityMetaData->getTable($entityClass)
             )->limit(
