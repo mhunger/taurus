@@ -37,6 +37,7 @@ use taurus\framework\db\mysql\MySqlQueryStringBuilderImpl;
 use taurus\framework\db\mysql\MysqlSelectQueryStringBuilder;
 use taurus\framework\db\mysql\MySqlUpdateQueryStringBuilder;
 use taurus\framework\db\query\expression\ExpressionBuilder;
+use taurus\framework\db\query\SelectFieldsBuilder;
 use taurus\framework\db\query\SpecificationBuilder;
 use taurus\framework\Environment;
 use taurus\framework\mock\MockRequest;
@@ -93,6 +94,7 @@ class TaurusContainerConfig extends AbstractContainerConfig {
     const SERVICE_TAURUS_GENERATOR = TaurusGenerator::class;
     const SERVICE_TAURUS_INITIALISER = TaurusInitiator::class;
     const SERVICE_TAURUS_CONFIG = TaurusConfig::class;
+    const SERVICE_SELECT_FIELD_BUILDER = SelectFieldsBuilder::class;
 
     public function __construct() {
         parent::__construct();

@@ -44,7 +44,9 @@ class EntityMetaDataStoreTest extends AbstractTaurusTest
     {
         $expectedResult = [
             'idTestField' => new Column('idTestField', 'test_id'),
-            'testField' => new Column('testField', 'test_field')
+            'testField' => new Column('testField', 'test_field'),
+            'password' => new Column('password', 'password'),
+            'point' => new Column('point', 'geo_location')
         ];
 
         $actualResult = $this->subject

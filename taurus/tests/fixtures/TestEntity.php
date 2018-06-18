@@ -39,6 +39,7 @@ class TestEntity implements Entity
     /**
      * @var string
      * @PasswordHash(algo="PASSWORD_BCRYPT", cost="12")
+     * @Column(name="password")
      */
     public $password;
 
@@ -46,6 +47,7 @@ class TestEntity implements Entity
     /**
      * @var GeoPoint
      * @GeoPoint()
+     * @Column(name="geo_location")
      */
     public $point;
 

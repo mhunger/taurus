@@ -96,7 +96,7 @@ class SaveEntityControllerTest extends AbstractTaurusDatabaseTest
             ->setInputBody([
                 'workoutlocation' => [
                     'name' => 'Home',
-                    'geoLocation' => '1, 2'
+                    'geoLocation' => 'POINT(1 2)'
                 ]
             ])
             ->addHeader('x-token', $token->getEncodedTokenString());

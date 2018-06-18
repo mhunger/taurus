@@ -83,6 +83,7 @@ class MysqlInsertQueryStringBuilder implements InsertQueryStringBuilder
             if (is_string($value)) {
                 $token = "'$value'";
             }
+
             $tokens[] = $token;
         }
 

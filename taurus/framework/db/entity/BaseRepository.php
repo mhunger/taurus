@@ -16,6 +16,7 @@ use taurus\framework\db\query\expression\Field;
 use taurus\framework\db\query\expression\Literal;
 use taurus\framework\db\query\operation\Equals;
 use taurus\framework\db\query\QueryBuilder;
+use taurus\framework\db\query\SelectFieldsBuilder;
 use taurus\framework\db\query\Specification;
 
 /**
@@ -36,23 +37,29 @@ class BaseRepository
     /** @var ExpressionBuilder */
     private $expressionBuilder;
 
+    /** @var SelectFieldsBuilder */
+    private $selectFieldsBuilder;
+
     /**
      * BaseRepository constructor.
      * @param QueryBuilder $qb
      * @param EntityMetaDataWrapper $entityMetaData
      * @param EntityAccessLayer $entityAccessLayer
      * @param ExpressionBuilder $expressionBuilder
+     * @param SelectFieldsBuilder $selectFieldsBuilder
      */
     public function __construct(
         QueryBuilder $qb,
         EntityMetaDataWrapper $entityMetaData,
         EntityAccessLayer $entityAccessLayer,
-        ExpressionBuilder $expressionBuilder
+        ExpressionBuilder $expressionBuilder,
+        SelectFieldsBuilder $selectFieldsBuilder
     ) {
         $this->qb = $qb;
         $this->entityMetaData = $entityMetaData;
         $this->entityAccessLayer = $entityAccessLayer;
         $this->expressionBuilder = $expressionBuilder;
+        $this->selectFieldsBuilder = $selectFieldsBuilder;
     }
 
     /**
@@ -63,7 +70,7 @@ class BaseRepository
     public function findOne($id, $entityClass)
     {
         $q = $this->qb->query(QueryBuilder::QUERY_TYPE_SELECT)
-            ->select()
+            ->select($this->selectFieldsBuilder->build($entityClass))
             ->from(
                 $this->entityMetaData->getTable($entityClass)
             )->where(

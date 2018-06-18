@@ -18,6 +18,9 @@ class SelectField implements SelectItem
     /** @var string */
     private $alias;
 
+    /** @var string */
+    private $table;
+
     /**
      * SelectField constructor.
      * @param string $table
@@ -28,6 +31,7 @@ class SelectField implements SelectItem
     {
         $this->field = $field;
         $this->alias = $alias;
+        $this->table = $table;
     }
 
     /**
@@ -52,6 +56,14 @@ class SelectField implements SelectItem
     public function getValue(): string
     {
         return $this->field;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTable(): string
+    {
+        return $this->table;
     }
 
     /**

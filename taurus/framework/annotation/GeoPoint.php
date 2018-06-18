@@ -27,9 +27,9 @@ class GeoPoint extends AbstractAnnotation implements InputProcessor
 
     public function applyOnInput($value, string $property = null)
     {
-        $coords = explode(',', $value);
-        if(sizeof($coords) == 2) {
-            return new GeoPointType($coords[0], $coords[1]);
+        preg_match('/POINT\(([0-9.]+) ([0-9.]+)\)/', $value, $matches);
+        if(sizeof($matches) == 3) {
+            return new GeoPointType($matches[1], $matches[2]);
         }
 
         throw new InvalidInputException($value);
@@ -43,6 +43,6 @@ class GeoPoint extends AbstractAnnotation implements InputProcessor
      */
     public function applyOnOutput($value, string $property)
     {
-        return '';
+        return $value;
     }
 }

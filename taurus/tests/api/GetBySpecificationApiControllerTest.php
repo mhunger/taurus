@@ -141,7 +141,7 @@ class GetBySpecificationApiControllerTest extends AbstractTaurusDatabaseTest
                 'workoutlocation' => [
                     'id' => 3,
                     'name' => 'Home',
-                    'geoLocation' => '48.148641, 11.544918'
+                    'geoLocation' => 'POINT(48.148641 11.544918)'
                 ]
             ],
             ['x-token' => $token->getEncodedTokenString()]

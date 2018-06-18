@@ -59,6 +59,8 @@ class EntityMetaDataImplTest extends AbstractTaurusTest
     {
         $expectedResult = [
             'test_id',
+            'password',
+            'geo_location',
             'test_field'
         ];
 
